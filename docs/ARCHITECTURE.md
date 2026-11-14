@@ -12,7 +12,10 @@ search instead of reading the file top to bottom.
   1690) and one for desktops (1920 by 1200): `closed-*.webp` (the waiting picture),
   `glow-*.webp` (the same with the lights up; it fades in and out over the first),
   `open-*.mp4` and `.webm` (the cover opening), `open-*.webp` (that clip's last frame).
-- `start-source/` How those were made (Blender from Python). Not used by the site.
+- `icons/` The site's icon in each size (browser tab, phone home screen, link
+  preview), all shrunk from `icons/source.png`.
+- `start-source/` How the start menu and the icon were made (Blender from Python).
+  Not used by the site.
 - `.nojekyll` Tells GitHub Pages to serve every file as it is.
 - `CLAUDE.md`, `.claude/rules/general.md` Rules for Claude. `.claude/agents/` cheap
   helpers (`scout`, `test-runner`, `builder`). `.claude/skills/taste/` design
