@@ -200,41 +200,77 @@ a{color:var(--crimson);text-underline-offset:3px}
 .borrow::placeholder{color:var(--muted);opacity:.8}
 .cover-ic{position:absolute;right:0;top:50%;width:min(220px,34vw);height:min(220px,34vw);transform:translateY(-50%);opacity:.16;pointer-events:none}
 @media (max-width:760px){.cover-ic{opacity:.1;right:-20px}}
-/* Opening: a cloth-bound book on a desk opens into the library */
-.intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;
-  background:radial-gradient(60% 50% at 50% 38%, rgba(255,190,120,.28), transparent 70%), radial-gradient(120% 90% at 50% 120%, #140C08, transparent 60%), linear-gradient(#2A1A12,#120A07);
+/* Opening (the start menu): a futuristic book floating in space opens into the library.
+   The numbers on it are the reader's own: one star per book on the cover, gold once it's read.
+   Space is always night, so these colors are the same in light and dark. */
+.intro{--sp-0:#05070F;--sp-1:#0B1230;--sp-2:#18224F;--sp-holo:#7FE3FF;--sp-holo-rgb:127,227,255;--sp-gold:#E8C88A;--sp-text:#EAF2FF;--sp-dim:rgba(190,215,255,.66);--sp-page:#FBF6EC;--sp-page-ink:#1F1613;--sp-page-red:#B0142F;--sp-page-muted:#7B6A5D;
+  --bw:max(150px, min(280px, 62vw, calc((100vh - 310px) * .6667)));
+  position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;color:var(--sp-text);
+  background:radial-gradient(55% 40% at 18% 16%, rgba(120,70,190,.30), transparent 70%), radial-gradient(50% 38% at 86% 28%, rgba(40,140,200,.22), transparent 70%), radial-gradient(40% 30% at 70% 70%, rgba(176,20,47,.14), transparent 70%), linear-gradient(var(--sp-1),var(--sp-0));
   transition:opacity .9s ease, visibility .9s}
+@supports (height:100svh){.intro{--bw:max(150px, min(280px, 62vw, calc((100svh - 310px) * .6667)))}}
 .intro.gone{opacity:0;visibility:hidden}
-.intro .desk{position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(#5B3A24,#3A2416 40%,#22140C);box-shadow:0 -1px 0 rgba(255,220,170,.25)}
-.intro .desk::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg, rgba(0,0,0,.08) 0 2px, transparent 2px 120px, rgba(255,255,255,.04) 120px 122px, transparent 122px 230px)}
-.ib-wrap{position:relative;z-index:2;perspective:1600px;display:flex;flex-direction:column;align-items:center;gap:22px;margin-top:-4vh}
-.ib{position:relative;width:min(300px,68vw);aspect-ratio:2/3;transform-style:preserve-3d;transform:rotateX(8deg)}
-.ib .pg{position:absolute;inset:0 0 0 2%;background:#FBF6EC;border-radius:2px 4px 4px 2px;box-shadow:0 30px 50px -18px rgba(0,0,0,.7), inset -8px 0 14px -10px rgba(60,35,20,.35);display:flex;flex-direction:column;justify-content:center;padding:12%;color:#1F1613}
+.intro .stars{position:absolute;inset:0;width:100%;height:100%}
+.intro .planet{position:absolute;left:50%;top:88%;width:240vmax;height:240vmax;transform:translateX(-50%);border-radius:50%;
+  background:repeating-linear-gradient(90deg, rgba(var(--sp-holo-rgb),.07) 0 1px, transparent 1px 46px), radial-gradient(closest-side, var(--sp-0) 97%, var(--sp-2));
+  box-shadow:0 0 0 1px rgba(var(--sp-holo-rgb),.55), 0 -14px 70px rgba(var(--sp-holo-rgb),.26), inset 0 40px 90px rgba(var(--sp-holo-rgb),.10)}
+.intro .hud{position:absolute;z-index:2;top:max(16px,env(safe-area-inset-top));left:18px;right:18px;display:flex;justify-content:space-between;gap:16px;font:600 10px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase}
+.intro .hud small{display:block;font:inherit;color:var(--sp-dim)}
+.intro .hud b{display:block;font:600 13px/1.4 var(--mono);letter-spacing:.08em;color:var(--sp-text);max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.intro .hud .r{text-align:right}
+.intro .hud .bar{display:block;width:96px;height:3px;margin:6px 0 0 auto;border-radius:99px;background:rgba(var(--sp-holo-rgb),.2);overflow:hidden}
+.intro .hud .bar i{display:block;height:100%;width:0;background:var(--sp-gold);border-radius:99px}
+.ib-wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:26px;margin-top:3vh}
+.ib-stage{position:relative;perspective:1600px;animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(-5px)}50%{transform:translateY(6px)}}
+.intro .orbit{position:absolute;z-index:0;left:50%;top:50%;width:calc(var(--bw) * 1.75);aspect-ratio:1;margin:calc(var(--bw) * -.875) 0 0 calc(var(--bw) * -.875);border:1px solid rgba(var(--sp-holo-rgb),.30);border-radius:50%;animation:orbit1 18s linear infinite;pointer-events:none}
+.intro .orbit.o2{width:calc(var(--bw) * 2.2);margin:calc(var(--bw) * -1.1) 0 0 calc(var(--bw) * -1.1);border-color:rgba(232,200,138,.24);animation:orbit2 30s linear infinite}
+.intro .orbit i{position:absolute;left:50%;top:-5px;width:9px;height:9px;margin-left:-4px;border-radius:50%;background:var(--sp-holo);box-shadow:0 0 14px 4px rgba(var(--sp-holo-rgb),.7)}
+.intro .orbit.o2 i{background:var(--sp-gold);box-shadow:0 0 14px 4px rgba(232,200,138,.6)}
+@keyframes orbit1{from{transform:rotateZ(-14deg) rotateX(76deg) rotateZ(0)}to{transform:rotateZ(-14deg) rotateX(76deg) rotateZ(360deg)}}
+@keyframes orbit2{from{transform:rotateZ(18deg) rotateX(72deg) rotateZ(360deg)}to{transform:rotateZ(18deg) rotateX(72deg) rotateZ(0)}}
+.ib{position:relative;z-index:1;width:var(--bw);aspect-ratio:2/3;transform-style:preserve-3d;transform:rotateX(8deg);cursor:pointer}
+.ib .pg{position:absolute;inset:0 0 0 2%;background:var(--sp-page);border-radius:2px 4px 4px 2px;box-shadow:0 0 60px rgba(255,236,200,.35), 0 30px 50px -18px rgba(0,0,0,.7), inset -8px 0 14px -10px rgba(60,35,20,.35);display:flex;flex-direction:column;justify-content:center;padding:12%;color:var(--sp-page-ink)}
 .ib .pg p{margin:0}
-.ib .pg .s{font:400 26px/1 var(--script);color:#B0142F}
-.ib .pg .t{font:500 22px/1.2 var(--display);margin:10px 0 8px}
-.ib .pg .b{font:400 13px/1.5 var(--body);color:#7B6A5D}
+.ib .pg .s{font:400 26px/1 var(--script);color:var(--sp-page-red)}
+.ib .pg .t{font:500 calc(var(--bw) * .075)/1.2 var(--display);margin:10px 0 8px}
+.ib .pg .b{font:400 13px/1.5 var(--body);color:var(--sp-page-muted)}
 .ib .cvr{position:absolute;inset:0;transform-origin:0 50%;transition:transform 1.6s cubic-bezier(.6,.05,.2,1);transform-style:preserve-3d}
-.ib .cvr .fr,.ib .cvr .bk{position:absolute;inset:0;border-radius:2px 5px 5px 2px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.ib .cvr .fr{background:#8E1027;color:#E8C88A;display:flex;flex-direction:column;align-items:center;text-align:center;padding:16% 10% 12%;
-  box-shadow:0 30px 60px -20px rgba(0,0,0,.8), inset 6px 0 0 rgba(0,0,0,.25)}
-.ib .cvr .fr::before{content:"";position:absolute;inset:5%;border:1px solid currentColor;opacity:.6}
-.ib .cvr .fr::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(90deg, rgba(0,0,0,.35), rgba(255,255,255,.12) 3%, transparent 8%), radial-gradient(70% 50% at 40% 25%, rgba(255,255,255,.16), transparent 70%), repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 3px)}
-.ib .cvr .bk{background:#6E0C1E;transform:rotateY(180deg)}
-.ib .k{font:600 10px/1.3 var(--body);letter-spacing:.3em;text-transform:uppercase}
-.ib .ic{width:34%;aspect-ratio:1;margin:auto 0 0}
-.ib .ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.ib .tt{font:500 clamp(26px,7.2vw,36px)/1.02 var(--display);margin-top:8%}
-.ib .tt em{font-style:italic}
-.ib .ru{width:22%;height:1px;background:currentColor;margin:7% 0 auto;opacity:.7}
-.ib .au{font:400 clamp(18px,5vw,24px)/1 var(--script)}
+.ib .cvr .fr,.ib .cvr .bk{position:absolute;inset:0;border-radius:2px 6px 6px 2px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.ib .cvr .fr{background:linear-gradient(155deg, var(--sp-2), var(--sp-1) 50%, var(--sp-0));color:var(--sp-text);display:flex;flex-direction:column;align-items:center;text-align:center;padding:13% 10% 11%;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(var(--sp-holo-rgb),.55), 0 0 46px rgba(var(--sp-holo-rgb),.30), 0 40px 70px -20px #000, inset 5px 0 0 rgba(var(--sp-holo-rgb),.22)}
+.ib .cvr .fr::before{content:"";position:absolute;inset:5%;border:1px solid var(--sp-gold);opacity:.5;border-radius:1px}
+.ib .cvr .fr::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(90deg, rgba(0,0,0,.4), rgba(var(--sp-holo-rgb),.16) 3%, transparent 9%), radial-gradient(70% 45% at 38% 20%, rgba(var(--sp-holo-rgb),.16), transparent 70%), repeating-linear-gradient(0deg, rgba(var(--sp-holo-rgb),.04) 0 1px, transparent 1px 4px)}
+.ib .cvr .bk{background:linear-gradient(var(--sp-1),var(--sp-0));transform:rotateY(180deg);box-shadow:inset 0 0 0 1px rgba(var(--sp-holo-rgb),.3)}
+.ib .trace{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:var(--sp-holo);stroke-width:1;opacity:.4}
+.ib .trace .n{stroke-width:4;stroke-linecap:round;opacity:1}
+.ib .k{position:relative;font:600 calc(var(--bw) * .034)/1.3 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--sp-holo)}
+.ib .ic{position:relative;width:58%;aspect-ratio:1;margin:auto 0 0;filter:drop-shadow(0 0 8px rgba(var(--sp-holo-rgb),.55))}
+.ib .ic svg{width:100%;height:100%;fill:none;stroke:var(--sp-holo);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.ib .ic .ring{opacity:.45}
+.ib .ic .core{stroke:var(--sp-text);stroke-width:2.2}
+.ib .ic #introDots{transform-origin:60px 60px;animation:spin 120s linear infinite}
+.ib .ic #introDots circle{stroke:none;fill:rgba(var(--sp-holo-rgb),.45)}
+.ib .ic #introDots circle.on{fill:var(--sp-gold)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ib .tt{position:relative;font:500 calc(var(--bw) * .118)/1.02 var(--display);margin-top:7%;text-shadow:0 0 18px rgba(var(--sp-holo-rgb),.45)}
+.ib .tt em{font-style:italic;color:var(--sp-gold)}
+.ib .ru{position:relative;width:22%;height:1px;background:var(--sp-gold);margin:6% 0 auto;opacity:.8}
+.ib .au{position:relative;font:600 calc(var(--bw) * .032)/1.3 var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--sp-dim)}
 .intro.open .ib .cvr{transform:rotateY(-158deg)}
-.intro-btns{display:flex;gap:10px}
-.intro-btns button{font:600 14px/1 var(--body);letter-spacing:.06em;border-radius:99px;padding:12px 20px;cursor:pointer;border:1px solid rgba(232,200,138,.6);background:rgba(232,200,138,.12);color:#F3E6D2}
-.intro-btns button.pri{background:#E8C88A;color:#2A1A12;border-color:#E8C88A}
-.intro .glow{position:absolute;left:50%;top:36%;width:70vmin;height:70vmin;transform:translate(-50%,-50%);background:radial-gradient(closest-side, rgba(255,196,120,.25), transparent);animation:glow 3.4s ease-in-out infinite;pointer-events:none}
-@keyframes glow{0%,100%{opacity:.9}50%{opacity:.65}}
-@media (prefers-reduced-motion: reduce){.ib .cvr{transition:none}.intro .glow{animation:none}.slot,.book{transition:none}}
+.intro.open .ib-stage{animation-play-state:paused}
+.intro-menu{display:flex;flex-direction:column;gap:10px;width:min(330px,84vw);transition:opacity .4s}
+.intro.open .intro-menu,.intro.open .hud{opacity:0}
+.intro-menu .row{display:flex;gap:10px}
+.intro-menu .row button{white-space:nowrap}.intro-menu .row button:first-child{flex:1.6}
+.intro-menu button{flex:1;font:600 14px/1.2 var(--body);letter-spacing:.04em;border-radius:4px;padding:14px 12px;min-height:48px;cursor:pointer;border:1px solid rgba(var(--sp-holo-rgb),.5);background:rgba(var(--sp-holo-rgb),.08);color:var(--sp-text);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.intro-menu button:hover{background:rgba(var(--sp-holo-rgb),.18)}
+.intro-menu button:focus-visible{outline:2px solid var(--sp-text);outline-offset:3px}
+.intro-menu button.pri{background:var(--sp-gold);color:var(--sp-0);border-color:var(--sp-gold);text-align:left;padding:12px 16px;box-shadow:0 0 30px rgba(232,200,138,.28);display:flex;flex-direction:column;gap:3px}
+.intro-menu button.pri:hover{filter:brightness(1.08)}
+.intro-menu button.pri small{font:600 10px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.intro-menu button.pri span{font:600 19px/1.15 var(--display)}
+@media (prefers-reduced-motion: reduce){.ib .cvr{transition:none}.ib-stage,.intro .orbit,.ib .ic #introDots{animation:none}.intro .orbit{transform:rotateZ(-14deg) rotateX(76deg) rotateZ(40deg)}.intro .orbit.o2{transform:rotateZ(18deg) rotateX(72deg) rotateZ(200deg)}.slot,.book{transition:none}}
 .lib-foot{margin-top:56px;font-size:13.5px;color:var(--muted);text-align:center}
 
 /* ============ READER (one book open) ============ */
@@ -385,17 +421,33 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
 </style>
 </head>
 <body>
-<div class="intro" id="intro" hidden>
-  <div class="glow"></div><div class="desk"></div>
+<div class="intro" id="intro" role="dialog" aria-label="Start menu" hidden>
+  <canvas class="stars" id="introStars" aria-hidden="true"></canvas>
+  <div class="planet" aria-hidden="true"></div>
+  <div class="hud">
+    <div><small>Reader</small><b id="introWho">Guest</b></div>
+    <div class="r"><small>Books read</small><b id="introRead">0 of 0</b><span class="bar"><i id="introBar"></i></span></div>
+  </div>
   <div class="ib-wrap">
-    <div class="ib" id="introBook">
-      <div class="pg"><p class="s">Welcome in.</p><p class="t">Take a book from the shelf and start where you like.</p><p class="b">18 short books, about four hours in all.</p></div>
-      <div class="cvr">
-        <div class="fr"><span class="k">A course in 18 books</span><span class="ic"><svg viewBox="0 0 64 64"><path d="M8 18c8-4 16-4 24 2 8-6 16-6 24-2v30c-8-4-16-4-24 2-8-6-16-6-24-2z"/><path d="M32 20v30"/><path d="M14 26c4-1 8-1 12 1M38 27c4-2 8-2 12-1"/></svg></span><span class="tt">Building Apps <em>with</em> Claude</span><span class="ru"></span><span class="au">a reading room for builders</span></div>
-        <div class="bk"></div>
+    <div class="ib-stage">
+      <div class="orbit" aria-hidden="true"><i></i></div><div class="orbit o2" aria-hidden="true"><i></i></div>
+      <div class="ib" id="introBook">
+        <div class="pg"><p class="s">Welcome in.</p><p class="t">Take a book from the shelf and start where you like.</p><p class="b">18 short books, about four hours in all.</p></div>
+        <div class="cvr">
+          <div class="fr">
+            <svg class="trace" viewBox="0 0 100 150" preserveAspectRatio="none" aria-hidden="true"><g vector-effect="non-scaling-stroke"><path vector-effect="non-scaling-stroke" d="M0 24H13l6 6v10M100 33H88l-6 6v8M0 121H12l6-6v-11M100 128H86l-6-6v-10M30 150v-9l6-6h9M72 150v-7l-6-6"/><path class="n" vector-effect="non-scaling-stroke" d="M19 40h.01M82 47h.01M18 104h.01M80 110h.01M45 135h.01M66 137h.01"/></g></svg>
+            <span class="k">A course in 18 books</span>
+            <span class="ic"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring" cx="60" cy="60" r="43"/><ellipse class="ring" cx="60" cy="60" rx="43" ry="15" transform="rotate(-28 60 60)"/><ellipse class="ring" cx="60" cy="60" rx="43" ry="15" transform="rotate(28 60 60)"/><g class="core" transform="translate(41 40) scale(.6)"><path d="M8 18c8-4 16-4 24 2 8-6 16-6 24-2v30c-8-4-16-4-24 2-8-6-16-6-24-2z"/><path d="M32 20v30"/></g><g id="introDots"></g></svg></span>
+            <span class="tt">Building Apps <em>with</em> Claude</span><span class="ru"></span><span class="au">a reading room for builders</span>
+          </div>
+          <div class="bk"></div>
+        </div>
       </div>
     </div>
-    <div class="intro-btns"><button type="button" class="pri" id="introOpen">Open the library</button><button type="button" id="introSkip">Skip</button></div>
+    <div class="intro-menu">
+      <button type="button" class="pri" id="introGo"><small id="introGoLabel">Start reading</small><span id="introGoTitle">Start here</span></button>
+      <div class="row"><button type="button" id="introOpen">Browse the shelves</button><button type="button" id="introGloss">Glossary</button></div>
+    </div>
   </div>
 </div>
 <div class="library" id="libraryView">
@@ -1897,27 +1949,90 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   borrower.value = store.name || "";
   borrower.addEventListener("input", function(){ store.name = borrower.value.slice(0, 28); save(); });
 
-  // Opening: once per visit, never on a link straight to a book
+  // Opening (the start menu): once per visit, never on a link straight to a book
   var intro = document.getElementById("intro");
   var seen = false;
   try { seen = sessionStorage.getItem("bac-intro-seen") === "1"; } catch (e) {}
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!seen && !location.hash) {
     intro.hidden = false;
-    var timer = null, closing = false;
-    var finish = function(){
+    libraryView.inert = true;
+
+    // The reader's own numbers: name, books read, and one star per book on the cover
+    var readN = counted.filter(function(s){ return store.done[s.id]; }).length;
+    var nextUp = counted.filter(function(s){ return !store.done[s.id]; })[0];
+    document.getElementById("introWho").textContent = store.name || "Guest";
+    document.getElementById("introRead").textContent = readN + " of " + counted.length;
+    document.getElementById("introBar").style.width = (100 * readN / counted.length) + "%";
+    var goHash = "#quiz";
+    if (nextUp) {
+      goHash = "#" + nextUp.id;
+      document.getElementById("introGoLabel").textContent = readN ? "Continue with Book " + nextUp.dataset.num : "Start reading";
+      document.getElementById("introGoTitle").textContent = nextUp.dataset.title;
+    } else {
+      document.getElementById("introGoLabel").textContent = "All read";
+      document.getElementById("introGoTitle").textContent = "Take the quiz again";
+    }
+    var dots = document.getElementById("introDots");
+    counted.forEach(function(s, i){
+      var ang = (i / counted.length) * Math.PI * 2 - Math.PI / 2;
+      var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      c.setAttribute("cx", (60 + 54 * Math.cos(ang)).toFixed(2));
+      c.setAttribute("cy", (60 + 54 * Math.sin(ang)).toFixed(2));
+      c.setAttribute("r", store.done[s.id] ? "2.6" : "1.8");
+      if (store.done[s.id]) c.setAttribute("class", "on");
+      dots.appendChild(c);
+    });
+
+    // The sky: stars that twinkle and a few specks of data drifting up
+    var sky = document.getElementById("introStars"), pen = sky.getContext ? sky.getContext("2d") : null;
+    var stars = [], bits = [], frame = 0, W = 0, H = 0;
+    var layout = function(){
+      var d = Math.min(window.devicePixelRatio || 1, 2);
+      W = window.innerWidth; H = window.innerHeight;
+      sky.width = W * d; sky.height = H * d; pen.setTransform(d, 0, 0, d, 0, 0);
+      stars = []; bits = [];
+      var n = Math.min(260, Math.round(W * H / 4200)), i;
+      for (i = 0; i < n; i++) stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.1 + .3, p: Math.random() * 6.3, v: Math.random() * 1.2 + .3, t: Math.random() });
+      for (i = 0; i < Math.round(W / 60) + 6; i++) bits.push({ x: Math.random() * W, y: Math.random() * H, v: Math.random() * 14 + 8, l: Math.floor(Math.random() * 4) + 3 });
+    };
+    var paint = function(ms){
+      var t = ms / 1000, i, j, s, b;
+      pen.clearRect(0, 0, W, H);
+      for (i = 0; i < stars.length; i++) {
+        s = stars[i];
+        pen.globalAlpha = .35 + .65 * (.5 + .5 * Math.sin(s.p + t * s.v));
+        pen.fillStyle = s.t > .9 ? "#E8C88A" : s.t > .7 ? "#7FE3FF" : "#EAF2FF";
+        pen.beginPath(); pen.arc(s.x, s.y, s.r, 0, 6.3); pen.fill();
+      }
+      pen.fillStyle = "#7FE3FF";
+      for (i = 0; i < bits.length; i++) {
+        b = bits[i];
+        var y = ((b.y - t * b.v) % (H + 60) + H + 60) % (H + 60) - 30;
+        for (j = 0; j < b.l; j++) { pen.globalAlpha = .34 * (1 - j / b.l); pen.fillRect(b.x, y + j * 7, 2, 2); }
+      }
+      pen.globalAlpha = 1;
+      if (!reduce) frame = requestAnimationFrame(paint);
+    };
+    var relayout = function(){ layout(); if (reduce) paint(0); };
+    if (pen) { layout(); paint(0); window.addEventListener("resize", relayout); }
+
+    var closing = false;
+    var finish = function(hash){
       if (closing) return; closing = true;
       try { sessionStorage.setItem("bac-intro-seen", "1"); } catch (e) {}
+      libraryView.inert = false;
+      if (hash) location.hash = hash;
       intro.classList.add("open");
       setTimeout(function(){ intro.classList.add("gone"); }, reduce ? 50 : 1500);
-      setTimeout(function(){ intro.hidden = true; }, reduce ? 950 : 2500);
-      clearTimeout(timer);
+      setTimeout(function(){ intro.hidden = true; cancelAnimationFrame(frame); reduce = true; window.removeEventListener("resize", relayout); }, reduce ? 950 : 2500);
     };
-    document.getElementById("introOpen").addEventListener("click", finish);
-    document.getElementById("introSkip").addEventListener("click", function(){ reduce = true; finish(); });
-    document.getElementById("introBook").addEventListener("click", finish);
-    document.addEventListener("keydown", function k(e){ if (!intro.hidden) { finish(); document.removeEventListener("keydown", k); } });
-    timer = setTimeout(finish, 4200);
+    document.getElementById("introGo").addEventListener("click", function(){ finish(goHash); });
+    document.getElementById("introOpen").addEventListener("click", function(){ finish(); });
+    document.getElementById("introGloss").addEventListener("click", function(){ finish("#glossary"); });
+    document.getElementById("introBook").addEventListener("click", function(){ finish(); });
+    document.addEventListener("keydown", function k(e){ if (e.key === "Escape" && !intro.hidden) { finish(); document.removeEventListener("keydown", k); } });
+    try { document.getElementById("introGo").focus({ preventScroll: true }); } catch (e) {}
   }
 
   // Copy buttons

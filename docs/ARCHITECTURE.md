@@ -28,7 +28,10 @@ Search for these markers:
   (`prefers-color-scheme: dark` and `[data-theme="dark"]`).
 - `/* ============ LIBRARY (home) ============ */` The wall, shelves and spines.
 - `/* ============ READER (one book open) ============ */` An open book.
-- `id="intro"` The opening (once per visit, skipped on a link straight to a book).
+- `id="intro"` The start menu (once per visit, skipped on a link straight to a book):
+  a space scene with a futuristic book and three choices, `#introGo` (start or
+  continue), `#introOpen` (the shelves) and `#introGloss` (the glossary). Its styles
+  start at `/* Opening (the start menu)`.
 - `id="libraryView"` The heading, the library card (`#borrower`, `#readCount`,
   `#resetBtn`) and `#case`, where the script builds the shelves.
 - `id="readerView"` The reading bar and `<main id="main">`, which holds every lesson.
@@ -40,7 +43,8 @@ Search for these markers:
 - The `<script>` at the end, in parts marked by comments: storage (`KEY =
   "bac-course-v1"`), `BOOK` (cloth colors, spine titles, heights), `ICON` (cover
   drawings), numbering the books, building the shelves, each book's foot (previous,
-  mark as read, next), the library card, the opening, copy buttons, the quiz
+  mark as read, next), the library card, the start menu (it fills in the reader's numbers and draws the
+  stars on `#introStars`), copy buttons, the quiz
   (`renderQuiz`), the glossary.
 
 ## What the browser stores

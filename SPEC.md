@@ -58,6 +58,15 @@ apps (told through the made-up ones).
 7. **Light and dark.** Follows the phone's setting.
    - Done when: every screen is readable with the phone in dark mode and in light mode.
 
+8. **Start menu.** The first screen of a visit: a futuristic book floating in space,
+   showing the reader's name and books read, with three choices: start or continue
+   with the next unread book, browse the shelves, or open the Glossary. It never
+   closes by itself. Shown once per visit and skipped on a link straight to a book.
+   (Added 2026-11-14.)
+   - Done when: each of the three choices lands on the right screen on a phone and on
+     a desktop, and a reader with books read sees "Continue with Book N" naming their
+     next unread book.
+
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.
