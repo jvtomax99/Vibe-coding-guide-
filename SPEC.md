@@ -5,6 +5,9 @@ Gaps marked TO FILL for Jose.
 
 ## What it is
 
+Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
+Jose 2026-11-14. The repo and these docs keep the working name.
+
 A one-page course site, drawn as a small library: 18 short books on wooden shelves
 (the site says about four hours; the books' own minute counts add to
 about five, see Later), plus a Glossary and a Sources book. Tap a spine to take
@@ -57,6 +60,16 @@ apps (told through the made-up ones).
      in Sources.
 7. **Light and dark.** Follows the phone's setting.
    - Done when: every screen is readable with the phone in dark mode and in light mode.
+
+8. **Start menu.** The first screen of a visit: a realistic picture of a futuristic
+   book ("The Launch Manual") on a ship's console with a planet outside, showing the
+   reader's name and books read, with three choices: start or continue with the next
+   unread book, browse the shelves, or open the Glossary. A choice plays the cover
+   opening, then goes there. It never closes by itself. Shown once per visit and
+   skipped on a link straight to a book. (Added 2026-11-14.)
+   - Done when: each of the three choices lands on the right screen on a phone and on
+     a desktop, a reader with books read sees "Continue with Book N" naming their
+     next unread book, and with "reduce motion" on the choice goes straight there.
 
 ## Not in v1
 

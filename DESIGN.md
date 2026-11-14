@@ -9,6 +9,15 @@ A reading room: a cream wall, dark wooden shelves, cloth-bound books with gold
 lettering, a library card for progress, crimson bookmarks for books read. Warm and
 quiet, never techy.
 
+One exception, on purpose (Jose, 2026-11-14): the start menu. It is a realistic
+picture, rendered in Blender the same way as the Phillis Brown site's start screen: a
+dark book with gold lettering ("The Launch Manual") on a ship's console, three glowing
+light pillars, a glass orb, and a planet outside the window. The lights breathe while
+it waits. A choice plays a short clip of the cover opening onto a paper page
+("Welcome aboard"), then the warm library appears, so the space look never reaches
+the reading pages. The reader's own name and books read sit on top of the picture as
+text; nothing about a reader is baked into the picture.
+
 ## Colors (light, then dark)
 
 | Variable | Light | Dark | Used for |
@@ -27,6 +36,19 @@ quiet, never techy.
 | `--spot` | rgba(255,250,240,.9) | rgba(255,196,130,.13) | The lamp glow on the wall |
 
 Each book's own cloth color is in the `BOOK` table in the script, not here.
+
+The start menu has its own colors, set on `.intro` and the same in light and dark
+(space is always night). They are for the text and buttons that sit on the picture:
+
+| Variable | Value | Used for |
+|---|---|---|
+| `--sp-0` | #05070F | Behind the picture, text on the gold button |
+| `--sp-holo` | #7FE3FF | Button outlines, the progress bar's track |
+| `--sp-gold` | #E8C88A | Main button, the progress bar |
+| `--sp-text` / `--sp-dim` | #EAF2FF / rgba(200,220,255,.78) | Text, quieter text |
+
+The picture's own colors (navy shell, gold foil, cyan and amber light) are set in
+`start-source/scene.py` and `start-source/tex.py`.
 
 ## Fonts
 

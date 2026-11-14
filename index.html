@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Building Apps With Claude</title>
+<title>The Launch Manual: Building Apps With Claude</title>
 <meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
-<meta property="og:title" content="Building Apps With Claude">
+<meta property="og:title" content="The Launch Manual: Building Apps With Claude">
 <meta property="og:description" content="A reading room for builders: 18 short books on building apps with Claude.">
 <meta name="theme-color" content="#B0142F">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -200,41 +200,40 @@ a{color:var(--crimson);text-underline-offset:3px}
 .borrow::placeholder{color:var(--muted);opacity:.8}
 .cover-ic{position:absolute;right:0;top:50%;width:min(220px,34vw);height:min(220px,34vw);transform:translateY(-50%);opacity:.16;pointer-events:none}
 @media (max-width:760px){.cover-ic{opacity:.1;right:-20px}}
-/* Opening: a cloth-bound book on a desk opens into the library */
-.intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;
-  background:radial-gradient(60% 50% at 50% 38%, rgba(255,190,120,.28), transparent 70%), radial-gradient(120% 90% at 50% 120%, #140C08, transparent 60%), linear-gradient(#2A1A12,#120A07);
-  transition:opacity .9s ease, visibility .9s}
+/* Opening (the start menu): a rendered scene (start/), a book on a ship's console with a planet outside.
+   The picture is the same in light and dark (space is always night). A choice plays the cover opening, then the library. */
+.intro{--sp-0:#05070F;--sp-holo:#7FE3FF;--sp-holo-rgb:127,227,255;--sp-gold:#E8C88A;--sp-text:#EAF2FF;--sp-dim:rgba(200,220,255,.78);
+  position:fixed;inset:0;z-index:100;overflow:hidden;background:var(--sp-0);color:var(--sp-text);transition:opacity .7s ease, visibility .7s}
 .intro.gone{opacity:0;visibility:hidden}
-.intro .desk{position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(#5B3A24,#3A2416 40%,#22140C);box-shadow:0 -1px 0 rgba(255,220,170,.25)}
-.intro .desk::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg, rgba(0,0,0,.08) 0 2px, transparent 2px 120px, rgba(255,255,255,.04) 120px 122px, transparent 122px 230px)}
-.ib-wrap{position:relative;z-index:2;perspective:1600px;display:flex;flex-direction:column;align-items:center;gap:22px;margin-top:-4vh}
-.ib{position:relative;width:min(300px,68vw);aspect-ratio:2/3;transform-style:preserve-3d;transform:rotateX(8deg)}
-.ib .pg{position:absolute;inset:0 0 0 2%;background:#FBF6EC;border-radius:2px 4px 4px 2px;box-shadow:0 30px 50px -18px rgba(0,0,0,.7), inset -8px 0 14px -10px rgba(60,35,20,.35);display:flex;flex-direction:column;justify-content:center;padding:12%;color:#1F1613}
-.ib .pg p{margin:0}
-.ib .pg .s{font:400 26px/1 var(--script);color:#B0142F}
-.ib .pg .t{font:500 22px/1.2 var(--display);margin:10px 0 8px}
-.ib .pg .b{font:400 13px/1.5 var(--body);color:#7B6A5D}
-.ib .cvr{position:absolute;inset:0;transform-origin:0 50%;transition:transform 1.6s cubic-bezier(.6,.05,.2,1);transform-style:preserve-3d}
-.ib .cvr .fr,.ib .cvr .bk{position:absolute;inset:0;border-radius:2px 5px 5px 2px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.ib .cvr .fr{background:#8E1027;color:#E8C88A;display:flex;flex-direction:column;align-items:center;text-align:center;padding:16% 10% 12%;
-  box-shadow:0 30px 60px -20px rgba(0,0,0,.8), inset 6px 0 0 rgba(0,0,0,.25)}
-.ib .cvr .fr::before{content:"";position:absolute;inset:5%;border:1px solid currentColor;opacity:.6}
-.ib .cvr .fr::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(90deg, rgba(0,0,0,.35), rgba(255,255,255,.12) 3%, transparent 8%), radial-gradient(70% 50% at 40% 25%, rgba(255,255,255,.16), transparent 70%), repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 3px)}
-.ib .cvr .bk{background:#6E0C1E;transform:rotateY(180deg)}
-.ib .k{font:600 10px/1.3 var(--body);letter-spacing:.3em;text-transform:uppercase}
-.ib .ic{width:34%;aspect-ratio:1;margin:auto 0 0}
-.ib .ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.ib .tt{font:500 clamp(26px,7.2vw,36px)/1.02 var(--display);margin-top:8%}
-.ib .tt em{font-style:italic}
-.ib .ru{width:22%;height:1px;background:currentColor;margin:7% 0 auto;opacity:.7}
-.ib .au{font:400 clamp(18px,5vw,24px)/1 var(--script)}
-.intro.open .ib .cvr{transform:rotateY(-158deg)}
-.intro-btns{display:flex;gap:10px}
-.intro-btns button{font:600 14px/1 var(--body);letter-spacing:.06em;border-radius:99px;padding:12px 20px;cursor:pointer;border:1px solid rgba(232,200,138,.6);background:rgba(232,200,138,.12);color:#F3E6D2}
-.intro-btns button.pri{background:#E8C88A;color:#2A1A12;border-color:#E8C88A}
-.intro .glow{position:absolute;left:50%;top:36%;width:70vmin;height:70vmin;transform:translate(-50%,-50%);background:radial-gradient(closest-side, rgba(255,196,120,.25), transparent);animation:glow 3.4s ease-in-out infinite;pointer-events:none}
-@keyframes glow{0%,100%{opacity:.9}50%{opacity:.65}}
-@media (prefers-reduced-motion: reduce){.ib .cvr{transition:none}.intro .glow{animation:none}.slot,.book{transition:none}}
+.in-frame{position:absolute;inset:0}
+.in-frame img,.in-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%;display:block}
+.in-glow,.in-clip,.in-end{opacity:0}
+.intro.lit .in-glow{animation:inPulse 2.6s ease-in-out infinite alternate}
+@keyframes inPulse{from{opacity:0}to{opacity:.85}}
+.intro.playing .in-clip{opacity:1;transition:opacity .15s}
+.intro.playing .in-glow{animation:none;opacity:0}
+.intro.ended .in-end{opacity:1;transition:opacity .3s}
+.in-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(3,5,12,.6), transparent 16%, transparent 58%, rgba(3,5,12,.6) 76%, rgba(3,5,12,.92));transition:opacity .35s}
+.intro .hud{position:absolute;z-index:2;top:max(16px,env(safe-area-inset-top));left:18px;right:18px;display:flex;justify-content:space-between;gap:16px;font:600 10px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;text-shadow:0 1px 8px var(--sp-0);transition:opacity .35s}
+.intro .hud small{display:block;font:inherit;color:var(--sp-dim)}
+.intro .hud b{display:block;font:600 13px/1.4 var(--mono);letter-spacing:.08em;color:var(--sp-text);max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.intro .hud .r{text-align:right}
+.intro .hud .bar{display:block;width:96px;height:3px;margin:6px 0 0 auto;border-radius:99px;background:rgba(var(--sp-holo-rgb),.28);overflow:hidden}
+.intro .hud .bar i{display:block;height:100%;width:0;background:var(--sp-gold);border-radius:99px}
+.intro-menu{position:absolute;z-index:2;left:50%;bottom:calc(env(safe-area-inset-bottom) + 28px);transform:translateX(-50%);display:flex;flex-direction:column;gap:10px;width:min(340px,86vw);transition:opacity .35s}
+.intro.go .intro-menu,.intro.go .hud,.intro.go .in-shade{opacity:0;pointer-events:none}
+.intro.go{cursor:pointer}
+.intro-menu .row{display:flex;gap:10px}
+.intro-menu .row button{white-space:nowrap}.intro-menu .row button:first-child{flex:1.6}
+.intro-menu button{flex:1;font:600 14px/1.2 var(--body);letter-spacing:.04em;border-radius:4px;padding:14px 12px;min-height:48px;cursor:pointer;border:1px solid rgba(var(--sp-holo-rgb),.5);background:rgba(8,14,30,.6);color:var(--sp-text);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.intro-menu button:hover{background:rgba(var(--sp-holo-rgb),.2)}
+.intro-menu button:focus-visible{outline:2px solid var(--sp-text);outline-offset:3px}
+.intro-menu button.pri{background:var(--sp-gold);color:var(--sp-0);border-color:var(--sp-gold);text-align:left;padding:12px 16px;box-shadow:0 0 30px rgba(232,200,138,.25);display:flex;flex-direction:column;gap:3px}
+.intro-menu button.pri:hover{filter:brightness(1.08)}
+.intro-menu button.pri small{font:600 10px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.intro-menu button.pri span{font:600 19px/1.15 var(--display)}
+@media (min-aspect-ratio:1/1){.in-frame img,.in-frame video{object-position:46% 62%}.in-shade{background:linear-gradient(rgba(3,5,12,.55), transparent 15%), radial-gradient(55% 70% at 100% 100%, rgba(3,5,12,.85), transparent)}.intro-menu{left:auto;right:6vw;bottom:9vh;transform:none}}
+@media (prefers-reduced-motion: reduce){.intro.lit .in-glow{animation:none}.slot,.book{transition:none}}
 .lib-foot{margin-top:56px;font-size:13.5px;color:var(--muted);text-align:center}
 
 /* ============ READER (one book open) ============ */
@@ -385,24 +384,27 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
 </style>
 </head>
 <body>
-<div class="intro" id="intro" hidden>
-  <div class="glow"></div><div class="desk"></div>
-  <div class="ib-wrap">
-    <div class="ib" id="introBook">
-      <div class="pg"><p class="s">Welcome in.</p><p class="t">Take a book from the shelf and start where you like.</p><p class="b">18 short books, about four hours in all.</p></div>
-      <div class="cvr">
-        <div class="fr"><span class="k">A course in 18 books</span><span class="ic"><svg viewBox="0 0 64 64"><path d="M8 18c8-4 16-4 24 2 8-6 16-6 24-2v30c-8-4-16-4-24 2-8-6-16-6-24-2z"/><path d="M32 20v30"/><path d="M14 26c4-1 8-1 12 1M38 27c4-2 8-2 12-1"/></svg></span><span class="tt">Building Apps <em>with</em> Claude</span><span class="ru"></span><span class="au">a reading room for builders</span></div>
-        <div class="bk"></div>
-      </div>
-    </div>
-    <div class="intro-btns"><button type="button" class="pri" id="introOpen">Open the library</button><button type="button" id="introSkip">Skip</button></div>
+<div class="intro" id="intro" role="dialog" aria-label="Start menu" hidden>
+  <div class="in-frame" aria-hidden="true">
+    <img id="inStill" alt="" decoding="async"><img class="in-glow" id="inGlow" alt="" decoding="async">
+    <video class="in-clip" id="inClip" muted playsinline preload="auto"></video>
+    <img class="in-end" id="inEnd" alt="" decoding="async">
+  </div>
+  <div class="in-shade"></div>
+  <div class="hud">
+    <div><small>Reader</small><b id="introWho">Guest</b></div>
+    <div class="r"><small>Books read</small><b id="introRead">0 of 0</b><span class="bar"><i id="introBar"></i></span></div>
+  </div>
+  <div class="intro-menu">
+    <button type="button" class="pri" id="introGo"><small id="introGoLabel">Start reading</small><span id="introGoTitle">Start here</span></button>
+    <div class="row"><button type="button" id="introOpen">Browse the shelves</button><button type="button" id="introGloss">Glossary</button></div>
   </div>
 </div>
 <div class="library" id="libraryView">
   <header class="lib-head">
     <div>
-      <p class="lib-script">a reading room for builders</p>
-      <h1 class="lib-title">Building Apps <em>with</em> Claude</h1>
+      <p class="lib-script">building apps with Claude</p>
+      <h1 class="lib-title">The Launch <em>Manual</em></h1>
       <p class="lib-intro">A small library for people who build real apps with Claude without a developer background. How apps are put together, how Claude Code works, and how to ask for exactly what you mean. One shelf per part, one book per lesson.</p>
     </div>
     <aside class="card-lib" aria-label="Your library card">
@@ -1882,9 +1884,9 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       lessons.forEach(function(s){ s.classList.toggle("on", s === target); });
       document.getElementById("readTitle").textContent = target.dataset.title;
       document.getElementById("readProg").textContent = target.dataset.num ? "Book " + target.dataset.num + " of " + (counted.length - 1) : "Reference";
-      document.title = target.dataset.title + " | Building Apps With Claude";
+      document.title = target.dataset.title + " | The Launch Manual";
     } else {
-      document.title = "Building Apps With Claude";
+      document.title = "The Launch Manual: Building Apps With Claude";
     }
     window.scrollTo(0, 0);
     setTimeout(function(){ window.scrollTo(0, 0); }, 0);
@@ -1897,27 +1899,72 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   borrower.value = store.name || "";
   borrower.addEventListener("input", function(){ store.name = borrower.value.slice(0, 28); save(); });
 
-  // Opening: once per visit, never on a link straight to a book
+  // Opening (the start menu): once per visit, never on a link straight to a book
   var intro = document.getElementById("intro");
   var seen = false;
   try { seen = sessionStorage.getItem("bac-intro-seen") === "1"; } catch (e) {}
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!seen && !location.hash) {
     intro.hidden = false;
-    var timer = null, closing = false;
-    var finish = function(){
-      if (closing) return; closing = true;
-      try { sessionStorage.setItem("bac-intro-seen", "1"); } catch (e) {}
-      intro.classList.add("open");
-      setTimeout(function(){ intro.classList.add("gone"); }, reduce ? 50 : 1500);
-      setTimeout(function(){ intro.hidden = true; }, reduce ? 950 : 2500);
-      clearTimeout(timer);
+    libraryView.inert = true;
+
+    // The reader's own numbers: name and books read
+    var readN = counted.filter(function(s){ return store.done[s.id]; }).length;
+    var nextUp = counted.filter(function(s){ return !store.done[s.id]; })[0];
+    document.getElementById("introWho").textContent = store.name || "Guest";
+    document.getElementById("introRead").textContent = readN + " of " + counted.length;
+    document.getElementById("introBar").style.width = (100 * readN / counted.length) + "%";
+    var goHash = "#quiz";
+    if (nextUp) {
+      goHash = "#" + nextUp.id;
+      document.getElementById("introGoLabel").textContent = readN ? "Continue with Book " + nextUp.dataset.num : "Start reading";
+      document.getElementById("introGoTitle").textContent = nextUp.dataset.title;
+    } else {
+      document.getElementById("introGoLabel").textContent = "All read";
+      document.getElementById("introGoTitle").textContent = "Take the quiz again";
+    }
+
+    // The scene: a still, a second still with the lights up that fades in and out over it, and the cover-opening clip
+    var view = window.matchMedia("(min-aspect-ratio: 1/1)").matches ? "desk" : "phone";
+    var clip = document.getElementById("inClip"), endImg = document.getElementById("inEnd"), glow = document.getElementById("inGlow");
+    document.getElementById("inStill").src = "start/closed-" + view + ".webp";
+    if (!reduce) { glow.addEventListener("load", function(){ intro.classList.add("lit"); }); glow.src = "start/glow-" + view + ".webp"; }
+    var loadClip = function(){
+      if (clip.getAttribute("src")) return;
+      clip.src = "start/open-" + view + (clip.canPlayType('video/mp4; codecs="avc1.4D401F"') ? ".mp4" : ".webm");
+      endImg.src = "start/open-" + view + ".webp";
     };
-    document.getElementById("introOpen").addEventListener("click", finish);
-    document.getElementById("introSkip").addEventListener("click", function(){ reduce = true; finish(); });
-    document.getElementById("introBook").addEventListener("click", finish);
-    document.addEventListener("keydown", function k(e){ if (!intro.hidden) { finish(); document.removeEventListener("keydown", k); } });
-    timer = setTimeout(finish, 4200);
+    var saveData = !!(navigator.connection && navigator.connection.saveData);
+    if (!reduce && !saveData) setTimeout(loadClip, 1200);
+
+    // stage 0: waiting for a choice, 1: the cover is opening, 2: leaving
+    var stage = 0, goTo = "";
+    var leave = function(){
+      if (stage === 2) return; stage = 2;
+      try { sessionStorage.setItem("bac-intro-seen", "1"); } catch (e) {}
+      libraryView.inert = false;
+      if (goTo) location.hash = goTo;
+      intro.classList.add("go", "gone");
+      setTimeout(function(){ intro.hidden = true; try { clip.pause(); } catch (e) {} }, 750);
+    };
+    var choose = function(hash){
+      if (stage) return;
+      stage = 1; goTo = hash || "";
+      intro.classList.add("go");
+      if (reduce) return leave();
+      loadClip();
+      clip.addEventListener("playing", function(){ intro.classList.add("playing"); }, { once: true });
+      clip.addEventListener("ended", function(){ intro.classList.add("ended"); setTimeout(leave, 1300); }, { once: true });
+      clip.addEventListener("error", leave, { once: true });
+      var p = clip.play(); if (p && p.catch) p.catch(leave);
+      setTimeout(function(){ if (stage === 1 && !intro.classList.contains("playing")) leave(); }, 2500);
+    };
+    document.getElementById("introGo").addEventListener("click", function(e){ e.stopPropagation(); choose(goHash); });
+    document.getElementById("introOpen").addEventListener("click", function(e){ e.stopPropagation(); choose(""); });
+    document.getElementById("introGloss").addEventListener("click", function(e){ e.stopPropagation(); choose("#glossary"); });
+    intro.addEventListener("click", function(){ if (stage === 1) leave(); });   // a tap while the cover opens skips ahead
+    document.addEventListener("keydown", function(e){ if (e.key === "Escape" && !intro.hidden) { if (stage === 0) goTo = ""; leave(); } });
+    try { document.getElementById("introGo").focus({ preventScroll: true }); } catch (e) {}
   }
 
   // Copy buttons
