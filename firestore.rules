@@ -1,0 +1,27 @@
+rules_version = '2';
+
+/* Firestore security rules for the Vibe Coding Guide.
+ *
+ * This file is the source of truth. The live rules are whatever was last
+ * pasted into the Firebase console, so paste this whole file after any change:
+ *
+ *   Firebase console -> (project) -> Firestore Database -> Rules
+ *   -> select everything -> paste this file -> Publish.
+ *
+ * RIGHT NOW: everything is refused. The app has no database yet (SPEC.md,
+ * Phase 0b). This file exists so that if Firestore is turned on, it starts
+ * locked instead of in "test mode", which lets anyone on the internet read
+ * and overwrite every document.
+ *
+ * Firestore refuses any collection that no rule matches, and the app sees no
+ * error on screen, just missing data. So a new collection needs its own
+ * "match" block here, with the narrowest rule that works, before any code
+ * uses it.
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

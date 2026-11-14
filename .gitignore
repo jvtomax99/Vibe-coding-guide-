@@ -1,0 +1,13 @@
+# Secrets never go in git.
+.env
+.env.*
+*.pem
+# Installed packages and tool folders.
+node_modules/
+.vercel/
+.firebase/
+firebase-debug.log
+firestore-debug.log
+# Screenshots and scratch files from checks.
+shots/
+.DS_Store

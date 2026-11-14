@@ -1,0 +1,13 @@
+# Notes for the people and tools that work on the app, the checks, and the
+# database rules (applied by hand in the Firebase console): never loaded by the
+# app, so not served either.
+CLAUDE.md
+SPEC.md
+CREDITS.md
+README.md
+.claude
+.github
+docs
+tools
+firestore.rules
+firebase.json

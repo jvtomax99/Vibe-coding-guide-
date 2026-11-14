@@ -1,0 +1,46 @@
+# Checks the site on every pull request before it can go live (merging to
+# main is going live): no missing files, no links starting with "/", and
+# every page opens at phone and desktop width with no script error. The check
+# itself is .github/site-check.cjs, copied from Lions-Roar-.
+#
+# Until Phase 1 adds index.html there is no app to check, so the job passes
+# with a note. A new page goes into the list on the last line.
+name: Site check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    # Pinned: Playwright 1.56.1 can't install its browser on Ubuntu 26.04,
+    # which ubuntu-latest became in November 2026.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Is there an app yet?
+        id: app
+        run: |
+          if [ -f index.html ]; then echo "ready=true" >> "$GITHUB_OUTPUT"; else echo "No index.html yet (Phase 0): nothing to check."; fi
+      - uses: actions/setup-node@v4
+        if: steps.app.outputs.ready == 'true'
+        with:
+          node-version: 20
+      - name: Install the browser
+        if: steps.app.outputs.ready == 'true'
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Check the site
+        if: steps.app.outputs.ready == 'true'
+        run: node .github/site-check.cjs index.html
