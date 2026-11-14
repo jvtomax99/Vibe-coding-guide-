@@ -48,7 +48,7 @@ The paper page (light, then dark; the phone's setting picks):
 | `--line` | #DDD6C8 | #273149 | Rules and borders |
 | `--soft` / `--ink-soft` | #EFEBE1 / #ECE7DC | #182036 / #1C2540 | Soft filled panels, inline code |
 | `--accent` / `--accent-soft` | #0F6C86 / #E0EEF1 | #7FE3FF / #12303B | Links, section labels, main buttons on the page |
-| `--accent-2` / `--accent-2-soft` | #8A6A2B / #F3EAD6 | #E8C88A / #2E2718 | Second accent ("try this" boxes, small rules) |
+| `--accent-2` / `--accent-2-soft` | #775A20 / #F3EAD6 | #E8C88A / #2E2718 | Second accent ("try this" boxes, small rules) |
 | `--gold` | #C9A25B | #C9A25B | Focus rings, fine details |
 | `--code-bg` / `--code-ink` | #0B1020 / #DCE8F7 | #070B16 / #DCE8F7 | Prompt and code boxes |
 

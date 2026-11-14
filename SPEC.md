@@ -54,7 +54,7 @@ apps (told through the made-up ones).
      its Contents; and no table or copy box is cut by a page turn.
 3. **Library card.** Now the top of the shelves screen: the reader's name and how many books they've read, saved only in
    their browser (`localStorage`, key `bac-course-v1`). "Return all books" clears the
-   read marks; the name stays.
+   read marks and the saved pages; the name stays.
    - Done when: closing and reopening the page keeps the name and the read marks.
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says

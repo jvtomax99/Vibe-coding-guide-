@@ -24,7 +24,7 @@
   --void:#05070F; --hull:#0A0F1E; --panel:#0E1629; --holo:#7FE3FF; --holo-rgb:127,227,255; --sgold:#E8C88A; --sgold-lo:#C9A25B;
   --stext:#EAF2FF; --sdim:rgba(200,220,255,.74);
   --paper:#F8F5EE; --ink:#141824; --muted:#666C7A; --line:#DDD6C8; --soft:#EFEBE1; --ink-soft:#ECE7DC;
-  --accent:#0F6C86; --accent-soft:#E0EEF1; --accent-2:#8A6A2B; --accent-2-soft:#F3EAD6; --gold:#C9A25B;
+  --accent:#0F6C86; --accent-soft:#E0EEF1; --accent-2:#775A20; --accent-2-soft:#F3EAD6; --gold:#C9A25B;
   --code-bg:#0B1020; --code-ink:#DCE8F7;
   --display:"Bodoni Moda","Bodoni 72","Didot",Georgia,serif;
   --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
@@ -220,7 +220,7 @@ a{color:var(--accent);text-underline-offset:3px}
 .intro-menu button.pri small{font:600 10px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
 .intro-menu button.pri span{font:600 19px/1.15 var(--display)}
 @media (min-aspect-ratio:1/1){.in-frame img,.in-frame video{object-position:46% 62%}.in-shade{background:linear-gradient(rgba(3,5,12,.55), transparent 15%), radial-gradient(55% 70% at 100% 100%, rgba(3,5,12,.85), transparent)}.intro-menu{left:auto;right:6vw;bottom:9vh;transform:none}}
-@media (prefers-reduced-motion: reduce){.intro.lit .in-glow{animation:none}.slot,.book{transition:none}.meter i{transition:none}}
+@media (prefers-reduced-motion: reduce){.intro.lit .in-glow{animation:none}.slot,.book,.cv-open{transition:none}.meter i{transition:none}.cap.on .sel-in{animation:none}.shelf-row{scroll-behavior:auto}}
 .lib-foot{margin-top:56px;font-size:13.5px;color:var(--muted);text-align:center}
 
 /* ============ READER (one book open) ============ */
@@ -250,11 +250,11 @@ a{color:var(--accent);text-underline-offset:3px}
 .rf-p{flex:none;white-space:pre}
 .lesson{display:none}
 .lesson.on{flex:1;min-width:0;display:flex;flex-direction:column}
-.pg{flex:1;min-width:0;animation:open .4s cubic-bezier(.2,.75,.2,1) both}
+.pg{flex:1;min-width:0;outline:none;animation:open .4s cubic-bezier(.2,.75,.2,1) both}
 @keyframes open{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
 .reader.back .pg{animation-name:openb}
 @keyframes openb{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion: reduce){.pg{animation:none}.spine{transition:none}}
+@media (prefers-reduced-motion: reduce){.pg{animation:none}}
 .kick,.lesson .eyebrow,.sec-k{font:600 10.5px/1.4 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
 .lesson .eyebrow{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px}
 /* Title page */
@@ -301,7 +301,7 @@ code{font-family:var(--mono);font-size:.82em;background:var(--ink-soft);padding:
 .code pre{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:0 0 6px 6px;padding:14px 18px 16px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.6;white-space:pre}
 .code.prompt .label{background:transparent;color:var(--muted);padding:0 0 6px;border:0;letter-spacing:.14em;text-transform:uppercase;font-size:11.5px}
 .code.prompt pre{white-space:pre-wrap;font-family:var(--body);font-size:16px;line-height:1.55;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:4px;
-  background-image:repeating-linear-gradient(transparent 0 24.4px, rgba(176,20,47,.06) 24.4px 25.4px);background-position:0 15px}
+  background-image:repeating-linear-gradient(transparent 0 24.4px, color-mix(in srgb, var(--accent) 7%, transparent) 24.4px 25.4px);background-position:0 15px}
 .copy{font:600 12.5px/1 var(--body);border:1px solid rgba(201,162,91,.6);background:transparent;color:var(--gold);border-radius:4px;padding:6px 10px;cursor:pointer;letter-spacing:0;text-transform:none}
 .code.prompt .copy{color:var(--accent);border-color:var(--line);background:var(--paper)}
 .copy:hover{border-color:var(--accent)}
@@ -513,7 +513,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <ol>
     <li><b>One book at a time.</b> Tap a spine to take a book off the shelf, then tap it again to open it. Each book takes 10 to 20 minutes, and the shelves are in reading order.</li>
     <li><b>Do the "Try it" box.</b> Each one is a real prompt to send Claude in one of your own projects. Reading teaches the words; trying teaches the judgment.</li>
-    <li><b>Mark it read.</b> A crimson bookmark appears on the spine. Progress is remembered in your browser.</li>
+    <li><b>Mark it read.</b> A gold bookmark appears on the spine. Progress is remembered in your browser.</li>
     <li><b>Keep the Prompt library and Starter kit handy.</b> They're built to be copied into your notes and your next project.</li>
   </ol>
   <p>There are five shelves: how apps are put together (including forks and contributing to someone else's project), how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, and a full practice build. The bottom shelf holds the glossary and sources.</p>
@@ -1777,7 +1777,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     if (hasPre && (s.dataset.open || !secs.length)) secs.unshift({ title: s.dataset.open || s.dataset.title, nodes: pre, open: secs.length > 0 });
     else if (hasPre) preOnContents = true;
     var many = secs.length > 1;
-    function pg(cls){ var d = document.createElement("div"); d.className = "pg " + cls; d.hidden = true; s.appendChild(d); return d; }
+    function pg(cls){ var d = document.createElement("div"); d.className = "pg " + cls; d.hidden = true; d.tabIndex = -1; s.appendChild(d); return d; }
     function el(tag, cls, text){ var d = document.createElement(tag); d.className = cls; if (text) d.textContent = text; return d; }
     var tp = pg("tp");
     var ic = el("div", "tp-ic"); ic.innerHTML = svg(s.id);
@@ -1879,7 +1879,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     var row = slot.parentNode;
     setTimeout(function(){
       var left = slot.offsetLeft - row.clientWidth / 2 + slot.offsetWidth / 2;
-      try { row.scrollTo({ left: left, behavior: "smooth" }); } catch (e) { row.scrollLeft = left; }
+      try { row.scrollTo({ left: left, behavior: reduce ? "auto" : "smooth" }); } catch (e) { row.scrollLeft = left; }
     }, 60);
   }
   document.addEventListener("keydown", function(e){ if (e.key === "Escape") select(null); });
@@ -1932,7 +1932,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     // The cover beside the shelves: the next unread book
     var tgt = nextUnread || document.getElementById("quiz"), tb = BOOK[tgt.id], cc = document.getElementById("contCover");
     cc.style.setProperty("--c", tb[0]); cc.style.setProperty("--acc", tb[1]);
-    document.getElementById("contK").textContent = "Book " + tgt.dataset.num;
+    document.getElementById("contK").textContent = tgt.dataset.part === "Start here" ? "Start here" : "Book " + tgt.dataset.num;
     document.getElementById("contIc").innerHTML = svg(tgt.id);
     document.getElementById("contCvT").textContent = tgt.dataset.title;
     var tl = tgt.querySelector(".lede");
@@ -1952,8 +1952,9 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   var sheet = document.getElementById("sheet"), rail = document.getElementById("rail"), readProg = document.getElementById("readProg");
   var pgPrev = document.getElementById("pgPrev"), pgNext = document.getElementById("pgNext"), tocBtn = document.getElementById("tocBtn");
   var current = null;
-  function go(i){
+  function go(i, focus){
     var s = current; if (!s) return;
+    if (focus === undefined) focus = true;
     var P = s._pages; i = Math.max(0, Math.min(P.length - 1, i));
     readerView.classList.toggle("back", i < (s._at || 0));
     P.forEach(function(p, n){ p.el.hidden = n !== i; });
@@ -1964,6 +1965,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     pgPrev.disabled = i === 0; pgNext.disabled = i === P.length - 1;
     Array.prototype.forEach.call(readerView.querySelectorAll("[data-go]"), function(b){ b.classList.toggle("on", +b.dataset.go === i); });
     sheet.scrollTop = 0;
+    // Keep keyboard and screen-reader users on the page that just appeared
+    if (focus) { try { P[i].el.focus({ preventScroll: true }); } catch (e) {} }
     if (!store.pos) store.pos = {};
     store.pos[s.id] = i; save();
   }
@@ -1975,7 +1978,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     if (b) go(+b.dataset.go);
   });
   document.addEventListener("keydown", function(e){
-    if (readerView.hidden || !current || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (readerView.hidden || !current || e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
     if (e.key === "ArrowRight") go(current._at + 1);
     if (e.key === "ArrowLeft") go(current._at - 1);
   });
@@ -2025,7 +2028,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       tocBtn.hidden = !target._toc;
       var at = (store.pos && store.pos[target.id]) || 0;
       target._at = 0;
-      go(at < target._pages.length ? at : 0);
+      at = Math.floor(+at) || 0;
+      go(at > 0 && at < target._pages.length ? at : 0, false);
       document.title = target.dataset.title + " | The Launch Manual";
     } else {
       current = null;
@@ -2035,7 +2039,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     setTimeout(function(){ window.scrollTo(0, 0); }, 0);
   }
   window.addEventListener("hashchange", show);
-  document.getElementById("resetBtn").addEventListener("click", function(){ store.done = {}; save(); refresh(); });
+  document.getElementById("resetBtn").addEventListener("click", function(){ store.done = {}; store.pos = {}; save(); refresh(); });
 
   // Library card: the reader's own name, kept in their browser
   var borrower = document.getElementById("borrower");

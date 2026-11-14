@@ -1,6 +1,6 @@
 # Architecture
 
-Short map; keep it current. The whole site is one file, `index.html` (about 2,100
+Short map; keep it current. The whole site is one file, `index.html` (about 2,300
 lines: HTML, CSS and JavaScript together), so find a part by its marker below with a
 search instead of reading the file top to bottom.
 
