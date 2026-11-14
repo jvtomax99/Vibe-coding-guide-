@@ -12,6 +12,7 @@ A one-page course site (the "library"): cream wall, wooden shelves, one 3D book 
 - Books are numbered by their order in the page; text that says "Book N" must be updated when lessons are added or moved.
 - Progress and the reader's name live in localStorage under "bac-course-v1". Keep that key so readers keep their progress.
 - Links never start with "/": the site lives in the `/Vibe-coding-guide-/` subfolder on GitHub Pages, so they would break there and not locally. The site check catches it.
+- The start menu is a rendered picture and clip in `start/` (phone and desktop sets). To change the scene or the cover's title, change `start-source/` and render again; `start-source/README.md` says how. The site's title is "The Launch Manual".
 - Colors are the variables at the top of the `<style>`, each defined for light and dark (the phone's setting picks). Use them instead of new hex values; `DESIGN.md` lists them.
 
 ## Writing rules

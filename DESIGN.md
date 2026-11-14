@@ -9,11 +9,14 @@ A reading room: a cream wall, dark wooden shelves, cloth-bound books with gold
 lettering, a library card for progress, crimson bookmarks for books read. Warm and
 quiet, never techy.
 
-One exception, on purpose (Jose, 2026-11-14): the start menu. It is a futuristic book
-floating in space, with stars, two orbit rings, a planet's edge and specks of data
-drifting up. The numbers on it are the reader's own (name, books read, and one star
-per book on the cover that turns gold once the book is read). It opens onto a paper
-page and then the warm library, so the space look never reaches the reading pages.
+One exception, on purpose (Jose, 2026-11-14): the start menu. It is a realistic
+picture, rendered in Blender the same way as the Phillis Brown site's start screen: a
+dark book with gold lettering ("The Launch Manual") on a ship's console, three glowing
+light pillars, a glass orb, and a planet outside the window. The lights breathe while
+it waits. A choice plays a short clip of the cover opening onto a paper page
+("Welcome aboard"), then the warm library appears, so the space look never reaches
+the reading pages. The reader's own name and books read sit on top of the picture as
+text; nothing about a reader is baked into the picture.
 
 ## Colors (light, then dark)
 
@@ -35,18 +38,17 @@ page and then the warm library, so the space look never reaches the reading page
 Each book's own cloth color is in the `BOOK` table in the script, not here.
 
 The start menu has its own colors, set on `.intro` and the same in light and dark
-(space is always night):
+(space is always night). They are for the text and buttons that sit on the picture:
 
 | Variable | Value | Used for |
 |---|---|---|
-| `--sp-0` / `--sp-1` / `--sp-2` | #05070F / #0B1230 / #18224F | Space, the cover, the planet |
-| `--sp-holo` | #7FE3FF | Glowing lines, orbit, unread stars |
-| `--sp-gold` | #E8C88A | Main button, read stars, the cover's inner frame |
-| `--sp-text` / `--sp-dim` | #EAF2FF / rgba(190,215,255,.66) | Text, quieter text |
-| `--sp-page` and its ink, red, muted | #FBF6EC, #1F1613, #B0142F, #7B6A5D | The paper page inside the book |
+| `--sp-0` | #05070F | Behind the picture, text on the gold button |
+| `--sp-holo` | #7FE3FF | Button outlines, the progress bar's track |
+| `--sp-gold` | #E8C88A | Main button, the progress bar |
+| `--sp-text` / `--sp-dim` | #EAF2FF / rgba(200,220,255,.78) | Text, quieter text |
 
-The star colors are repeated once in the script that draws the sky (`paint`); change
-them in both places.
+The picture's own colors (navy shell, gold foil, cyan and amber light) are set in
+`start-source/scene.py` and `start-source/tex.py`.
 
 ## Fonts
 
