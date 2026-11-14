@@ -80,7 +80,8 @@ apps (told through the made-up ones).
 
 - [x] **Phase 0. Project setup.** CLAUDE.md, shared rules, docs, helpers, site check
   (2026-11-14).
-- [ ] **Phase 1. The site goes live.** Jose's `index.html` on `main`, GitHub Pages on,
+- [x] **Phase 1. The site goes live.** Jose's `index.html` on `main`, GitHub Pages on,
   the site check green, screenshots of the live site at 390px and desktop with no
-  console errors.
+  console errors. Live at https://jvtomax99.github.io/Vibe-coding-guide-/ on
+  2026-11-14 (PR #1).
 - [ ] **Phase 2.** TO FILL with Jose.
