@@ -65,7 +65,8 @@ Search for these markers:
   `_pages`: title page, Contents, one per `<h3>`), building the shelves, each book's
   foot (previous, mark as read, next; it sits on the book's last page), the
   next-book cover, turning pages (`go()`, arrows, keys, swipes) and `show()`, the start menu (it fills in the reader's numbers, picks the phone
-  or desktop pictures and plays the clip), copy buttons, the quiz
+  or desktop pictures and plays the clip), staying current (`askHost()` compares the page's own date with the
+  host's and reloads or shows `#updBtn`), copy buttons, the quiz
   (`renderQuiz`), the glossary.
 
 ## What the browser stores

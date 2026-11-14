@@ -241,6 +241,7 @@ a{color:var(--accent);text-underline-offset:3px}
   box-shadow:1px 1px 0 var(--line), 3px 2px 0 var(--paper), 4px 3px 0 var(--line), 0 30px 60px rgba(0,0,0,.65), 0 0 70px rgba(var(--holo-rgb),.1)}
 #main{position:relative;min-height:100%;display:flex;flex-direction:column;background:linear-gradient(90deg, rgba(10,16,32,.1), transparent 22px)}
 .rail{display:none}
+.upd{position:absolute;z-index:5;bottom:14px;left:50%;transform:translateX(-50%);font:600 13.5px/1 var(--body);color:var(--void);background:linear-gradient(#F0D9A3, var(--sgold) 50%, var(--sgold-lo));border:0;border-radius:99px;padding:11px 16px;cursor:pointer;white-space:nowrap;box-shadow:0 10px 24px rgba(0,0,0,.5)}
 .readfoot{position:relative;flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px 12px}
 .readfoot button{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid rgba(var(--holo-rgb),.45);background:none;color:var(--holo);font:400 24px/1 var(--display);cursor:pointer;display:grid;place-items:center;padding:0 0 3px;box-shadow:0 0 14px rgba(var(--holo-rgb),.18)}
 .readfoot #pgNext{background:linear-gradient(#F0D9A3, var(--sgold-lo));color:var(--void);border-color:transparent}
@@ -459,6 +460,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
     <button type="button" id="tocBtn">Contents</button>
   </div>
   <div class="read-mid">
+    <button type="button" class="upd" id="updBtn" hidden>New version. Tap to refresh</button>
     <nav class="rail" id="rail" aria-label="This book"></nav>
     <div class="sheet" id="sheet">
   <main id="main">
@@ -2033,6 +2035,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       document.title = target.dataset.title + " | The Launch Manual";
     } else {
       current = null;
+      if (stale) freshen();
       document.title = "The Launch Manual: Building Apps With Claude";
     }
     window.scrollTo(0, 0);
@@ -2113,6 +2116,30 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     document.addEventListener("keydown", function(e){ if (e.key === "Escape" && !intro.hidden) { if (stage === 0) goTo = ""; leave(); } });
     try { document.getElementById("introGo").focus({ preventScroll: true }); } catch (e) {}
   }
+
+  // Staying current: when the site comes back to the front, ask the host whether the page has changed (skipping the saved
+  // copy). If it has: reload on the start menu or the shelves; inside a book, offer a button instead, so nobody loses their place.
+  var stale = false, staleStamp = "", lastAsk = 0, updBtn = document.getElementById("updBtn");
+  function freshen(){
+    try { if (sessionStorage.getItem("bac-reloaded-for") === staleStamp) return; sessionStorage.setItem("bac-reloaded-for", staleStamp); } catch (e) { return; }
+    location.reload();
+  }
+  function askHost(){
+    var mine = Date.parse(document.lastModified);
+    if (stale || !window.fetch || !/^http/.test(location.protocol) || isNaN(mine) || Date.now() - lastAsk < 60000) return;
+    lastAsk = Date.now();
+    fetch(location.pathname, { method: "HEAD", cache: "no-store" }).then(function(r){
+      var theirs = Date.parse(r.headers.get("last-modified") || "");
+      if (!r.ok || isNaN(theirs) || theirs <= mine + 1500) return;
+      stale = true; staleStamp = String(theirs);
+      var busy = !readerView.hidden || intro.classList.contains("go") && !intro.hidden;
+      if (busy) { if (!readerView.hidden) updBtn.hidden = false; } else freshen();
+    }).catch(function(){});
+  }
+  updBtn.addEventListener("click", freshen);
+  document.addEventListener("visibilitychange", function(){ if (!document.hidden) askHost(); });
+  window.addEventListener("pageshow", function(e){ if (e.persisted) askHost(); });
+  setTimeout(askHost, 3000);
 
   // Copy buttons
   Array.prototype.forEach.call(document.querySelectorAll(".copy"), function(btn){

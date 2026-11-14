@@ -79,6 +79,16 @@ apps (told through the made-up ones).
      a desktop, a reader with books read sees "Continue with Book N" naming their
      next unread book, and with "reduce motion" on the choice goes straight there.
 
+9. **Stays current.** No download and no update button to hunt for: when the site
+   comes back to the front of the phone (and a few seconds after it opens), it asks
+   the host whether the page has changed. If it has, the start menu and the shelves
+   reload by themselves; inside a book a small "New version. Tap to refresh" button
+   appears instead, and the reload happens on the tap or on going back to the
+   shelves. (Added 2026-11-14.)
+   - Done when: with the site left open on the shelves, a change merged to main shows
+     up the next time the reader comes back to it, without them refreshing; and a
+     reader inside a book is never reloaded without tapping.
+
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.
