@@ -4,8 +4,8 @@ A phone-first installable web app that teaches how to build an app with AI
 ("vibe coding") from idea to live site: GitHub, Claude Code, hosting
 (Vercel, GitHub Pages), Firestore, and the habits that keep a beginner's
 project from breaking. Plain HTML, CSS and JS, no build step, same as Jose's
-other apps. Jose builds it to learn and to teach others (who: TO FILL in
-`SPEC.md`).
+other apps. Jose builds it to learn and to teach friends and coworkers who
+are beginners the way he was.
 
 Read first: `HANDOFF.md` if there is one, `SPEC.md` (what, who, phases and
 what's next), `docs/ARCHITECTURE.md` (map of files). Look: `DESIGN.md`
@@ -45,8 +45,12 @@ this file differs, this file wins.
 
 ## Preview, checks and going live
 
-- **Hosting:** not decided (TO FILL in `SPEC.md`, Phase 0). Until it is,
-  merging to `main` is treated as going live.
+- **Hosting.** GitHub Pages from `main`, root folder (Jose, 2026-11-14), at
+  https://jvtomax99.github.io/Vibe-coding-guide-/ once Pages is turned on.
+  Turning Pages on or off is a repo setting: ask Jose. Merging to `main` is
+  going live. Links never start with "/" (they break under the Pages
+  subfolder; the site check catches it). `.nojekyll` makes Pages serve files
+  as they are.
 - **Preview.** Serve the repo with `python3 -m http.server 8123` and send
   Playwright screenshots at 390 px, then 1440 px, plus a "try this" list.
 - **Site check.** `node .github/site-check.cjs index.html` (needs

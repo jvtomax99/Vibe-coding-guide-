@@ -3,8 +3,8 @@
 Short map; keep it current. Read this at session start instead of exploring.
 
 There is no app code yet (Phase 0). The plan, the same as Jose's other apps: plain
-HTML, CSS and JavaScript, no framework, no build step, nothing to install. The host
-serves the folder as it is.
+HTML, CSS and JavaScript, no framework, no build step, nothing to install. GitHub
+Pages serves the folder from `main` as it is.
 
 ## Now
 
@@ -21,8 +21,8 @@ serves the folder as it is.
   pull request runs. It passes with a note until `index.html` exists.
 - `firestore.rules`, `firebase.json` Firestore's security rules, set to refuse
   everything. Not used until Firestore is added; kept so a database never starts in
-  "test mode". `.vercelignore` keeps notes and rules off the live site if Vercel
-  hosts it.
+  "test mode".
+- `.nojekyll` Tells GitHub Pages to serve every file as it is.
 - `CREDITS.md` Every asset, where from, license, cost.
 
 ## Planned (Phase 1 to 3; update as it is built)

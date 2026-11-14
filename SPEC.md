@@ -17,9 +17,9 @@ installs to the Home Screen and works offline, like his other apps.
 ## Who it's for
 
 - Jose first: to learn the tools he already uses well enough to explain them.
-- Others: TO FILL. Who are they (coworkers, friends, interpreters, strangers online),
-  how many, and do they already have a GitHub account? Spanish too, like the
-  Citizenship app, or English only?
+- Others: friends and coworkers Jose hands it to directly, beginners the way he was
+  (Jose, 2026-11-14). Not a public course for strangers. TO FILL: do they already
+  have a GitHub account? Spanish too, like the Citizenship app, or English only?
 - What they need (assumed until Jose confirms): short lessons on a phone, no code
   knowledge assumed, every technical word explained, and exact steps they can follow
   with a laptop open next to them.
@@ -112,17 +112,14 @@ habit of showing the security rule next to the code that needs it.
 - [x] **Phase 0a. Project setup.** `CLAUDE.md`, shared rules, docs, agents, taste
   skill, site check, safe default Firestore rules (2026-11-14).
 - [ ] **Phase 0b. Jose's answers.** Fill the TO FILL items:
-  - Name, who "others" are, English only or Spanish too, budget.
-  - **Hosting.** Recommended: Vercel, because it is one of the tools the app
-    teaches, Interp already uses it, and a branch preview link is itself a lesson.
-    GitHub Pages is free and simpler (five of Jose's apps use it).
-  - **Firestore in v1?** Recommended: no. Progress on the phone is enough for v1;
-    the live demo in "Later" teaches Firestore better than hidden sync code would.
+  - Name, English only or Spanish too, budget.
+  - Decided (Jose, 2026-11-14): friends and coworkers; **hosted on GitHub Pages**
+    from `main`; **no Firestore in v1** (the live demo stays in "Later").
   - **DESIGN.md**, following `docs/design-rules.md` section 1 (template or not, then
     1 to 3 sites Jose likes, run through the taste skill).
 - [ ] **Phase 1. The shell.** `index.html`, `css/app.css`, `js/app.js`, `sw.js`,
   `manifest.webmanifest`, Home with the list of paths, one sample lesson. Site check
-  green; deployed where Phase 0b decided.
+  green; live on GitHub Pages (Jose turns Pages on in the repo settings).
 - [ ] **Phase 2. Lessons and glossary.** All six paths written with sources, the
   glossary, the content check script.
 - [ ] **Phase 3. Real projects and starter kit.** Features 3 and 4.
