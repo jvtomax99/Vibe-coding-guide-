@@ -11,3 +11,6 @@ firestore-debug.log
 # Screenshots and scratch files from checks.
 shots/
 .DS_Store
+start-source/out/
+start-source/fonts/
+start-source/*.png
