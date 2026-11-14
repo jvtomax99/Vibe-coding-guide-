@@ -22,6 +22,9 @@ quiet, never techy.
 | `--gold` | #C9A25B | #C9A25B | Spine lettering, details |
 | `--wood-hi` / `--wood` / `--wood-lo` | #9A6A43 / #6B4329 / #3E2617 | #8A6440 / #3A2A22 / #140E0B | Shelves |
 | `--code-bg` / `--code-ink` | #241A16 / #F3E9DC | #120D10 / #EADFD2 | Prompt and code boxes |
+| `--ink-soft` | #EFE6DA | #2C2228 | Soft filled panels |
+| `--stripe` | rgba(120,90,60,.035) | rgba(255,255,255,.018) | Faint wallpaper stripes |
+| `--spot` | rgba(255,250,240,.9) | rgba(255,196,130,.13) | The lamp glow on the wall |
 
 Each book's own cloth color is in the `BOOK` table in the script, not here.
 
@@ -33,9 +36,23 @@ Each book's own cloth color is in the `BOOK` table in the script, not here.
   builders").
 - `--mono` JetBrains Mono: prompts and code.
 
+## Shape
+
+- Rounded corners are small: 4px on most cards and boxes, 2px on fine details, fully
+  round (99px) for pills and meters.
+- Depth comes from soft, warm shadows and thin inset gold lines on the books
+  (`inset 0 0 0 1px #C9A25B` plus a long low shadow), not from heavy borders.
+- Main parts: the library card (crimson header, ruled lines like a real card), the
+  shelves and spines, the open book (a cloth-colored cover band, then a paper page),
+  the reading bar (wood, with "Back to the shelves"), and the prompt boxes (dark, with
+  a Copy button).
+
 ## Rules
 
-- Use the variables; never a new hex value in a rule. A new color gets a variable with
-  both a light and a dark value.
+- Use the variables; don't add new hex values in rules. A new color gets a variable
+  with both a light and a dark value. (Two older rules already use #B0142F directly;
+  leave them unless that part is being changed anyway.)
 - Check every change at 390px first, then desktop, in both light and dark.
-- Phone layout changes live in the `@media` blocks at the end of the `<style>`.
+- Phone layout lives in the `@media (max-width: 760px)` blocks: the main one near the
+  end of the `<style>`, plus a one-line one for the cover icon in the reader section.
+  Every animation has a `prefers-reduced-motion` fallback; keep that for new ones.

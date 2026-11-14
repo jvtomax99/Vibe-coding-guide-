@@ -6,7 +6,8 @@ Gaps marked TO FILL for Jose.
 ## What it is
 
 A one-page course site, drawn as a small library: 18 short books on wooden shelves
-(about four hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+(the site says about four hours; the books' own minute counts add to
+about five, see Later), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -42,17 +43,20 @@ apps (told through the made-up ones).
    - Done when: a reader goes from Start here to the next book and back to the shelves
      without the browser's Back button.
 3. **Library card.** The reader's name and how many books they've read, saved only in
-   their browser (`localStorage`, key `bac-course-v1`). "Return all books" clears it.
+   their browser (`localStorage`, key `bac-course-v1`). "Return all books" clears the
+   read marks; the name stays.
    - Done when: closing and reopening the page keeps the name and the read marks.
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
 5. **Check yourself.** A short quiz with a score.
+   - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
-   comes from, with the date they were read.
+   comes from, with the month they were read.
    - Done when: every Claude Code or GitHub claim in the books matches a page listed
      in Sources.
 7. **Light and dark.** Follows the phone's setting.
+   - Done when: every screen is readable with the phone in dark mode and in light mode.
 
 ## Not in v1
 
@@ -68,6 +72,9 @@ apps (told through the made-up ones).
 - Spanish.
 - A short how-to video, like the Citizenship and CPA apps.
 - A live demo book showing a real Firestore rule beside the data it protects.
+- Fix the reading time: the intro and Start here say "about four hours", but the
+  books' `data-min` values add up to 308 minutes (about five hours). Change one or the
+  other (Jose's call, in `index.html`).
 
 ## Phases
 
