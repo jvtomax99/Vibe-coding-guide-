@@ -32,31 +32,44 @@ search instead of reading the file top to bottom.
 
 Search for these markers:
 
-- `:root{` The color, font and wood variables, then the dark versions
-  (`prefers-color-scheme: dark` and `[data-theme="dark"]`).
-- `/* ============ LIBRARY (home) ============ */` The wall, shelves and spines.
-- `/* ============ READER (one book open) ============ */` An open book.
+- `:root{` The color and font variables: the ship colors (same day and night), then
+  the paper page's colors with their dark versions (`prefers-color-scheme: dark` and
+  `[data-theme="dark"]`).
+- `/* ============ LIBRARY (home) ============ */` The window, the next-book cover,
+  the glass shelves and spines. `.library` swaps the page colors for console colors,
+  so the shelves are dark in both settings.
+- `/* ============ READER (one book open) ============ */` An open book: the dark
+  surround, the paper page (`.sheet`), the title page (`.tp`), the Contents page
+  (`.cp`), section pages (`.pg.sec`), and the contents beside the page on wide
+  screens (`.rail`).
 - `id="intro"` The start menu (once per visit, skipped on a link straight to a book):
   the rendered scene from `start/` with three choices, `#introGo` (start or
   continue), `#introOpen` (the shelves) and `#introGloss` (the glossary). A choice
   plays the cover-opening clip, then shows the library or the book. Its styles start
   at `/* Opening (the start menu)`.
-- `id="libraryView"` The heading, the library card (`#borrower`, `#readCount`,
-  `#resetBtn`) and `#case`, where the script builds the shelves.
-- `id="readerView"` The reading bar and `<main id="main">`, which holds every lesson.
+- `id="libraryView"` The window picture with the reader's name and count on it
+  (`#borrower`, `#readCount`), the next-book cover (`#contLink`), `#resetBtn`, and
+  `#case`, where the script builds the shelves.
+- `id="readerView"` The top bar (back, `#tocBtn`), `#rail`, the page `#sheet` with
+  `<main id="main">` holding every lesson, and the foot (`#pgPrev`, `#readProg`,
+  `#pgNext`).
 - `<!-- ===================== START =====================` and the markers after it:
   one `<section class="lesson" id="...">` per book, with `data-part` (its shelf group),
-  `data-title` and `data-min` (minutes). Ids in order: start, anatomy, stack, git,
+  `data-title` and `data-min` (minutes), and sometimes `data-open` (a name for the
+  page made from whatever comes before the first `<h3>`). Ids in order: start, anatomy, stack, git,
   forks, hosting, agent, toolkit, claudemd, audit, starter, request, vocab, workflow,
   debug, library, project, quiz, then glossary and sources.
 - The `<script>` at the end, in parts marked by comments: storage (`KEY =
   "bac-course-v1"`), `BOOK` (cloth colors, spine titles, heights), `ICON` (cover
-  drawings), numbering the books, building the shelves, each book's foot (previous,
-  mark as read, next), the library card, the start menu (it fills in the reader's numbers, picks the phone
+  drawings), numbering the books and cutting each into pages (each lesson gets
+  `_pages`: title page, Contents, one per `<h3>`), building the shelves, each book's
+  foot (previous, mark as read, next; it sits on the book's last page), the
+  next-book cover, turning pages (`go()`, arrows, keys, swipes) and `show()`, the start menu (it fills in the reader's numbers, picks the phone
   or desktop pictures and plays the clip), copy buttons, the quiz
   (`renderQuiz`), the glossary.
 
 ## What the browser stores
 
-One `localStorage` entry, `bac-course-v1`: the reader's name and which books are
-read. Nothing leaves the phone.
+One `localStorage` entry, `bac-course-v1`: the reader's name (`name`), which books
+are read (`done`) and the page they were on in each book (`pos`). Nothing leaves the
+phone.
