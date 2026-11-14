@@ -1,80 +1,95 @@
 # DESIGN.md: Building Apps With Claude
 
-Written 2026-11-14 from the look already built in `index.html`; the values below are
-copied from its `:root` variables. Change a value there and here in the same commit.
+Rewritten 2026-11-14 for Phase 2 (the inside now matches the start menu). The values
+below are copied from the `:root` variables in `index.html`. Change a value there and
+here in the same commit.
 
 ## The idea
 
-A reading room: a cream wall, dark wooden shelves, cloth-bound books with gold
-lettering, a library card for progress, crimson bookmarks for books read. Warm and
-quiet, never techy.
+A small library aboard a ship. Everything outside the page is night: a dark console,
+a planet in the window, glass shelves lit along their front edge in cyan, navy books
+with gold lettering. The one warm, bright thing is the paper page you read.
 
-One exception, on purpose (Jose, 2026-11-14): the start menu. It is a realistic
-picture, rendered in Blender the same way as the Phillis Brown site's start screen: a
-dark book with gold lettering ("The Launch Manual") on a ship's console, three glowing
-light pillars, a glass orb, and a planet outside the window. The lights breathe while
-it waits. A choice plays a short clip of the cover opening onto a paper page
-("Welcome aboard"), then the warm library appears, so the space look never reaches
-the reading pages. The reader's own name and books read sit on top of the picture as
-text; nothing about a reader is baked into the picture.
+- **Start menu.** A realistic picture, rendered in Blender the same way as the Phillis
+  Brown site's start screen: a dark book with gold lettering ("The Launch Manual") on
+  a ship's console, three glowing light pillars, a glass orb, and a planet outside the
+  window. The lights breathe while it waits. A choice plays a short clip of the cover
+  opening. The reader's name and books read sit on top of the picture as text; nothing
+  about a reader is baked into the picture.
+- **Shelves.** The top of that same picture (the window and the planet) as a band,
+  with the reader's name and count on it, then the next book as a cover with "Open
+  the book", then one glass ledge per part. Tap a spine and the book turns to show
+  its cover.
+- **An open book.** A dark surround with stars and one paper page, like the readers
+  in the Phillis Brown site: a title page, a Contents page, then one section per
+  page. A foot line says where you are ("AUDIT A CLAUDE.MD · SECTION 2 OF 4").
 
-## Colors (light, then dark)
+Realistic over flat (Jose, 2026-11-14): light comes from somewhere, books have
+thickness and a lit edge, glass glows. No flat color blocks.
 
-| Variable | Light | Dark | Used for |
-|---|---|---|---|
-| `--wall` / `--wall-2` | #F4ECDF / #E9DCC7 | #1A1219 / #0D090C | The background wall |
-| `--paper` | #FFFCF6 | #231A20 | Book pages, cards |
-| `--ink` / `--muted` | #1F1613 / #7B6A5D | #F3E9DC / #B3A196 | Text, quieter text |
-| `--line` | #E6D8C3 | #3A2D33 | Rules and borders |
-| `--crimson` / `--crimson-soft` | #B0142F / #F7E4E2 | #E35A70 / #3A1A21 | Accent, bookmarks, main buttons |
-| `--caramel` / `--caramel-soft` | #9A6A33 / #F4E8D4 | #D9B26F / #33281B | Second accent |
-| `--gold` | #C9A25B | #C9A25B | Spine lettering, details |
-| `--wood-hi` / `--wood` / `--wood-lo` | #9A6A43 / #6B4329 / #3E2617 | #8A6440 / #3A2A22 / #140E0B | Shelves |
-| `--code-bg` / `--code-ink` | #241A16 / #F3E9DC | #120D10 / #EADFD2 | Prompt and code boxes |
-| `--ink-soft` | #EFE6DA | #2C2228 | Soft filled panels |
-| `--stripe` | rgba(120,90,60,.035) | rgba(255,255,255,.018) | Faint wallpaper stripes |
-| `--spot` | rgba(255,250,240,.9) | rgba(255,196,130,.13) | The lamp glow on the wall |
+## Colors
 
-Each book's own cloth color is in the `BOOK` table in the script, not here.
-
-The start menu has its own colors, set on `.intro` and the same in light and dark
-(space is always night). They are for the text and buttons that sit on the picture:
+The ship (same in light and dark; space is always night):
 
 | Variable | Value | Used for |
 |---|---|---|
-| `--sp-0` | #05070F | Behind the picture, text on the gold button |
-| `--sp-holo` | #7FE3FF | Button outlines, the progress bar's track |
-| `--sp-gold` | #E8C88A | Main button, the progress bar |
-| `--sp-text` / `--sp-dim` | #EAF2FF / rgba(200,220,255,.78) | Text, quieter text |
+| `--void` | #05070F | The background, text on gold buttons |
+| `--hull` / `--panel` | #0A0F1E / #0E1629 | Darker and lighter console surfaces |
+| `--holo` (`--holo-rgb`) | #7FE3FF | Edge light on the shelves, outlines, small labels |
+| `--sgold` / `--sgold-lo` | #E8C88A / #C9A25B | Main buttons, lettering, bookmarks, meters |
+| `--stext` / `--sdim` | #EAF2FF / rgba(200,220,255,.74) | Text on the dark, quieter text |
 
-The picture's own colors (navy shell, gold foil, cyan and amber light) are set in
-`start-source/scene.py` and `start-source/tex.py`.
+The paper page (light, then dark; the phone's setting picks):
+
+| Variable | Light | Dark | Used for |
+|---|---|---|---|
+| `--paper` | #F8F5EE | #121827 | The page |
+| `--ink` / `--muted` | #141824 / #666C7A | #E7EDF8 / #98A3B8 | Text, quieter text |
+| `--line` | #DDD6C8 | #273149 | Rules and borders |
+| `--soft` / `--ink-soft` | #EFEBE1 / #ECE7DC | #182036 / #1C2540 | Soft filled panels, inline code |
+| `--accent` / `--accent-soft` | #0F6C86 / #E0EEF1 | #7FE3FF / #12303B | Links, section labels, main buttons on the page |
+| `--accent-2` / `--accent-2-soft` | #775A20 / #F3EAD6 | #E8C88A / #2E2718 | Second accent ("try this" boxes, small rules) |
+| `--gold` | #C9A25B | #C9A25B | Focus rings, fine details |
+| `--code-bg` / `--code-ink` | #0B1020 / #DCE8F7 | #070B16 / #DCE8F7 | Prompt and code boxes |
+
+Inside `.library` the page variables are swapped for console values (`--paper` becomes
+`--panel`, `--ink` becomes `--stext`, `--accent` becomes `--holo`), so the shelves are
+dark in both settings without a second set of rules.
+
+Each book's own cloth color is in the `BOOK` table in the script, not here: one color
+family per shelf (navy, teal, plum, graphite, oxblood; old gold for Start here; pale
+silver for the two reference books).
+
+The start menu keeps its own `--sp-*` variables on `.intro`. They hold the same values
+as the ship colors above. The picture's own colors (navy shell, gold foil, cyan and
+amber light) are set in `start-source/scene.py` and `start-source/tex.py`.
 
 ## Fonts
 
 - `--display` Bodoni Moda: titles and headings.
 - `--body` Instrument Sans: everything you read.
-- `--script` Pinyon Script: small handwritten touches only ("a reading room for
-  builders").
-- `--mono` JetBrains Mono: prompts and code.
+- `--mono` JetBrains Mono: prompts and code, and the small spaced-out capital labels
+  on the dark ("BOOKS READ", "SECTION 2 OF 4").
 
 ## Shape
 
 - Rounded corners are small: 4px on most cards and boxes, 2px on fine details, fully
-  round (99px) for pills and meters.
-- Depth comes from soft, warm shadows and thin inset gold lines on the books
-  (`inset 0 0 0 1px #C9A25B` plus a long low shadow), not from heavy borders.
-- Main parts: the library card (crimson header, ruled lines like a real card), the
-  shelves and spines, the open book (a cloth-colored cover band, then a paper page),
-  the reading bar (wood, with "Back to the shelves"), and the prompt boxes (dark, with
-  a Copy button).
+  round for pills, meters and the page-turn buttons.
+- On the dark, depth comes from light: a cyan line along an edge, a soft glow, a deep
+  shadow underneath. On the page, depth comes from the stacked paper edge and a faint
+  shadow down the inner margin.
+- Main parts: the window band, the next-book cover, the shelves and spines, the open
+  book (top bar with "Back to the shelves" and Contents, the paper page, the foot
+  with the two round page-turn buttons), and the prompt boxes (dark, with a Copy
+  button).
 
 ## Rules
 
-- Use the variables; don't add new hex values in rules. A new color gets a variable
-  with both a light and a dark value. (Two older rules already use #B0142F directly;
-  leave them unless that part is being changed anyway.)
+- Use the variables; don't add new hex values in rules. A new page color gets a
+  variable with both a light and a dark value. A new ship color gets one value.
 - Check every change at 390px first, then desktop, in both light and dark.
-- Phone layout lives in the `@media (max-width: 760px)` blocks: the main one near the
-  end of the `<style>`, plus a one-line one for the cover icon in the reader section.
-  Every animation has a `prefers-reduced-motion` fallback; keep that for new ones.
+- Phone layout lives in the `@media (max-width: 760px)` block near the end of the
+  `<style>`; wide-screen layout (the contents beside the page, the cover beside the
+  shelves) in the `@media (min-width: 1000px)` blocks. Every animation has a
+  `prefers-reduced-motion` fallback; keep that for new ones.
+- Every `<h3>` in a lesson starts a new page. Use `<h4>` for a heading that should not.

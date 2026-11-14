@@ -8,7 +8,7 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library: 18 short books on wooden shelves
+A one-page course site, drawn as a small library aboard a ship: 18 short books on glass shelves
 (the site says about four hours; the books' own minute counts add to
 about five, see Later), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
@@ -41,13 +41,20 @@ apps (told through the made-up ones).
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Practice) plus
    Start here and the reference books.
    - Done when: every book opens from its spine on a phone and on a desktop.
-2. **Reading a book.** One book open at a time, with previous, next and "mark as
-   read" at its foot, and a way back to the shelves.
+2. **Reading a book.** One book open at a time as a paper page on a dark surround,
+   turned a section at a time: a title page, a Contents page listing the book's
+   sections, then one section per page (a long one scrolls inside its page). Arrows,
+   the keyboard's arrow keys or a sideways swipe turn the page; the foot of the screen
+   says where you are ("SECTION 2 OF 4"); the Contents button (or, on a wide screen,
+   the list beside the page) jumps to any section. The book reopens on the page you
+   left. Previous book, next book and "mark as read" are on the last page.
+   (Reworked 2026-11-14, Phase 2.)
    - Done when: a reader goes from Start here to the next book and back to the shelves
-     without the browser's Back button.
-3. **Library card.** The reader's name and how many books they've read, saved only in
+     without the browser's Back button; every section of a book can be reached from
+     its Contents; and no table or copy box is cut by a page turn.
+3. **Library card.** Now the top of the shelves screen: the reader's name and how many books they've read, saved only in
    their browser (`localStorage`, key `bac-course-v1`). "Return all books" clears the
-   read marks; the name stays.
+   read marks and the saved pages; the name stays.
    - Done when: closing and reopening the page keeps the name and the read marks.
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
@@ -58,7 +65,8 @@ apps (told through the made-up ones).
    comes from, with the month they were read.
    - Done when: every Claude Code or GitHub claim in the books matches a page listed
      in Sources.
-7. **Light and dark.** Follows the phone's setting.
+7. **Light and dark.** The paper page follows the phone's setting. The ship around it
+   (shelves, start menu, the surround of an open book) is always night.
    - Done when: every screen is readable with the phone in dark mode and in light mode.
 
 8. **Start menu.** The first screen of a visit: a realistic picture of a futuristic
@@ -97,4 +105,20 @@ apps (told through the made-up ones).
   the site check green, screenshots of the live site at 390px and desktop with no
   console errors. Live at https://jvtomax99.github.io/Vibe-coding-guide-/ on
   2026-11-14 (PR #1).
-- [ ] **Phase 2.** TO FILL with Jose.
+- [ ] **Phase 2. The inside matches the start menu.** Asked by Jose 2026-11-14: "The
+  aesthetic needs to match the intro. And I want more of a kindle style outline, like
+  Phillis bookshelves app." The shelves become glass ledges on the ship's dark console
+  with navy books and gold lettering, and the next book shown as a cover with "Open
+  the book". Reading becomes feature 2 above. Jose picked from draft pictures: sections
+  instead of screen-height page turns, the drafted shelves, and a page that follows
+  the phone's setting.
+  - Compared (2026-11-14): Jose's Phillis Brown readers (true page turns, title page,
+    numbered Contents, "P. 3 OF 40"), Kindle and Apple Books (both offer a scrolling
+    mode beside page turns). Where this one differs: pages are whole sections, because
+    the books hold 26 tables and 44 copy boxes that screen-height pages would squeeze
+    or strand.
+  - Not in this phase: a font size control, bookmarks or highlights, a search across
+    books, shelves rendered in Blender.
+  - Done when: the Done when lines of features 1, 2 and 7 hold at 390px and desktop,
+    old links such as `#audit` still open their book, and a reader's saved name and
+    read marks from before the change are still there.
