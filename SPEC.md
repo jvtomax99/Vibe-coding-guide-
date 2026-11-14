@@ -65,6 +65,10 @@ apps (told through the made-up ones).
    comes from, with the month they were read.
    - Done when: every Claude Code or GitHub claim in the books matches a page listed
      in Sources.
+   - Sources ends with "Going further": outside reading and watching (what vibe coding
+     is, doing it well, doing it safely), marked as other people's views, not as the
+     source of the books' claims. Start here carries the library's own rule for what
+     always gets a check before launch. (Added 2026-11-14.)
 7. **Light and dark.** The paper page follows the phone's setting. The ship around it
    (shelves, start menu, the surround of an open book) is always night.
    - Done when: every screen is readable with the phone in dark mode and in light mode.

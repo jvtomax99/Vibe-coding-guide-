@@ -474,6 +474,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
     <li>Who this library is for and what you'll be able to do after it</li>
     <li>The five example apps used throughout</li>
     <li>The one belief this library will try to change</li>
+    <li>What must get a check before anyone else uses your app</li>
   </ul></div>
 
   <div class="stat-row">
@@ -509,6 +510,22 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
 
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>The belief most builders hold, and most need to drop: <b>"more rules make Claude more reliable."</b> Each time something goes wrong, it's natural to add a rule. After a few months the instruction file is hundreds of lines long, some rules contradict each other, and Claude follows all of them a little less. Anthropic's docs say longer instruction files reduce how well Claude follows them. Book 9 shows how to cut a bloated file back down.</p>
+  </div>
+
+  <h3>What needs a check before launch</h3>
+  <p>You may have heard this way of building called <b>vibe coding</b>. Andrej Karpathy coined the phrase in 2025 for describing what you want to an AI and accepting what it writes without reading it. Simon Willison, the most consistent independent writer on doing this responsibly, keeps the name for exactly that: building without reviewing the result. Once the work has been reviewed and tested and you can explain what it does, he calls it plain software development.</p>
+  <p>Both ways of working have a place. This library's own rule for telling them apart:</p>
+  <div class="tablewrap"><table>
+    <tr><th>Fine to build on trust</th><th>Always gets a check before launch</th></tr>
+    <tr><td>Personal tools only you use</td><td>Logins and accounts</td></tr>
+    <tr><td>Prototypes and experiments</td><td>Payments</td></tr>
+    <tr><td>Small features that nothing else in the app depends on</td><td>Anything that stores other people's data</td></tr>
+    <tr><td></td><td>API keys and other secrets (the passwords your app uses to reach paid services)</td></tr>
+    <tr><td></td><td>Database access rules (who may read and write what)</td></tr>
+  </table></div>
+  <p>Why the right-hand column exists: in a 2025 test by the security company Veracode, covering more than 100 AI models, 45% of the code samples failed security tests. Veracode sells security scanning, and its tasks were designed to expose common weaknesses, so read that figure as a worst case, not an average. It is still a reason not to take the right-hand column on trust.</p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 16), a reviewer that never saw the code being written (Book 10), the rules prompt in Book 5, the security check in the Prompt library (Book 15), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
   </div>
 
   <h3>How to use this library</h3>
@@ -854,6 +871,8 @@ How do you want the changes back?
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>If your app shares data between people, check your rules today, not after launch. Two questions: who can read and write each collection right now, and does the live configuration match the file in your repo? The file is only what you last deployed or pasted.</p>
   </div>
+  <p>Open rules are the most common way a quickly built app leaks data, whatever database it uses. In May 2025 a flaw was published under the ID CVE-2025-48757 against Lovable, a tool that builds apps from prompts: apps it generated could go live with database tables that anyone on the internet could read or write. A researcher, Matt Palmer, reported finding 170 such apps among the 1,645 he scanned. Lovable disputes the listing and says each customer is responsible for protecting their own app's data. That dispute is the lesson: the tool that builds your app will not check your rules for you.</p>
+  <p>The cause there was the access rules of Supabase, another popular database. Its version of a rules file is called <b>Row Level Security</b>: a switch on each table, plus written policies that say who may see which rows. Supabase's docs say that once the switch is on, no data can be reached with the app's public key until you write a policy. Firestore's rules file does the same job for TeamDesk. Whichever database you use, the two questions above are the check.</p>
 
   <div class="call try"><div class="tag">Try it</div>
     <div class="code prompt"><div class="label"><span>Prompt for an app with a database</span><button class="copy" type="button">Copy</button></div><pre>Read the database and storage security rules in this repo. In a plain-English table, for each collection: who can read it and who can write it, including under any testing or practice switch. Then tell me the exact steps to confirm the live rules match this file. Don't change the rules.</pre></div>
@@ -1656,7 +1675,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 <section class="lesson" id="sources" data-part="Reference" data-title="Sources" data-min="0">
   <div class="eyebrow"></div>
   <h2>Sources</h2>
-  <p class="lede">Everything about Anthropic's and GitHub's recommendations comes from these pages, read in November 2026. Tools change; check the live pages for anything that looks out of date.</p>
+  <p class="lede">Everything about Anthropic's and GitHub's recommendations comes from these pages, read in November 2026. Tools change; check the live pages for anything that looks out of date. The last section, Going further, is different: it is outside reading and watching, other people's views and not the source of this library's claims.</p>
   <h3>Anthropic documentation</h3>
   <ul>
     <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: guidance versus enforcement, the two-question test, keeping CLAUDE.md short, "be ambitious", checks, reviews, steering, and the "what you can stop doing" table.</li>
@@ -1668,6 +1687,30 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <ul>
     <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">Creating a pull request from a fork</a>: compare across forks, allow edits from maintainers, who can open one.</li>
     <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">Syncing a fork</a>: the Sync fork button and what happens on conflicts.</li>
+  </ul>
+  <h3>Going further</h3>
+  <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
+  <h4>What vibe coding is</h4>
+  <ul>
+    <li><a href="https://twitter.com/karpathy/status/1886192184808149383">Andrej Karpathy's original post</a> (February 2025): the short post where the phrase "vibe coding" was first used.</li>
+    <li><a href="https://simonwillison.net/2025/Mar/19/vibe-coding/">Simon Willison, "Not all AI-assisted programming is vibe coding (but vibe coding rocks)"</a> (March 2025): the clearest line between building on trust and reviewed software, and a defense of building on trust for personal tools. Willison co-created Django, a toolkit many websites are built with, and writes at <a href="https://simonwillison.net">simonwillison.net</a>.</li>
+    <li><a href="https://simonwillison.net/2025/Oct/7/vibe-engineering/">Simon Willison, "Vibe engineering"</a> (October 2025): his name for the careful end of the scale. He later added a note that "agentic engineering" has become the more common name.</li>
+  </ul>
+  <h4>Doing it well</h4>
+  <ul>
+    <li><a href="https://code.claude.com/docs/en/best-practices">Anthropic, "Best practices for Claude Code"</a>: the official playbook, kept up to date, and the page most of this library is built on. Its core: tell Claude what it can't see and give it a check to run.</li>
+    <li><a href="https://www.youtube.com/watch?v=BJjsfNO5JTo">Y Combinator, "How To Get The Most Out Of Vibe Coding"</a> (video, about 17 minutes, April 2025): a beginner-friendly walk-through by Tom Blomfield, a Y Combinator partner and former head of the bank Monzo. Plan first, go back to a clean copy when the AI piles one bad fix on another, and try more than one tool.</li>
+    <li><a href="https://www.youtube.com/watch?v=fHWFF_pnqDk">Erik Schluntz, "Vibe coding in prod"</a> (talk, May 2025): an Anthropic researcher on where unreviewed AI code is acceptable (the parts nothing else depends on) and how to check results without reading every line.</li>
+    <li><b>Next step.</b> <a href="https://anthropic.skilljar.com/claude-code-in-action">Anthropic, "Claude Code in Action"</a>: a free course you take at your own pace, made for people who have used a command line before.</li>
+    <li><b>Next step.</b> <a href="https://simonwillison.net/guides/agentic-engineering-patterns/">Simon Willison, "Agentic Engineering Patterns"</a>: a free online guide in chapters, started in February 2026 and still growing. It assumes you know Git and automated tests. Three chapters to begin with: <a href="https://simonwillison.net/guides/agentic-engineering-patterns/what-is-agentic-engineering">what agentic engineering is</a>, <a href="https://simonwillison.net/guides/agentic-engineering-patterns/how-coding-agents-work/">how coding agents work</a>, and <a href="https://simonwillison.net/guides/agentic-engineering-patterns/anti-patterns/">habits to avoid</a>.</li>
+  </ul>
+  <h4>Doing it safely</h4>
+  <ul>
+    <li><a href="https://code.claude.com/docs/en/security">Anthropic, Claude Code security</a> and <a href="https://code.claude.com/docs/en/permissions">permissions</a>: how Claude Code decides what it may do without asking. In Manual mode it starts with read-only permissions and asks before editing files or running commands. In auto mode, the default in the terminal, a checker model reviews actions for you, and cloud sessions make file edits without asking. In every mode the page is plain that you are responsible for reviewing what you approve. It also covers prompt injection (hidden text that tries to give Claude orders), and notes that Anthropic reviews connectors before listing them in its directory but does not security-audit or manage the outside tools (MCP servers) you connect.</li>
+    <li><a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a>: the standard list of the most serious security risks in web apps. Most research on the safety of AI-written code measures against it.</li>
+    <li><a href="https://www.veracode.com/genai-code-security-report">Veracode, 2025 GenAI Code Security Report</a> (July 2025): the most quoted number on this subject. Across more than 100 AI models, 45% of code samples failed security tests; Java failed more than 70% of the time, and Python, C# and JavaScript between 38% and 45%. Veracode sells security scanning and designed the tasks to expose common weaknesses, so treat the figures as a worst case, not an average.</li>
+    <li><a href="https://supabase.com/docs/guides/database/postgres/row-level-security">Supabase, Row Level Security</a> and <a href="https://supabase.com/docs/guides/database/secure-data">securing your data</a>: the official pages on the setting behind the leak described in Book 5. Read them if your app uses Supabase.</li>
+    <li><a href="https://simonwillison.net/2026/may/6/vibe-coding-and-agentic-engineering">Simon Willison, "Vibe coding and agentic engineering are getting closer than I'd like"</a> (May 2026): an experienced engineer admitting that the careful way and the careless way are starting to merge in his own work. A good last read.</li>
   </ul>
   <h3>About the examples</h3>
   <p>FlashDeck, ExamTown, TeamDesk, Corner Gym and Pocket Pet are made-up apps. Their setups, file sizes and mistakes are typical of real projects built by non-developers with Claude.</p>
@@ -2226,6 +2269,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   // Glossary
   var G = [
     ["Acceptance criteria", "The checkable conditions that mean a feature is done. The 'Done when' lines in a spec."],
+    ["Agentic engineering", "Building with an AI coding agent while still reviewing, testing and understanding the result. The careful end of the scale; vibe coding is the other end."],
     ["AGENTS.md", "An instruction file other AI tools read. Claude Code reads CLAUDE.md, so import it with @AGENTS.md."],
     ["API", "A way for one program to ask another for something. The Claude API is how an app's server asks Claude questions."],
     ["Auto mode", "Claude Code's default in the terminal: works without asking each time, while a checker model stops risky actions."],
@@ -2279,6 +2323,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Repo", "A project folder plus its full history of changes."],
     ["Responsive", "A layout that adapts to the screen width."],
     ["Revert", "Undoing a merged change with a new commit."],
+    ["Row Level Security", "The Supabase database's version of security rules: a switch on each table, plus policies that say who may see which rows."],
     ["Schema", "The shape of saved data: which fields, what types."],
     ["Serverless function", "A small piece of back-end code that runs on demand, like each file in an api/ folder on Vercel."],
     ["Service worker", "The script (sw.js) that caches files so a PWA works offline."],
@@ -2293,6 +2338,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["three.js", "A JavaScript library for 3D in the browser."],
     ["Upstream", "The original repo a fork was copied from."],
     ["Vercel", "Hosting with server functions, environment variables and preview links per branch."],
+    ["Vibe coding", "Building with an AI and accepting what it writes without reviewing it. Coined by Andrej Karpathy in 2025. Fine for personal tools and experiments; not for logins, payments, secrets or other people's data."],
     ["Viewport", "The visible area of the screen. 390px is a common phone width."],
     ["Write access", "Permission to push changes to a repo or branch. You always have it on your own fork."],
     ["WebGL", "The browser feature that lets JavaScript use the graphics chip. three.js draws with it."]
