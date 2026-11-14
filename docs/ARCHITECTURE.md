@@ -1,40 +1,49 @@
 # Architecture
 
-Short map; keep it current. Read this at session start instead of exploring.
+Short map; keep it current. The whole site is one file, `index.html` (about 2,100
+lines: HTML, CSS and JavaScript together), so find a part by its marker below with a
+search instead of reading the file top to bottom.
 
-There is no app code yet (Phase 0). The plan, the same as Jose's other apps: plain
-HTML, CSS and JavaScript, no framework, no build step, nothing to install. GitHub
-Pages serves the folder from `main` as it is.
+## Files
 
-## Now
-
-- `CLAUDE.md` Claude's rules for this repo. `.claude/rules/general.md` the rules
-  shared by all of Jose's projects (identical everywhere; never edit one copy alone).
-- `SPEC.md` What the app does, who for, "Done when" per feature, Not in v1, Later,
-  Phases.
-- `docs/` How work is done: `design-rules.md` (how `DESIGN.md` gets made and used),
-  `assets.md` (buying and crediting assets), `refactor.md`, `cleanup-audit.md`.
-  `docs/design/` will hold the taste skill's reports on the sites Jose picks.
-- `.claude/agents/` Cheap helpers: `scout`, `test-runner` (Haiku), `builder`
-  (Sonnet). `.claude/skills/taste/` the taste skill (Senlin's, MIT).
-- `.github/site-check.cjs` and `.github/workflows/site-check.yml` The check every
-  pull request runs. It passes with a note until `index.html` exists.
-- `firestore.rules`, `firebase.json` Firestore's security rules, set to refuse
-  everything. Not used until Firestore is added; kept so a database never starts in
-  "test mode".
+- `index.html` The site. Fonts come from Google Fonts; nothing else loads from
+  outside.
 - `.nojekyll` Tells GitHub Pages to serve every file as it is.
-- `CREDITS.md` Every asset, where from, license, cost.
+- `CLAUDE.md`, `.claude/rules/general.md` Rules for Claude. `.claude/agents/` cheap
+  helpers (`scout`, `test-runner`, `builder`). `.claude/skills/taste/` design
+  analysis.
+- `SPEC.md` What, who, Done when, Not in v1, Later, Phases. `DESIGN.md` the look.
+  `CREDITS.md` fonts and other assets with their licenses.
+- `docs/` How work is done: `design-rules.md`, `assets.md`, `refactor.md`,
+  `cleanup-audit.md`.
+- `.github/site-check.cjs` and `.github/workflows/site-check.yml` The check every pull
+  request runs: no missing files, no links starting with "/", the page opens at phone
+  and desktop width with no script error.
 
-## Planned (Phase 1 to 3; update as it is built)
+## Inside index.html
 
-- `index.html` The one page. `css/app.css` the whole look (variables from
-  `DESIGN.md`). `manifest.webmanifest` and `sw.js` make it install and work offline.
-- `js/` One small file each: `app.js` (starts the app, picks the screen from the
-  address, e.g. `#/`, `#/path/github`, `#/lesson/<id>`, `#/glossary`, `#/kit`),
-  `store.js` (what the phone remembers, one `localStorage` entry).
-- `content/` What the app teaches, kept out of the code so lessons change without
-  touching it: `paths.json` (the order), `lessons/<id>.json` (cards, steps, each step
-  with `source` and `checked`), `glossary.json`, `kit/` (the starter-kit templates).
-- `tools/check-content.mjs` Fails on a step with no source or checked date, a term
-  with no glossary entry, or a real-project link to a file that doesn't exist.
-- `assets/` `icons/`, `images/`, `fonts/` as `docs/assets.md` section 12 says.
+Search for these markers:
+
+- `:root{` The color, font and wood variables, then the dark versions
+  (`prefers-color-scheme: dark` and `[data-theme="dark"]`).
+- `/* ============ LIBRARY (home) ============ */` The wall, shelves and spines.
+- `/* ============ READER (one book open) ============ */` An open book.
+- `id="intro"` The opening (once per visit, skipped on a link straight to a book).
+- `id="libraryView"` The heading, the library card (`#borrower`, `#readCount`,
+  `#resetBtn`) and `#case`, where the script builds the shelves.
+- `id="readerView"` The reading bar and `<main id="main">`, which holds every lesson.
+- `<!-- ===================== START =====================` and the markers after it:
+  one `<section class="lesson" id="...">` per book, with `data-part` (its shelf group),
+  `data-title` and `data-min` (minutes). Ids in order: start, anatomy, stack, git,
+  forks, hosting, agent, toolkit, claudemd, audit, starter, request, vocab, workflow,
+  debug, library, project, quiz, then glossary and sources.
+- The `<script>` at the end, in parts marked by comments: storage (`KEY =
+  "bac-course-v1"`), `BOOK` (cloth colors, spine titles, heights), `ICON` (cover
+  drawings), numbering the books, building the shelves, each book's foot (previous,
+  mark as read, next), the library card, the opening, copy buttons, the quiz
+  (`renderQuiz`), the glossary.
+
+## What the browser stores
+
+One `localStorage` entry, `bac-course-v1`: the reader's name and which books are
+read. Nothing leaves the phone.

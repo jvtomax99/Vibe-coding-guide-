@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Apps With Claude</title>
+<meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
+<meta property="og:title" content="Building Apps With Claude">
+<meta property="og:description" content="A reading room for builders: 18 short books on building apps with Claude.">
+<meta name="theme-color" content="#B0142F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Instrument+Sans:wght@400;500;600;700&family=Pinyon+Script&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a reading room. Shelves of cloth-bound books on a cream wall (one shelf per part, one book per lesson).
+   Tap a spine and the book opens: a cover in its own cloth color, then a paper page to read. */
+:root{
+  --wall:#F4ECDF; --wall-2:#E9DCC7; --paper:#FFFCF6; --ink:#1F1613; --muted:#7B6A5D; --line:#E6D8C3;
+  --crimson:#B0142F; --crimson-soft:#F7E4E2; --caramel:#9A6A33; --caramel-soft:#F4E8D4; --gold:#C9A25B;
+  --ink-soft:#EFE6DA; --wood-hi:#9A6A43; --wood:#6B4329; --wood-lo:#3E2617;
+  --stripe:rgba(120,90,60,.035); --spot:rgba(255,250,240,.9);
+  --code-bg:#241A16; --code-ink:#F3E9DC;
+  --display:"Bodoni Moda","Bodoni 72","Didot",Georgia,serif;
+  --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --script:"Pinyon Script","Snell Roundhand","Apple Chancery",cursive;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --wall:#1A1219; --wall-2:#0D090C; --paper:#231A20; --ink:#F3E9DC; --muted:#B3A196; --line:#3A2D33;
+    --crimson:#E35A70; --crimson-soft:#3A1A21; --caramel:#D9B26F; --caramel-soft:#33281B; --gold:#C9A25B;
+    --ink-soft:#2C2228; --wood-hi:#8A6440; --wood:#3A2A22; --wood-lo:#140E0B;
+    --stripe:rgba(255,255,255,.018); --spot:rgba(255,196,130,.13);
+    --code-bg:#120D10; --code-ink:#EADFD2; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --wall:#1A1219; --wall-2:#0D090C; --paper:#231A20; --ink:#F3E9DC; --muted:#B3A196; --line:#3A2D33;
+  --crimson:#E35A70; --crimson-soft:#3A1A21; --caramel:#D9B26F; --caramel-soft:#33281B; --gold:#C9A25B;
+  --ink-soft:#2C2228; --wood-hi:#8A6440; --wood:#3A2A22; --wood-lo:#140E0B;
+  --stripe:rgba(255,255,255,.018); --spot:rgba(255,196,130,.13);
+  --code-bg:#120D10; --code-ink:#EADFD2; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  color:var(--ink);font-family:var(--body);font-size:17.5px;line-height:1.62;-webkit-text-size-adjust:100%;
+  background:
+    radial-gradient(70% 420px at 50% 0, var(--spot), transparent 70%),
+    repeating-linear-gradient(90deg, var(--stripe) 0 2px, transparent 2px 30px),
+    linear-gradient(var(--wall), var(--wall-2));
+  background-color:var(--wall-2);
+}
+a{color:var(--crimson);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+[hidden]{display:none!important}
+
+/* ============ LIBRARY (home) ============ */
+.library{max-width:1180px;margin:0 auto;padding:40px clamp(16px,4vw,48px) 70px}
+.lib-head{display:grid;grid-template-columns:1fr minmax(260px,340px);gap:36px;align-items:end;margin-bottom:46px}
+.lib-script{font-family:var(--script);font-size:34px;color:var(--crimson);line-height:1;margin:0 0 4px}
+.lib-title{font-family:var(--display);font-weight:500;font-size:clamp(40px,6vw,66px);line-height:1;letter-spacing:-.015em;margin:0;text-wrap:balance;font-variation-settings:"opsz" 96}
+.lib-title em{font-style:italic;color:var(--crimson)}
+.lib-intro{max-width:56ch;color:var(--muted);font-size:18px;margin:16px 0 0}
+.card-lib{background:var(--paper);border-radius:4px;box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 18px 30px -18px rgba(60,35,20,.45);overflow:hidden;transform:rotate(.6deg)}
+.card-lib .top{background:var(--crimson);color:#FFF4EC;font-weight:700;font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;padding:9px 16px}
+.card-lib .lines{padding:12px 16px 16px;background:repeating-linear-gradient(transparent 0 31px, var(--line) 31px 32px)}
+.card-lib .row2{display:flex;justify-content:space-between;align-items:baseline;line-height:32px;font-size:14.5px}
+.card-lib .row2 b{font-family:var(--display);font-size:22px;font-weight:600}
+.meter{height:6px;border-radius:6px;background:var(--ink-soft);margin:8px 0 14px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--crimson);transition:width .4s}
+.cont{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 12px;background:var(--wall)}
+.cont:hover{border-color:var(--crimson)}
+.cont .mini{flex:none;width:12px;height:38px;border-radius:2px;background:var(--c,#6B4329);box-shadow:inset -2px 0 0 rgba(0,0,0,.2)}
+.cont small{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.cont span{font-family:var(--display);font-size:17px;font-weight:600;line-height:1.2}
+.card-lib .stamp{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.45}
+.card-lib .stamp button{font:inherit;color:var(--muted);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+
+.case{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,430px),1fr));gap:58px 52px}
+.shelf{min-width:0}
+.shelf-row{display:flex;align-items:flex-end;gap:4px;padding:46px 16px 0;min-height:300px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-behavior:smooth}
+.shelf-row::-webkit-scrollbar{display:none}
+.plank{height:34px;position:relative;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(var(--wood-hi) 0 3px, var(--wood) 3px 62%, var(--wood-lo)), var(--wood);
+  box-shadow:0 2px 0 rgba(255,255,255,.22) inset, 0 22px 28px -12px rgba(60,35,20,.5);border-radius:1px}
+.plank::after{content:"";position:absolute;inset:3px 0 0;pointer-events:none;
+  background:repeating-linear-gradient(90deg, rgba(0,0,0,.06) 0 2px, transparent 2px 90px, rgba(255,255,255,.05) 90px 92px, transparent 92px 170px)}
+.plaque{position:relative;z-index:1;font-family:var(--display);font-size:12.5px;font-weight:600;letter-spacing:.08em;color:#3A2410;
+  background:linear-gradient(#E8CC92,#C79A5C 55%,#B48447);padding:3px 14px 4px;border-radius:2px;
+  box-shadow:0 1px 0 rgba(255,255,255,.55) inset, 0 -1px 0 rgba(0,0,0,.25) inset, 0 2px 4px rgba(0,0,0,.35);white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis}
+
+
+/* Books: 3D, they turn to show the cover when taken off the shelf */
+.slot{
+  --H:clamp(226px, 58vw, 252px);
+  --bh:calc(var(--H) * var(--r,1)); --d:calc(var(--bh) * .68);
+  position:relative;flex:0 0 auto;width:var(--t,62px);height:var(--bh);perspective:1400px;
+  transition:width .8s cubic-bezier(.2,.75,.2,1);text-decoration:none;color:inherit;outline:none;cursor:pointer;
+}
+.slot.sel{width:calc(var(--d) + var(--t,62px) * .2 + 34px);z-index:5}
+.slot::after{content:"";position:absolute;left:-4px;right:-4px;bottom:-5px;height:10px;background:radial-gradient(closest-side, rgba(40,20,10,.45), transparent);pointer-events:none}
+.slot:focus-visible .spine,.slot:focus-visible .fcover{outline:2px solid var(--gold);outline-offset:5px}
+.book{
+  --ly:0px;--lz:calc(var(--d) * -.5);--ry:0deg;
+  position:absolute;left:50%;bottom:0;width:var(--t,62px);height:var(--bh);transform-style:preserve-3d;
+  transform:translateX(-50%) translateY(var(--ly)) translateZ(var(--lz)) rotateY(var(--ry));
+  transition:transform .85s cubic-bezier(.2,.75,.2,1);
+}
+.slot:hover .book{--ly:-10px}
+.slot.sel .book{--ly:-16px;--lz:calc(var(--t,62px) * -.5 + 40px);--ry:-80deg}
+.face{position:absolute;top:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.spine{
+  left:0;width:var(--t,62px);height:var(--bh);transform:translateZ(calc(var(--d) * .5));
+  display:flex;flex-direction:column;align-items:center;
+  background:var(--c);color:var(--acc,#E7D6B4);border-radius:3px 3px 1px 1px;padding:12px 0;
+  box-shadow:3px 0 0 rgba(0,0,0,.12);
+}
+.spine::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(90deg, rgba(0,0,0,.42) 0%, rgba(255,255,255,.14) 20%, rgba(255,255,255,.04) 46%, rgba(0,0,0,.06) 72%, rgba(0,0,0,.42) 100%),
+             repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 3px)}
+.sp-band{width:72%;height:5px;border-top:1px solid currentColor;border-bottom:1px solid currentColor;opacity:.75;flex:none}
+.sp-num{flex:none;margin:9px 0 8px;width:28px;height:28px;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:13.5px;font-variant-numeric:lining-nums}
+.sp-title{flex:1;min-height:0;writing-mode:vertical-rl;font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.15;letter-spacing:.02em;text-align:center;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:4px 0}
+.sp-min{flex:none;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.8;margin:8px 0}
+.spine.paper{color:#2A1A14}
+.spine.paper::before{background:linear-gradient(90deg, rgba(60,40,30,.28) 0%, rgba(255,255,255,.5) 22%, rgba(255,255,255,.1) 50%, rgba(60,40,30,.06) 74%, rgba(60,40,30,.3) 100%)}
+.spine.paper .sp-band{color:#B0142F}
+.slot.read .spine::after{content:"";position:absolute;top:-12px;right:20%;width:10px;height:42px;background:#B0142F;clip-path:polygon(0 0,100% 0,100% 100%,50% 84%,0 100%)}
+.slot.next .spine{box-shadow:3px 0 0 rgba(0,0,0,.12), 0 0 0 2px var(--gold), 0 0 22px rgba(201,162,91,.55)}
+.fcover{
+  width:var(--d);height:var(--bh);left:calc((var(--t,62px) - var(--d)) / 2);
+  transform:rotateY(90deg) translateZ(calc(var(--t,62px) * .5));
+  background:var(--c);color:var(--acc,#E7D6B4);overflow:hidden;border-radius:1px 3px 3px 1px;container-type:size;
+  box-shadow:0 18px 40px -16px rgba(40,20,10,.6);pointer-events:none;visibility:hidden;transition:visibility 0s .85s;
+}
+.slot.sel .fcover{pointer-events:auto;visibility:visible;transition:visibility 0s 0s}
+.fcover::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg, rgba(0,0,0,.34), rgba(255,255,255,.14) 2.4%, transparent 6%, transparent 95%, rgba(0,0,0,.14)),
+             radial-gradient(80% 60% at 40% 20%, rgba(255,255,255,.12), transparent 70%),
+             repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 3px)}
+.cv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:11cqh 10cqw 8cqh}
+.cv::before{content:"";position:absolute;inset:4.5cqw;border:1px solid currentColor;opacity:.5}
+.cv-k{position:relative;font:600 4.4cqw/1.3 var(--body);letter-spacing:.26em;text-transform:uppercase;opacity:.9}
+.cv-ic{position:relative;width:30cqw;height:30cqw;margin:auto 0 0}
+.cv-ic svg,.cover-ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cv-t{position:relative;margin-top:6cqh;font:500 11.5cqw/1.02 var(--display);letter-spacing:-.005em;text-wrap:balance}
+.cv-r{position:relative;width:14cqw;height:1px;background:currentColor;margin:5cqh 0 auto;opacity:.7}
+.cv-a{position:relative;font:400 7.4cqw/1.1 var(--script)}
+.cv-open{position:absolute;right:7%;bottom:5%;z-index:2;font:700 4cqw/1 var(--body);letter-spacing:.2em;text-transform:uppercase;padding:3cqw 4.4cqw;border-radius:99px;background:rgba(255,250,240,.94);color:#1F1613;opacity:0;transition:opacity .4s .5s}
+.slot.sel .cv-open{opacity:1}
+.fcover.paper{background:#F2EEE8;color:#2A1A14}
+.fcover.paper .cv::before{border-color:#B0142F}
+/* Caption under each shelf */
+.cap{margin:14px 16px 0;min-height:48px}
+.cap .note{font-size:14px;color:var(--muted);line-height:1.45;margin:0}
+.cap .sel-in{display:none}
+.cap.on .note{display:none}
+.cap.on .sel-in{display:block;animation:capin .4s ease both}
+@keyframes capin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.cap small{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.cap h3{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.15;margin:4px 0 4px}
+.cap p{margin:0 0 10px;font-size:15px;color:var(--muted);line-height:1.45;max-width:52ch}
+.cap .acts{display:flex;gap:10px;flex-wrap:wrap}
+.cap .acts a,.cap .acts button{font:600 14px/1 var(--body);border-radius:4px;padding:10px 14px;cursor:pointer;text-decoration:none;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.cap .acts a{background:var(--crimson);border-color:var(--crimson);color:#FFF4EC}
+/* Props */
+.prop{flex:0 0 auto;position:relative;align-self:flex-end}
+.prop.plant{width:64px;height:120px}
+.prop.plant .pot{position:absolute;left:12px;right:12px;bottom:0;height:40px;background:linear-gradient(90deg,#8E4A2E,#B8673F 40%,#9A5233);clip-path:polygon(0 0,100% 0,86% 100%,14% 100%);border-radius:2px}
+.prop.plant .pot::before{content:"";position:absolute;left:-4px;right:-4px;top:0;height:8px;background:#A85B37}
+.prop.plant i{position:absolute;bottom:36px;left:50%;width:16px;height:52px;margin-left:-8px;border-radius:50% 50% 50% 50%/70% 70% 30% 30%;background:linear-gradient(#5F8A55,#3E6A3A);transform-origin:50% 100%}
+.prop.plant i:nth-child(2){transform:rotate(-32deg);height:46px;background:linear-gradient(#6E9A61,#3E6A3A)}
+.prop.plant i:nth-child(3){transform:rotate(30deg);height:48px}
+.prop.plant i:nth-child(4){transform:rotate(-62deg);height:34px;background:linear-gradient(#7FA86F,#46723F)}
+.prop.plant i:nth-child(5){transform:rotate(60deg);height:36px}
+.prop.stack{width:96px;height:58px;display:flex;flex-direction:column-reverse;align-items:center}
+.flat{display:block;height:18px;width:var(--fw,90px);background:var(--fc);border-radius:1px 3px 3px 1px;margin-top:1px;position:relative;
+  box-shadow:inset 0 -2px 0 rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.25)}
+.flat::before{content:"";position:absolute;right:0;top:3px;bottom:3px;width:7px;background:repeating-linear-gradient(#FBF6EC 0 1px,#E8DDCB 1px 2px);border-radius:0 2px 2px 0}
+.flat::after{content:"";position:absolute;left:14%;right:24%;top:8px;height:2px;background:var(--gold);opacity:.8}
+.flat:nth-child(2){transform:translateX(-5px) rotate(-1deg)}
+.prop.bookend{width:26px;height:150px;background:linear-gradient(90deg,#2A1D17,#4A372C 50%,#2A1D17);border-radius:3px 3px 0 0;box-shadow:inset 0 0 0 1px rgba(201,162,91,.5)}
+.prop.bookend::after{content:"";position:absolute;left:-14px;right:-4px;bottom:0;height:8px;background:#2A1D17;border-radius:2px}
+.prop.candle{width:46px;height:110px}
+.prop.candle .wax{position:absolute;left:8px;right:8px;bottom:0;height:62px;border-radius:3px 3px 6px 6px;background:linear-gradient(90deg,#E9DCC7,#FBF5EA 40%,#E3D4BC)}
+.prop.candle .wax::after{content:"";position:absolute;left:50%;top:-8px;width:2px;height:9px;background:#2a201c;margin-left:-1px}
+.prop.candle .flame{position:absolute;left:50%;bottom:66px;width:12px;height:24px;margin-left:-6px;border-radius:50% 50% 45% 45%/62% 62% 38% 38%;
+  background:radial-gradient(50% 70% at 50% 72%, #fff 0 18%, #FFE29A 30%, #FFB347 58%, rgba(255,120,40,0) 75%);transform-origin:50% 90%;animation:flick 2.6s ease-in-out infinite}
+.prop.candle .glow{position:absolute;left:50%;bottom:50px;width:150px;height:150px;transform:translate(-50%,50%);background:radial-gradient(closest-side, rgba(255,196,120,.32), transparent);pointer-events:none}
+@keyframes flick{0%,100%{transform:scale(1,1) rotate(0)}25%{transform:scale(.92,1.06) rotate(-3deg)}50%{transform:scale(1.04,.95) rotate(2deg)}75%{transform:scale(.96,1.08) rotate(-1deg)}}
+.prop.frame{width:78px;height:96px;margin:0 6px 0 4px}
+.prop.frame .fr{position:absolute;inset:0;padding:7px;background:linear-gradient(135deg,#1C1716,#0E0B0B);border-radius:2px;box-shadow:inset 0 0 0 1px #C9A25B, 0 14px 24px -12px rgba(40,20,10,.6);transform:rotate(-2.5deg);transform-origin:50% 100%}
+.prop.frame .mat{position:absolute;inset:7px;background:#F7F1E6;display:grid;place-items:center;text-align:center;padding:6px}
+.prop.frame .mat span{font:400 15px/1 var(--script);color:#B0142F}
+.prop.frame .mat em{display:block;font:600 7px/1.2 var(--body);letter-spacing:.2em;text-transform:uppercase;color:#7B6A5D;font-style:normal;margin-top:4px}
+.borrow{font:400 26px/1 var(--script);color:var(--ink);background:transparent;border:0;border-bottom:1px dashed transparent;text-align:right;width:62%;padding:0;outline:none}
+.borrow:focus{border-bottom-color:var(--crimson)}
+.borrow::placeholder{color:var(--muted);opacity:.8}
+.cover-ic{position:absolute;right:0;top:50%;width:min(220px,34vw);height:min(220px,34vw);transform:translateY(-50%);opacity:.16;pointer-events:none}
+@media (max-width:760px){.cover-ic{opacity:.1;right:-20px}}
+/* Opening: a cloth-bound book on a desk opens into the library */
+.intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;
+  background:radial-gradient(60% 50% at 50% 38%, rgba(255,190,120,.28), transparent 70%), radial-gradient(120% 90% at 50% 120%, #140C08, transparent 60%), linear-gradient(#2A1A12,#120A07);
+  transition:opacity .9s ease, visibility .9s}
+.intro.gone{opacity:0;visibility:hidden}
+.intro .desk{position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(#5B3A24,#3A2416 40%,#22140C);box-shadow:0 -1px 0 rgba(255,220,170,.25)}
+.intro .desk::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg, rgba(0,0,0,.08) 0 2px, transparent 2px 120px, rgba(255,255,255,.04) 120px 122px, transparent 122px 230px)}
+.ib-wrap{position:relative;z-index:2;perspective:1600px;display:flex;flex-direction:column;align-items:center;gap:22px;margin-top:-4vh}
+.ib{position:relative;width:min(300px,68vw);aspect-ratio:2/3;transform-style:preserve-3d;transform:rotateX(8deg)}
+.ib .pg{position:absolute;inset:0 0 0 2%;background:#FBF6EC;border-radius:2px 4px 4px 2px;box-shadow:0 30px 50px -18px rgba(0,0,0,.7), inset -8px 0 14px -10px rgba(60,35,20,.35);display:flex;flex-direction:column;justify-content:center;padding:12%;color:#1F1613}
+.ib .pg p{margin:0}
+.ib .pg .s{font:400 26px/1 var(--script);color:#B0142F}
+.ib .pg .t{font:500 22px/1.2 var(--display);margin:10px 0 8px}
+.ib .pg .b{font:400 13px/1.5 var(--body);color:#7B6A5D}
+.ib .cvr{position:absolute;inset:0;transform-origin:0 50%;transition:transform 1.6s cubic-bezier(.6,.05,.2,1);transform-style:preserve-3d}
+.ib .cvr .fr,.ib .cvr .bk{position:absolute;inset:0;border-radius:2px 5px 5px 2px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.ib .cvr .fr{background:#8E1027;color:#E8C88A;display:flex;flex-direction:column;align-items:center;text-align:center;padding:16% 10% 12%;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.8), inset 6px 0 0 rgba(0,0,0,.25)}
+.ib .cvr .fr::before{content:"";position:absolute;inset:5%;border:1px solid currentColor;opacity:.6}
+.ib .cvr .fr::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(90deg, rgba(0,0,0,.35), rgba(255,255,255,.12) 3%, transparent 8%), radial-gradient(70% 50% at 40% 25%, rgba(255,255,255,.16), transparent 70%), repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 3px)}
+.ib .cvr .bk{background:#6E0C1E;transform:rotateY(180deg)}
+.ib .k{font:600 10px/1.3 var(--body);letter-spacing:.3em;text-transform:uppercase}
+.ib .ic{width:34%;aspect-ratio:1;margin:auto 0 0}
+.ib .ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ib .tt{font:500 clamp(26px,7.2vw,36px)/1.02 var(--display);margin-top:8%}
+.ib .tt em{font-style:italic}
+.ib .ru{width:22%;height:1px;background:currentColor;margin:7% 0 auto;opacity:.7}
+.ib .au{font:400 clamp(18px,5vw,24px)/1 var(--script)}
+.intro.open .ib .cvr{transform:rotateY(-158deg)}
+.intro-btns{display:flex;gap:10px}
+.intro-btns button{font:600 14px/1 var(--body);letter-spacing:.06em;border-radius:99px;padding:12px 20px;cursor:pointer;border:1px solid rgba(232,200,138,.6);background:rgba(232,200,138,.12);color:#F3E6D2}
+.intro-btns button.pri{background:#E8C88A;color:#2A1A12;border-color:#E8C88A}
+.intro .glow{position:absolute;left:50%;top:36%;width:70vmin;height:70vmin;transform:translate(-50%,-50%);background:radial-gradient(closest-side, rgba(255,196,120,.25), transparent);animation:glow 3.4s ease-in-out infinite;pointer-events:none}
+@keyframes glow{0%,100%{opacity:.9}50%{opacity:.65}}
+@media (prefers-reduced-motion: reduce){.ib .cvr{transition:none}.intro .glow{animation:none}.slot,.book{transition:none}}
+.lib-foot{margin-top:56px;font-size:13.5px;color:var(--muted);text-align:center}
+
+/* ============ READER (one book open) ============ */
+.reader{min-height:100vh;padding-bottom:64px}
+.readbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:10px clamp(12px,3vw,28px);
+  background:linear-gradient(var(--wood-hi) 0 2px, var(--wood) 2px 70%, var(--wood-lo));color:#F6EAD8;box-shadow:0 8px 18px -10px rgba(0,0,0,.5)}
+.readbar a,.readbar button{font:600 14px/1 var(--body);color:#2E1B0E;background:linear-gradient(#E8CC92,#C79A5C);border:0;border-radius:4px;padding:9px 12px;text-decoration:none;cursor:pointer;white-space:nowrap;box-shadow:0 1px 0 rgba(255,255,255,.5) inset}
+.readbar .rt{flex:1;min-width:0;font-family:var(--display);font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.readbar .rp{font-size:13px;opacity:.85;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lesson{display:none;scroll-margin-top:90px}
+.lesson.on{display:block;animation:open .45s cubic-bezier(.2,.75,.2,1) both}
+@keyframes open{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.lesson.on{animation:none}.spine{transition:none}.prop.candle .flame{animation:none}.meter i{transition:none}}
+.cover{position:relative;color:var(--acc,#F3E6D2);background:var(--c);padding:54px clamp(20px,6vw,72px) 92px;overflow:hidden}
+.cover::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(90% 70% at 30% 0, rgba(255,255,255,.12), transparent 60%), repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 3px)}
+.cover::after{content:"";position:absolute;inset:14px;border:1px solid currentColor;opacity:.3;pointer-events:none}
+.cover-in{position:relative;max-width:820px;margin:0 auto}
+.lesson .eyebrow{font-size:12px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;opacity:.85;display:flex;flex-wrap:wrap;gap:6px 18px}
+.lesson h2{font-family:var(--display);font-weight:500;font-size:clamp(34px,5.2vw,56px);line-height:1.04;letter-spacing:-.01em;margin:14px 0 14px;text-wrap:balance;font-variation-settings:"opsz" 96;color:inherit}
+.cover .lede{font-size:19px;line-height:1.55;max-width:60ch;margin:0;opacity:.92}
+.cover .rule{width:70px;height:1px;background:currentColor;opacity:.6;margin:22px 0 0}
+.page{position:relative;max-width:860px;margin:-58px auto 0;background:var(--paper);border-radius:3px;
+  padding:44px clamp(20px,5.5vw,64px) 40px;box-shadow:0 30px 50px -30px rgba(40,20,10,.5), 0 1px 0 rgba(255,255,255,.4) inset}
+.page::before{content:"";position:absolute;left:0;top:0;bottom:0;width:26px;pointer-events:none;background:linear-gradient(90deg, rgba(60,35,20,.12), transparent)}
+.reader-space{height:60px}
+.learn{background:var(--wall);border-radius:4px;padding:16px 20px;margin:0 0 30px;border-left:3px solid var(--c,var(--crimson))}
+.learn b{display:block;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.learn ul{margin:0;padding-left:20px}
+.page h3{font-family:var(--display);font-weight:600;font-size:27px;line-height:1.18;margin:42px 0 10px;text-wrap:balance}
+.page h3::before{content:"";display:block;width:34px;height:2px;background:var(--c,var(--crimson));margin-bottom:14px;opacity:.85}
+.page h4{font-family:var(--display);font-weight:600;font-size:20px;margin:26px 0 6px}
+.page p,.page li{max-width:68ch}
+.page ul,.page ol{padding-left:24px}
+.page li{margin:5px 0}
+code{font-family:var(--mono);font-size:.82em;background:var(--ink-soft);padding:1px 6px;border-radius:4px;word-break:break-word}
+/* Callouts */
+.call{border-radius:4px;padding:16px 20px 16px 22px;margin:26px 0;background:var(--wall);position:relative;border-left:3px solid var(--ink)}
+.call .tag{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:4px}
+.call p:first-of-type{margin-top:0}
+.call p:last-child,.call ul:last-child,.call ol:last-child{margin-bottom:0}
+.call.straight{background:var(--crimson-soft);border-left-color:var(--crimson)} .call.straight .tag{color:var(--crimson)}
+.call.straight .tag::before{content:"\201C";font-family:var(--display);font-size:22px;line-height:0;margin-right:6px;vertical-align:-6px}
+.call.try{background:var(--caramel-soft);border-left-color:var(--caramel)} .call.try .tag{color:var(--caramel)}
+/* Code and prompts */
+.code{position:relative;margin:18px 0 22px}
+.code .label{font-size:12.5px;font-weight:600;color:#D8C8B4;background:var(--code-bg);border-radius:6px 6px 0 0;padding:8px 10px 8px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.code pre{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:0 0 6px 6px;padding:14px 18px 16px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.6;white-space:pre}
+.code.prompt .label{background:transparent;color:var(--muted);padding:0 0 6px;border:0;letter-spacing:.14em;text-transform:uppercase;font-size:11.5px}
+.code.prompt pre{white-space:pre-wrap;font-family:var(--body);font-size:16px;line-height:1.55;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-left:3px solid var(--crimson);border-radius:4px;
+  background-image:repeating-linear-gradient(transparent 0 24.4px, rgba(176,20,47,.06) 24.4px 25.4px);background-position:0 15px}
+.copy{font:600 12.5px/1 var(--body);border:1px solid rgba(201,162,91,.6);background:transparent;color:var(--gold);border-radius:4px;padding:6px 10px;cursor:pointer;letter-spacing:0;text-transform:none}
+.code.prompt .copy{color:var(--crimson);border-color:var(--line);background:var(--paper)}
+.copy:hover{border-color:var(--crimson)}
+/* Tables */
+.tablewrap{overflow-x:auto;margin:18px 0 26px;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.45}
+th,td{text-align:left;vertical-align:top;padding:11px 12px;border-bottom:1px solid var(--line)}
+th{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}
+tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even) td, table tr:nth-child(even) td{background:color-mix(in srgb, var(--wall) 45%, transparent)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bad{color:var(--crimson)} .good{color:var(--ink)}
+td.good{font-weight:500}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px;white-space:nowrap}
+.pill.ok{background:#E3EEE3;color:#2F5A35}
+.pill.warn{background:var(--caramel-soft);color:var(--caramel)}
+.pill.over{background:var(--crimson-soft);color:var(--crimson)}
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:20px 0 26px}
+.card{background:var(--wall);border-radius:4px;padding:16px 18px;border-top:3px solid var(--c,var(--crimson))}
+.card h4{margin:0 0 6px;font-size:18px}
+.card p{margin:0;font-size:15.5px;line-height:1.5;color:var(--muted)}
+.card .k{font-family:var(--mono);font-size:12px;color:var(--crimson);margin-bottom:6px;display:block}
+/* Steps */
+.steps{counter-reset:s;list-style:none;padding:0!important;margin:20px 0}
+.steps>li{counter-increment:s;position:relative;padding:0 0 22px 58px;max-width:none!important;margin:0}
+.steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;background:var(--c,var(--ink));color:var(--acc,#F3E6D2);font-family:var(--display);font-weight:600;display:grid;place-items:center;font-size:18px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.15)}
+.steps>li::after{content:"";position:absolute;left:19px;top:46px;bottom:6px;width:1px;background:var(--line)}
+.steps>li:last-child::after{display:none}
+.steps>li>b{font-family:var(--display);font-size:20px;font-weight:600;display:block;margin:6px 0 4px}
+/* Diagrams */
+.figure{margin:22px 0 28px;background:var(--wall);border-radius:4px;padding:16px;overflow-x:auto}
+.figure svg{display:block;width:100%;min-width:560px;height:auto}
+.figure figcaption{font-size:13.5px;color:var(--muted);margin-top:8px;font-style:italic}
+.d-box{fill:var(--paper);stroke:var(--line);stroke-width:1.5}
+.d-box.hi{fill:var(--caramel-soft);stroke:var(--caramel)}
+.d-box.hot{fill:var(--crimson-soft);stroke:var(--crimson)}
+.d-box.ink{fill:var(--ink);stroke:var(--ink)}
+.d-t{font-family:var(--body);font-size:14px;fill:var(--ink);font-weight:600}
+.d-s{font-family:var(--body);font-size:11.5px;fill:var(--muted)}
+.d-inv{fill:var(--paper)}
+.d-line{stroke:var(--muted);stroke-width:1.5;fill:none}
+.d-arrow{fill:var(--muted)}
+/* Stats */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:20px 0 26px}
+.stat{background:var(--wall);border-radius:4px;padding:16px 18px}
+.big-num{font-family:var(--display);font-weight:600;font-size:42px;line-height:1;font-variant-numeric:lining-nums}
+.stat small{display:block;font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.4}
+.stat.hotline .big-num{color:var(--crimson)}
+.stat.okline .big-num{color:#2F7A45}
+/* Foot */
+.foot{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}
+.foot .nb{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);padding:10px 12px;border-radius:4px;border:1px solid var(--line);background:var(--wall);min-width:0}
+.foot .nb:hover{border-color:var(--crimson)}
+.foot .nb.nx{justify-content:flex-end;text-align:right}
+.foot .nb .mini{flex:none;width:12px;height:40px;border-radius:2px;background:var(--c);box-shadow:inset -2px 0 0 rgba(0,0,0,.2)}
+.foot .nb small{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.foot .nb span{font-family:var(--display);font-weight:600;font-size:16px;line-height:1.2;display:block}
+.btn{font:600 15px/1 var(--body);border-radius:4px;padding:12px 16px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:hover{border-color:var(--crimson)}
+.doneBtn{background:var(--crimson);border-color:var(--crimson);color:#FFF4EC}
+.doneBtn.isdone{background:var(--crimson-soft);color:var(--crimson)}
+/* Quiz */
+.q{background:var(--wall);border-radius:4px;padding:18px 20px;margin:16px 0}
+.q p.qt{font-family:var(--display);font-weight:600;font-size:19px;margin:0 0 10px;line-height:1.35}
+.q button.opt{display:block;width:100%;text-align:left;font:inherit;font-size:16px;line-height:1.4;padding:10px 14px;margin:6px 0;border-radius:4px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.q button.opt:hover{border-color:var(--crimson)}
+.q button.opt.right{border-color:#2F7A45;background:#E3EEE3;color:#1F3D25}
+.q button.opt.wrong{border-color:var(--crimson);background:var(--crimson-soft)}
+.q .why{display:none;margin-top:10px;font-size:16px}
+.q.answered .why{display:block}
+.score{font-family:var(--display);font-weight:600;font-size:20px}
+/* Glossary */
+.search{width:100%;font:inherit;font-size:16px;padding:12px 14px;border-radius:4px;border:1px solid var(--line);background:var(--wall);color:var(--ink);margin:6px 0 16px}
+dl.gloss{margin:0;columns:2 300px;column-gap:40px}
+dl.gloss div{padding:10px 0;border-bottom:1px solid var(--line);break-inside:avoid}
+dl.gloss dt{font-family:var(--display);font-weight:600;font-size:18px}
+dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
+
+@media (max-width: 760px){
+  body{font-size:17px}
+  .lib-head{grid-template-columns:1fr;gap:26px}
+  .card-lib{transform:none}
+  .case{gap:46px}
+  .shelf-row{padding:40px 10px 0;gap:3px;min-height:290px}
+  .sp-num{margin:7px 0 6px;width:24px;height:24px;font-size:12px}
+  .sp-min{font-size:9.5px;letter-spacing:.08em}
+  .slot{--t:clamp(46px,13.2vw,62px) !important}
+  .sp-title{font-size:13.5px}
+  .prop.plant{width:52px}.prop.stack{width:78px}.flat{--fw:70px !important}
+  .cover{padding:40px 22px 80px}
+  .page{margin:-50px 10px 0;padding:30px 18px 30px}
+  .foot{grid-template-columns:1fr 1fr}
+  .foot .mid{grid-column:1 / -1;order:-1}
+  .readbar .rp{display:none}
+}
+</style>
+</head>
+<body>
+<div class="intro" id="intro" hidden>
+  <div class="glow"></div><div class="desk"></div>
+  <div class="ib-wrap">
+    <div class="ib" id="introBook">
+      <div class="pg"><p class="s">Welcome in.</p><p class="t">Take a book from the shelf and start where you like.</p><p class="b">18 short books, about four hours in all.</p></div>
+      <div class="cvr">
+        <div class="fr"><span class="k">A course in 18 books</span><span class="ic"><svg viewBox="0 0 64 64"><path d="M8 18c8-4 16-4 24 2 8-6 16-6 24-2v30c-8-4-16-4-24 2-8-6-16-6-24-2z"/><path d="M32 20v30"/><path d="M14 26c4-1 8-1 12 1M38 27c4-2 8-2 12-1"/></svg></span><span class="tt">Building Apps <em>with</em> Claude</span><span class="ru"></span><span class="au">a reading room for builders</span></div>
+        <div class="bk"></div>
+      </div>
+    </div>
+    <div class="intro-btns"><button type="button" class="pri" id="introOpen">Open the library</button><button type="button" id="introSkip">Skip</button></div>
+  </div>
+</div>
+<div class="library" id="libraryView">
+  <header class="lib-head">
+    <div>
+      <p class="lib-script">a reading room for builders</p>
+      <h1 class="lib-title">Building Apps <em>with</em> Claude</h1>
+      <p class="lib-intro">A small library for people who build real apps with Claude without a developer background. How apps are put together, how Claude Code works, and how to ask for exactly what you mean. One shelf per part, one book per lesson.</p>
+    </div>
+    <aside class="card-lib" aria-label="Your library card">
+      <div class="top">Library card</div>
+      <div class="lines">
+        <div class="row2"><label for="borrower">Borrower</label><input id="borrower" class="borrow" type="text" placeholder="your name" maxlength="28" autocomplete="off"></div>
+        <div class="row2"><span>Books read</span><b id="readCount">0 of 0</b></div>
+        <div class="meter"><i id="readBar"></i></div>
+        <a class="cont" id="contLink" href="#start"><i class="mini"></i><div><small id="contLabel">Start reading</small><span id="contTitle">Start here</span></div></a>
+        <div class="stamp">Shelved November 2026 from Anthropic's and GitHub's documentation. <button type="button" id="resetBtn">Return all books</button></div>
+      </div>
+    </aside>
+  </header>
+  <div class="case" id="case"></div>
+  <p class="lib-foot">Tap a spine to take a book off the shelf, tap again to open it. A crimson bookmark means you've read it.</p>
+</div>
+
+<div class="reader" id="readerView" hidden>
+  <div class="readbar">
+    <a href="#shelves" id="backBtn">Back to the shelves</a>
+    <div class="rt" id="readTitle"></div>
+    <div class="rp" id="readProg"></div>
+  </div>
+  <main id="main">
+
+<!-- ===================== START ===================== -->
+<section class="lesson" id="start" data-part="Start here" data-title="Start here" data-min="10">
+  <div class="eyebrow"></div>
+  <h2>Start here</h2>
+  <p class="lede">This library is for people who build real apps with Claude without a developer background. It teaches how those apps are put together, and how to talk to Claude so it builds them well the first time.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>Who this library is for and what you'll be able to do after it</li>
+    <li>The five example apps used throughout</li>
+    <li>The one belief this library will try to change</li>
+  </ul></div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="big-num">18</div><small>short books on five shelves, about four hours in all</small></div>
+    <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
+    <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
+    <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
+  </div>
+
+  <h3>Who this is for</h3>
+  <p>You've built something with Claude, or you want to. You can describe what you want, but you can't read the code that comes back. Some sessions go beautifully. Others go sideways: Claude builds the wrong thing, says it's done when it isn't, or forgets a rule you gave it yesterday.</p>
+  <p>Almost every one of those failures comes from the same two gaps: Claude was missing something it couldn't see, or it had no way to check its own work. This library closes both gaps. By the end you'll know the names of the pieces, where each one lives, and the exact words that get Claude to build what you meant.</p>
+
+  <h3>The example apps</h3>
+  <p>Every book uses the same five made-up apps, each typical of what non-developers build with Claude:</p>
+  <div class="cards">
+    <div class="card"><span class="k">small files, no build step</span><h4>FlashDeck</h4><p>A phone study app with spaced repetition. Progress is saved on the phone. Hosted free on GitHub Pages. The best-organized of the five.</p></div>
+    <div class="card"><span class="k">built into one file</span><h4>ExamTown</h4><p>A study game with a 3D town that grows as you learn. Small source files are assembled into one big page by a script.</p></div>
+    <div class="card"><span class="k">front end plus a back end</span><h4>TeamDesk</h4><p>A tool for a 40-person team at work. One 18,000-line page, plus server code on Vercel that calls the Claude API and a shared Firebase database.</p></div>
+    <div class="card"><span class="k">one big file</span><h4>Corner Gym</h4><p>A website for a neighborhood gym, with class videos, a 3D hero scene and a Spanish version.</p></div>
+    <div class="card"><span class="k">a fork</span><h4>Pocket Pet</h4><p>A friend's virtual pet game that you've been asked to help improve. Lives in your copy of their repo.</p></div>
+  </div>
+
+  <h3>What you'll learn to use</h3>
+  <div class="cards">
+    <div class="card"><span class="k">SPEC.md</span><h4>A written spec</h4><p>What the app does, who it's for and how you'll know each feature is done. Anthropic recommends having Claude interview you to write it.</p></div>
+    <div class="card"><span class="k">CLAUDE.md</span><h4>Instructions for every session</h4><p>A short file of facts Claude can't learn from the code. Book 8 covers Anthropic's guidance in detail.</p></div>
+    <div class="card"><span class="k">.claude/rules/</span><h4>Rules for one part of the app</h4><p>Instructions that load only when Claude works on certain files.</p></div>
+    <div class="card"><span class="k">.claude/agents/</span><h4>Helpers and reviewers</h4><p>Cheap helpers for repetitive work, and a reviewer that never saw the code being written.</p></div>
+    <div class="card"><span class="k">hooks and permissions</span><h4>Hard limits</h4><p>The things that must always or never happen, enforced by Claude Code instead of requested in words.</p></div>
+    <div class="card"><span class="k">site check</span><h4>An automatic check</h4><p>A robot that opens every page on each change and fails on errors, so Claude can tell whether it's really done.</p></div>
+  </div>
+
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>The belief most builders hold, and most need to drop: <b>"more rules make Claude more reliable."</b> Each time something goes wrong, it's natural to add a rule. After a few months the instruction file is hundreds of lines long, some rules contradict each other, and Claude follows all of them a little less. Anthropic's docs say longer instruction files reduce how well Claude follows them. Book 9 shows how to cut a bloated file back down.</p>
+  </div>
+
+  <h3>How to use this library</h3>
+  <ol>
+    <li><b>One book at a time.</b> Tap a spine to take a book off the shelf, then tap it again to open it. Each book takes 10 to 20 minutes, and the shelves are in reading order.</li>
+    <li><b>Do the "Try it" box.</b> Each one is a real prompt to send Claude in one of your own projects. Reading teaches the words; trying teaches the judgment.</li>
+    <li><b>Mark it read.</b> A crimson bookmark appears on the spine. Progress is remembered in your browser.</li>
+    <li><b>Keep the Prompt library and Starter kit handy.</b> They're built to be copied into your notes and your next project.</li>
+  </ol>
+  <p>There are five shelves: how apps are put together (including forks and contributing to someone else's project), how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, and a full practice build. The bottom shelf holds the glossary and sources.</p>
+</section>
+
+<!-- ===================== SHELF 1 ===================== -->
+<section class="lesson" id="anatomy" data-part="1 · How your apps work" data-title="What a web app actually is" data-min="15">
+  <div class="eyebrow"></div>
+  <h2>What a web app actually is</h2>
+  <p class="lede">Most apps people build with Claude are web apps: files that a phone's browser downloads and runs. Once you can name the pieces, you can point Claude at exactly the right one.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>The three languages in every web app, and what each one is responsible for</li>
+    <li>Front end versus back end, and when you need a back end</li>
+    <li>The three places your data can live</li>
+  </ul></div>
+
+  <h3>Three languages, three jobs</h3>
+  <div class="cards">
+    <div class="card"><span class="k">.html</span><h4>HTML: what is on the screen</h4><p>The structure: headings, buttons, text, images. Think of it as the nouns. <code>index.html</code> is the page a browser opens first.</p></div>
+    <div class="card"><span class="k">.css</span><h4>CSS: how it looks</h4><p>Colors, fonts, spacing, layout, animation. In FlashDeck the whole look lives in <code>css/app.css</code>.</p></div>
+    <div class="card"><span class="k">.js</span><h4>JavaScript: what it does</h4><p>Behavior: what happens on tap, timers, saving progress, 3D scenes, talking to a server. The verbs.</p></div>
+  </div>
+  <p>A browser (Chrome, Safari) is the engine that reads these three and draws the app. FlashDeck's <code>index.html</code> is under 50 lines because it hands everything else to <code>css/app.css</code> and the files in <code>js/</code>. TeamDesk's is 18,000 lines because the HTML, CSS and JavaScript are all packed into one file.</p>
+
+  <h3>Front end and back end</h3>
+  <p><b>Front end</b> is code that runs on the user's phone, inside the browser. <b>Back end</b> is code that runs on a server you don't hold in your hand. Most beginner apps are front end only, which developers call a <b>static site</b>: a host hands the files to the phone as they are, and the phone does all the work.</p>
+  <p>TeamDesk needs more. It has an <code>api/</code> folder of back-end code running on Vercel's servers, because some jobs must never run on a phone:</p>
+  <ul>
+    <li><b>Secret keys.</b> <code>api/ask.js</code> and <code>api/translate.js</code> call the Claude API with a key that costs money per request. If that key were in the front end, anyone could copy it from their browser.</li>
+    <li><b>Sending to other people.</b> Push notifications and email.</li>
+    <li><b>Checking secrets.</b> Verifying a team sign-in code.</li>
+    <li><b>Running on a schedule.</b> A daily job, set up in <code>vercel.json</code>.</li>
+  </ul>
+
+  <figure class="figure">
+    <svg viewBox="0 0 760 300" role="img" aria-label="Diagram: static apps versus an app with a back end">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="d-arrow"/></marker></defs>
+      <text x="20" y="26" class="d-t">Static apps (FlashDeck, ExamTown, Corner Gym)</text>
+      <rect x="20" y="42" width="190" height="70" rx="12" class="d-box hi"/>
+      <text x="38" y="72" class="d-t">Phone browser</text><text x="38" y="92" class="d-s">runs HTML, CSS, JS</text>
+      <rect x="300" y="42" width="190" height="70" rx="12" class="d-box"/>
+      <text x="318" y="72" class="d-t">GitHub Pages</text><text x="318" y="92" class="d-s">hands over the files</text>
+      <rect x="560" y="42" width="180" height="70" rx="12" class="d-box"/>
+      <text x="578" y="72" class="d-t">localStorage</text><text x="578" y="92" class="d-s">progress, on the phone</text>
+      <path d="M300 77 L214 77" class="d-line" marker-end="url(#ar)"/>
+      <path d="M210 90 C 380 140, 470 140, 560 95" class="d-line" marker-end="url(#ar)"/>
+      <text x="20" y="176" class="d-t">TeamDesk (static front end plus a back end)</text>
+      <rect x="20" y="192" width="190" height="80" rx="12" class="d-box hi"/>
+      <text x="38" y="224" class="d-t">Phone browser</text><text x="38" y="244" class="d-s">index.html</text>
+      <rect x="290" y="192" width="200" height="80" rx="12" class="d-box hot"/>
+      <text x="306" y="222" class="d-t">Vercel functions</text><text x="306" y="242" class="d-s">api/ask.js, api/translate.js</text><text x="306" y="258" class="d-s">secret keys live here</text>
+      <rect x="560" y="186" width="180" height="44" rx="10" class="d-box"/>
+      <text x="576" y="213" class="d-t">Claude API</text>
+      <rect x="560" y="238" width="180" height="44" rx="10" class="d-box"/>
+      <text x="576" y="265" class="d-t">Firebase (Firestore)</text>
+      <path d="M210 222 L286 222" class="d-line" marker-end="url(#ar)"/>
+      <path d="M490 215 L556 208" class="d-line" marker-end="url(#ar)"/>
+      <path d="M210 256 C 330 300, 450 300, 556 262" class="d-line" marker-end="url(#ar)"/>
+    </svg>
+    <figcaption>Static apps need only a file host. An app with a back end adds server code for anything secret, shared or scheduled. The phone can also talk straight to the database, guarded by its security rules.</figcaption>
+  </figure>
+
+  <h3>Where data lives</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Place</th><th>Who can see it</th><th>Survives</th><th>Typical use</th></tr>
+    <tr><td><b>Files in the repo</b> (<code>data/questions.json</code>)</td><td>Everyone, if the repo is public</td><td>Forever, in Git history</td><td>Question banks, product lists, guides</td></tr>
+    <tr><td><b>localStorage</b> (the browser's small notebook)</td><td>Only that phone, only that browser</td><td>Until the user clears it or switches phones</td><td>Study progress, settings. Offer a backup file.</td></tr>
+    <tr><td><b>A database</b> (like Firestore)</td><td>Whoever its security rules allow</td><td>Until deleted, shared across phones</td><td>Team data, chat, anything people share</td></tr>
+  </table></div>
+
+  <h3>Why this matters when you talk to Claude</h3>
+  <p>Vague words make Claude guess which layer you mean. Naming the layer removes the guess:</p>
+  <div class="tablewrap"><table>
+    <tr><th>Instead of</th><th>Say</th></tr>
+    <tr><td class="bad">"The AI lookup is slow"</td><td class="good">"The term lookup is slow. Is the delay in the front end or in <code>api/lookup.js</code>? Measure both before changing anything."</td></tr>
+    <tr><td class="bad">"My progress disappeared"</td><td class="good">"Progress saved in localStorage on my iPhone is gone after today's update. Check whether the saved data shape changed."</td></tr>
+    <tr><td class="bad">"Make it look nicer"</td><td class="good">"Change only the CSS on the Drill screen. Don't touch the JavaScript."</td></tr>
+  </table></div>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <p>Open a Claude Code session on one of your projects and send:</p>
+    <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Explain this repo to me as if I can't read code. For each folder and top-level file, one line on what it does. Then tell me which parts run on the phone, which run on a server (if any), and where user data is stored. Don't change anything.</pre></div>
+    <p>Compare its answer with this book. Where they differ, ask why.</p>
+  </div>
+</section>
+
+<section class="lesson" id="stack" data-part="1 · How your apps work" data-title="The usual stack, decoded" data-min="20">
+  <div class="eyebrow"></div>
+  <h2>The usual stack, decoded</h2>
+  <p class="lede">"Stack" just means the set of tools an app is built with. Apps built with Claude tend to share the same dozen pieces. Here is each one in plain words, with the gotcha that comes with it.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>Twelve building blocks you'll meet again and again</li>
+    <li>The three ways small apps are organized, and which to pick</li>
+    <li>Why one giant file is the thing to avoid</li>
+  </ul></div>
+
+  <h3>The building blocks</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Piece</th><th>What it is</th><th>Where you'll see it</th><th>The gotcha</th></tr>
+    <tr><td><b>PWA</b></td><td>"Progressive web app": a website that installs to the Home Screen and works offline.</td><td><code>manifest.webmanifest</code> (name, icon) and <code>sw.js</code> (the offline worker)</td><td>The worker keeps old files. Change a cached file without bumping the cache version and installed phones keep the old app.</td></tr>
+    <tr><td><b>three.js</b></td><td>A JavaScript library that draws 3D in the browser using the phone's graphics chip (WebGL).</td><td>ExamTown's town, Corner Gym's hero, Pocket Pet's pet</td><td>3D is heavy on cheap phones. Always ask for a fallback when 3D fails to load.</td></tr>
+    <tr><td><b>.glb files</b></td><td>3D model files (shapes, textures, animations in one file).</td><td><code>assets/models/</code></td><td>Big files. Paid models can't go in a public repo.</td></tr>
+    <tr><td><b>Build step</b></td><td>A script that assembles source files into the file that ships.</td><td>ExamTown: <code>src/</code> becomes <code>index.html</code> via <code>tools/build.py</code></td><td>Never edit the built file by hand. The next build erases your change.</td></tr>
+    <tr><td><b>Node.js and npm</b></td><td>Node runs JavaScript outside a browser. npm installs packages. <code>package.json</code> lists them and names your commands.</td><td><code>npm run check</code>, test scripts</td><td>"npm install" downloads code from strangers. Ask Claude to check before adding a package.</td></tr>
+    <tr><td><b>Playwright</b></td><td>A robot browser: opens your page, clicks, takes screenshots, catches errors.</td><td>Site checks, screenshots at phone width</td><td>It's how Claude "sees" your app. Ask for screenshots at phone width.</td></tr>
+    <tr><td><b>GitHub Actions</b></td><td>Robots on GitHub that run checks when you open a pull request. This is called CI.</td><td><code>.github/workflows/site-check.yml</code></td><td>CI can break without you changing anything, when GitHub updates its machines. Pin versions.</td></tr>
+    <tr><td><b>GitHub Pages</b></td><td>Free hosting of a repo's files as a website.</td><td>FlashDeck, ExamTown, Corner Gym</td><td>Merging to <code>main</code> is going live. There are no previews.</td></tr>
+    <tr><td><b>Vercel</b></td><td>Hosting with server functions, secret settings and a preview link per branch.</td><td>TeamDesk</td><td>Previews can be switched off for some branches, so not every branch has a link.</td></tr>
+    <tr><td><b>Firebase</b></td><td>Google's back end: Firestore (database), Storage (files), Auth (sign-in).</td><td>TeamDesk: <code>firestore.rules</code>, <code>firebase.json</code></td><td>The rules file in your repo isn't live until it's deployed or pasted into the Firebase console.</td></tr>
+    <tr><td><b>Claude API</b></td><td>Calling Claude from your own code, paid per request.</td><td>TeamDesk's <code>api/ask.js</code></td><td>A loop or a busy team can run up a bill. Ask for usage limits.</td></tr>
+    <tr><td><b>Remotion</b></td><td>Making videos with code.</td><td>A <code>promo/</code> folder</td><td>Has its own <code>package.json</code>: a mini-project inside the repo.</td></tr>
+  </table></div>
+
+  <h3>Three ways small apps are organized</h3>
+  <div class="cards">
+    <div class="card"><span class="k">Corner Gym, TeamDesk</span><h4>A. One big file</h4><p>Everything in <code>index.html</code>. Fast to start. Gets harder with every feature: Claude has to search for the right section, and one change can break an unrelated one.</p></div>
+    <div class="card"><span class="k">ExamTown</span><h4>B. Split source, built into one file</h4><p>You edit small files in <code>src/</code>; a script glues them together. Good when one self-contained file is the deliverable. Adds a build rule to remember.</p></div>
+    <div class="card"><span class="k">FlashDeck</span><h4>C. Small files, no build</h4><p>One job per file: <code>store.js</code> saves, <code>srs.js</code> schedules reviews, <code>speak.js</code> reads aloud. Claude can change one piece safely and test it alone. <b>Use this for your next app.</b></p></div>
+  </div>
+  <p>Structure is something you request up front, in the spec. FlashDeck is well organized because its spec asked for small files and tests from day one. Adding structure to an 18,000-line file later is a project in itself.</p>
+
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>If one of your apps has grown into a single giant file, splitting it should come <b>before</b> the next big feature. Every session pays to search that file, and every edit risks breaking a section nobody was looking at.</p>
+    <p>The counter-argument: a split delivers nothing visible to users and can introduce bugs. That's real. Do it in small phases (one section per pull request), with the checks run after each.</p>
+  </div>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Prompt for a big single-file app</span><button class="copy" type="button">Copy</button></div><pre>Look at how index.html is organized (read its section comments, not the whole file). In plain words: how would you split it into separate files, in what order, one pull request per step? For each step, what could break and how would we check it? Don't change anything yet.</pre></div>
+  </div>
+</section>
+
+<section class="lesson" id="git" data-part="1 · How your apps work" data-title="Git and GitHub in plain English" data-min="15">
+  <div class="eyebrow"></div>
+  <h2>Git and GitHub in plain English</h2>
+  <p class="lede">Git is the save system for code. GitHub is where those saves live online. "Approve and go live" is the last step of a chain worth understanding link by link.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>The ten Git words you'll hear every session</li>
+    <li>What happens between "Claude finished" and "it's live"</li>
+    <li>One setting on GitHub that protects your live site</li>
+  </ul></div>
+
+  <h3>The words</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Word</th><th>Plain meaning</th></tr>
+    <tr><td><b>Repo</b></td><td>The project folder plus its full history of changes.</td></tr>
+    <tr><td><b>Commit</b></td><td>One saved snapshot with a message saying what changed. Small commits with plain messages make it easy to undo one thing.</td></tr>
+    <tr><td><b>Branch</b></td><td>A parallel copy where work happens without touching the live version. Cloud sessions usually get their own branch.</td></tr>
+    <tr><td><b>main</b></td><td>The branch that is live. On GitHub Pages, merging into <code>main</code> publishes the site.</td></tr>
+    <tr><td><b>Push</b></td><td>Sending commits from a computer up to GitHub.</td></tr>
+    <tr><td><b>Pull request (PR)</b></td><td>A request to merge a branch into main. Checks run here and you review here.</td></tr>
+    <tr><td><b>Merge</b></td><td>Joining a branch's changes into main.</td></tr>
+    <tr><td><b>Diff</b></td><td>The exact lines added and removed. "Show me the diff in plain English" is a great prompt.</td></tr>
+    <tr><td><b>Revert</b></td><td>Undoing a merged change with a new commit. Safer than deleting history.</td></tr>
+    <tr><td><b>Fork</b></td><td>Your own copy of someone else's repo. The next book covers forks in depth.</td></tr>
+  </table></div>
+
+  <figure class="figure">
+    <svg viewBox="0 0 760 170" role="img" aria-label="Diagram: from branch to live">
+      <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="d-arrow"/></marker></defs>
+      <rect x="10" y="40" width="120" height="64" rx="12" class="d-box"/><text x="24" y="68" class="d-t">Branch</text><text x="24" y="88" class="d-s">fix-buttons</text>
+      <rect x="160" y="40" width="110" height="64" rx="12" class="d-box"/><text x="174" y="68" class="d-t">Commits</text><text x="174" y="88" class="d-s">small, plain names</text>
+      <rect x="300" y="40" width="120" height="64" rx="12" class="d-box"/><text x="314" y="68" class="d-t">Pull request</text><text x="314" y="88" class="d-s">diff + screenshots</text>
+      <rect x="450" y="40" width="110" height="64" rx="12" class="d-box hi"/><text x="464" y="68" class="d-t">Site check</text><text x="464" y="88" class="d-s">CI must be green</text>
+      <rect x="590" y="40" width="70" height="64" rx="12" class="d-box hot"/><text x="602" y="68" class="d-t">You</text><text x="602" y="88" class="d-s">approve</text>
+      <rect x="690" y="40" width="60" height="64" rx="12" class="d-box ink"/><text x="700" y="77" class="d-t d-inv">Live</text>
+      <path d="M130 72 L156 72" class="d-line" marker-end="url(#ar2)"/><path d="M270 72 L296 72" class="d-line" marker-end="url(#ar2)"/><path d="M420 72 L446 72" class="d-line" marker-end="url(#ar2)"/><path d="M560 72 L586 72" class="d-line" marker-end="url(#ar2)"/><path d="M660 72 L686 72" class="d-line" marker-end="url(#ar2)"/>
+      <text x="10" y="140" class="d-s">Merge = deploy on GitHub Pages. If something breaks after "Live", the fix is a revert, not a panic.</text>
+    </svg>
+    <figcaption>A healthy flow. The weak link is when "wait for my OK" lives only in an instruction file, which Claude follows almost always, not always.</figcaption>
+  </figure>
+
+  <h3>Protect main with a branch rule</h3>
+  <p>Many builders write "ask before anything that touches main" in their instructions. That's guidance Claude reads, so it's followed nearly every time. Anthropic's best-practices guide says that before you let a scheduled task run without you, you should protect <code>main</code> with a GitHub branch rule the task can't bypass. A branch rule is enforced by GitHub itself.</p>
+  <ol class="steps">
+    <li><b>Open the repo's settings</b>On GitHub: your repo, then Settings, then Branches (or Rules, then Rulesets).</li>
+    <li><b>Add a rule for main</b>Require a pull request before merging, and require your check (for example "Site check") to pass.</li>
+    <li><b>Repeat for each live repo</b>Start with the app that has the most real users.</li>
+  </ol>
+  <p>Or ask Claude: <em>"Walk me through adding a branch rule on main for this repo that requires a pull request and a passing site check. Give me exact clicks."</em></p>
+
+  <h3>Public repos</h3>
+  <p>Anything ever committed to a public repo stays visible in its history, even after you delete the file. Never commit API keys or passwords; they belong in environment variables (Book 5). One exception surprises people: a Firebase web "apiKey" in the front end is public by design. Firebase security comes from its rules file, not from hiding that key.</p>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Prompt for any repo</span><button class="copy" type="button">Copy</button></div><pre>Show me the last 10 commits on main in plain English: what each one changed for a user, not for a programmer. Then tell me how I would undo the most recent one if it broke something. Also check the whole history for any committed keys or passwords.</pre></div>
+  </div>
+</section>
+
+<section class="lesson" id="forks" data-part="1 · How your apps work" data-title="Forks, and giving changes back" data-min="20">
+  <div class="eyebrow"></div>
+  <h2>Forks, and giving changes back</h2>
+  <p class="lede">A fork is how you work on someone else's app without touching theirs. Giving your changes back is a separate step, and with a friend's app it starts with a conversation, not a button.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>What a fork is, and how it differs from a clone and a branch</li>
+    <li>The three ways to give changes back to the person who made the app</li>
+    <li>What you need on GitHub, from you and from them</li>
+    <li>What to say to the owner, and what to ask Claude to prepare</li>
+  </ul></div>
+
+  <h3>What a fork is</h3>
+  <p>A <b>fork</b> is your own copy, on GitHub, of a repo someone else owns. GitHub remembers the link between the two. The original is called the <b>upstream</b>. You can change your fork as much as you like; nothing reaches the upstream until its owner accepts it.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Word</th><th>Where the copy lives</th><th>Who owns it</th><th>Use it for</th></tr>
+    <tr><td><b>Fork</b></td><td>On GitHub, under your account</td><td>You</td><td>Working on someone else's repo when you can't (or shouldn't) write to it</td></tr>
+    <tr><td><b>Clone</b></td><td>On a computer</td><td>Whoever owns the repo it came from</td><td>Working on files locally. Cloud sessions clone for you.</td></tr>
+    <tr><td><b>Branch</b></td><td>Inside one repo</td><td>The repo's owner</td><td>A parallel line of work in a repo you can already write to</td></tr>
+  </table></div>
+
+  <figure class="figure">
+    <svg viewBox="0 0 760 250" role="img" aria-label="Diagram: upstream, fork, and a pull request back">
+      <defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="d-arrow"/></marker></defs>
+      <rect x="20" y="30" width="250" height="90" rx="12" class="d-box hi"/>
+      <text x="40" y="60" class="d-t">Upstream (your friend's)</text>
+      <text x="40" y="82" class="d-s">github.com/friend/pocket-pet</text>
+      <text x="40" y="100" class="d-s">their live site, their decisions</text>
+      <rect x="490" y="30" width="250" height="90" rx="12" class="d-box"/>
+      <text x="510" y="60" class="d-t">Your fork</text>
+      <text x="510" y="82" class="d-s">github.com/you/pocket-pet</text>
+      <text x="510" y="100" class="d-s">your preview, your changes</text>
+      <path d="M270 58 L486 58" class="d-line" marker-end="url(#ar3)"/>
+      <text x="330" y="50" class="d-s">1. Fork (copy once)</text>
+      <path d="M270 84 L486 84" class="d-line" marker-end="url(#ar3)"/>
+      <text x="300" y="104" class="d-s">2. Sync fork (pull their new work in)</text>
+      <path d="M615 120 C 615 210, 145 210, 145 124" class="d-line" marker-end="url(#ar3)"/>
+      <text x="250" y="196" class="d-t">3. Pull request: they review, then merge or decline</text>
+      <text x="250" y="216" class="d-s">Nothing in their repo changes until they merge.</text>
+    </svg>
+    <figcaption>The fork round trip. Steps 1 and 2 you do alone. Step 3 needs the owner.</figcaption>
+  </figure>
+
+  <div class="call yours"><div class="tag">Example: Pocket Pet</div>
+    <p>A friend built Pocket Pet and asked for help. You forked it, so your copy lives at <code>you/pocket-pet</code> and publishes to your own GitHub Pages address, separate from their live site. One fork quirk to know: GitHub doesn't run a new fork's workflows (including a Pages deploy) until you switch them on in the fork's Actions tab.</p>
+    <p>A few weeks later your fork has music, new animations and a dozen fixes. Your friend's copy hasn't changed. The two have drifted apart, and that's the moment this book is about.</p>
+  </div>
+
+  <h3>Three ways to give changes back</h3>
+  <div class="cards">
+    <div class="card"><span class="k">Route A</span><h4>Pull requests from your fork</h4><p>You keep working in your fork and send a pull request per feature. The owner reviews each one and merges what they want. Best when they want control over every change.</p></div>
+    <div class="card"><span class="k">Route B</span><h4>They make you a collaborator</h4><p>The owner adds you to their repo. You work on branches inside it and open pull requests there. One repo, one live site, nothing to sync. Best for ongoing work.</p></div>
+    <div class="card"><span class="k">Route C</span><h4>Your version becomes the new version</h4><p>If they like everything, they accept your fork's state as a whole, in one large merge or by moving to your repo. Best when the two have grown too far apart to merge piece by piece.</p></div>
+  </div>
+
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>"I'll change it and give it back when I'm done" gets harder every week. A fork that's dozens of features ahead can't be reviewed as one pull request: the owner would have to accept or reject the whole thing. And any changes they make in the meantime will conflict with yours.</p>
+    <p>Talk to the owner <b>early</b>, before the fork drifts far. Ask which route they want. If it's Route A, keep each pull request small and themed, starting from their latest code. Settle big decisions together too, like renaming the app: it's their app.</p>
+    <p>The counter-argument: if they're happy for your fork to become the main version (Route C), splitting it up is wasted work. That's exactly why you ask first.</p>
+  </div>
+
+  <h3>How to ask the owner</h3>
+  <p>A short message works better than a long one. Say what you did, offer the choices, and ask how they want to review. Two drafts to adapt:</p>
+  <div class="code prompt"><div class="label"><span>Asking which route they want</span><button class="copy" type="button">Copy</button></div><pre>Hey! I've been working on [app] in my copy on GitHub (my fork). It's live here so you can try it: [your link]
+
+New since your version: [3 or 4 biggest things, in plain words].
+
+How do you want the changes back?
+1. I send you small pull requests one feature at a time, and you pick what to keep.
+2. You add me as a collaborator on your repo, so I work there directly.
+3. My version becomes the new main version.</pre></div>
+  <div class="code prompt"><div class="label"><span>When a pull request is ready</span><button class="copy" type="button">Copy</button></div><pre>I sent you a pull request on GitHub: "[title]". It adds [feature] and nothing else. There are before and after screenshots in it, and a "try this" list. If you like it, press "Merge pull request". If not, leave a comment and I'll change it.</pre></div>
+
+  <h3>What you need on GitHub</h3>
+  <h4>From you</h4>
+  <ul>
+    <li><b>A GitHub account and a fork.</b> Open the original repo and press Fork.</li>
+    <li><b>Write access to your own branch.</b> GitHub's docs: to open a pull request in a public repository, you need write access to the head or source branch, which is your fork. For a public repo you don't need the owner's permission to <em>open</em> a pull request, only for it to be <em>merged</em>.</li>
+    <li><b>Your fork kept in sync.</b> On your fork's page, open <b>Sync fork</b>, then <b>Update branch</b>. If their changes conflict with yours, GitHub prompts you to open a pull request to sort it out.</li>
+    <li><b>Workflows switched on in the fork</b>, if you want its checks or Pages deploy to run.</li>
+  </ul>
+  <h4>From the owner</h4>
+  <ul>
+    <li><b>For Route A:</b> nothing in advance. They review and press merge.</li>
+    <li><b>For Route B:</b> they open their repo's Settings, then Collaborators, and add your username. You accept the invitation from your email or GitHub notifications.</li>
+    <li><b>For a private repo:</b> they have to give you access before you can fork it at all.</li>
+    <li><b>Their OK on reuse, in writing.</b> If the repo has no license file, the code stays theirs by default. Being asked to help covers contributing; if your fork ever becomes its own app, get their agreement in a message and add a license.</li>
+  </ul>
+  <h4>Things that don't copy to a fork</h4>
+  <ul>
+    <li><b>Secrets.</b> Keys stored in the original repo's settings aren't available in your fork, and pull requests from forks don't get them.</li>
+    <li><b>Settings.</b> GitHub Pages, branch rules and collaborators are set separately for each repo.</li>
+    <li><b>Issues and discussions.</b> They stay on the original.</li>
+  </ul>
+
+  <h3>Sending a pull request upstream, step by step</h3>
+  <p>GitHub's own steps, in order:</p>
+  <ol class="steps">
+    <li><b>Start from their latest code</b>Sync your fork first, then make a new branch for just this feature. (Claude does this part; see the prompt below.)</li>
+    <li><b>Open their repo</b>A yellow banner offers <b>Compare and pull request</b> for your recently pushed branch.</li>
+    <li><b>Compare across forks</b>Click <b>compare across forks</b>. Base repository: theirs, branch <code>main</code>. Head repository: your fork, and your feature branch.</li>
+    <li><b>Title and description</b>Plain English, written for the owner, with screenshots and a "try this" list.</li>
+    <li><b>Allow edits from maintainers (optional)</b>Lets the owner fix small things in your pull request themselves. If your fork contains GitHub Actions workflows, GitHub shows it as <b>Allow edits and access to secrets by maintainers</b>, and its docs warn this also lets them edit the fork's workflows. Between friends that's usually fine; know what it means.</li>
+    <li><b>Create pull request</b>Or choose <b>Draft</b> to get an early opinion before it's finished.</li>
+  </ol>
+
+  <h3>What to ask Claude</h3>
+  <div class="code prompt"><div class="label"><span>Prepare one feature for the owner</span><button class="copy" type="button">Copy</button></div><pre>I want to send the [feature] to the original repo, [owner/repo], as one small pull request. Sync my fork first, then start a new branch from their latest main. Bring over only the changes that feature needs, nothing else. Run the checks, take before and after screenshots at 390px, and write the pull request description in plain English for someone who doesn't read code. Then tell me exactly what to click to open it, or open it yourself if you can reach their repo.</pre></div>
+  <div class="code prompt"><div class="label"><span>See how far apart the two are</span><button class="copy" type="button">Copy</button></div><pre>Compare my fork's main with [owner/repo]'s main. In plain words: what have they changed since I forked (if anything), what have I added, and which of my changes would be easy to send back separately and which are tangled together? Group them into 3 to 6 possible pull requests. Don't change anything.</pre></div>
+  <p>If Claude can't reach the original repo (cloud sessions only see repos you've given them access to), it can still prepare the branch and description in your fork. You then open the pull request yourself with the steps above.</p>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <p>If you're working in a fork, send the "how far apart" prompt. Then send the owner the first message above, filled in with what Claude found. Write their answer into your fork's SPEC.md so every future session knows which route you're on.</p>
+  </div>
+</section>
+
+<section class="lesson" id="hosting" data-part="1 · How your apps work" data-title="Hosting, secrets and data" data-min="15">
+  <div class="eyebrow"></div>
+  <h2>Hosting, secrets and data</h2>
+  <p class="lede">Where an app lives decides what it can do, what it costs and what can go wrong. This is the book about the parts users never see.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>When to use GitHub Pages and when to use Vercel</li>
+    <li>What an environment variable is and why keys go there</li>
+    <li>Changing saved data safely, and checking security rules</li>
+  </ul></div>
+
+  <h3>GitHub Pages or Vercel</h3>
+  <div class="tablewrap"><table>
+    <tr><th></th><th>GitHub Pages</th><th>Vercel</th></tr>
+    <tr><td><b>Cost for small apps</b></td><td>Free</td><td>Free tier, paid above limits</td></tr>
+    <tr><td><b>Server code</b></td><td>None. Files only.</td><td>Yes: the <code>api/</code> folder</td></tr>
+    <tr><td><b>Preview before live</b></td><td>No. Merge equals live.</td><td>A preview link per branch</td></tr>
+    <tr><td><b>Private repo</b></td><td>Needs a paid GitHub plan</td><td>Works on the free tier</td></tr>
+    <tr><td><b>Secret settings</b></td><td>No</td><td>Environment variables</td></tr>
+    <tr><td><b>Pick it when</b></td><td>The app needs no secrets and no shared data</td><td>The app calls a paid API, sends messages or shares data between users</td></tr>
+  </table></div>
+  <p>A useful rule for any instruction file: before buying an asset you can't commit to a public repo (paid fonts, 3D models), have Claude ask whether to use free assets, upgrade GitHub, or move to a host that allows a private repo.</p>
+
+  <h3>Environment variables</h3>
+  <p>An environment variable is a named setting stored on the host, outside the code. TeamDesk's <code>ANTHROPIC_API_KEY</code> lives in its Vercel project settings. The code in <code>api/ask.js</code> reads it by name when it runs. The key never appears in the repo, so nobody reading the code can spend your credits.</p>
+  <p>How to ask for one: <em>"This feature needs a new environment variable. Tell me its exact name, what the value looks like, and the exact clicks to add it in Vercel. Put the name in a code block, one per line."</em></p>
+
+  <h3>Changing what's saved</h3>
+  <p>If version 2 of FlashDeck saves progress as <code>{"mastered": [...]}</code> and version 1 saved <code>{"done": [...]}</code>, the new code must read the old shape and convert it. Otherwise every user loses their progress on the next update. Developers call this a <b>data migration</b>.</p>
+  <p>Say it like this: <em>"This changes the shape of the saved data. Include a migration so existing users keep their progress, and add a test that loads an old save."</em></p>
+
+  <h3>Security rules</h3>
+  <p>A database like Firestore decides who can read and write each collection using a rules file. Apps built quickly often start with open rules "for testing", or with a switch that keeps things open until someone turns it off. TeamDesk had one: a practice switch that left the database open until the owner locked it. These get forgotten once real people join.</p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>If your app shares data between people, check your rules today, not after launch. Two questions: who can read and write each collection right now, and does the live configuration match the file in your repo? The file is only what you last deployed or pasted.</p>
+  </div>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Prompt for an app with a database</span><button class="copy" type="button">Copy</button></div><pre>Read the database and storage security rules in this repo. In a plain-English table, for each collection: who can read it and who can write it, including under any testing or practice switch. Then tell me the exact steps to confirm the live rules match this file. Don't change the rules.</pre></div>
+  </div>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<section class="lesson" id="agent" data-part="2 · Claude Code" data-title="How Claude Code works" data-min="15">
+  <div class="eyebrow"></div>
+  <h2>How Claude Code works</h2>
+  <p class="lede">A chat writes text for you to copy. Claude Code works inside your repo: it reads files, runs commands, edits, checks its own work and commits. Knowing how that loop runs explains most of the advice in this course.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>The loop Claude runs on every task</li>
+    <li>What the "context window" is and why long files cost you</li>
+    <li>The controls that steer a session: modes, effort and the keys worth memorizing</li>
+  </ul></div>
+
+  <h3>The loop</h3>
+  <ol class="steps">
+    <li><b>Gather context</b>Reads CLAUDE.md and rules, then the files the task needs, and searches the repo.</li>
+    <li><b>Act</b>Edits files, runs commands, installs things it's allowed to.</li>
+    <li><b>Check</b>Runs whatever tells it pass or fail: your site-check, tests, a screenshot. If there's no check, "looks done" is all it has.</li>
+    <li><b>Repeat or report</b>Fixes what failed, or stops and tells you.</li>
+  </ol>
+  <p>Anthropic's guide puts it bluntly: when Claude has nothing to run that says whether the work is done, you become the test suite. That's why a rule like "never say done without running it" is worth having.</p>
+
+  <h3>Where you run it</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Where</th><th>What's different</th></tr>
+    <tr><td><b>Terminal on your computer</b> (<code>claude</code>)</td><td>Works on the copy of the repo on your computer. Can see your personal settings in your home folder's <code>.claude</code> folder.</td></tr>
+    <tr><td><b>Desktop app</b></td><td>Same engine, with a window, and several sessions side by side.</td></tr>
+    <tr><td><b>Cloud sessions</b> (claude.ai/code, also from your phone)</td><td>A fresh copy of the repo on Anthropic's machines, on a <code>claude/...</code> branch. Your computer's personal files don't come along, so any rule a cloud session needs has to live inside the repo.</td></tr>
+  </table></div>
+
+  <h3>The context window</h3>
+  <p>Claude's working memory for a session is called the <b>context window</b>. Everything in it is re-read on every turn: your messages, its replies, every file it opened, every command output, and every instruction file loaded at the start. Two consequences:</p>
+  <ul>
+    <li><b>Instruction files cost attention on every task.</b> Anthropic's words: every line in CLAUDE.md takes a little of Claude's attention on every task, whether it's relevant or not.</li>
+    <li><b>Long sessions get summarized.</b> When the window fills, the conversation is compacted into a summary. Anthropic notes that instructions given only in conversation are lost when that happens. A decision you want kept goes into a file.</li>
+  </ul>
+
+  <h3>Modes and effort</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Control</th><th>What it does</th><th>When to use it</th></tr>
+    <tr><td><b>Auto mode</b> (default in terminal and VS Code)</td><td>Claude works without asking each time; a separate checker model stops risky actions such as force pushes or deploys.</td><td>Normal work.</td></tr>
+    <tr><td><b>Plan mode</b> (<code>Shift+Tab</code>)</td><td>Claude reads and plans but can't edit.</td><td>Any big feature.</td></tr>
+    <tr><td><b>Manual mode</b></td><td>You approve every edit and command.</td><td>When you want to watch every step.</td></tr>
+    <tr><td><b>/effort high</b></td><td>Claude checks more cases before answering.</td><td>A bug in code you didn't write, a flaky test, a change to saved data.</td></tr>
+    <tr><td><b>/effort low</b></td><td>Faster first drafts.</td><td>Brainstorming, quick back-and-forth where you review each result.</td></tr>
+    <tr><td><b>ultrathink</b> (a word in one prompt)</td><td>Deeper reasoning for that one message only.</td><td>One tricky question in otherwise routine work.</td></tr>
+  </table></div>
+  <div class="call"><div class="tag">Anthropic says</div>
+    <p>Phrases like "think hard", "be thorough" or "think step by step" are ordinary text now, not switches. Effort is the real control. The phrase that does still change behavior is <b>"be ambitious"</b>, because Claude tends to build the smallest thing that satisfies a request. Book 11 shows how to use it.</p>
+  </div>
+
+  <h3>Keys and commands to know by heart</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Key or command</th><th>Use it when</th></tr>
+    <tr><td><code>Esc</code></td><td>Claude heads the wrong way. Stops it and keeps the work so far.</td></tr>
+    <tr><td><code>Esc Esc</code> or <code>/rewind</code></td><td>You want to roll back code, conversation or both to an earlier prompt. Lets you try a bold idea safely.</td></tr>
+    <tr><td><code>/clear</code></td><td>Starting an unrelated task, or after two failed corrections on the same thing.</td></tr>
+    <tr><td><code>/compact keep the X decisions</code></td><td>A long session you want to keep going, summarized around what matters.</td></tr>
+    <tr><td><code>/rename name</code>, then <code>claude --resume name</code></td><td>Work that spans days.</td></tr>
+    <tr><td><code>/context</code> and <code>/memory</code></td><td>Checking which instruction files actually loaded.</td></tr>
+    <tr><td><code>/usage</code></td><td>Seeing where your usage went (by skill, helper and connector).</td></tr>
+    <tr><td><code>/btw</code></td><td>A quick side question that won't clutter the session.</td></tr>
+  </table></div>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <p>In your next Claude Code session on any repo, type <code>/memory</code> and read which files are listed. Then type <code>/context</code>. You're looking at what Claude reads before you say a word.</p>
+  </div>
+</section>
+
+<section class="lesson" id="toolkit" data-part="2 · Claude Code" data-title="The toolkit: what each piece is for" data-min="18">
+  <div class="eyebrow"></div>
+  <h2>The toolkit: what each piece is for</h2>
+  <p class="lede">CLAUDE.md, rules, skills, subagents, hooks, permissions, MCP. They sound alike and they are not. The single most useful idea in Anthropic's guide sorts them into two groups.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>"Claude decides" versus "Claude Code enforces"</li>
+    <li>Each tool, its file, and an example of each</li>
+    <li>A decision guide for where any new rule should go</li>
+  </ul></div>
+
+  <h3>Two kinds of instructions</h3>
+  <p>Anthropic separates instructions into two kinds:</p>
+  <figure class="figure">
+    <svg viewBox="0 0 760 230" role="img" aria-label="Diagram: guidance versus enforcement">
+      <rect x="10" y="10" width="360" height="210" rx="14" class="d-box hi"/>
+      <text x="30" y="42" class="d-t">Claude decides (guidance)</text>
+      <text x="30" y="62" class="d-s">Followed almost every time. Claude may judge it doesn't apply.</text>
+      <rect x="30" y="80" width="150" height="38" rx="9" class="d-box"/><text x="44" y="104" class="d-t">Your prompt</text>
+      <rect x="196" y="80" width="150" height="38" rx="9" class="d-box"/><text x="210" y="104" class="d-t">CLAUDE.md</text>
+      <rect x="30" y="128" width="150" height="38" rx="9" class="d-box"/><text x="44" y="152" class="d-t">Rules files</text>
+      <rect x="196" y="128" width="150" height="38" rx="9" class="d-box"/><text x="210" y="152" class="d-t">Skills</text>
+      <text x="30" y="196" class="d-s">Use for: facts, preferences, judgment calls</text>
+      <rect x="390" y="10" width="360" height="210" rx="14" class="d-box hot"/>
+      <text x="410" y="42" class="d-t">Claude Code enforces (hard limits)</text>
+      <text x="410" y="62" class="d-s">Runs every time, whatever the model decides.</text>
+      <rect x="410" y="80" width="150" height="38" rx="9" class="d-box"/><text x="424" y="104" class="d-t">Hooks</text>
+      <rect x="576" y="80" width="150" height="38" rx="9" class="d-box"/><text x="590" y="104" class="d-t">Deny rules</text>
+      <rect x="410" y="128" width="150" height="38" rx="9" class="d-box"/><text x="424" y="152" class="d-t">CI checks</text>
+      <rect x="576" y="128" width="150" height="38" rx="9" class="d-box"/><text x="590" y="152" class="d-t">Branch rules</text>
+      <text x="410" y="196" class="d-s">Use for: "always" and "never" with zero exceptions</text>
+    </svg>
+    <figcaption>Anthropic's tip: if you keep adding emphasis to a CLAUDE.md line and Claude still misses it, the line belongs in a hook. And if a hook enforces a mere preference, delete it.</figcaption>
+  </figure>
+
+  <h3>Each tool</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Tool</th><th>What it is</th><th>File</th><th>Example</th></tr>
+    <tr><td><b>CLAUDE.md</b></td><td>Facts Claude needs in every session.</td><td><code>CLAUDE.md</code> at the repo root</td><td>Every project</td></tr>
+    <tr><td><b>Rules</b></td><td>Topic files. With a <code>paths:</code> list, they load only when Claude touches matching files.</td><td><code>.claude/rules/*.md</code></td><td>A rule for the 3D scene that loads only when <code>scene.js</code> is touched</td></tr>
+    <tr><td><b>Skills</b></td><td>A saved procedure or piece of know-how. Claude sees only its name and description until it's needed. Some you start yourself with <code>/name</code>.</td><td><code>.claude/skills/name/SKILL.md</code></td><td>A design-analysis skill, a release checklist</td></tr>
+    <tr><td><b>Subagents</b></td><td>Helpers with their own fresh context, their own model and a limited tool list.</td><td><code>.claude/agents/name.md</code></td><td>A cheap "scout" that searches, a test runner, a reviewer</td></tr>
+    <tr><td><b>Hooks</b></td><td>Your script runs at a fixed moment: session start, before or after a tool, when Claude tries to stop.</td><td><code>.claude/settings.json</code></td><td>Install tools when a cloud session starts; block edits to a built file</td></tr>
+    <tr><td><b>Permissions</b></td><td>allow, ask and deny lists. Deny holds in every mode.</td><td><code>.claude/settings.json</code></td><td>Never read <code>.env</code>; ask before pushing to main</td></tr>
+    <tr><td><b>MCP</b></td><td>Connects Claude to an outside tool that has no command line.</td><td><code>.mcp.json</code></td><td>Playwright, for screenshots</td></tr>
+    <tr><td><b>Plugins</b></td><td>A bundle of skills, agents, hooks and MCP servers you install as one.</td><td>Installed, not in the repo</td><td>A team's shared toolkit</td></tr>
+  </table></div>
+
+  <h3>Your own documents are not Claude features</h3>
+  <p><code>SPEC.md</code>, <code>DESIGN.md</code>, <code>docs/ARCHITECTURE.md</code>, <code>HANDOFF.md</code> and <code>docs/PLAN.md</code> are ordinary files. Claude reads them only because a CLAUDE.md line tells it to. That's fine, and it's a strength: these files load on demand, not every session. The risk is when CLAUDE.md says "read all of these first" for a two-line fix.</p>
+
+  <h3>Subagents: what they're good for, and what they aren't</h3>
+  <p>Anthropic lists four reasons to use a helper: parallel work, keeping long output (a full test run, a wide search) out of your main conversation, a reviewer who hasn't seen how the code was written, and giving a task fewer tools. What a helper does <b>not</b> do is give a smarter answer: it's the same or a smaller model starting cold, so a small job can end up slower. A good line for any instruction file: "don't delegate a one-line search".</p>
+
+  <h3>Where should a new rule go?</h3>
+  <div class="tablewrap"><table>
+    <tr><th>If the rule is...</th><th>Put it in</th><th>Example</th></tr>
+    <tr><td>Must always or never happen, no exceptions</td><td>A hook or a deny rule</td><td>"index.html is built. Never edit it by hand." (ExamTown)</td></tr>
+    <tr><td>A fact Claude needs on almost every task</td><td>CLAUDE.md</td><td>"Merging to main is going live."</td></tr>
+    <tr><td>Only true when working on one part</td><td><code>.claude/rules/</code> with <code>paths:</code></td><td>The three.js version note for the 3D scene file</td></tr>
+    <tr><td>A multi-step procedure</td><td>A skill</td><td>Writing a handoff, running the cleanup audit</td></tr>
+    <tr><td>Repetitive, noisy work</td><td>A subagent</td><td>Running the full test suite and reporting only failures</td></tr>
+    <tr><td>Lives in another system</td><td>A command-line tool or MCP</td><td>GitHub through <code>gh</code>, Playwright</td></tr>
+    <tr><td>Only your personal taste</td><td><code>CLAUDE.local.md</code> (not committed)</td><td>"Use buttons for choices"</td></tr>
+  </table></div>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Prompt for any project</span><button class="copy" type="button">Copy</button></div><pre>Go through CLAUDE.md and everything in .claude/rules/ line by line. Sort every rule into: (1) must never have exceptions, so it should become a hook or permission rule, (2) needed on almost every task, keep in CLAUDE.md, (3) only matters for certain files, move to a path rule, (4) a procedure, move to a skill, (5) Claude could work out by reading the code, delete. Show me a table. Don't change files yet.</pre></div>
+  </div>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<section class="lesson" id="claudemd" data-part="3 · CLAUDE.md, Anthropic's way" data-title="What Anthropic recommends for CLAUDE.md" data-min="20">
+  <div class="eyebrow"></div>
+  <h2>What Anthropic recommends for CLAUDE.md</h2>
+  <p class="lede">This is the official guidance, from Anthropic's Claude Code documentation as of November 2026, translated into plain English with the example apps.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>Where CLAUDE.md files can live and how they load</li>
+    <li>What belongs in one, what doesn't, and the two-question test</li>
+    <li>Size, wording, AGENTS.md and the commands that help</li>
+  </ul></div>
+
+  <h3>What it is</h3>
+  <p>CLAUDE.md is a plain text file (Markdown) that Claude Code loads at the start of every session. It's how you tell Claude what it can't learn from the code. Anthropic is clear that Claude treats it as context, not enforced configuration: guidance it follows, not a lock.</p>
+
+  <h3>Where it can live</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Scope</th><th>Location</th><th>Who it applies to</th></tr>
+    <tr><td><b>Organization</b></td><td>Set by an admin (Windows: <code>C:\Program Files\ClaudeCode\CLAUDE.md</code>)</td><td>Everyone in a company</td></tr>
+    <tr><td><b>You, all projects</b></td><td><code>~/.claude/CLAUDE.md</code> (on Windows: <code>C:\Users\&lt;you&gt;\.claude\CLAUDE.md</code>)</td><td>Only you, only on that computer</td></tr>
+    <tr><td><b>This project</b></td><td><code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code></td><td>Anyone working in the repo, including cloud sessions</td></tr>
+    <tr><td><b>You, this project</b></td><td><code>./CLAUDE.local.md</code> (add it to <code>.gitignore</code>)</td><td>Only you</td></tr>
+  </table></div>
+
+  <h3>How loading works</h3>
+  <ul>
+    <li>Files are <b>added together, not overridden</b>. Instructions closer to the folder you're working in are read last.</li>
+    <li>A CLAUDE.md inside a subfolder loads only when Claude reads files in that subfolder.</li>
+    <li><b>Imports</b> with <code>@path/to/file</code> pull another file in. Anthropic is specific: imports don't reduce context, they're expanded at launch. They can chain at most four hops.</li>
+    <li>HTML comments (<code>&lt;!-- note --&gt;</code>) are stripped before loading, so you can leave notes for yourself that cost Claude nothing.</li>
+  </ul>
+
+  <h3>What belongs in it</h3>
+  <p>Anthropic's guide lists four kinds of content:</p>
+  <div class="cards">
+    <div class="card"><span class="k">1</span><h4>How to check work</h4><p>The exact commands for tests, type checks and lint, and how to run one test file. "If your repo already has one of these, the single most useful line in your CLAUDE.md is the command that runs it."</p></div>
+    <div class="card"><span class="k">2</span><h4>Where the code misleads</h4><p>An old pattern new code shouldn't copy, a folder that looks unused but isn't. For ExamTown: "index.html is built from src/."</p></div>
+    <div class="card"><span class="k">3</span><h4>Decisions not in the repo</h4><p>Why things are the way they are, how deploys work. For example: "Budget is $0", "never store customers' personal information".</p></div>
+    <div class="card"><span class="k">4</span><h4>Anything corrected twice</h4><p>If you've had to say it twice, write it down once.</p></div>
+  </div>
+
+  <h3>What to leave out</h3>
+  <ul>
+    <li><b>What Claude can find by reading the code.</b> Anthropic lists "describe your architecture and file layout in CLAUDE.md" among advice you can stop following, because Claude reads the repo itself.</li>
+    <li><b>Generic good practice.</b> "Write clean code" changes nothing.</li>
+    <li><b>Long procedures.</b> Those go in a skill, which loads only when needed.</li>
+    <li><b>Rules with zero exceptions.</b> Those go in a hook or deny rule.</li>
+    <li><b>Personal preferences.</b> Those go in <code>CLAUDE.local.md</code>.</li>
+  </ul>
+  <div class="call"><div class="tag">Anthropic's two-question test</div>
+    <p>Before writing anything down for Claude: (1) Could it find this by reading the code? (2) Would it actually go and look? If both answers are yes, leave it out.</p>
+  </div>
+
+  <h3>Size and wording</h3>
+  <ul>
+    <li><b>Under 200 lines per file.</b> Longer files consume more context and reduce adherence.</li>
+    <li><b>Specific and checkable.</b> "Run <code>node .github/site-check.cjs index.html</code> before asking me to approve" beats "test your changes".</li>
+    <li><b>Markdown headers and bullets</b>, so it scans.</li>
+    <li><b>No contradictions.</b> If two rules disagree, Claude may pick one arbitrarily.</li>
+    <li><b>No IMPORTANT or ALL CAPS.</b> Anthropic now says current models follow a plain line, and piling on emphasis makes Claude over-apply the rule. If a line keeps getting missed, either the file is too long or the line belongs in a hook.</li>
+    <li><b>Give the reason.</b> Anthropic's prompting guide shows that "never use ellipses" works worse than explaining that a text-to-speech engine will read the response and can't pronounce them. A reason lets Claude handle cases the rule didn't foresee.</li>
+    <li><b>Say what to do, not only what not to do.</b> "Use the colors in DESIGN.md" works better than "don't invent colors".</li>
+  </ul>
+  <div class="tablewrap"><table>
+    <tr><th>Weak line</th><th>Strong line</th></tr>
+    <tr><td class="bad">IMPORTANT: NEVER forget the cache!!</td><td class="good">Bump <code>CACHE_VERSION</code> in <code>sw.js</code> whenever a precached file changes, or installed phones keep the old app.</td></tr>
+    <tr><td class="bad">Make sure it works on phones.</td><td class="good">Check every UI change at 390px wide; most users open it one-handed on an iPhone.</td></tr>
+    <tr><td class="bad">Keep the code organized.</td><td class="good">One job per file in <code>js/</code>. A new feature gets its own file.</td></tr>
+  </table></div>
+
+  <h3>AGENTS.md</h3>
+  <p>AGENTS.md is a similar file other AI tools (like Codex) read. Anthropic's docs: Claude Code reads CLAUDE.md, not AGENTS.md. To share one set of rules, put <code>@AGENTS.md</code> at the top of CLAUDE.md. On Windows, use the import rather than a symlink. TeamDesk does exactly this, which is correct. The catch is size, covered in the next book.</p>
+
+  <h3>Commands that help</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><code>/init</code></td><td>Writes a first CLAUDE.md from your code. Anthropic: from there the work is mostly removing lines.</td></tr>
+    <tr><td><code>/memory</code></td><td>Lists every instruction file that loaded and opens them for editing.</td></tr>
+    <tr><td><code>/doctor</code></td><td>Suggests cuts for anything Claude can work out from the code.</td></tr>
+    <tr><td><code>/doctor prompt-audit</code></td><td>Flags lines written for older models, lines pointing at files that no longer exist, and lines that contradict each other.</td></tr>
+    <tr><td>"add this to CLAUDE.md"</td><td>Just say it. Claude edits the file.</td></tr>
+  </table></div>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <p>In any repo, run <code>/doctor prompt-audit</code> and read what it flags. Don't accept changes yet. Just learn what it thinks is stale.</p>
+  </div>
+</section>
+
+
+<section class="lesson" id="audit" data-part="3 · CLAUDE.md, Anthropic's way" data-title="Audit a CLAUDE.md" data-min="20">
+  <div class="eyebrow"></div>
+  <h2>Audit a CLAUDE.md</h2>
+  <p class="lede">Instruction files grow one rule at a time, usually right after something goes wrong. This book shows how to measure yours against Anthropic's guidance, and the six fixes that come up most.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>How to measure what loads every session</li>
+    <li>A sample scorecard for the five example apps</li>
+    <li>Signs of a healthy setup, and six fixes ranked by impact</li>
+  </ul></div>
+
+  <h3>Step 1: measure what loads every session</h3>
+  <p>The number that matters isn't the size of CLAUDE.md alone. It's everything Claude reads before you say a word:</p>
+  <ul>
+    <li><b>CLAUDE.md</b> itself;</li>
+    <li>everything it <b>imports</b> with <code>@</code>, because imports are expanded at launch;</li>
+    <li>every file in <code>.claude/rules/</code> <b>without</b> a <code>paths:</code> list.</li>
+  </ul>
+  <p>Rules with a <code>paths:</code> list load only when Claude touches matching files, so count them separately.</p>
+  <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Run /memory and list every instruction file that loads at the start of a session in this repo, including imports and rules files without a paths: list. Count the lines of each and give me the total. List path-specific rules separately.</pre></div>
+
+  <h3>A sample scorecard</h3>
+  <p>Here's how the five example apps measure up. The numbers are typical of what builders' projects look like a few months in.</p>
+  <div class="tablewrap"><table>
+    <tr><th>App</th><th class="num">CLAUDE.md</th><th>Also loaded every session</th><th class="num">Every session</th><th>Path rules</th><th>Verdict</th></tr>
+    <tr><td><b>TeamDesk</b></td><td class="num">73</td><td>AGENTS.md (513, imported)</td><td class="num">586</td><td>none</td><td><span class="pill over">2.9x the target</span></td></tr>
+    <tr><td><b>Pocket Pet</b></td><td class="num">160</td><td>none</td><td class="num">160</td><td>none</td><td><span class="pill warn">Near the limit</span></td></tr>
+    <tr><td><b>ExamTown</b></td><td class="num">71</td><td>shared rules (16)</td><td class="num">87</td><td>none</td><td><span class="pill ok">Good</span></td></tr>
+    <tr><td><b>Corner Gym</b></td><td class="num">65</td><td>shared rules (16)</td><td class="num">81</td><td>3D scene rule (20)</td><td><span class="pill ok">Good</span></td></tr>
+    <tr><td><b>FlashDeck</b></td><td class="num">47</td><td>shared rules (16)</td><td class="num">63</td><td>none</td><td><span class="pill ok">Good</span></td></tr>
+  </table></div>
+  <p>Line counts aren't the whole story (a line can be long or short), but they're the measure Anthropic uses: under 200 lines.</p>
+
+  <h3>Signs of a healthy setup</h3>
+  <ul>
+    <li><b>Path rules used for one-area knowledge.</b> Corner Gym's 3D notes load only when Claude touches the 3D scene file.</li>
+    <li><b>Exact check commands.</b> "Run <code>node .github/site-check.cjs index.html</code>" is the line Anthropic calls the most useful.</li>
+    <li><b>Reasons attached to rules.</b> "Bump <code>CACHE_VERSION</code>, or returning users keep the old app." The reason lets Claude handle cases the rule didn't foresee.</li>
+    <li><b>Decisions that aren't in the code.</b> "Budget is $0", "every claim links its source", "never store personal information". Claude could never infer these.</li>
+    <li><b>Evidence over claims.</b> "End every change with proof I can see."</li>
+    <li><b>A short project file plus a short shared rules file.</b> Three of the five apps follow this shape, and all three are well under 200.</li>
+  </ul>
+
+  <h3>Six fixes, ranked</h3>
+  <h4>1. Shrink what loads every session</h4>
+  <p>TeamDesk's CLAUDE.md is only 73 lines, but its first line imports a 513-line AGENTS.md. Claude reads 586 lines before every task, including a one-word copy fix. AGENTS.md got long because it holds procedures (how a session runs, branching, handoffs) and topic rules (database, server functions, chat) that only matter some of the time.</p>
+  <ul>
+    <li>Keep in the always-loaded files only what's true for every task: who it's for, what it must never do, the check commands, the branch rule. Aim for 120 to 150 lines.</li>
+    <li>Move topic rules to <code>.claude/rules/</code> with <code>paths:</code> (for example <code>firestore.rules</code>; <code>api/**</code>).</li>
+    <li>Move procedures to skills you start yourself: <code>/handoff</code>, <code>/phase</code>.</li>
+  </ul>
+  <div class="call"><div class="tag">A catch with AGENTS.md</div>
+    <p>Other AI tools don't read <code>.claude/rules/</code>. If they still need a moved rule, keep a one-line pointer in AGENTS.md ("Database rules: see docs/database.md") instead of the whole text.</p>
+  </div>
+  <div class="code prompt"><div class="label"><span>Prompt (plan mode)</span><button class="copy" type="button">Copy</button></div><pre>Anthropic recommends keeping always-loaded instructions under 200 lines. Count what loads every session here, including imports. Then propose a split: what stays (true for every task), what moves to .claude/rules/ files with paths: (name the paths), what becomes a skill I start myself, and what can be deleted because you could read it from the code. Show the new line count. Plan only, no edits.</pre></div>
+
+  <h4>2. Turn "never" lines into enforcement</h4>
+  <p>These lines are each followed almost always, and "almost" isn't good enough for them:</p>
+  <div class="tablewrap"><table>
+    <tr><th>Line in CLAUDE.md</th><th>Move it to</th></tr>
+    <tr><td>"<code>index.html</code> is built. Never edit it by hand."</td><td>A PreToolUse hook that blocks edits to it (Starter kit, item D)</td></tr>
+    <tr><td>"Never commit secrets."</td><td>Deny rules on reading <code>.env</code> files</td></tr>
+    <tr><td>"Never force push."</td><td>A deny rule on <code>git push --force</code></td></tr>
+    <tr><td>"Ask before anything that touches main."</td><td>A GitHub branch rule (Book 3), plus an ask rule on pushing to main</td></tr>
+  </table></div>
+  <p>Keep a short version of the line in CLAUDE.md too, so Claude knows the reason and doesn't waste a turn hitting the wall.</p>
+
+  <h4>3. Delete "this file wins" lines; fix the conflict instead</h4>
+  <p>Builders often write "where this file differs, this file wins". Anthropic's docs say instruction files are added together, not overridden, and that conflicting rules may be resolved arbitrarily. A "wins" line is a request, not a mechanism. When two files disagree, change one of them.</p>
+
+  <h4>4. Stop copying shared rules by hand</h4>
+  <p>Keeping the same short rules file in every repo is the right call for cloud sessions, which can't see your computer's personal folder. The risk is drift: change it in one repo and the others are stale. Keep a master copy in one place (a repo of your own templates) and ask Claude to sync it when it changes.</p>
+  <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Compare .claude/rules/[shared file].md across these repos: [list]. List any differences. Then make the version in [template repo] the master and give me a one-line prompt I can reuse to copy it into every repo.</pre></div>
+
+  <h4>5. Replace "read all of this first" with "read this when"</h4>
+  <p>Many files open with "Read first: SPEC.md, docs/ARCHITECTURE.md, DESIGN.md". For a small repo, Claude reads the code faster than three documents about it. Keep an architecture map only where searching is expensive (like an 18,000-line file). Elsewhere: "Read SPEC.md before a new feature; read DESIGN.md before a UI change."</p>
+
+  <h4>6. Trim anything near 200 before it passes</h4>
+  <p>At 160 lines, Pocket Pet's file is close. It also carries rules written for its original owner's workflow. In a fork you're changing for someone else, decide whose rules apply and cut the rest.</p>
+
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Rules pile up because each one is added after a mistake, and nobody deletes the old ones. A good habit: <b>every rule you add should replace or delete one.</b> Run <code>/doctor prompt-audit</code> once a month in each active repo. If a line is about a problem that hasn't happened in a month, try deleting it and see if anything breaks.</p>
+  </div>
+</section>
+<section class="lesson" id="starter" data-part="3 · CLAUDE.md, Anthropic's way" data-title="Your starter kit" data-min="20">
+  <div class="eyebrow"></div>
+  <h2>Your starter kit</h2>
+  <p class="lede">Copy-ready files for your next project, following Anthropic's guidance. They're written in the first person, for a builder who can't read code. Fill in the brackets and paste them into a new repo.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>A starter CLAUDE.md (about 40 lines)</li>
+    <li>A tighter shared rules file</li>
+    <li>Permissions, a protective hook, a path rule, a reviewer and a skill</li>
+  </ul></div>
+
+  <h3>A. Starter CLAUDE.md</h3>
+  <p>Replace everything in angle brackets. Delete any line that doesn't apply. Add to "Gotchas" only after Claude gets something wrong twice.</p>
+  <div class="code"><div class="label"><span>CLAUDE.md</span><button class="copy" type="button">Copy</button></div><pre># CLAUDE.md: &lt;App name&gt;
+
+&lt;One sentence: what it is and who uses it.&gt; Live at &lt;URL&gt;.
+The repo is public. Shared rules: .claude/rules/general.md.
+
+## Commands
+- Preview: npx serve . then open http://localhost:3000
+- Syntax check: node --check js/*.js
+- Site check (same as CI): node .github/site-check.cjs index.html
+- Tests: node --test tests/
+
+## How this repo works (only what the code doesn't show)
+- No build step. GitHub Pages serves the folder as it is, so
+  merging to main is going live.
+- Offline worker: bump CACHE_VERSION in sw.js whenever a precached
+  file changes, or installed phones keep the old app.
+- Progress lives only in the phone's localStorage. A change to the
+  saved shape must still read old saves (add a migration and a test).
+
+## Decisions (and why)
+- Budget is $0: free assets only, each listed in CREDITS.md.
+  The repo is public, so paid files can't be committed.
+- Phone first: design at 390px wide; most users hold the phone
+  in one hand.
+- &lt;Any rule the code can't show: who signs off, a source every
+  claim must cite, data that must never be stored.&gt;
+
+## Working with &lt;your name&gt;
+- I can't read code. End each change with proof I can see:
+  screenshots at 390px and desktop, plus a 3-line "try this" list.
+- I say "approve" to merge into main. Then merge, wait for the
+  deploy, and tell me it's live with one line on how to undo it.
+
+## Gotchas
+&lt;!-- Add a line only when Claude gets the same thing wrong twice. --&gt;</pre></div>
+
+  <h3>B. Your rules for every project</h3>
+  <p>A short file with how you like to work, the same in every repo. Hard limits are left out on purpose: they go in settings (item C), where Claude Code enforces them.</p>
+  <div class="code"><div class="label"><span>.claude/rules/general.md</span><button class="copy" type="button">Copy</button></div><pre># How I work (same in every project)
+
+- Challenge my plans: say when one is bad, why, what's better and the
+  biggest risk. Once I decide, build it my way.
+- No code on a new project before SPEC.md exists: what, who for,
+  "Done when" per feature, "Not in v1", "Later", phases. A request
+  outside it: say so and ask "now, or Later?".
+- Big feature (new screen, new kind of saved data, new outside
+  service): compare 2 or 3 similar tools, plan in plan mode, wait
+  for my OK.
+- I can't read code. Show proof: screenshot or "try this" list for
+  small changes, the "Done when" check plus a preview for big ones.
+  If you couldn't run it, say "not verified" and why.
+- Before a phase's pull request, the reviewer agent checks the diff
+  against SPEC.md. Tell me in 2 or 3 lines what it caught.
+- Choices and next steps as buttons, your pick first and marked.
+- Ask before: deleting files or data, accounts or logins, spending
+  money, repo settings, installing anything new.
+- One plain-named branch per change, small commits in plain English.
+  Into main: pull request, then a message that it needs my
+  approval, then one line on how to undo it.
+- When a session gets heavy, run /handoff.</pre></div>
+
+  <h3>C. Hard limits: permissions</h3>
+  <p>Deny rules hold in every mode, including auto. Ask rules make Claude stop and ask you. After adding, type <code>/permissions</code> in a session to confirm they loaded.</p>
+  <div class="code"><div class="label"><span>.claude/settings.json</span><button class="copy" type="button">Copy</button></div><pre>{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)"
+    ],
+    "ask": [
+      "Bash(git push origin main*)",
+      "Bash(npm install *)"
+    ]
+  }
+}</pre></div>
+
+  <h3>D. A hook that protects a built file (for apps like ExamTown)</h3>
+  <p>A PreToolUse hook runs before Claude edits a file. If the script exits with code 2, the edit is blocked and the message goes back to Claude. Anthropic's tip: you don't have to write hooks yourself; asking "write a hook that blocks edits to X" works, and <code>/hooks</code> shows the result.</p>
+  <div class="code"><div class="label"><span>.claude/hooks/protect-built.cjs</span><button class="copy" type="button">Copy</button></div><pre>// Blocks direct edits to the built index.html.
+const path = require("path");
+let raw = "";
+process.stdin.on("data", c => raw += c);
+process.stdin.on("end", () => {
+  let file = "";
+  try { file = JSON.parse(raw).tool_input.file_path || ""; } catch (e) {}
+  const root = process.env.CLAUDE_PROJECT_DIR || process.cwd();
+  const rel = path.relative(root, path.resolve(root, file)).split(path.sep).join("/");
+  if (rel === "index.html") {
+    console.error("index.html is built from src/. Edit src/ and run python3 tools/build.py instead.");
+    process.exit(2);
+  }
+  process.exit(0);
+});</pre></div>
+  <div class="code"><div class="label"><span>Add to .claude/settings.json</span><button class="copy" type="button">Copy</button></div><pre>{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command", "command": "node .claude/hooks/protect-built.cjs" }
+        ]
+      }
+    ]
+  }
+}</pre></div>
+  <p>Its limit: it watches Claude's Edit and Write tools. A shell command that rewrites the file wouldn't be caught. That's fine for a guard rail; the build itself is the real protection.</p>
+
+  <h3>E. A path rule</h3>
+  <div class="code"><div class="label"><span>.claude/rules/offline-worker.md</span><button class="copy" type="button">Copy</button></div><pre>---
+paths:
+  - "sw.js"
+  - "manifest.webmanifest"
+---
+# Offline worker
+- Bump CACHE_VERSION in every change to a file in the precache list,
+  or installed phones keep the old app.
+- Test offline after a change: load once, turn on airplane mode,
+  reload. Send me the screenshot.</pre></div>
+
+  <h3>F. A reviewer that can't edit</h3>
+  <p>Giving it only reading tools means Claude Code enforces that it can't change anything. "Skip style" matters: Anthropic warns that a reviewer asked to find problems will always find something, and fixing every nit adds needless complexity.</p>
+  <div class="code"><div class="label"><span>.claude/agents/reviewer.md</span><button class="copy" type="button">Copy</button></div><pre>---
+name: reviewer
+description: Reviews a finished phase against SPEC.md before its pull request. Use after a feature is built and checked.
+tools: Read, Grep, Glob
+---
+You are reviewing work you did not write. Compare the changed files
+with the SPEC.md section you are given. Check that every "Done when"
+line is met and that saved data from older versions still loads.
+Report only problems that would break something for a user or
+contradict the spec, each with file and line. Skip style.</pre></div>
+
+  <h3>G. A skill you start yourself</h3>
+  <p><code>disable-model-invocation: true</code> means Claude never starts it on its own; it runs only when you type <code>/handoff</code>.</p>
+  <div class="code"><div class="label"><span>.claude/skills/handoff/SKILL.md</span><button class="copy" type="button">Copy</button></div><pre>---
+name: handoff
+description: Write HANDOFF.md so a new session can pick up this work.
+disable-model-invocation: true
+---
+1. Write HANDOFF.md at the repo root with: the goal, the next step,
+   what is done, what is left, and the 3 to 5 files to read first.
+2. Add anything learned that a future session would otherwise
+   rediscover to the right place (SPEC.md, a rules file), not to
+   HANDOFF.md.
+3. Commit and push the branch.
+4. Ask me with buttons: "Start a new session (Recommended)" or
+   "Keep going here", with a two-line summary.</pre></div>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <p>Pick the repo you'll touch next. Send: <em>"Add the permissions block from my starter kit to .claude/settings.json (I'll paste it below), then show me /permissions output proving it loaded."</em> and paste item C.</p>
+  </div>
+</section>
+
+<!-- ===================== PART 4 ===================== -->
+<section class="lesson" id="request" data-part="4 · Talking to Claude" data-title="The anatomy of a great request" data-min="20">
+  <div class="eyebrow"></div>
+  <h2>The anatomy of a great request</h2>
+  <p class="lede">Anthropic's prompting guide suggests treating Claude like a capable new employee who lacks your context. The skill isn't fancy wording. It's handing over what Claude can't see.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>The five parts of a request that gets built right the first time</li>
+    <li>Before-and-after rewrites using your own apps</li>
+    <li>Phrases that reliably change what Claude does</li>
+  </ul></div>
+
+  <h3>Anthropic's colleague test</h3>
+  <p>The prompting guide offers a simple test: show your request to a colleague with minimal context. If they'd be confused, Claude will be too. Claude can read your code. It can't read your mind, your phone, your friend's feedback or the meeting where you decided something.</p>
+
+  <h3>The five parts</h3>
+  <ol class="steps">
+    <li><b>Goal</b>What you want and who it's for. "So students can practice timed exams on the train."</li>
+    <li><b>Where</b>The app, screen, file or URL. "The Drill screen in FlashDeck", "<code>api/translate.js</code>", a screenshot.</li>
+    <li><b>Context</b>What Claude can't see: what users said, what you tried, why you want it, what you've decided before.</li>
+    <li><b>Constraints</b>What must stay true. "No new libraries", "$0 budget", "keep DESIGN.md colors", "don't touch firestore.rules".</li>
+    <li><b>Done when, plus proof</b>How you'll both know it's finished, and what you want to see. "Done when 4 answer buttons fit at 390px without scrolling. Send a screenshot."</li>
+  </ol>
+  <div class="code prompt"><div class="label"><span>The template</span><button class="copy" type="button">Copy</button></div><pre>Goal: [what, and who it's for]
+Where: [app, screen, file, or attach a screenshot]
+Context: [what you know that isn't in the code: feedback, why, past decisions]
+Constraints: [what must not change, budget, libraries, data]
+Done when: [a check anyone could verify]
+Proof: [screenshots at phone width / a "try this" list / test output]</pre></div>
+  <p>You won't fill all six every time. A small change might be two lines. But when a result disappoints, the missing part is almost always one of these.</p>
+
+  <h3>Before and after, with your apps</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Before</th><th>After</th></tr>
+    <tr><td class="bad">"Make the study app look better."</td><td class="good">"On FlashDeck's Drill screen, the answer buttons are hard to tap on small phones. Make them at least 48px tall with clear gaps, using DESIGN.md colors only. Done when all four fit at 390px wide without scrolling. Send before and after screenshots."</td></tr>
+    <tr><td class="bad">"The login is broken."</td><td class="good">"Two team members say TeamDesk shows 'wrong code' after switching to a new phone, with the correct team code. Look at <code>api/sign-in.js</code> and the Team access section of <code>index.html</code>. Reproduce it first, explain the cause in plain words, then propose the smallest fix. Don't change firestore.rules without asking."</td></tr>
+    <tr><td class="bad">"Add a quiz."</td><td class="good">"I want a 'which class fits me' quiz on the Corner Gym site. I haven't thought it through. Interview me with multiple-choice questions until you could write its section of SPEC.md, then write it. No code yet."</td></tr>
+    <tr><td class="bad">"Make the gym site 3D."</td><td class="good">"On the Corner Gym home page, I want the hero to feel alive, like the 3D scene on the classes page. Show me 3 options as mockups on a scratch copy (not the repo), with phone screenshots and a note on how heavy each is on an old Android. Don't build yet."</td></tr>
+    <tr><td class="bad">"Fix the study app."</td><td class="good">"In FlashDeck, a tester typed a wrong answer to the capital of Australia ('Sydney') and it was marked right. Check the answer matching in <code>js/</code>, tell me why it passed, and fix it with a test in <code>tests/match.test.mjs</code>."</td></tr>
+  </table></div>
+
+  <h3>Phrases that change what Claude does</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Phrase</th><th>Effect</th></tr>
+    <tr><td><b>"Be ambitious: ..."</b> followed by what you mean</td><td>Anthropic's guide: Claude reads requests conservatively and builds the smallest thing that fits. This tells it you want the fuller version: empty and error states, edge cases, the natural follow-on.</td></tr>
+    <tr><td><b>"Don't write code yet."</b></td><td>Separates thinking from doing. Use it with plan mode for anything big.</td></tr>
+    <tr><td><b>"Interview me until you could write the spec."</b></td><td>Anthropic's recommended way to start when you don't know exactly what you want.</td></tr>
+    <tr><td><b>"Change X"</b> instead of "Can you suggest changes to X"</td><td>The prompting guide notes "can you suggest" may get suggestions only. Say the action you want.</td></tr>
+    <tr><td><b>"Reproduce it first."</b></td><td>Stops guess-fixes. Claude proves the bug exists before touching code.</td></tr>
+    <tr><td><b>"Explain it as if I can't read code."</b></td><td>Gets you plain-English answers you can check.</td></tr>
+    <tr><td><b>"Show me 3 options before building."</b></td><td>For anything visual, so you choose with your eyes.</td></tr>
+    <tr><td><b>"What would you need to know to do this well?"</b></td><td>Lets Claude ask for the context you forgot to give.</td></tr>
+    <tr><td><b>"Show me the evidence."</b></td><td>The command it ran and the output, or the screenshot, instead of "all tests pass".</td></tr>
+  </table></div>
+
+  <h3>Give the reason, say what to do</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Without a reason</th><th>With a reason</th></tr>
+    <tr><td class="bad">"No purple."</td><td class="good">"The gym's brand is red and black. Purple reads as the rival gym's color."</td></tr>
+    <tr><td class="bad">"Keep the text short."</td><td class="good">"Team members read this between tasks, one-handed, often while walking. Two lines at most."</td></tr>
+    <tr><td class="bad">"Make the Spanish better."</td><td class="good">"Write the Spanish the way a neighbor would say it at home, plain and warm. Our members are mostly Caribbean Spanish speakers."</td></tr>
+  </table></div>
+
+  <h3>Hand it over instead of describing it</h3>
+  <ul>
+    <li><b>Screenshots.</b> Paste the screen that's wrong, or a design you like. A picture removes a paragraph of guessing.</li>
+    <li><b>Files.</b> Type <code>@</code> and a path to include a file's contents.</li>
+    <li><b>Error text.</b> Copy the exact red text. Paraphrased errors lose the clue.</li>
+    <li><b>Examples.</b> Anthropic calls examples one of the most reliable ways to steer format and tone. "Write all the guide steps like this one: ..."</li>
+  </ul>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <p>Take the last request you sent Claude that went badly. Rewrite it with the template. Send the new version in a fresh session (<code>/clear</code>) and compare.</p>
+  </div>
+</section>
+
+<section class="lesson" id="vocab" data-part="4 · Talking to Claude" data-title="Terminology that makes you precise" data-min="15">
+  <div class="eyebrow"></div>
+  <h2>Terminology that makes you precise</h2>
+  <p class="lede">In any field, the precise term gets the meaning across in one try. Here is a working sheet of the terms that make Claude understand you the first time.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>About 30 terms grouped by what you're talking about</li>
+    <li>"You might say" next to "Say instead", so you can swap them in</li>
+  </ul></div>
+
+  <h3>Screens and looks</h3>
+  <div class="tablewrap"><table>
+    <tr><th>You might say</th><th>Say instead</th><th>What it means</th></tr>
+    <tr><td>"the part with the questions"</td><td><b>screen</b> or <b>route</b> ("the <code>#/drill</code> route")</td><td>One view of the app. FlashDeck names them in the address: <code>#/drill</code>, <code>#/progress</code>.</td></tr>
+    <tr><td>"the box thing"</td><td><b>card</b>, <b>modal</b> (pops over the page), <b>toast</b> (brief message), <b>sheet</b> (slides up from the bottom)</td><td>Standard names for common UI pieces.</td></tr>
+    <tr><td>"the button piece"</td><td><b>component</b></td><td>A reusable piece of UI, like a question card.</td></tr>
+    <tr><td>"on phones"</td><td><b>at 390px wide</b> / <b>viewport</b> / <b>breakpoint</b></td><td>Viewport is the visible area. A breakpoint is the width where the layout changes.</td></tr>
+    <tr><td>"it works on any screen"</td><td><b>responsive</b></td><td>The layout adapts to the width.</td></tr>
+    <tr><td>"easy to press"</td><td><b>tap target at least 44 to 48px</b></td><td>The touchable area of a button.</td></tr>
+    <tr><td>"when there's nothing yet"</td><td><b>empty state</b>, <b>loading state</b>, <b>error state</b></td><td>What a screen shows before data, while waiting, and when something fails. Ask for all three.</td></tr>
+    <tr><td>"the brand colors and sizes"</td><td><b>design tokens</b></td><td>The named colors, sizes and spacing in DESIGN.md.</td></tr>
+    <tr><td>"the movie at the start"</td><td><b>intro</b>, <b>splash</b>, <b>first-run experience</b></td><td>What a user sees the first time only.</td></tr>
+  </table></div>
+
+  <h3>Behavior and data</h3>
+  <div class="tablewrap"><table>
+    <tr><th>You might say</th><th>Say instead</th><th>What it means</th></tr>
+    <tr><td>"what it remembers"</td><td><b>state</b>; <b>persisted</b> (kept after closing)</td><td>The current data the app holds, and whether it survives a reload.</td></tr>
+    <tr><td>"saved on the phone"</td><td><b>localStorage</b></td><td>The browser's small notebook, one per phone and browser.</td></tr>
+    <tr><td>"how the data is laid out"</td><td><b>schema</b> or <b>data shape</b></td><td>The fields and their types.</td></tr>
+    <tr><td>"keep old progress working"</td><td><b>migration</b>, <b>backward compatible</b></td><td>New code reads old saved data.</td></tr>
+    <tr><td>"the AI part on the server"</td><td><b>endpoint</b> ("the <code>/api/ask</code> endpoint")</td><td>A URL on your server that the app sends a request to.</td></tr>
+    <tr><td>"what it sends and gets back"</td><td><b>request</b> and <b>response</b></td><td>The question to the server and its answer.</td></tr>
+    <tr><td>"the secret setting"</td><td><b>environment variable</b></td><td>A named setting stored on the host, like <code>ANTHROPIC_API_KEY</code>.</td></tr>
+    <tr><td>"it shows the old version"</td><td><b>stale cache</b>, <b>service worker cache</b></td><td>The phone serving saved old files.</td></tr>
+    <tr><td>"it works without internet"</td><td><b>offline-first</b>, <b>precache</b></td><td>Files saved ahead of time by the worker.</td></tr>
+  </table></div>
+
+  <h3>Process and quality</h3>
+  <div class="tablewrap"><table>
+    <tr><th>You might say</th><th>Say instead</th><th>What it means</th></tr>
+    <tr><td>"the plan for the app"</td><td><b>spec</b> (SPEC.md)</td><td>What, who for, what's in and out.</td></tr>
+    <tr><td>"how I know it's done"</td><td><b>acceptance criteria</b> ("Done when")</td><td>A check anyone could verify.</td></tr>
+    <tr><td>"it broke something that worked"</td><td><b>regression</b></td><td>An old feature broken by a new change.</td></tr>
+    <tr><td>"clean it up without changing it"</td><td><b>refactor</b></td><td>Restructure code, same behavior.</td></tr>
+    <tr><td>"messy stuff to fix later"</td><td><b>tech debt</b></td><td>Shortcuts that slow future work.</td></tr>
+    <tr><td>"what you changed"</td><td><b>diff</b></td><td>Lines added and removed.</td></tr>
+    <tr><td>"put it online"</td><td><b>deploy</b>; <b>preview</b> before live</td><td>Publishing a version.</td></tr>
+    <tr><td>"the robot check"</td><td><b>CI</b>, <b>status check</b></td><td>The site-check that runs on each pull request.</td></tr>
+    <tr><td>"quick test it opens"</td><td><b>smoke test</b></td><td>Does it load and do the basic thing.</td></tr>
+    <tr><td>"the red error"</td><td><b>console error</b> (with the exact text)</td><td>What the browser's developer console reports.</td></tr>
+    <tr><td>"weird situations"</td><td><b>edge cases</b></td><td>Empty input, no internet, very long names, two taps at once.</td></tr>
+    <tr><td>"works for everyone"</td><td><b>accessibility</b></td><td>Screen readers, contrast, text size, reduced motion.</td></tr>
+  </table></div>
+
+  <div class="call try"><div class="tag">Try it</div>
+    <p>Ask Claude in any repo: <em>"Using the terms 'screen', 'component', 'state' and 'empty state', describe every screen of this app in a table."</em> Reading your own app in these terms is the fastest way to start thinking in them.</p>
+  </div>
+</section>
+
+<section class="lesson" id="workflow" data-part="4 · Talking to Claude" data-title="The workflow, step by step" data-min="20">
+  <div class="eyebrow"></div>
+  <h2>The workflow, step by step</h2>
+  <p class="lede">Anthropic's recommended sequence is explore, plan, code, commit, with a written spec in front and a check at the end. Here it is as nine steps, with the exact words to use at each one.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>The full loop from idea to live, with prompts</li>
+    <li>When to start a fresh session</li>
+    <li>How to steer when it drifts</li>
+  </ul></div>
+
+  <ol class="steps">
+    <li><b>Interview, then spec</b>
+      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>I want to add [feature] to [app]. I haven't thought it through. Interview me with multiple-choice questions until you could write its section of SPEC.md: what it does, who it's for, "Done when", and what it will NOT do in this version. Then write it. No code.</pre></div>
+    </li>
+    <li><b>Look at how others do it</b>
+      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Look at how 2 or 3 similar tools handle this (their own sites or docs, not a summary article). Tell me what to copy and where ours can be better. Add the conclusions to the spec.</pre></div>
+    </li>
+    <li><b>Fresh session, plan mode</b>Type <code>/clear</code> (Anthropic: start a fresh session to build from the spec, so the build begins with a clean context). Press <code>Shift+Tab</code> until it says plan mode.
+      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Read the [feature] section of SPEC.md. Plan Phase 1 in plain words: what you'll change, which files, what could break, and how you'll prove it works. List your assumptions separately.</pre></div>
+    </li>
+    <li><b>Approve or correct the plan</b>Read it. Question anything you don't understand: "Why do we need a new file for that?" Approving switches Claude out of plan mode.</li>
+    <li><b>Build one phase on a branch</b>One phase per pull request. Small commits with plain names. Watch the first minute; press <code>Esc</code> if it heads somewhere you didn't intend.</li>
+    <li><b>Check, with evidence</b>
+      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Run the site check and tests. Show me the commands you ran and the output. Then screenshots at 390px and desktop, and a 3-line "try this" list for me.</pre></div>
+    </li>
+    <li><b>Independent review</b>
+      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Have the reviewer compare this branch's changes with the [feature] section of SPEC.md. Check every "Done when" line is met and old saved data still loads. Report only problems that affect users. Skip style. Fix what it finds and tell me in 2 or 3 lines what it caught.</pre></div>
+    </li>
+    <li><b>Pull request and your approval</b>Claude opens the pull request and tells you. You look at the screenshots, then approve. Claude merges, waits for the deploy, confirms it's live and gives you one line on how to undo it.</li>
+    <li><b>Update the record</b>Check the phase off in SPEC.md. If Claude got something wrong twice during the work, add one line to CLAUDE.md. If it's a one-off, don't.</li>
+  </ol>
+
+  <h3>When to start a fresh session</h3>
+  <ul>
+    <li><b>Between unrelated tasks.</b> <code>/clear</code> costs nothing; Anthropic notes a focused context gives better answers and costs less.</li>
+    <li><b>After two failed corrections.</b> Anthropic's rule of thumb: a third correction mostly adds to a conversation that already contains two failed attempts. <code>/clear</code>, then one new prompt that includes what you learned.</li>
+    <li><b>When work spans days.</b> Run <code>/handoff</code> (your skill), or <code>/rename</code> and resume later.</li>
+  </ul>
+
+  <h3>Steering</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Situation</th><th>Do this</th></tr>
+    <tr><td>It's building the wrong thing</td><td><code>Esc</code>, then say what's wrong and what you meant</td></tr>
+    <tr><td>You want to try a bold version</td><td>Try it, and <code>/rewind</code> if it's worse</td></tr>
+    <tr><td>It keeps making the same mistake</td><td><code>/clear</code> and a better first prompt; if it happens across sessions, one line in CLAUDE.md</td></tr>
+    <tr><td>It stopped halfway</td><td>Say <code>continue</code></td></tr>
+    <tr><td>It's over-building</td><td>"Only make changes I asked for or that are clearly necessary. Keep it simple." (Anthropic's suggested wording)</td></tr>
+  </table></div>
+</section>
+
+<section class="lesson" id="debug" data-part="4 · Talking to Claude" data-title="Debugging with Claude" data-min="15">
+  <div class="eyebrow"></div>
+  <h2>Debugging with Claude</h2>
+  <p class="lede">Most wasted sessions start with "it's broken". A good bug report is short, and it turns a guessing game into a fix.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>A bug report template</li>
+    <li>What to ask Claude to do, in order</li>
+    <li>The six bugs your kind of app gets most</li>
+  </ul></div>
+
+  <h3>The bug report</h3>
+  <div class="code prompt"><div class="label"><span>Template</span><button class="copy" type="button">Copy</button></div><pre>Bug in [app].
+What I did: [steps, numbered]
+What I expected: [...]
+What happened: [...]
+Where: [phone model, browser or installed app, URL or screen]
+Evidence: [screenshot / exact error text]
+Since when: [after which change, if you know]
+
+Reproduce it first. Then explain the cause in plain words. Then make the smallest fix, and add a test or check that would have caught it.</pre></div>
+
+  <h3>Getting the error text</h3>
+  <p>On a computer: open the site in Chrome, press <code>F12</code>, open the Console tab, reproduce the problem, and copy any red text. Or ask Claude to do it for you: <em>"Open the live site in Playwright at 390px, do [steps], and report any console errors."</em></p>
+
+  <h3>The bugs your apps get most</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Symptom</th><th>Usual cause</th><th>What to say</th></tr>
+    <tr><td>Installed app still shows the old version</td><td>Offline worker cache not bumped</td><td>"Check whether CACHE_VERSION in sw.js changed in the last deploy."</td></tr>
+    <tr><td>Progress vanished after an update</td><td>Saved data shape changed without a migration</td><td>"Compare the saved data shape before and after the last change."</td></tr>
+    <tr><td>Works locally, broken on GitHub Pages</td><td>Links starting with <code>/</code> (Pages serves from a subfolder)</td><td>"Run the site check; look for absolute paths."</td></tr>
+    <tr><td>3D scene blank on some phones</td><td>CDN failed or phone too weak; no fallback</td><td>"What happens when three.js fails to load? Show the fallback."</td></tr>
+    <tr><td>AI feature fails only when live</td><td>Environment variable missing in that deployment</td><td>"Check the function logs in Vercel for that endpoint."</td></tr>
+    <tr><td>"Missing or insufficient permissions"</td><td>Firestore rules block that read or write</td><td>"Which rule in firestore.rules denies this, and is that correct?"</td></tr>
+  </table></div>
+
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>When a fix fails twice, the problem is almost never effort. It's that Claude is fixing a guess. Go back to "reproduce it first", and raise effort with <code>/effort high</code> for that bug.</p>
+  </div>
+</section>
+
+<section class="lesson" id="library" data-part="4 · Talking to Claude" data-title="Prompt library" data-min="10">
+  <div class="eyebrow"></div>
+  <h2>Prompt library</h2>
+  <p class="lede">Copy, fill the brackets, send. Each one uses the ideas from this course.</p>
+
+  <div class="code prompt"><div class="label"><span>Start a new app</span><button class="copy" type="button">Copy</button></div><pre>I want to build [app idea] for [who]. Before any code: interview me with multiple-choice questions until you can write SPEC.md (what it does, who it's for, "Done when" per feature, "Not in v1", "Later", phases). Look at 2 or 3 similar apps and say where ours can be better. Plan the structure as small files with no build step, hosted on GitHub Pages, unless my answers need a server. Then write SPEC.md and a CLAUDE.md under 60 lines.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>Add a feature</span><button class="copy" type="button">Copy</button></div><pre>Goal: [feature] so that [who] can [why].
+Where: [screen/file].
+Context: [feedback, decisions].
+Constraints: [no new libraries / DESIGN.md colors / $0].
+Done when: [check].
+Plan it in plan mode first. Be ambitious: include empty, loading and error states.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>See design options</span><button class="copy" type="button">Copy</button></div><pre>Mock up 3 different options for [screen/element] on a scratch copy of the app (not the repo). Render each at 390px and desktop and send the screenshots, each with one line on its trade-off. Mark your pick. Don't build until I choose.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>Fix a bug</span><button class="copy" type="button">Copy</button></div><pre>[Paste the bug report template from Book 14.] Reproduce it first, explain the cause in plain words, make the smallest fix, add a check that would have caught it, and show me the evidence.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>Explain something to me</span><button class="copy" type="button">Copy</button></div><pre>Explain [file / feature / error] as if I can't read code. What it does, what it depends on, and what would break if it were removed. Use a small diagram if it helps. Don't change anything.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>Review before a pull request</span><button class="copy" type="button">Copy</button></div><pre>Have the reviewer compare this branch's changes with SPEC.md. Check every "Done when" line, and that old saved data still loads. Report only problems that affect users, with file and line. Skip style.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>Security check</span><button class="copy" type="button">Copy</button></div><pre>Check this repo for: secrets or keys committed anywhere in history, data that should be private but isn't, rules (Firestore, storage) that are more open than they need to be, and any user input shown on screen without being escaped. Plain-English findings ranked by risk. Don't fix yet.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>Cost check before spending</span><button class="copy" type="button">Copy</button></div><pre>Before you run this, estimate what it will cost: API requests, credits for image, video or 3D generators, and paid services. Give a number and what it's based on. Wait for my OK.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>Cleanup without changing behavior</span><button class="copy" type="button">Copy</button></div><pre>Find the 5 biggest sources of tech debt in this repo, ranked by how much they slow down future changes. For the top one, plan a refactor in small pull requests that change no behavior, with a check after each. Plan only.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>After Claude repeats a mistake</span><button class="copy" type="button">Copy</button></div><pre>You've now made the same mistake twice: [what]. Add one line to CLAUDE.md that would prevent it, written as what to do and why. If a rule there already covers it, rewrite that rule instead of adding a new one. If this must never happen, suggest a hook instead.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>Monthly CLAUDE.md trim</span><button class="copy" type="button">Copy</button></div><pre>Audit CLAUDE.md and .claude/rules/ against Anthropic's guidance: under 200 lines loaded every session, only what you can't learn from the code, no contradictions, no emphasis words, reasons attached. Mark each line keep, shorten, move (rule, skill, hook) or delete. Show the table and the new line count. Don't edit until I approve.</pre></div>
+
+  <div class="code prompt"><div class="label"><span>Hand off to a new session</span><button class="copy" type="button">Copy</button></div><pre>/handoff</pre></div>
+</section>
+
+<!-- ===================== PART 5 ===================== -->
+<section class="lesson" id="project" data-part="5 · Practice" data-title="Build your next app from zero" data-min="30">
+  <div class="eyebrow"></div>
+  <h2>Build your next app from zero</h2>
+  <p class="lede">A full walk-through using everything in this course. The example is a class schedule and check-in app for Corner Gym members. Swap in any idea; the steps don't change.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>Twelve steps from empty repo to live app</li>
+    <li>The exact prompt at each step, and what you should see back</li>
+    <li>The decisions only you can make</li>
+  </ul></div>
+
+  <ol class="steps">
+    <li><b>Write the idea in three sentences, by hand</b>Who it's for, what they do with it, why it's better than what they do now. Example: "Gym members open it to see today's classes and tap to check in. The coach sees who's coming. Today it's a group chat and guessing." If you can't write these three sentences, you aren't ready to prompt.</li>
+    <li><b>Create the repo on GitHub</b>New repository, public, with a README. Name it plainly (<code>lions-roar-classes</code>). Then open a Claude Code session on it.</li>
+    <li><b>Interview and spec</b>
+      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Here is my idea: [three sentences]. Interview me with multiple-choice questions until you can write SPEC.md: who uses it, each feature with a "Done when" line, "Not in v1", "Later", and phases of one pull request each. Push me on anything that would need a server, accounts or paid services, and tell me the cheapest way to do it. Write SPEC.md when done. No code.</pre></div>
+      <p><b>You should see:</b> 8 to 15 questions, then a SPEC.md. <b>Your decision:</b> check-in needs shared data (the coach must see it), so this app needs a back end. Claude should raise that.</p>
+    </li>
+    <li><b>Look at similar apps</b>Use the Book 13 prompt. Expect well-known gym booking apps and a list of what to copy and what to skip.</li>
+    <li><b>Choose the structure deliberately</b>
+      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Propose the structure for this app. I want small files with one job each and no build step. For the shared check-in data, compare Firebase and Vercel functions with a simple database: cost at 100 members, effort, and security. Recommend one. Write the choice and the reason into SPEC.md.</pre></div>
+    </li>
+    <li><b>Set up the instruction files</b>Paste items A, B, C, E and F from the Starter kit (Book 10). Then:
+      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>I've added starter files. Fill in CLAUDE.md for this app from SPEC.md. Keep it under 60 lines. Only write what you couldn't learn by reading the code once it exists. Then show me /memory output.</pre></div>
+    </li>
+    <li><b>Add a check before any features</b>
+      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Before features: add a site check like my other repos (.github/site-check.cjs and a GitHub Actions workflow) that opens every page at 390px and desktop with Playwright and fails on missing files or console errors. Add a node --test folder with one passing test. Put the commands in CLAUDE.md.</pre></div>
+      <p>Why first: Anthropic's whole "give Claude a check to run" section. With a check, Claude can close its own loop.</p>
+    </li>
+    <li><b>Protect main</b>Add the branch rule from Book 3, requiring the new Site check.</li>
+    <li><b>Build Phase 1 in plan mode</b><code>/clear</code>, plan mode, then the Book 13 plan prompt. Read the plan. Approve.</li>
+    <li><b>Check, review, approve</b>Evidence, reviewer, pull request, your approval. Exactly Book 13, steps 6 to 8.</li>
+    <li><b>Show a real user before Phase 2</b>Send the coach the link. Write down what they say, in their words. Feed it to Claude as context for Phase 2: "The coach said: '...'. Update SPEC.md, then plan Phase 2."</li>
+    <li><b>Keep the files honest</b>After each phase: phase checked off in SPEC.md; one CLAUDE.md line only for repeated mistakes; <code>/doctor prompt-audit</code> once a month.</li>
+  </ol>
+
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>The step people skip is 11. It's easy to spend weeks on polish and 3D for an app built for one real user (a friend, a client, family) whose feedback isn't written down anywhere. A spec built from your guesses is still a guess. One conversation with the real user beats a phase of polish.</p>
+  </div>
+</section>
+
+<section class="lesson" id="quiz" data-part="5 · Practice" data-title="Check yourself" data-min="10">
+  <div class="eyebrow"></div>
+  <h2>Check yourself</h2>
+  <p class="lede">Ten questions on the ideas that matter most. Tap an answer to see why.</p>
+  <p class="score" id="quizScore">0 of 10 answered</p>
+  <div id="quizBox"></div>
+  <button class="btn" type="button" id="quizReset">Start over</button>
+</section>
+
+<section class="lesson" id="glossary" data-part="Reference" data-title="Glossary" data-min="0">
+  <div class="eyebrow"></div>
+  <h2>Glossary</h2>
+  <p class="lede">Every technical term in this course, in plain words. Type to filter.</p>
+  <label for="glossSearch" class="sr" style="position:absolute;left:-9999px">Filter terms</label>
+  <input id="glossSearch" class="search" type="search" placeholder="Filter: try cache, hook, branch..." autocomplete="off">
+  <dl class="gloss" id="glossList"></dl>
+</section>
+
+<section class="lesson" id="sources" data-part="Reference" data-title="Sources" data-min="0">
+  <div class="eyebrow"></div>
+  <h2>Sources</h2>
+  <p class="lede">Everything about Anthropic's and GitHub's recommendations comes from these pages, read in November 2026. Tools change; check the live pages for anything that looks out of date.</p>
+  <h3>Anthropic documentation</h3>
+  <ul>
+    <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: guidance versus enforcement, the two-question test, keeping CLAUDE.md short, "be ambitious", checks, reviews, steering, and the "what you can stop doing" table.</li>
+    <li><a href="https://code.claude.com/docs/en/memory">How Claude Code remembers your project</a>: locations, loading order, imports, path rules, AGENTS.md, the 200-line target, troubleshooting.</li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Prompting best practices</a>: the colleague test, explaining why, saying what to do, examples, avoiding over-engineering.</li>
+    <li><a href="https://code.claude.com/docs/en/hooks-guide">Hooks guide</a>, <a href="https://code.claude.com/docs/en/skills">Skills</a>, <a href="https://code.claude.com/docs/en/sub-agents">Subagents</a>, <a href="https://code.claude.com/docs/en/permissions">Permissions</a>: details behind the Starter kit.</li>
+  </ul>
+  <h3>GitHub documentation</h3>
+  <ul>
+    <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">Creating a pull request from a fork</a>: compare across forks, allow edits from maintainers, who can open one.</li>
+    <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">Syncing a fork</a>: the Sync fork button and what happens on conflicts.</li>
+  </ul>
+  <h3>About the examples</h3>
+  <p>FlashDeck, ExamTown, TeamDesk, Corner Gym and Pocket Pet are made-up apps. Their setups, file sizes and mistakes are typical of real projects built by non-developers with Claude.</p>
+</section>
+
+  </main>
+</div>
+<script>
+(function(){
+  var KEY = "bac-course-v1";
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { store = {}; }
+  if (!store.done) store.done = {};
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+
+  // Cloth colors, spine titles and heights for every book
+  var BOOK = {
+    start:    ["#B0142F","#F1D9A6","Start here", 1],
+    anatomy:  ["#6B4F3A","#EBD8B8","What a web app is", .93],
+    stack:    ["#8C6F4E","#F5E6CC","The usual stack", .97],
+    git:      ["#5E4A3C","#E7D3B0","Git and GitHub", .9],
+    forks:    ["#9C4F43","#F5E1C8","Forks", 1],
+    hosting:  ["#7F6A5C","#F2E3CF","Hosting and data", .95],
+    agent:    ["#3F4A56","#E1E6EA","How it works", 1],
+    toolkit:  ["#55606B","#EEF0F0","The toolkit", .92],
+    claudemd: ["#2F4A3A","#E5D9B4","The CLAUDE.md rules", 1],
+    audit:    ["#3E5A47","#F0E6C8","Audit a CLAUDE.md", .94],
+    starter:  ["#6F7F78","#F7F2E6","Starter kit", .9],
+    request:  ["#23324A","#E9D8A8","A great request", .97],
+    vocab:    ["#2E4060","#EADFC6","Terminology", .9],
+    workflow: ["#3B2E4A","#E8D9C0","The workflow", 1],
+    debug:    ["#1F2A3D","#D9C9A6","Debugging", .92],
+    library:  ["#4A2F2A","#F0D7B5","Prompt library", .96],
+    project:  ["#7A7158","#F7EFDC","Build from zero", 1],
+    quiz:     ["#5A4A3A","#EEDDC2","Check yourself", .9],
+    glossary: ["#F2EEE8","#2A1A14","Glossary", .95, "paper"],
+    sources:  ["#FAF7EF","#2A1A14","Sources", .88, "paper"]
+  };
+  var FRAME = '<div class="prop frame" aria-hidden="true"><span class="fr"></span><span class="mat"><span>read, build, check<em>in that order</em></span></span></div>';
+  var SHELF_NOTES = {
+    "Start here": "Read this first: who this library is for, the example apps, and how to use it.",
+    "1 · How your apps work": "The parts of a web app, Git, forks, hosting and data.",
+    "2 · Claude Code": "How the tool works and what each piece of it is for.",
+    "3 · CLAUDE.md, Anthropic's way": "The official guidance, your audit and a starter kit.",
+    "4 · Talking to Claude": "Requests, terms, the workflow, bugs and a prompt library.",
+    "5 · Practice": "A full build from zero, and a quiz.",
+    "Reference": "Look things up any time."
+  };
+  var PROPS = {
+    "Start here": [FRAME, '<div class="prop plant" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><span class="pot"></span></div>', '<div class="prop candle" aria-hidden="true"><span class="glow"></span><span class="flame"></span><span class="wax"></span></div>'],
+    "2 · Claude Code": ['<div class="prop stack" aria-hidden="true"><i class="flat" style="--fc:#55606B;--fw:90px"></i><i class="flat" style="--fc:#8C6F4E;--fw:80px"></i></div>', '<div class="prop bookend" aria-hidden="true"></div>'],
+    "3 · CLAUDE.md, Anthropic's way": ['<div class="prop plant" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><span class="pot"></span></div>'],
+    "5 · Practice": ['<div class="prop candle" aria-hidden="true"><span class="glow"></span><span class="flame"></span><span class="wax"></span></div>', '<div class="prop stack" aria-hidden="true"><i class="flat" style="--fc:#7A7158;--fw:88px"></i><i class="flat" style="--fc:#3B2E4A;--fw:80px"></i></div>'],
+    "Reference": ['<div class="prop bookend" aria-hidden="true"></div>']
+  };
+
+  var ICON = {
+    start:'<path d="M8 18c8-4 16-4 24 2 8-6 16-6 24-2v30c-8-4-16-4-24 2-8-6-16-6-24-2z"/><path d="M32 20v30"/>',
+    anatomy:'<path d="M22 18 10 32l12 14M42 18l12 14-12 14M36 14 28 50"/>',
+    stack:'<rect x="14" y="40" width="36" height="10" rx="2"/><rect x="18" y="28" width="28" height="10" rx="2"/><rect x="22" y="16" width="20" height="10" rx="2"/>',
+    git:'<circle cx="20" cy="14" r="4"/><circle cx="20" cy="50" r="4"/><circle cx="44" cy="24" r="4"/><path d="M20 18v28M44 28c0 10-24 8-24 18"/>',
+    forks:'<circle cx="32" cy="52" r="4"/><circle cx="18" cy="12" r="4"/><circle cx="46" cy="12" r="4"/><path d="M32 48V38c0-8-14-8-14-22M32 38c0-8 14-8 14-22"/>',
+    hosting:'<path d="M16 40c-7 0-8-11 0-12 0-9 11-12 16-6 5-6 17-3 16 6 7 1 7 12 0 12z"/><circle cx="26" cy="50" r="3"/><path d="M29 50h12M37 50v4"/>',
+    agent:'<path d="M48 26a18 18 0 1 0 2 14"/><path d="M50 14v12H38"/>',
+    toolkit:'<path d="M40 12a10 10 0 0 0-10 14L12 44l8 8 18-18a10 10 0 0 0 14-10l-6 6-6-2-2-6z"/>',
+    claudemd:'<path d="M18 10h20l10 10v34H18z"/><path d="M38 10v10h10M24 30h18M24 37h18M24 44h12"/>',
+    audit:'<path d="M36 52H14V10h22l8 8v14"/><path d="M36 10v8h8"/><circle cx="42" cy="44" r="8"/><path d="M48 50l6 6"/>',
+    starter:'<circle cx="22" cy="32" r="9"/><path d="M31 32h22M47 32v8M41 32v6"/>',
+    request:'<path d="M12 14h40v26H28L18 50V40h-6z"/><path d="M20 24h24M20 31h16"/>',
+    vocab:'<rect x="16" y="10" width="30" height="44" rx="2"/><path d="M46 16h4M46 26h4M46 36h4M24 22h14M24 30h10"/>',
+    workflow:'<circle cx="14" cy="48" r="4"/><circle cx="32" cy="32" r="4"/><circle cx="50" cy="16" r="4"/><path d="M17 45l12-10M35 29l12-10"/>',
+    debug:'<ellipse cx="32" cy="36" rx="10" ry="14"/><path d="M32 22v28M26 18l-4-6M38 18l4-6M22 30H12M22 40H12M42 30h10M42 40h10"/>',
+    library:'<rect x="12" y="20" width="30" height="34" rx="2"/><path d="M18 14h30v34"/><path d="M18 30h18M18 37h18M18 44h10"/>',
+    project:'<path d="M12 30 32 14l20 16v22H12z"/><path d="M26 52V38h12v14"/>',
+    quiz:'<circle cx="32" cy="32" r="20"/><path d="M26 26a6 6 0 1 1 8 6c-2 1-2 3-2 5"/><path d="M32 44v1"/>',
+    glossary:'<rect x="14" y="10" width="36" height="44" rx="2"/><path d="M22 40l6-18 6 18M24 34h8M38 24h6l-6 14h6"/>',
+    sources:'<path d="M48 12C30 16 20 30 18 50l4-4c6-2 14-10 18-20 4-6 8-10 8-14z"/><path d="M18 50l-4 4M26 38l8-8"/>'
+  };
+  function svg(id){ return '<svg viewBox="0 0 64 64" aria-hidden="true">' + (ICON[id] || ICON.start) + '</svg>'; }
+  var lessons = Array.prototype.slice.call(document.querySelectorAll("section.lesson"));
+  var counted = lessons.filter(function(s){ return s.dataset.part !== "Reference"; });
+  var libraryView = document.getElementById("libraryView");
+  var readerView = document.getElementById("readerView");
+
+  // Number the books and dress each lesson as an open book
+  var num = 0;
+  lessons.forEach(function(s){
+    var b = BOOK[s.id] || ["#6B4329","#F1D9A6",s.dataset.title,1];
+    s.style.setProperty("--c", b[0]); s.style.setProperty("--acc", b[1]);
+    var isRef = s.dataset.part === "Reference";
+    s.dataset.num = isRef ? "" : String(num);
+    if (!isRef) num++;
+    var eyebrow = s.querySelector(".eyebrow"), h2 = s.querySelector("h2"), lede = s.querySelector(".lede");
+    var partName = s.dataset.part.replace(/^\d · /, "");
+    var bits = [];
+    if (isRef) bits.push("Reference");
+    else if (s.dataset.part === "Start here") bits.push("Start here", "Book 0");
+    else bits.push("Shelf " + s.dataset.part.charAt(0) + ": " + partName, "Book " + s.dataset.num);
+    if (+s.dataset.min) bits.push(s.dataset.min + " min");
+    eyebrow.innerHTML = bits.map(function(t){ return "<span>" + t + "</span>"; }).join("");
+    var cover = document.createElement("div"); cover.className = "cover";
+    var inner = document.createElement("div"); inner.className = "cover-in";
+    cover.appendChild(inner);
+    var page = document.createElement("div"); page.className = "page";
+    var kids = Array.prototype.slice.call(s.childNodes);
+    s.appendChild(cover); s.appendChild(page);
+    kids.forEach(function(k){
+      if (k === eyebrow || k === h2 || k === lede) inner.appendChild(k);
+      else page.appendChild(k);
+    });
+    if (lede) { var r = document.createElement("div"); r.className = "rule"; inner.appendChild(r); }
+    var ci = document.createElement("div"); ci.className = "cover-ic"; ci.innerHTML = svg(s.id); inner.insertBefore(ci, inner.firstChild);
+  });
+
+  // Build the shelves
+  var caseEl = document.getElementById("case");
+  var groups = [];
+  lessons.forEach(function(s){
+    var g = groups.length ? groups[groups.length - 1] : null;
+    if (!g || g.name !== s.dataset.part) { g = { name: s.dataset.part, items: [] }; groups.push(g); }
+    g.items.push(s);
+  });
+  var selected = null;
+  groups.forEach(function(g){
+    var shelf = document.createElement("section"); shelf.className = "shelf";
+    shelf.setAttribute("aria-label", g.name);
+    var row = document.createElement("div"); row.className = "shelf-row";
+    var props = PROPS[g.name] || [];
+    g.items.forEach(function(s, i){
+      var b = BOOK[s.id] || ["#6B4329","#F1D9A6",s.dataset.title,1];
+      var paper = b[4] ? " " + b[4] : "";
+      var a = document.createElement("a");
+      a.className = "slot"; a.href = "#" + s.id; a.dataset.id = s.id;
+      a.style.setProperty("--c", b[0]); a.style.setProperty("--acc", b[1]); a.style.setProperty("--r", b[3]);
+      a.style.setProperty("--t", (s.dataset.part === "Start here" ? 70 : 58 + (i % 3) * 4) + "px");
+      a.setAttribute("aria-label", (s.dataset.num ? "Book " + s.dataset.num + ": " : "") + s.dataset.title);
+      var kicker = s.dataset.part === "Reference" ? "Reference" : (s.dataset.part === "Start here" ? "Start here" : "Shelf " + s.dataset.part.charAt(0) + " \u00b7 Book " + s.dataset.num);
+      a.innerHTML = '<span class="book"><span class="face spine' + paper + '"><span class="sp-band"></span><span class="sp-num">' + (s.dataset.num || (s.id === "glossary" ? "A" : "B")) + '</span><span class="sp-title"></span>' +
+        (+s.dataset.min ? '<span class="sp-min">' + s.dataset.min + ' min</span>' : '<span class="sp-min">Ref</span>') + '<span class="sp-band"></span></span>' +
+        '<span class="face fcover' + paper + '"><span class="cv"><span class="cv-k"></span><span class="cv-ic">' + svg(s.id) + '</span><span class="cv-t"></span><span class="cv-r"></span><span class="cv-a">Building Apps with Claude</span></span><span class="cv-open">Open</span></span></span>';
+      a.querySelector(".sp-title").textContent = b[2];
+      a.querySelector(".cv-k").textContent = kicker;
+      a.querySelector(".cv-t").textContent = s.dataset.title;
+      a.addEventListener("click", function(e){
+        if (selected !== a) { e.preventDefault(); select(a); }
+      });
+      row.appendChild(a);
+    });
+    props.forEach(function(p){ row.insertAdjacentHTML("beforeend", p); });
+    var plank = document.createElement("div"); plank.className = "plank";
+    var plaque = document.createElement("span"); plaque.className = "plaque";
+    plaque.textContent = g.name === "Start here" || g.name === "Reference" ? g.name : "Shelf " + g.name;
+    plank.appendChild(plaque);
+    var cap = document.createElement("div"); cap.className = "cap"; cap.setAttribute("aria-live", "polite");
+    cap.innerHTML = '<p class="note"></p><div class="sel-in"><small></small><h3></h3><p></p><div class="acts"><a href="#">Open the book</a><button type="button">Put it back</button></div></div>';
+    cap.querySelector(".note").textContent = SHELF_NOTES[g.name] || "";
+    cap.querySelector("button").addEventListener("click", function(){ select(null); });
+    shelf.appendChild(row); shelf.appendChild(plank); shelf.appendChild(cap);
+    caseEl.appendChild(shelf);
+  });
+  function select(slot){
+    if (selected) {
+      selected.classList.remove("sel");
+      var oc = selected.closest(".shelf").querySelector(".cap"); oc.classList.remove("on");
+    }
+    selected = slot;
+    if (!slot) return;
+    slot.classList.add("sel");
+    var s = document.getElementById(slot.dataset.id);
+    var cap = slot.closest(".shelf").querySelector(".cap");
+    cap.querySelector("small").textContent = (s.dataset.num ? "Book " + s.dataset.num : "Reference") + (+s.dataset.min ? " \u00b7 " + s.dataset.min + " min" : "") + (store.done[s.id] ? " \u00b7 read" : "");
+    cap.querySelector("h3").textContent = s.dataset.title;
+    var lede = s.querySelector(".lede");
+    cap.querySelector("p").textContent = lede ? lede.textContent : "";
+    cap.querySelector("a").href = "#" + s.id;
+    cap.classList.add("on");
+    var row = slot.parentNode;
+    setTimeout(function(){
+      var left = slot.offsetLeft - row.clientWidth / 2 + slot.offsetWidth / 2;
+      try { row.scrollTo({ left: left, behavior: "smooth" }); } catch (e) { row.scrollLeft = left; }
+    }, 60);
+  }
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") select(null); });
+  var spines = Array.prototype.slice.call(caseEl.querySelectorAll(".slot"));
+
+  // Foot of each book: previous, mark as read, next
+  function navCard(target, cls, label){
+    var a = document.createElement("a"); a.className = "nb " + cls; a.href = "#" + target.id;
+    a.style.setProperty("--c", (BOOK[target.id] || ["#6B4329"])[0]);
+    var txt = '<div><small>' + label + '</small><span></span></div>';
+    a.innerHTML = cls === "nx" ? txt + '<i class="mini"></i>' : '<i class="mini"></i>' + txt;
+    a.querySelector("span").textContent = target.dataset.title;
+    return a;
+  }
+  lessons.forEach(function(s, i){
+    var page = s.querySelector(".page");
+    var foot = document.createElement("div"); foot.className = "foot";
+    var prev = lessons[i - 1], next = lessons[i + 1];
+    foot.appendChild(prev ? navCard(prev, "pv", "Previous book") : document.createElement("span"));
+    var mid = document.createElement("div"); mid.className = "mid";
+    if (s.dataset.part !== "Reference") {
+      var d = document.createElement("button"); d.type = "button"; d.className = "btn doneBtn"; d.dataset.id = s.id;
+      d.addEventListener("click", function(){
+        store.done[s.id] = !store.done[s.id]; save(); refresh();
+        if (store.done[s.id]) { location.hash = next ? next.id : "shelves"; }
+      });
+      mid.appendChild(d);
+    } else {
+      var back = document.createElement("a"); back.className = "btn"; back.href = "#shelves"; back.textContent = "Back to the shelves"; mid.appendChild(back);
+    }
+    foot.appendChild(mid);
+    foot.appendChild(next ? navCard(next, "nx", "Next book") : document.createElement("span"));
+    page.appendChild(foot);
+  });
+
+  function refresh(){
+    var count = counted.filter(function(s){ return store.done[s.id]; }).length;
+    document.getElementById("readCount").textContent = count + " of " + counted.length;
+    document.getElementById("readBar").style.width = (100 * count / counted.length) + "%";
+    var nextUnread = counted.filter(function(s){ return !store.done[s.id]; })[0];
+    var cont = document.getElementById("contLink");
+    if (nextUnread) {
+      cont.href = "#" + nextUnread.id;
+      cont.style.setProperty("--c", BOOK[nextUnread.id][0]);
+      document.getElementById("contLabel").textContent = count ? "Continue with Book " + nextUnread.dataset.num : "Start reading";
+      document.getElementById("contTitle").textContent = nextUnread.dataset.title;
+    } else {
+      cont.href = "#quiz"; document.getElementById("contLabel").textContent = "All read";
+      document.getElementById("contTitle").textContent = "Take the quiz again";
+    }
+    spines.forEach(function(a){
+      a.classList.toggle("read", !!store.done[a.dataset.id]);
+      a.classList.toggle("next", !!nextUnread && a.dataset.id === nextUnread.id);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".doneBtn"), function(b){
+      var on = !!store.done[b.dataset.id];
+      b.textContent = on ? "Read (tap to undo)" : "Mark as read";
+      b.classList.toggle("isdone", on);
+    });
+  }
+
+  function show(){
+    var id = (location.hash || "").replace("#", "");
+    var target = document.getElementById(id);
+    var isBook = !!target && target.classList.contains("lesson");
+    libraryView.hidden = isBook; readerView.hidden = !isBook;
+    if (isBook) select(null);
+    if (isBook) {
+      lessons.forEach(function(s){ s.classList.toggle("on", s === target); });
+      document.getElementById("readTitle").textContent = target.dataset.title;
+      document.getElementById("readProg").textContent = target.dataset.num ? "Book " + target.dataset.num + " of " + (counted.length - 1) : "Reference";
+      document.title = target.dataset.title + " | Building Apps With Claude";
+    } else {
+      document.title = "Building Apps With Claude";
+    }
+    window.scrollTo(0, 0);
+    setTimeout(function(){ window.scrollTo(0, 0); }, 0);
+  }
+  window.addEventListener("hashchange", show);
+  document.getElementById("resetBtn").addEventListener("click", function(){ store.done = {}; save(); refresh(); });
+
+  // Library card: the reader's own name, kept in their browser
+  var borrower = document.getElementById("borrower");
+  borrower.value = store.name || "";
+  borrower.addEventListener("input", function(){ store.name = borrower.value.slice(0, 28); save(); });
+
+  // Opening: once per visit, never on a link straight to a book
+  var intro = document.getElementById("intro");
+  var seen = false;
+  try { seen = sessionStorage.getItem("bac-intro-seen") === "1"; } catch (e) {}
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!seen && !location.hash) {
+    intro.hidden = false;
+    var timer = null, closing = false;
+    var finish = function(){
+      if (closing) return; closing = true;
+      try { sessionStorage.setItem("bac-intro-seen", "1"); } catch (e) {}
+      intro.classList.add("open");
+      setTimeout(function(){ intro.classList.add("gone"); }, reduce ? 50 : 1500);
+      setTimeout(function(){ intro.hidden = true; }, reduce ? 950 : 2500);
+      clearTimeout(timer);
+    };
+    document.getElementById("introOpen").addEventListener("click", finish);
+    document.getElementById("introSkip").addEventListener("click", function(){ reduce = true; finish(); });
+    document.getElementById("introBook").addEventListener("click", finish);
+    document.addEventListener("keydown", function k(e){ if (!intro.hidden) { finish(); document.removeEventListener("keydown", k); } });
+    timer = setTimeout(finish, 4200);
+  }
+
+  // Copy buttons
+  Array.prototype.forEach.call(document.querySelectorAll(".copy"), function(btn){
+    btn.addEventListener("click", function(){
+      var pre = btn.closest(".code").querySelector("pre");
+      var text = pre.innerText;
+      function ok(){ btn.textContent = "Copied"; setTimeout(function(){ btn.textContent = "Copy"; }, 1600); }
+      function fallback(){
+        var range = document.createRange(); range.selectNodeContents(pre);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+        btn.textContent = "Selected: copy it";
+        setTimeout(function(){ btn.textContent = "Copy"; }, 2400);
+      }
+      try {
+        if (navigator.clipboard) { navigator.clipboard.writeText(text).then(ok, fallback); }
+        else { fallback(); }
+      } catch (e) { fallback(); }
+    });
+  });
+
+  // Quiz
+  var Q = [
+    { q: "An app's CLAUDE.md is 73 lines and its first line imports AGENTS.md (513 lines). How much does Claude load every session?",
+      o: ["73 lines, because imports load only when needed", "About 586 lines", "Only AGENTS.md, because it wins"], a: 1,
+      w: "Anthropic's memory docs: imports are expanded at launch and don't reduce context. Both files load in full, every session." },
+    { q: "In an app with a build step, index.html must never be edited by hand. What's the most reliable way to make sure of that?",
+      o: ["Write it in CLAUDE.md in capital letters", "Repeat it at the start of every prompt", "A PreToolUse hook that blocks edits to that file"], a: 2,
+      w: "CLAUDE.md is guidance Claude follows almost always. A hook runs every time, whatever the model decides. Anthropic: rules with zero exceptions belong in hooks or deny rules." },
+    { q: "Which line belongs in a CLAUDE.md?",
+      o: ["Write clean, well-organized code", "Site check: node .github/site-check.cjs index.html", "The js/ folder holds the JavaScript files"], a: 1,
+      w: "Anthropic calls the command that checks work the single most useful line. Generic advice changes nothing, and folder descriptions are things Claude can read from the repo." },
+    { q: "A rule only matters when Claude works on ringside.js. Where should it go?",
+      o: ["CLAUDE.md, so it's never missed", "A file in .claude/rules/ with paths: listing ringside.js", "A subagent"], a: 1,
+      w: "Path rules load only when Claude reads matching files, so they cost nothing on unrelated tasks." },
+    { q: "You've corrected Claude twice on the same thing and it's still wrong. Anthropic's advice?",
+      o: ["Correct it a third time, more firmly", "Type /clear and write one better prompt that includes what you learned", "Add IMPORTANT to CLAUDE.md"], a: 1,
+      w: "A third correction adds to a conversation already holding two failed attempts. A fresh start with a better prompt works better almost every time." },
+    { q: "After a deploy, people with the installed app still see the old version. Most likely cause?",
+      o: ["GitHub Pages is down", "The offline worker's cache version wasn't bumped", "The branch wasn't merged"], a: 1,
+      w: "The service worker keeps cached files until its version changes. That's why a CACHE_VERSION rule belongs in CLAUDE.md for any offline app." },
+    { q: "Where must an app's Claude API key live?",
+      o: ["In index.html, so the app can use it", "In a Vercel environment variable, read by the api/ functions", "In firestore.rules"], a: 1,
+      w: "Anything in the front end can be copied from a browser. The key stays on the server, set in Vercel and read by name." },
+    { q: "Which phrase tells Claude you want the fuller version of a feature?",
+      o: ["Think harder", "Be ambitious: include empty and error states", "Don't be lazy"], a: 1,
+      w: "Anthropic: Claude reads requests conservatively. 'Be ambitious' plus what you mean tells it about scale, which only you know. 'Think harder' is ordinary text; effort is the real control." },
+    { q: "Why does the reviewer prompt end with 'skip style'?",
+      o: ["Style doesn't matter", "A reviewer asked to find problems always finds something, and fixing every nit adds needless complexity", "Reviewers can't read CSS"], a: 1,
+      w: "That's Anthropic's own warning. You want problems that affect users and the spec." }
+  ];
+  Q.splice(3, 0, { q: "Your fork of a friend's app is far ahead of their original. What should come before sending a pull request?",
+      o: ["Nothing: open one pull request with everything", "Ask which route they want (small pull requests, collaborator, or your version replacing theirs)", "Delete their repo's old files"], a: 1,
+      w: "One huge pull request is something nobody can review. It's their app: agree on the route first, then send small, themed pull requests if that's what they picks." });
+  var box = document.getElementById("quizBox");
+  var answered = 0, right = 0;
+  function renderQuiz(){
+    box.innerHTML = ""; answered = 0; right = 0; updateScore();
+    Q.forEach(function(item, qi){
+      var d = document.createElement("div"); d.className = "q";
+      var p = document.createElement("p"); p.className = "qt"; p.textContent = (qi + 1) + ". " + item.q; d.appendChild(p);
+      item.o.forEach(function(opt, oi){
+        var b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.textContent = opt;
+        b.addEventListener("click", function(){
+          if (d.classList.contains("answered")) return;
+          d.classList.add("answered"); answered++;
+          if (oi === item.a) { right++; b.classList.add("right"); }
+          else { b.classList.add("wrong"); d.querySelectorAll("button.opt")[item.a].classList.add("right"); }
+          updateScore();
+        });
+        d.appendChild(b);
+      });
+      var why = document.createElement("p"); why.className = "why"; why.textContent = item.w; d.appendChild(why);
+      box.appendChild(d);
+    });
+  }
+  function updateScore(){
+    document.getElementById("quizScore").textContent = answered < Q.length
+      ? answered + " of " + Q.length + " answered, " + right + " right"
+      : "Finished: " + right + " of " + Q.length + " right";
+  }
+  document.getElementById("quizReset").addEventListener("click", renderQuiz);
+  renderQuiz();
+
+  // Glossary
+  var G = [
+    ["Acceptance criteria", "The checkable conditions that mean a feature is done. The 'Done when' lines in a spec."],
+    ["AGENTS.md", "An instruction file other AI tools read. Claude Code reads CLAUDE.md, so import it with @AGENTS.md."],
+    ["API", "A way for one program to ask another for something. The Claude API is how an app's server asks Claude questions."],
+    ["Auto mode", "Claude Code's default in the terminal: works without asking each time, while a checker model stops risky actions."],
+    ["Back end", "Code that runs on a server, not the phone. For example an api/ folder on Vercel."],
+    ["Branch", "A parallel copy of the code where work happens without touching the live version."],
+    ["Branch rule", "A GitHub setting that blocks changes to a branch (like main) unless conditions are met, such as a passing check."],
+    ["Build step", "A script that assembles source files into the file that ships. For example tools/build.py."],
+    ["Cache", "Saved copies of files so they load fast or offline. Stale cache means old files are still being served."],
+    ["CDN", "A fast public server for libraries like three.js. If it fails, anything loaded from it fails too."],
+    ["CI", "Continuous integration: automatic checks on each pull request. For example a site-check workflow."],
+    ["CLAUDE.md", "The instruction file Claude Code loads at the start of every session. Guidance, not enforcement."],
+    ["CLAUDE.local.md", "Your personal instructions for one project, kept out of the repo with .gitignore."],
+    ["Commit", "A saved snapshot of changes with a message."],
+    ["Compaction", "Claude Code summarizing a long conversation to free up room. Instructions given only in chat can be lost."],
+    ["Component", "A reusable piece of UI, like a card or a button group."],
+    ["Console error", "An error the browser reports in its developer console (F12 in Chrome). Copy the exact text."],
+    ["Context window", "Everything Claude holds in mind during a session: messages, files read, outputs and instruction files."],
+    ["Deny rule", "A permission rule that blocks an action in every mode. Enforced by Claude Code."],
+    ["Deploy", "Publishing a version of the app so users get it."],
+    ["Diff", "The exact lines added and removed by a change."],
+    ["Edge case", "An unusual situation: empty input, no internet, a very long name, two taps at once."],
+    ["Effort", "The setting (/effort) that controls how long Claude thinks before answering."],
+    ["Endpoint", "A URL on a server that the app sends requests to, like /api/ask."],
+    ["Environment variable", "A named setting stored on the host, outside the code. Where secret keys live."],
+    ["Firestore", "Firebase's database. Who can read and write is set by firestore.rules."],
+    ["Fork", "Your own copy, on GitHub, of a repo someone else owns. GitHub remembers the link to the original."],
+    ["Collaborator", "Someone the owner has added to a personal repo, with write access to it."],
+    ["License", "A file saying how others may use the code. With no license, the code stays the owner's by default."],
+    ["Sync fork", "The button on a fork's page that pulls the original repo's new work into your fork."],
+    ["Front end", "Code that runs in the user's browser: HTML, CSS and JavaScript."],
+    ["GitHub Actions", "GitHub's robots that run checks or jobs automatically."],
+    ["GitHub Pages", "Free hosting that serves a repo's files as a website. Merging to main is going live."],
+    ["GLB", "A 3D model file format holding shapes, textures and animations together."],
+    ["Hook", "A script Claude Code runs at a fixed moment (session start, before or after a tool, before stopping). Enforced every time."],
+    ["Import (@)", "A line like @AGENTS.md that pulls another file into CLAUDE.md. Expanded at launch, so it doesn't save context."],
+    ["localStorage", "A small notebook in the browser, one per phone and browser. Where study apps often keep progress."],
+    ["main", "The branch that's live."],
+    ["MCP", "Model Context Protocol: a standard way to connect Claude to an outside tool. Often used to connect Playwright."],
+    ["Merge", "Joining a branch's changes into another branch, usually main."],
+    ["Migration", "Code that converts saved data from an old shape to a new one so users keep their progress."],
+    ["Node.js", "A program that runs JavaScript outside a browser. Your checks and tests use it."],
+    ["npm", "The tool that installs JavaScript packages and runs the commands listed in package.json."],
+    ["Path rule", "A file in .claude/rules/ with a paths: list. Loads only when Claude touches matching files."],
+    ["Plan mode", "A mode where Claude reads and plans but can't edit. Shift+Tab to switch."],
+    ["Playwright", "A robot browser that opens pages, clicks and takes screenshots. How Claude sees your app."],
+    ["Plugin", "An installable bundle of skills, agents, hooks and MCP servers."],
+    ["Pull request", "A request to merge a branch into main, where checks run and changes are reviewed."],
+    ["PWA", "Progressive web app: a site that installs to the Home Screen and works offline."],
+    ["Refactor", "Restructuring code without changing what it does."],
+    ["Regression", "Something that used to work, broken by a new change."],
+    ["Repo", "A project folder plus its full history of changes."],
+    ["Responsive", "A layout that adapts to the screen width."],
+    ["Revert", "Undoing a merged change with a new commit."],
+    ["Schema", "The shape of saved data: which fields, what types."],
+    ["Serverless function", "A small piece of back-end code that runs on demand, like each file in an api/ folder on Vercel."],
+    ["Service worker", "The script (sw.js) that caches files so a PWA works offline."],
+    ["Skill", "A saved procedure in .claude/skills/name/SKILL.md. Claude loads the full text only when needed."],
+    ["Smoke test", "A quick check that the app loads and does its basic job."],
+    ["Spec", "The written description of what an app does, who it's for and what's in or out. Your SPEC.md."],
+    ["State", "The data an app currently holds, like the current question and score."],
+    ["Static site", "A site made only of files, with no server code. Most of your apps."],
+    ["Subagent", "A helper with its own fresh context, its own model and a limited set of tools."],
+    ["Tap target", "The touchable area of a button. Aim for at least 44 to 48 pixels."],
+    ["Tech debt", "Shortcuts in code that make future changes slower or riskier."],
+    ["three.js", "A JavaScript library for 3D in the browser."],
+    ["Upstream", "The original repo a fork was copied from."],
+    ["Vercel", "Hosting with server functions, environment variables and preview links per branch."],
+    ["Viewport", "The visible area of the screen. 390px is a common phone width."],
+    ["Write access", "Permission to push changes to a repo or branch. You always have it on your own fork."],
+    ["WebGL", "The browser feature that lets JavaScript use the graphics chip. three.js draws with it."]
+  ];
+  var gl = document.getElementById("glossList");
+  G.forEach(function(row){
+    var div = document.createElement("div"); div.dataset.k = (row[0] + " " + row[1]).toLowerCase();
+    var dt = document.createElement("dt"); dt.textContent = row[0];
+    var dd = document.createElement("dd"); dd.textContent = row[1];
+    div.appendChild(dt); div.appendChild(dd); gl.appendChild(div);
+  });
+  document.getElementById("glossSearch").addEventListener("input", function(e){
+    var v = e.target.value.trim().toLowerCase();
+    Array.prototype.forEach.call(gl.children, function(d){ d.style.display = !v || d.dataset.k.indexOf(v) > -1 ? "" : "none"; });
+  });
+
+  refresh();
+  show();
+})();
+</script>
+</body>
+</html>

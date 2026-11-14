@@ -1,127 +1,86 @@
-Drafted 2026-11-14 from Jose's one-line brief and his other repos. Gaps marked
-TO FILL for Jose. No app code until the TO FILL items in "Phase 0" are answered.
+Rewritten 2026-11-14 to match the site Jose built in another chat (`index.html`).
+Gaps marked TO FILL for Jose.
 
-# SPEC: Vibe Coding Guide
-
-Name: TO FILL (working name "Vibe Coding Guide", from the repo name).
+# SPEC: Building Apps With Claude
 
 ## What it is
 
-A free, phone-first web app that walks a beginner from "I have an app idea" to "my
-app is live and I can change it safely", using AI to write the code. It covers the
-whole chain in one path, in plain English: what vibe coding is and what the human
-still has to do, GitHub, Claude Code, hosting (Vercel and GitHub Pages), Firestore,
-and the habits from Jose's eight projects that keep a project from breaking. It
-installs to the Home Screen and works offline, like his other apps.
+A one-page course site, drawn as a small library: 18 short books on wooden shelves
+(the site says about four hours; the books' own minute counts add to
+about five, see Later), plus a Glossary and a Sources book. Tap a spine to take
+a book off the shelf, tap again to read it. It teaches how apps are put together
+(front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
+Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
+Claude, and a full practice build. Every example uses five made-up apps.
 
 ## Who it's for
 
-- Jose first: to learn the tools he already uses well enough to explain them.
-- Others: friends and coworkers Jose hands it to directly, beginners the way he was
-  (Jose, 2026-11-14). Not a public course for strangers. TO FILL: do they already
-  have a GitHub account? Spanish too, like the Citizenship app, or English only?
-- What they need (assumed until Jose confirms): short lessons on a phone, no code
-  knowledge assumed, every technical word explained, and exact steps they can follow
-  with a laptop open next to them.
+- Jose first, to learn the tools he already uses well enough to explain them.
+- Friends and coworkers he hands it to directly, beginners the way he was (Jose,
+  2026-11-14). Not a public course for strangers.
+- TO FILL: do they already have GitHub accounts? English only, or Spanish later?
 
-## How similar tools do it, and where this one can be better
+## How similar tools do it (checked 2026-11-14)
 
-Checked 2026-11-14:
+- GitHub Skills (https://skills.github.com): hands-on courses inside a real repo,
+  GitHub only.
+- Firebase codelabs (https://firebase.google.com/codelabs/firebase-get-to-know-web):
+  official and good, written for developers, Firebase only.
+- Paid "vibe coding for non-coders" courses on Udemy: video, mostly one tool each.
 
-- **GitHub Skills** (https://skills.github.com): free hands-on courses that run
-  inside a real repo you create from a template; GitHub Actions checks each step.
-  Strong on doing, but it teaches GitHub alone, and assumes you will write the
-  changes yourself.
-- **Firebase codelabs** ("Get to know Firebase for web",
-  https://firebase.google.com/codelabs/firebase-get-to-know-web): build a small
-  guestbook with Firestore and security rules. Good and official, but written for
-  developers, and it is Firebase only.
-- **Paid "vibe coding for non-coders" courses** (many on Udemy, e.g.
-  https://www.udemy.com/course/the-complete-vibe-coding-for-non-coders-guide/):
-  video courses, mostly tied to one tool (v0, Lovable, Cursor), quality unverified.
-  None found covers GitHub, hosting and a database together for non-programmers.
+Where this one is better: one path across all the tools for people who can't read
+code, Anthropic's own CLAUDE.md guidance in plain words, and failures drawn from real
+apps (told through the made-up ones).
 
-Where ours can be better:
+## Features (as built)
 
-1. **One path across all the tools.** Each vendor teaches only its own piece; the
-   hard part for a beginner is how the pieces connect (a merge on GitHub is what
-   makes Vercel deploy; a Firestore rule is why a screen is silently empty).
-2. **Real failures from real apps.** Jose's repos already hold a list of things that
-   broke and why (a forgotten cache bump, Firestore rules that refuse with no error,
-   `:hover` that never fires on a phone, iOS zooming on small text boxes). No course
-   teaches from that.
-3. **The working method, not just the tools.** The rules files Jose uses on every
-   project (`CLAUDE.md`, `SPEC.md`, `.claude/rules/general.md`) are the most useful
-   thing he has learned. The app explains them and hands them out as a starter kit.
-
-Copy from them: GitHub Skills' "do it in a real repo" approach (our steps end in
-something the reader actually did, with a check they can see), and the codelabs'
-habit of showing the security rule next to the code that needs it.
-
-## Features (v1)
-
-1. **Lessons.** Short lessons in a fixed order, grouped in paths: Start here (what
-   vibe coding is, what the AI does and what you do), GitHub, Claude Code, Hosting,
-   Firestore, Going live safely. Each lesson is a few cards; each how-to step links
-   the vendor's docs page with the date it was checked.
-   - Done when: a reader finishes the Start here path on a phone, and a check script
-     fails if any how-to step has no source link or checked date.
-2. **Glossary.** Every technical word (repo, commit, branch, pull request, merge,
-   deploy, environment variable, collection, document, security rule, service
-   worker...) with a one-sentence plain definition. A glossary word in a lesson can
-   be tapped to see its definition without leaving the lesson.
-   - Done when: every glossary word used in a lesson opens its definition, and the
-     check script fails on a lesson word marked as a term that has no entry.
-3. **From a real project.** Lessons show where the idea lives in one of Jose's public
-   repos, with a link to the real file on GitHub (Interp's `firestore.rules`,
-   Citizenship's `sw.js`, the site check workflow).
-   - Done when: every link opens a file that exists on that repo's `main` (the check
-     script tests them).
-4. **Starter kit.** The rules files Jose starts every project with, each explained
-   line by line in plain words, with one button to copy it.
-   - Done when: a reader can copy `CLAUDE.md`, `SPEC.md` and `general.md` templates
-     and the copied text matches the files in this repo.
-5. **Your progress.** Lessons you finished are marked, and Home shows where you left
-   off. Saved on the phone only (`localStorage`), no account.
-   - Done when: closing and reopening the app keeps the marks, offline too.
-6. **Installable and offline.** Same pattern as Jose's other apps
-   (`manifest.webmanifest`, `sw.js`).
-   - Done when: it installs to an iPhone and an Android Home Screen and opens in
-     airplane mode.
+1. **The library.** All 18 books on shelves, grouped in five parts (How your apps
+   work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Practice) plus
+   Start here and the reference books.
+   - Done when: every book opens from its spine on a phone and on a desktop.
+2. **Reading a book.** One book open at a time, with previous, next and "mark as
+   read" at its foot, and a way back to the shelves.
+   - Done when: a reader goes from Start here to the next book and back to the shelves
+     without the browser's Back button.
+3. **Library card.** The reader's name and how many books they've read, saved only in
+   their browser (`localStorage`, key `bac-course-v1`). "Return all books" clears the
+   read marks; the name stays.
+   - Done when: closing and reopening the page keeps the name and the read marks.
+4. **Copy buttons.** Every prompt and template can be copied with one tap.
+   - Done when: tapping Copy puts the exact text on the clipboard and the button says
+     "Copied".
+5. **Check yourself.** A short quiz with a score.
+   - Done when: answering every question shows a score that matches the right answers.
+6. **Glossary and Sources.** Plain definitions, and the official pages every claim
+   comes from, with the month they were read.
+   - Done when: every Claude Code or GitHub claim in the books matches a page listed
+     in Sources.
+7. **Light and dark.** Follows the phone's setting.
+   - Done when: every screen is readable with the phone in dark mode and in light mode.
 
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.
-- A live database (see the Firestore decision in Phase 0).
-- An AI chat tutor inside the app.
-- Comments, a forum, or anything other people post.
-- Video lessons (a how-to video like the Citizenship app's can come later).
-- Running real git or real deploys inside the app.
+- A database (no Firestore; decided 2026-11-14).
+- Installing to the Home Screen or working offline.
+- An AI chat tutor, comments, or anything readers post.
+- Video lessons. Spanish.
 
 ## Later
 
-- **A live Firestore demo**: a tiny guestbook in the app, with its security rule
-  shown beside it, so the Firestore lesson teaches by showing the real thing.
-- Progress synced between phones with Firebase sign-in.
-- Quick checks at the end of a lesson, with spaced repetition like the study apps.
+- Install and offline (`manifest.webmanifest`, `sw.js`), like Jose's study apps.
 - Spanish.
-- A how-to promo video made with Remotion, like the Citizenship and CPA apps.
+- A short how-to video, like the Citizenship and CPA apps.
+- A live demo book showing a real Firestore rule beside the data it protects.
+- Fix the reading time: the intro and Start here say "about four hours", but the
+  books' `data-min` values add up to 308 minutes (about five hours). Change one or the
+  other (Jose's call, in `index.html`).
 
 ## Phases
 
-- [x] **Phase 0a. Project setup.** `CLAUDE.md`, shared rules, docs, agents, taste
-  skill, site check, safe default Firestore rules (2026-11-14).
-- [ ] **Phase 0b. Jose's answers.** Fill the TO FILL items:
-  - Name, English only or Spanish too, budget.
-  - Decided (Jose, 2026-11-14): friends and coworkers; **hosted on GitHub Pages**
-    from `main`; **no Firestore in v1** (the live demo stays in "Later").
-  - **DESIGN.md**, following `docs/design-rules.md` section 1 (template or not, then
-    1 to 3 sites Jose likes, run through the taste skill).
-- [ ] **Phase 1. The shell.** `index.html`, `css/app.css`, `js/app.js`, `sw.js`,
-  `manifest.webmanifest`, Home with the list of paths, one sample lesson. Site check
-  green; live on GitHub Pages (Jose turns Pages on in the repo settings).
-- [ ] **Phase 2. Lessons and glossary.** All six paths written with sources, the
-  glossary, the content check script.
-- [ ] **Phase 3. Real projects and starter kit.** Features 3 and 4.
-- [ ] **Phase 4. Progress and offline polish.** Feature 5, install and airplane-mode
-  check on real phones.
+- [x] **Phase 0. Project setup.** CLAUDE.md, shared rules, docs, helpers, site check
+  (2026-11-14).
+- [ ] **Phase 1. The site goes live.** Jose's `index.html` on `main`, GitHub Pages on,
+  the site check green, screenshots of the live site at 390px and desktop with no
+  console errors.
+- [ ] **Phase 2.** TO FILL with Jose.
