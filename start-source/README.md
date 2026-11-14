@@ -14,6 +14,18 @@ downloaded.
   cover opening as 50 frames at 20 frames a second, `mode=openstill` its last frame.
 - `render_all.sh` runs all of it and writes the web files into `start/`.
 
+## The site icon
+
+`icons/` holds the site's icon: the same scene from a low, close camera, with the
+emblem drawn large on the cover so it still reads when small. `icons/source.png` is
+the master picture (1024 by 1024); every other size is shrunk from it. Tab icons
+(`favicon-*.png`, `favicon.ico`) have rounded corners; `apple-touch-icon.png` (phone
+home screen) and `icon-512.png` (link previews) are full squares.
+
+To render it again: `python3 tex.py`, `python3 tex_icon.py`, then
+`python3 scene_icon.py out=icon/icon.png view=icon icon=3 samples=160`, and shrink the
+result to each size.
+
 ## To render again
 
 1. Install the tools: `pip install bpy pillow`, and `ffmpeg`.
