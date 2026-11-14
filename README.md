@@ -1,9 +1,15 @@
-# Vibe Coding Guide
+# Building Apps With Claude
 
-A phone-first web app that teaches how to build an app with AI, from idea to live
-site: GitHub, Claude Code, hosting (Vercel, GitHub Pages), Firestore, and the habits
-that keep a beginner's project from breaking.
+A small library for people who build real apps with Claude without a developer background. Eighteen short books on five shelves: how apps are put together, how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, and a full practice build.
 
-Status: Phase 0, project setup. No app yet. What it will do and in what order is in
-`SPEC.md`; the file map is `docs/ARCHITECTURE.md`; the rules for AI tools working on
-it are `CLAUDE.md` and `.claude/rules/general.md`.
+Open the site, tap a book to take it off the shelf, tap again to read it.
+
+## How it's built
+
+- One self-contained page: `index.html` (HTML, CSS and JavaScript together). No build step, nothing to install.
+- Fonts load from Google Fonts. Reading progress and the reader's name are saved only in their own browser.
+- Hosted on GitHub Pages from the `main` branch.
+
+## Sources
+
+Anthropic's Claude Code documentation (best practices, memory, hooks, skills, subagents, permissions), Anthropic's prompting guide, and GitHub's documentation on forks. Links are on the Sources shelf inside the site. Read in November 2026.

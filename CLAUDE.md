@@ -1,82 +1,22 @@
-# CLAUDE.md: Vibe Coding Guide
+# CLAUDE.md: Building Apps With Claude
 
-A phone-first installable web app that teaches how to build an app with AI
-("vibe coding") from idea to live site: GitHub, Claude Code, hosting
-(Vercel, GitHub Pages), Firestore, and the habits that keep a beginner's
-project from breaking. Plain HTML, CSS and JS, no build step, same as Jose's
-other apps. Jose builds it to learn and to teach friends and coworkers who
-are beginners the way he was.
+A one-page course site (the "library"): cream wall, wooden shelves, one 3D book per lesson. Public repo, hosted on GitHub Pages, so merging to main is going live.
 
-Read first: `HANDOFF.md` if there is one, `SPEC.md` (what, who, phases and
-what's next), `docs/ARCHITECTURE.md` (map of files). Look: `DESIGN.md`
-(not made yet: `docs/design-rules.md`, section 1, is Phase 0). The rules
-shared by all of Jose's projects are in `.claude/rules/general.md`; where
-this file differs, this file wins.
+## Commands
+- Preview: npx serve . then open http://localhost:3000
+- Check: open index.html in Playwright at 390px and 1280px wide, open the shelves (#shelves) and two books (#start, #audit), and report any console errors.
 
-## Rules for this repo
+## How the page works (what the code doesn't make obvious)
+- Each lesson is a `<section class="lesson" id="...">`. The script turns it into a book: the spine and cover come from the BOOK table (colors, spine title, height) and the ICON table (cover drawing), both keyed by the section id. A new lesson needs an entry in both.
+- Books are numbered by their order in the page; text that says "Book N" must be updated when lessons are added or moved.
+- Progress and the reader's name live in localStorage under "bac-course-v1". Keep that key so readers keep their progress.
 
-- **Every how-to step needs a source.** Tools in this app (GitHub, Vercel,
-  Firebase, Claude Code) rename buttons and move menus often. Each step that
-  tells someone what to click or type links the vendor's own docs page and
-  the date it was checked. Never write a step from memory. A summary site
-  or Wikipedia is not a source.
-- **Stale steps get rechecked.** A step whose checked date is over 90 days
-  old shows a "may be out of date" mark until someone rechecks it.
-- **Plain English for people who can't read code.** Jose is the first
-  reader. Define every technical word the first time it appears (and in the
-  glossary). Code shows up only when the reader has to copy it, in one
-  block, all at once.
-- **Real examples come from Jose's public repos only.** Lessons can link
-  real files in `jvtomax99/Interp`, `Citizenship-study-app-`,
-  `Cruelty-Free-Beauty-`, `CPA-study-app`, `Lions-Roar-`,
-  `Phillis-bookshelves-` and `Cat-app`. Never quote or link `Reels` or
-  `claude-skills` (private). Never name a real person other than Jose, a
-  client, or anything about Interp's hospital work beyond what its public
-  README says, without his OK.
-- **Never teach an unsafe default as fine.** Firestore "test mode" lets
-  anyone read and overwrite the data; API keys in a public repo get stolen.
-  When a lesson shows a shortcut like that, it says what it costs and how to
-  close it before going live.
-- **A new file the app loads** goes in the precache list in `sw.js`, and the
-  cache name there is bumped, or returning users keep the old app.
-- **Public repo.** Paid raw files (fonts, models, music) can't be committed
-  (`docs/assets.md`, section 9) unless Jose makes it private.
-- **Budget:** TO FILL (`docs/assets.md`, section 1, asks for it once).
+## Writing rules
+- Written for people who can't read code: plain words, no jargon without explaining it.
+- Examples use the five made-up apps (FlashDeck, ExamTown, TeamDesk, Corner Gym, Pocket Pet). Never real people's projects.
+- No em dashes and no ampersands in the text.
+- Any claim about Claude Code or GitHub must match the current official docs; update the Sources book when you use a new page.
 
-## Preview, checks and going live
-
-- **Hosting.** GitHub Pages from `main`, root folder (Jose, 2026-11-14), at
-  https://jvtomax99.github.io/Vibe-coding-guide-/ once Pages is turned on.
-  Turning Pages on or off is a repo setting: ask Jose. Merging to `main` is
-  going live. Links never start with "/" (they break under the Pages
-  subfolder; the site check catches it). `.nojekyll` makes Pages serve files
-  as they are.
-- **Preview.** Serve the repo with `python3 -m http.server 8123` and send
-  Playwright screenshots at 390 px, then 1440 px, plus a "try this" list.
-- **Site check.** `node .github/site-check.cjs index.html` (needs
-  Playwright). It runs on every pull request and must be green before
-  merging. It passes with a note until `index.html` exists. A new page goes
-  into the list in `.github/workflows/site-check.yml`.
-- **Into `main`:** pull request, phone notification saying it needs Jose's
-  "push", wait for his OK, then one line on how to undo it.
-
-## Helpers: the main model thinks, cheaper models fetch
-
-The main conversation plans, decides, writes the real code and reviews.
-Repetitive work goes to the agents in `.claude/agents/`: `scout` (Haiku,
-finding things and reading long files or logs), `test-runner` (Haiku,
-running checks and reporting only failures), `builder` (Sonnet, exactly
-specified text edits like lesson copy or glossary entries, never logic).
-Don't delegate a one-line search. Check what a helper reports before relying
-on it.
-
-## Tools
-
-- **Taste skill** (`.claude/skills/taste/`): it asks for the Playwright MCP
-  server. In a cloud session use the installed Playwright instead and run
-  its `references/extract.js` with `page.evaluate` (`SOURCE.md` there says
-  how).
-- **Refactor.** `docs/refactor.md`, run when Jose asks for "Refactor:
-  CLEANUP.md items ...".
-- **Keep this file lean.** It loads every session. Suggest a one-line
-  addition for a lasting decision; remove lines that no longer apply.
+## Working with me
+- I can't read code. End each change with screenshots at 390px and desktop, plus a short "try this" list.
+- Changes go on a branch with a pull request; I approve before anything merges to main.
