@@ -478,7 +478,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">21</div><small>short books on five shelves, about six hours in all</small></div>
+    <div class="stat"><div class="big-num">21</div><small>short books on five shelves, about six and a half hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -1258,7 +1258,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <p>This is a book for deciding, not a build guide. None of the five example apps is in a store. Every fee and rule was read off Apple's and Google's own pages in November 2026; they change, so check the live pages (listed in Sources) before you pay for anything.</p>
 
   <h3>Do you need a store at all?</h3>
-  <p>Your app already installs. Book 19 put it on a Home Screen with its own icon, with no fee and no review. A store is a second way to hand out the same app, and it comes with a landlord.</p>
+  <p>Your app already installs. Book 19 shows how to put it on a Home Screen with its own icon, with no fee and no review. A store is a second way to hand out the same app, and it comes with a landlord.</p>
   <div class="tablewrap"><table>
     <tr><th></th><th>A link, added to the Home Screen</th><th>A store</th></tr>
     <tr><td><b>How people get it</b></td><td>You send them the link</td><td>They search the store, or you send a store link</td></tr>
@@ -1266,13 +1266,13 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
     <tr><td><b>Cost</b></td><td>Nothing</td><td>Apple: 99 USD every year. Google: 25 USD once.</td></tr>
     <tr><td><b>Who decides it can go out</b></td><td>You</td><td>A reviewer, each time</td></tr>
     <tr><td><b>A fix reaches people</b></td><td>Minutes after the merge (Book 7)</td><td>After a new build and a review, for anything beyond the web part (Book 7, section 5)</td></tr>
-    <tr><td><b>Your name</b></td><td>Not shown</td><td>Your legal name is shown as the seller</td></tr>
+    <tr><td><b>Your name</b></td><td>Not shown</td><td>On a personal account, your legal name is shown</td></tr>
     <tr><td><b>What you need</b></td><td>A phone</td><td>A computer. For the App Store, a Mac.</td></tr>
   </table></div>
   <p>So the question is not "is my app good enough for a store?" It is "do strangers need to find it?"</p>
   <ul>
-    <li><b>Corner Gym, TeamDesk, ExamTown.</b> The gym's members, a 40-person team and a group of friends studying together all get a link from someone they know. A store adds a fee and a wait, and nothing they would notice.</li>
-    <li><b>FlashDeck.</b> A study app for you and your friends: a link. If you came to want strangers studying with it, that is the day to read the rest of this book.</li>
+    <li><b>Corner Gym, TeamDesk, ExamTown.</b> The gym's members, a 40-person team and the people you share a study game with all get a link from someone they know. A store adds a fee and a wait, and nothing they would notice.</li>
+    <li><b>FlashDeck.</b> A study app you share by link today. If you came to want strangers studying with it, that is the day to read the rest of this book.</li>
     <li><b>Pocket Pet.</b> A game people might search for is the best case for a store among the five. It is also a friend's project, so it is their decision and their name on the account.</li>
   </ul>
   <div class="call straight"><div class="tag">Straight talk</div>
@@ -1284,17 +1284,17 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <div class="tablewrap"><table>
     <tr><th>Route</th><th>What it is</th><th>Stores</th><th>What it takes</th></tr>
     <tr><td><b>1. Installable web app</b></td><td>What you already have: a link people add to the Home Screen</td><td>None</td><td>Nothing more. Book 19.</td></tr>
-    <tr><td><b>2. A wrapper</b></td><td>A thin store app whose screen shows your web app. Your web files stay the app.</td><td>Both, by different tools</td><td>A developer account, a computer, a review, and an app that is more than a website (section 4)</td></tr>
+    <tr><td><b>2. A wrapper</b></td><td>A thin store app whose screen shows your web app. Your web files stay the app.</td><td>Both</td><td>A developer account, a computer, a review, and an app that is more than a website (section 4)</td></tr>
     <tr><td><b>3. A full rewrite</b></td><td>The app built again as a native app, in the languages phones use</td><td>Both</td><td>A developer and months. Out of reach for this library, and rarely needed.</td></tr>
   </table></div>
   <h4>Two kinds of wrapper</h4>
   <ul>
-    <li><b>For Google Play: a Trusted Web Activity.</b> This is Google's own way to put a web app in its store. Chrome's page says such apps "are run fullscreen", using the Chrome that is already on the phone. You must show that the website and the store app belong to the same person: "You prove ownership by setting up Digital Asset Links", a small file placed on your site. The site has to meet the same conditions as adding to the Home Screen. The tool Google names for building one is Bubblewrap, which is run by typing commands on a computer.</li>
+    <li><b>For Google Play: a Trusted Web Activity.</b> This is Google's own way to put a web app in its store. Chrome's page says such apps "are run fullscreen", using the browser that is already on the phone (usually Chrome). You must show that the website and the store app belong to the same person: "You prove ownership by setting up Digital Asset Links", a small file placed on your site. The site has to meet the same conditions as adding to the Home Screen. The tool Google names for building one is Bubblewrap, which is run by typing commands on a computer.</li>
     <li><b>For both stores: Capacitor.</b> A tool that puts your web files inside a real iPhone or Android project. It is the usual route to the App Store, and section 5 says what it needs.</li>
   </ul>
   <p>Whichever wrapper you use, updates then work as Book 7, section 5 describes: the web part can change quickly, and the native part goes back through the store.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>If you ever go to a store, go to Google Play first. It costs 25 USD once instead of 99 USD a year, it has an official route for web apps, and it doesn't need a Mac. Learn what a review is like there before paying Apple.</p>
+    <p>If you ever go to a store, go to Google Play first. It costs 25 USD once instead of 99 USD a year, it has an official route for web apps, and its tools don't ask for a Mac. Learn what a review is like there before paying Apple.</p>
   </div>
   <p><em>Checked in November 2026 against Chrome's pages on Trusted Web Activities and Capacitor's getting-started pages.</em></p>
 
@@ -1308,9 +1308,10 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   </table></div>
   <h4>Google's tester rule</h4>
   <p>Google's page: "Google Play requires personal developer accounts created after November 13, 2023, to test their apps" before they can publish. The test is "a closed test" with "a minimum of 12 testers who have been opted in continuously for at least 14 days".</p>
-  <p>In plain words: before the public can download your app, twelve real people with Android phones must join a private test and stay in it for two weeks without dropping out. As this library reads "continuously", a tester who leaves part-way doesn't count, so ask more than twelve.</p>
+  <p>In plain words: before the public can download your app, twelve real people with Android phones must join a private test and stay in it for two weeks without dropping out. Google's page is exact about it: a tester who opts out before the 14 days are up does not count toward the twelve.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>Twelve is harder than it sounds. Count the people you know who own an Android phone, will follow a link, and will leave something installed for two weeks. Line them up before you pay the 25 USD, and ask more than twelve.</p>
+    <p>Google checks who you are before the account works, and its fee page says the fee is not refunded if your details turn out to be invalid. Use your real legal name and have your ID to hand.</p>
     <p>The fees are the small part. A store account puts your legal name on a public page and makes you the person Apple or Google writes to when something is wrong with the app. For a friend's project like Pocket Pet, that should be the friend.</p>
   </div>
   <p><em>Checked in November 2026 against Apple's "What's included" and enrollment pages, and Google Play's pages on the registration fee, account types and the testing requirement.</em></p>
@@ -1319,20 +1320,20 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <p>Both stores have a rule aimed at exactly what a beginner would submit: a website in a wrapper.</p>
   <ul>
     <li><b>Apple</b>, guideline 4.2: "Your app should include features, content, and UI that elevate it beyond a repackaged website." And: "If your app is not particularly useful, unique, or "app-like," it doesn't belong on the App Store." Apple's review page lists "Web clippings, content aggregators, or a collection of links" and "Not enough lasting value" among the common problems.</li>
-    <li><b>Google</b>: "We do not allow apps that only have limited functionality and content." Its examples include "Apps that are static without app-specific functionalities, for example, text only or PDF file apps". Its spam policy also bans apps that "provide a webview of a website without permission from the website owner". You own your site, so that one is not about you, but it shows how closely wrapped websites are watched.</li>
+    <li><b>Google</b>: "We do not allow apps that only have limited functionality and content." Its examples include "Apps that are static without app-specific functionalities, for example, text only or PDF file apps". Its spam policy also bans apps that "provide a webview of a website without permission from the website owner" (a webview is the screen inside a wrapper that shows a site). You own your site, so that one is not about you, but it shows how closely wrapped websites are watched.</li>
   </ul>
-  <p>Apple says it reviews "at least 50% of submissions in less than 24 hours and 90% in less than 48 hours." The wait is short. Being turned down and trying again is where the weeks go.</p>
+  <p>Apple says it reviews "at least 50% of submissions in less than 24 hours and 90% in less than 48 hours." The first wait is short. Apple gives no figure for being turned down and trying again; expect that to take far longer.</p>
   <h4>What "more than a website" tends to mean</h4>
   <p>Neither store publishes a checklist, so this part is this library's reading of those rules, not a promise of approval:</p>
   <ul>
-    <li><b>It does something, and keeps doing it.</b> FlashDeck schedules your reviews and remembers your progress. A page of gym opening hours does not pass.</li>
+    <li><b>It does something, and keeps doing it.</b> FlashDeck schedules your reviews and remembers your progress. A page of gym opening hours would likely not pass.</li>
     <li><b>It behaves like an app.</b> No browser bars, no links that throw the person out to a website, nothing that says "open in browser", no dead buttons, no "coming soon".</li>
     <li><b>It opens with no signal</b> and says something sensible when it can't load.</li>
     <li><b>It is finished.</b> Apple's own list of common problems starts with "Crashes and bugs", "Broken links", "Placeholder content" and "Incomplete information".</li>
   </ul>
   <div class="call straight"><div class="tag">The risky shortcut: wrap it as it is and see what happens</div>
     <p>The tools make wrapping quick, so it is tempting to submit today's website and let the reviewer say what is missing.</p>
-    <p><b>What it costs:</b> the fee is paid before the first review. Each rejection is another round of building and waiting. And an app that needs no signal means an offline worker, which Book 7 says to add only with an update plan.</p>
+    <p><b>What it costs:</b> the fee is paid before the first review. Each rejection means building and submitting again. And an app that needs no signal means an offline worker, which Book 7 says to add only with an update plan.</p>
     <p><b>How to close it:</b> run the readiness prompt in section 6 before you open a developer account. If the honest answer is "this is a website", it should stay a link.</p>
   </div>
   <p><em>Checked in November 2026 against Apple's App Review Guidelines (4.2) and App Review page, and Google Play's policies on functionality and on spam.</em></p>
@@ -1343,7 +1344,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
     <tr><th>Step</th><th>What the official pages say</th><th>From a phone?</th></tr>
     <tr><td><b>Open the developer accounts</b></td><td>Web forms and identity checks</td><td>Yes</td></tr>
     <tr><td><b>Get the web app ready</b> (section 4)</td><td>Ordinary changes to your repo</td><td>Yes, with Claude</td></tr>
-    <tr><td><b>Build the Android app</b></td><td>Bubblewrap is run from a command line and needs Node.js. Capacitor asks for Android Studio.</td><td>No. A computer of any kind.</td></tr>
+    <tr><td><b>Build the Android app</b></td><td>Bubblewrap is run by typing commands and needs Node.js (Book 2). Capacitor asks for Android Studio, Google's building tool.</td><td>No. A computer. The official pages don't say which kinds, so ask Claude to check that yours (Windows, Mac or Linux; a tablet or Chromebook may not do) can run the tool before you pay any fee.</td></tr>
     <tr><td><b>Build the iPhone app</b></td><td>Capacitor: "To build iOS apps, you will need <b>macOS</b>." It also needs Xcode, Apple's own building tool, which is a Mac program.</td><td>No. A Mac.</td></tr>
     <tr><td><b>Recruit and keep 12 testers</b></td><td>Google's tester rule (section 3)</td><td>Yes, and only you can do it</td></tr>
   </table></div>
@@ -1353,7 +1354,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
     <li><b>Pay for the step.</b> A developer who has shipped to a store before can do the build and the first submission. Ask for the project to be left in your repo and the accounts in your name.</li>
     <li><b>Don't.</b> Stay on the Home Screen. Nothing is lost, and the door stays open.</li>
   </ul>
-  <p>There are also paid services that build in the cloud without a Mac. Capacitor's page mentions one. They are not covered here, and they are another monthly bill and another account.</p>
+  <p>Capacitor's page also mentions a service that builds iPhone apps in the cloud for people without a Mac. This library has not checked its price or whether it is still offered, and it would be one more account to look after.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>This is the one place in the library where "ask Claude" is not enough. If a guide or a video makes a store launch look like an evening's work from a phone, look for the step it skipped.</p>
   </div>
@@ -1364,8 +1365,8 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <ol class="steps">
     <li><b>Do strangers need to find this app?</b>If everyone who will use it can be sent a link, stop. Put "Add to Home Screen" on the first screen (Book 19) and you are done.</li>
     <li><b>Is it more than a website?</b>Run the readiness prompt below. Fix what it finds as ordinary pull requests. This costs nothing and makes the app better even if you never go to a store.</li>
-    <li><b>Can you get the build done?</b>A computer for Android, a Mac for iPhone, or someone who has one (section 5).</li>
-    <li><b>Can you carry the account?</b>Your legal name in public, the fee, twelve testers for two weeks on Google, and a review each time the native part changes.</li>
+    <li><b>Can you get the build done?</b>A computer that can run the tools for Android, a Mac for iPhone, or someone who has one (section 5).</li>
+    <li><b>Can you carry the account?</b>Your legal name in public, the fee, twelve testers for two weeks on Google, and a review each time the native part changes or you add a feature.</li>
     <li><b>Then: Google Play first.</b>One store, the cheaper one. Add the App Store only once people are asking for it.</li>
   </ol>
   <div class="call try"><div class="tag">Try it</div>
@@ -2976,7 +2977,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Subagent", "A helper with its own fresh context, its own model and a limited set of tools."],
     ["Tap target", "The touchable area of a button. Aim for at least 44 to 48 pixels."],
     ["Tech debt", "Shortcuts in code that make future changes slower or riskier."],
-    ["Trusted Web Activity", "Google's way to put a web app in the Play Store: a store app that shows your site full screen using Chrome."],
+    ["Trusted Web Activity", "Google's way to put a web app in the Play Store: a store app that shows your site full screen using the phone's browser."],
     ["three.js", "A JavaScript library for 3D in the browser."],
     ["Upstream", "The original repo a fork was copied from."],
     ["Vercel", "Hosting with server functions, environment variables and preview links per branch."],

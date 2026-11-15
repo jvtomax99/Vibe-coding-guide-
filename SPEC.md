@@ -9,7 +9,7 @@ Site title: **The Launch Manual** (small line: "building apps with Claude"), cho
 Jose 2026-11-14. The repo and these docs keep the working name.
 
 A one-page course site, drawn as a small library aboard a ship: 21 short books on glass shelves
-(about six hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+(about six and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
