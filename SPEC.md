@@ -162,6 +162,8 @@ apps (told through the made-up ones).
 - Spanish.
 - A short how-to video, like the Citizenship and CPA apps.
 - A live demo book showing a real Firestore rule beside the data it protects.
+- The two YouTube links in Sources ("Going further") were never opened by a person; a
+  robot can't check them. Jose taps both, and any dead one is replaced or removed.
 
 ## Phases
 
