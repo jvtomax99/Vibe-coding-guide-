@@ -58,6 +58,13 @@ Jose's "push". Books 7 to 18 became 8 to 19, and the count is 20. Next: a short 
 "From web app to the App Store and Play Store", then Jose's OK. Open question for Jose:
 whether "Is my app safe?" is still needed now that Book 6 ends with a before-launch check.
 Leftover merged branch `first-back-end` can also be deleted (ask Jose).
+Update 3: Jose OK'd the plan for the stores book (a decision book, six sections, Book 8
+after Updates). It is written as Book 8 (id `stores`) on the branch `stores-book`, which
+sits on top of `updates-book`. Its pull request is opened only after #12 (Book 7) is
+merged. With both in, Books 8 to 19 become 9 to 20 and the count is 21. After that the
+three planned books are done. Jose dropped "Is my app safe?" on 2026-11-15: Book 6's
+before-launch check covers it. What is left: the two YouTube links, and deleting merged
+branches (ask Jose first).
 A leftover branch, `day-one-steps`, holds the same commit as #10 and can be deleted
 once #10 is merged (ask Jose first). A new book needs a BOOK and an ICON
 entry, and every "Book N" in the text after it renumbered.

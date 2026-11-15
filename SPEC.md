@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 20 short books on glass shelves
-(about six hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 21 short books on glass shelves
+(about six and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 20 books on shelves, grouped in five parts (How your apps
+1. **The library.** All 21 books on shelves, grouped in five parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Practice) plus
    Start here and the reference books.
    - Done when: every book opens from its spine on a phone and on a desktop.
@@ -128,6 +128,23 @@ apps (told through the made-up ones).
      sections are reachable from its Contents, every claim about browsers and stores
      matches a page listed in Sources, and every "Book N" elsewhere points at the right
      book.
+
+12. **Book 8, "From web app to the App Store and Play Store".** Added 2026-11-15 (Jose's
+   OK on the plan the same day). A book for deciding, not a build guide. Six sections:
+   do you need a store at all, the three routes, accounts and fees, why thin wrappers
+   get rejected, what you can't do from a phone, deciding and asking Claude.
+   - Compared: Capacitor's docs (assume a Mac, a terminal and Node, and never ask
+     whether to do it), Apple's and Google's own pages (fees and rules, one store each,
+     for developers), Chrome's Trusted Web Activity pages (Play Store only). web.dev's
+     "PWAs in app stores" page is gone and PWABuilder's docs would not load, so neither
+     is used. Where this one differs: "should you?" comes first and both stores sit side
+     by side.
+   - Not in it: step-by-step Xcode or Android Studio, store listings and screenshots,
+     payments and in-app purchases, push notifications, paid build services, how to do
+     a rewrite.
+   - Done when: the book opens from its spine as Book 8 at 390px and desktop, all six
+     sections are reachable from its Contents, every fee and rule matches a page listed
+     in Sources, and every "Book N" elsewhere points at the right book.
 
 ## Not in v1
 
