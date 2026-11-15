@@ -78,6 +78,11 @@ amber light) are set in `start-source/scene.py` and `start-source/tex.py`.
 - On the dark, depth comes from light: a cyan line along an edge, a soft glow, a deep
   shadow underneath. On the page, depth comes from the stacked paper edge and a faint
   shadow down the inner margin.
+- The lit page (2026-11-15, Jose picked "Lit console" from three drafts): a thin gold
+  light along the top edge of the page that stays put while the page scrolls, a gold
+  line along the bottom edge, a soft cyan glow around it, the section label as a gold
+  pill (`--accent-2` on `--accent-2-soft`), a short gold underline under each section
+  heading, gold bullets, and a gold left edge on callouts.
 - Main parts: the window band, the next-book cover, the shelves and spines, the open
   book (top bar with "Back to the shelves" and Contents, the paper page, the foot
   with the two round page-turn buttons), and the prompt boxes (dark, with a Copy
