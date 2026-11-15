@@ -1129,6 +1129,7 @@ Add a scheduled job that [does what] once a day at about [time] in [city]. I'm o
     <li>Three ways an app with an offline worker can update, and how to pick</li>
     <li>What never updates by itself: the name, the icon and saved data</li>
     <li>What changes if the app is ever wrapped for a store</li>
+    <li>Prompts, a version number people can read out, and a two-phone test</li>
   </ul></div>
   <p>Read off the official pages in November 2026. They are listed in Sources.</p>
 
@@ -1142,12 +1143,12 @@ Add a scheduled job that [does what] once a day at about [time] in [city]. I'm o
   </table></div>
   <p>The browser's saved copy is called its <b>cache</b>. MDN, the web's reference manual, describes it in one line: it "stores a response associated with a request and reuses the stored response for subsequent requests." A copy that is past its date is called <b>stale</b>.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Check which of your apps has an offline worker before reading on. Ask Claude: "Does this repo register a service worker? Answer yes or no and name the file." FlashDeck does, because people study on the train. Corner Gym's website does not. If the answer is no, section 2 is all you need, and the best update plan is to keep it that way.</p>
+    <p>Check which of your apps has an offline worker before reading on. Ask Claude: "Does this repo register a service worker? Answer yes or no and name the file." In this book's examples FlashDeck has one, because people study on the train, and Corner Gym's website does not. If the answer is no, section 2 is all you need, and the best update plan is to keep it that way.</p>
   </div>
 
   <h3>Apps with no offline worker</h3>
   <p>With no offline worker, the newest files are on the host a few minutes after the merge, and anyone who opens the link gets them. Most of the time there is nothing to build.</p>
-  <p>One case is left: the app that is never closed. Someone added Corner Gym's timetable to their Home Screen in March and has switched back to it ever since. The page was loaded once and has had no reason to load again. They are reading March's timetable.</p>
+  <p>One case is left: the app that is never closed. Someone added Corner Gym's website to their Home Screen in March and has switched back to it ever since. The page was loaded once and has had no reason to load again. They are still looking at March's class videos.</p>
   <p>The fix is small. Each time the app comes back to the front of the phone, it asks the host one question: has the page changed since I loaded it? If yes, it loads the new one. This library works that way: on the shelves it reloads by itself, and inside a book it shows a "New version. Tap to refresh" button instead, so nobody loses their place.</p>
   <div class="call straight"><div class="tag">The risky shortcut: reload the moment there is an update</div>
     <p>The simplest version reloads the page as soon as it learns of a new one.</p>
@@ -1163,30 +1164,30 @@ Add a scheduled job that [does what] once a day at about [time] in [city]. I'm o
   <h3>Apps with an offline worker: three update styles</h3>
   <p>An offline worker is a small script that keeps a copy of the app on the phone so it opens with no signal. Developers call it a <b>service worker</b>. Book 18 leaves it out on purpose. Add one only when people need the app without signal, because from that day updates are something you plan.</p>
   <p>Here is what the browser does if nobody plans anything. When the app is opened, the browser checks whether the worker file has changed. If it has, the new version is downloaded in the background while the person keeps using the old one. Then it waits. MDN: the new version "is only activated when there are no longer any pages loaded that are still using the old service worker." So the person sees your fix on the open <em>after</em> the next one, and only if the app was fully closed in between. People rarely close an app fully.</p>
-  <p>Two things follow. The browser only notices a new version if the worker file itself changed, which is why earlier books say to bump <code>CACHE_VERSION</code> in <code>sw.js</code>: changing that one line is the signal. And someone has to decide when the waiting ends. There are three sensible answers.</p>
+  <p>Two things follow. The browser only notices a new version if the worker file itself changed, which is why other books say to bump <code>CACHE_VERSION</code> in <code>sw.js</code>: changing that one line is the signal. And someone has to decide when the waiting ends. There are three sensible answers.</p>
   <div class="tablewrap"><table>
     <tr><th>Style</th><th>What the user sees</th><th>Good for</th><th>The catch</th></tr>
     <tr><td><b>A. Next open</b><br>Leave the browser's waiting in place</td><td>Nothing. The new version appears one or two opens later.</td><td>Apps where a day's delay is harmless. Pocket Pet.</td><td>Slow, and you can't say when. A bad bug stays on phones until each person happens to close the app.</td></tr>
-    <tr><td><b>B. Swap while they're away</b><br>The new version takes over when the app goes to the background</td><td>Nothing. They switch away, come back, and it is the new version.</td><td>Most apps with a worker. FlashDeck.</td><td>Needs care to build. It must only swap when the app is hidden, never mid-use.</td></tr>
-    <tr><td><b>C. Fresh every time</b><br>Ask the host first on every open; use the saved copy only with no signal</td><td>Always the newest version when online.</td><td>Apps where old information does harm: prices, schedules, team data. TeamDesk.</td><td>Opens slower on weak signal, since it waits for the host before falling back. The saved copy is only as new as the last visit online.</td></tr>
+    <tr><td><b>B. Swap while they're away</b><br>The new version takes over when the app goes to the background</td><td>Nothing. They switch away, come back, and it is the new version.</td><td>Most apps with a worker. FlashDeck.</td><td>Needs care to build. Away is not the same as finished: someone who answers a text in the middle of a FlashDeck session must not come back to a reset screen. So it swaps only when nothing unsaved is on the screen, and shows the button from section 2 otherwise. This is this library's recipe, put together from the official pieces, not a pattern from one official page.</td></tr>
+    <tr><td><b>C. Fresh every time</b><br>Ask the host first on every open; use the saved copy only with no signal</td><td>The newest version on every open with signal.</td><td>Apps where old information does harm: prices, schedules, team data. TeamDesk.</td><td>Opens slower on weak signal, since it waits for the host before falling back. The saved copy is only as new as the last visit online. An app that is never closed still needs the check from section 2.</td></tr>
   </table></div>
   <div class="call straight"><div class="tag">The risky shortcut: force the new worker in at once</div>
     <p>There is a one-line way to end the waiting: tell the new worker to take over the instant it has downloaded. Developers call it <code>skipWaiting</code>. Claude may offer it, because it makes "the update isn't showing" go away.</p>
     <p><b>What it costs:</b> the page on the screen was loaded by the old version, and the worker behind it is now the new one. Google's guide to service workers: "your new service worker is likely controlling pages that were loaded with an older version." The result is an app that is half old and half new, with bugs nobody can repeat.</p>
-    <p><b>How to close it:</b> style B. Let the new worker take over only while the app is hidden, and load the page again when it does, so the page and the worker always match. If Claude proposes <code>skipWaiting</code>, ask: "What happens to a page that is open when this runs?"</p>
+    <p><b>How to close it:</b> style B. Let the new worker take over only while the app is hidden and nothing unsaved is on the screen, and load the page again when it does, so the page and the worker always match. With unsaved work on the screen, show the button from section 2. If Claude proposes <code>skipWaiting</code>, ask: "What happens to a page that is open when this runs?"</p>
   </div>
   <h4>Never forget the version bump</h4>
-  <p>Every style depends on that version line changing with each release, and people forget. Two ways to stop relying on memory:</p>
+  <p>Styles A and B depend entirely on that version line changing with each release, style C still needs it for the saved copy, and people forget. Two ways to stop relying on memory:</p>
   <ul>
-    <li><b>A rule Claude loads.</b> The offline-worker path rule in the Starter kit (Book 12) reminds Claude whenever it touches a saved file. That is guidance, so it can still be missed.</li>
+    <li><b>A rule Claude loads.</b> The offline-worker path rule in the Starter kit (Book 12) loads only when Claude opens <code>sw.js</code> or the manifest, so a change to any other saved file can slip past it. It is also guidance, which can be missed.</li>
     <li><b>A robot.</b> GitHub Actions can run a job "when someone pushes to <code>main</code>". Ask Claude for one that sets the version from the date and time of each merge. Then it can't be forgotten, because no person does it.</li>
   </ul>
   <div class="call try"><div class="tag">Try it</div>
     <div class="code prompt"><div class="label"><span>Pick an update style</span><button class="copy" type="button">Copy</button></div><pre>This app has an offline worker. First tell me in plain words how an update reaches an installed phone today: what the user sees, and after how many opens. Change nothing yet.
 
-Then change it to this style: [A: next open / B: swap when the app goes to the background / C: ask the host first on every open, saved copy only when offline]. Do not use skipWaiting on a page that is in use. The page and the worker must never be on different versions. Show the app's version in small text on [the settings or about screen]. Add a GitHub Actions job that sets the worker's version on every merge to main, so nobody bumps it by hand. Finish with a test I can run on two phones.</pre></div>
+Then change it to this style: [A: next open / B: swap when the app goes to the background / C: ask the host first on every open, saved copy only when offline]. Do not use skipWaiting on a page that is in use. The page and the worker must never be on different versions. Never reload a screen that holds unsaved work; show a "New version. Tap to refresh" button there instead. Whatever the style, also check for a new version when the app comes back to the front. Show the app's version in small text on [the settings or about screen]. Add a GitHub Actions job that sets the worker's version on every merge to main, so nobody bumps it by hand. Finish with a test I can run on two phones.</pre></div>
   </div>
-  <p><em>Checked in November 2026 against MDN's guide to using service workers, Google's web.dev pages on the service worker lifecycle and on updating a PWA, and GitHub's page on events that trigger workflows.</em></p>
+  <p><em>Checked in November 2026 against MDN's guide to using service workers, Google's web.dev pages on the service worker lifecycle and on updating an installable web app, and GitHub's page on events that trigger workflows.</em></p>
 
   <h3>What never updates by itself</h3>
   <p>Two things don't arrive with the next merge, whatever style you chose.</p>
@@ -1200,7 +1201,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <p>So choose the name and the icon as if they were permanent. On iPhones they are, unless every user removes the app and adds it again. Before anyone does that, have them save a backup file (Book 18). Don't count on saved progress surviving a removal.</p>
   <h4>Saved data in the old shape</h4>
   <p>The new code arrives on a phone that still holds data saved by the old code. If the new version expects a different shape, people's progress looks empty or the app breaks on open. This is the migration from Book 5, and it matters more with slow update styles: under style A, phones on three different versions can be in use in the same week. Add to any request that changes what is saved: "Assume phones are updating from any earlier version, not only the last one."</p>
-  <p><em>Checked in November 2026 against Google's web.dev pages on updating a PWA and on how Chrome handles manifest updates.</em></p>
+  <p><em>Checked in November 2026 against Google's web.dev pages on updating an installable web app and on how Chrome handles manifest updates.</em></p>
 
   <h3>If the app is in a store wrapper</h3>
   <p>None of your apps needs this today. It is here so the word "update" doesn't surprise you later. A <b>wrapper</b> is a thin store app whose screen shows your web app. Capacitor is a common tool for making one. A wrapped app has two parts, and they update differently.</p>
@@ -1209,15 +1210,15 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
     <tr><td><b>The web part</b></td><td>Your HTML, CSS and JavaScript: the same files this book has been about</td><td>Can be sent straight to phones, called a <b>live update</b>, within the stores' rules below</td></tr>
     <tr><td><b>The native part</b></td><td>The shell, and anything that uses the phone itself: camera, notifications, payments</td><td>A new build, sent to the store, reviewed, then downloaded by each user</td></tr>
   </table></div>
-  <p>Capacitor's page puts the line here: live updates work "as long as those changes do not require binary updates (aka compiled native functionality)."</p>
-  <p>The stores' own rules are stricter than that sounds:</p>
+  <p>Capacitor's page puts the line here: live updates work "as long as those changes do not require binary updates (aka compiled native functionality)." In plain words: as long as the native part is untouched.</p>
+  <p>The stores' own rules, in their words:</p>
   <ul>
-    <li><b>Apple</b>, guideline 2.5.2: apps may not "download, install, or execute code which introduces or changes features or functionality of the app". Guideline 4.2 asks that an app "elevate it beyond a repackaged website".</li>
-    <li><b>Google Play</b>: an app "may not modify, replace, or update itself using any method other than Google Play's update mechanism." It adds that this "does not apply to code that runs in a virtual machine or an interpreter", and gives JavaScript in a web view as the example.</li>
+    <li><b>Apple</b>, guideline 2.5.2: apps may not "download, install, or execute code which introduces or changes features or functionality of the app". Guideline 4.2 asks for "features, content, and UI that elevate it beyond a repackaged website".</li>
+    <li><b>Google Play</b>: an app "may not modify, replace, or update itself using any method other than Google Play's update mechanism." It adds that this "does not apply to code that runs in a virtual machine or an interpreter", and gives JavaScript in a web view as the example. A web view is the screen inside a wrapper that shows your web app, so that exception describes the web part.</li>
   </ul>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Read together, the safe line is this. Fixes, wording and content can go out as a live update. A new feature goes through review, even if it is only web code, because "introduces or changes features" is Apple's wording and Apple is the one who decides. An app removed from the store costs far more than a week's wait for a review.</p>
-    <p>The stores book will cover the rest: the three routes into a store, the fees, and the review rules that get thin wrappers rejected.</p>
+    <p>These rules leave room for argument. Capacitor's page says "Apple and Google explicitly allow web content updates to apps", and Apple's wording still forbids downloaded code that "introduces or changes features". This library's advice is the cautious reading, not a rule either store states: send fixes, wording and content as a live update, and send a new feature through review even when it is only web code. Apple decides, and an app removed from the store costs far more than the wait for a review.</p>
+    <p>The three routes into a store, the fees and the review rules that get thin wrappers rejected are for a later book.</p>
   </div>
   <p><em>Checked in November 2026 against Apple's App Review Guidelines (2.5.2 and 4.2), Google Play's Device and Network Abuse policy, and Capacitor's page on deploying updates.</em></p>
 
@@ -1240,7 +1241,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
     <div class="code prompt"><div class="label"><span>Explain my app's updates</span><button class="copy" type="button">Copy</button></div><pre>Read this repo and tell me, in a plain-English table, how a new version reaches each of these people after I merge to main: (1) someone opening the link for the first time, (2) someone with the tab left open, (3) someone with the app on their Home Screen who never closes it, (4) someone who opens it with no signal. For each: how long it takes, what they see, and what could go wrong. Say whether the app has an offline worker and how its version is bumped. Then tell me the one sentence I should give users who need the update now. Change nothing.</pre></div>
   </div>
   <p><em>Checked in November 2026: the waits in the two-phone test come from the pages used in sections 1 to 4.</em></p>
-  <p><em>Not in this book: building a store wrapper or submitting to a store, paid live-update services, and push notifications.</em></p>
+  <p><em>Not in this book: building a store wrapper or submitting to a store, paid live-update services, push notifications, and the worker's code itself.</em></p>
 </section>
 
 <!-- ===================== PART 2 ===================== -->
@@ -2772,7 +2773,6 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Console error", "An error the browser reports in its developer console (F12 in Chrome). Copy the exact text."],
     ["Context window", "Everything Claude holds in mind during a session: messages, files read, outputs and instruction files."],
     ["Cron job", "Server code that runs on a clock instead of when someone taps. Also called a scheduled job."],
-    ["Live update", "Sending new web files straight to a store app that is already installed, without a new store download. Allowed only within the stores' rules."],
     ["Deny rule", "A permission rule that blocks an action in every mode. Enforced by Claude Code."],
     ["Deploy", "Publishing a version of the app so users get it."],
     ["Diff", "The exact lines added and removed by a change."],
@@ -2792,6 +2792,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["GLB", "A 3D model file format holding shapes, textures and animations together."],
     ["Hook", "A script Claude Code runs at a fixed moment (session start, before or after a tool, before stopping). Enforced every time."],
     ["Import (@)", "A line like @AGENTS.md that pulls another file into CLAUDE.md. Expanded at launch, so it doesn't save context."],
+    ["Live update", "Sending new web files straight to a store app that is already installed, without a new store download. Allowed only within the stores' rules."],
     ["localStorage", "A small notebook in the browser, one per phone and browser. Where study apps often keep progress."],
     ["main", "The branch that's live."],
     ["Manifest", "A small settings file that tells a phone how to show a web app on the Home Screen: its name, icons and colors."],
@@ -2819,8 +2820,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Skill", "A saved procedure in .claude/skills/name/SKILL.md. Claude loads the full text only when needed."],
     ["Smoke test", "A quick check that the app loads and does its basic job."],
     ["Spark and Blaze", "Firebase's two plans. Spark costs nothing and needs no card. Blaze is pay as you go."],
-    ["Stale", "Past its date. A stale copy of an app is an old one the phone is still showing."],
     ["Spec", "The written description of what an app does, who it's for and what's in or out. Your SPEC.md."],
+    ["Stale", "Past its date. A stale copy of an app is an old one the phone is still showing."],
     ["State", "The data an app currently holds, like the current question and score."],
     ["Static site", "A site made only of files, with no server code. Most of your apps."],
     ["Subagent", "A helper with its own fresh context, its own model and a limited set of tools."],
