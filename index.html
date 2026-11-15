@@ -6,7 +6,7 @@
 <title>The Launch Manual: Building Apps With Claude</title>
 <meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
 <meta property="og:title" content="The Launch Manual: Building Apps With Claude">
-<meta property="og:description" content="A reading room for builders: 18 short books on building apps with Claude.">
+<meta property="og:description" content="A reading room for builders: 19 short books on building apps with Claude.">
 <meta name="theme-color" content="#05070F">
 <meta property="og:image" content="https://jvtomax99.github.io/Vibe-coding-guide-/icons/icon-512.png">
 <link rel="icon" href="icons/favicon.ico" sizes="any">
@@ -478,7 +478,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">18</div><small>short books on five shelves, about five hours in all</small></div>
+    <div class="stat"><div class="big-num">19</div><small>short books on five shelves, about six hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -501,7 +501,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <h3>What you'll learn to use</h3>
   <div class="cards">
     <div class="card"><span class="k">SPEC.md</span><h4>A written spec</h4><p>What the app does, who it's for and how you'll know each feature is done. Anthropic recommends having Claude interview you to write it.</p></div>
-    <div class="card"><span class="k">CLAUDE.md</span><h4>Instructions for every session</h4><p>A short file of facts Claude can't learn from the code. Book 8 covers Anthropic's guidance in detail.</p></div>
+    <div class="card"><span class="k">CLAUDE.md</span><h4>Instructions for every session</h4><p>A short file of facts Claude can't learn from the code. Book 9 covers Anthropic's guidance in detail.</p></div>
     <div class="card"><span class="k">.claude/rules/</span><h4>Rules for one part of the app</h4><p>Instructions that load only when Claude works on certain files.</p></div>
     <div class="card"><span class="k">.claude/agents/</span><h4>Helpers and reviewers</h4><p>Cheap helpers for repetitive work, and a reviewer that never saw the code being written.</p></div>
     <div class="card"><span class="k">hooks and permissions</span><h4>Hard limits</h4><p>The things that must always or never happen, enforced by Claude Code instead of requested in words.</p></div>
@@ -509,7 +509,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </div>
 
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>The belief most builders hold, and most need to drop: <b>"more rules make Claude more reliable."</b> Each time something goes wrong, it's natural to add a rule. After a few months the instruction file is hundreds of lines long, some rules contradict each other, and Claude follows all of them a little less. Anthropic's docs say longer instruction files reduce how well Claude follows them. Book 9 shows how to cut a bloated file back down.</p>
+    <p>The belief most builders hold, and most need to drop: <b>"more rules make Claude more reliable."</b> Each time something goes wrong, it's natural to add a rule. After a few months the instruction file is hundreds of lines long, some rules contradict each other, and Claude follows all of them a little less. Anthropic's docs say longer instruction files reduce how well Claude follows them. Book 10 shows how to cut a bloated file back down.</p>
   </div>
 
   <h3>What needs a check before launch</h3>
@@ -525,12 +525,12 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </table></div>
   <p>Why the right-hand column exists: in a 2025 test by the security company Veracode, covering more than 100 AI models, 45% of the code samples failed security tests. Veracode sells security scanning, and its tasks were designed to expose common weaknesses, so read that figure as a worst case, not an average. It is still a reason not to take the right-hand column on trust.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 16), a reviewer that never saw the code being written (Book 10), the rules prompt in Book 5, the security check in the Prompt library (Book 15), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
+    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 17), a reviewer that never saw the code being written (Book 11), the rules prompt in Book 5, the security check in the Prompt library (Book 16), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
   </div>
 
   <h3>How to use this library</h3>
   <ol>
-    <li><b>Never opened GitHub or Claude Code?</b> Read Book 16's first section, "Before step 1", today. It gets you an account, a first session and something to try the other books on.</li>
+    <li><b>Never opened GitHub or Claude Code?</b> Read Book 17's first section, "Before step 1", today. It gets you an account, a first session and something to try the other books on.</li>
     <li><b>One book at a time.</b> Tap a spine to take a book off the shelf, then tap it again to open it. Each book takes 10 to 20 minutes, and the shelves are in reading order.</li>
     <li><b>Do the "Try it" box.</b> Each one is a real prompt to send Claude in one of your own projects. Reading teaches the words; trying teaches the judgment.</li>
     <li><b>Mark it read.</b> A gold bookmark appears on the spine. Progress is remembered in your browser.</li>
@@ -891,11 +891,232 @@ How do you want the changes back?
     <p>If your app shares data between people, check your rules today, not after launch. Two questions: who can read and write each collection right now, and does the live configuration match the file in your repo? The file is only what you last deployed or pasted.</p>
   </div>
   <p>Open rules are the most common way a quickly built app leaks data, whatever database it uses. In May 2025 a flaw was published under the ID CVE-2025-48757 against Lovable, a tool that builds apps from prompts: apps it generated could go live with database tables that anyone on the internet could read or write. A researcher, Matt Palmer, reported finding 170 such apps among the 1,645 he scanned. Lovable disputes the listing and says each customer is responsible for protecting their own app's data. That dispute is the lesson: the tool that builds your app will not check your rules for you.</p>
-  <p>The cause there was the access rules of Supabase, another popular database. Its version of a rules file is called <b>Row Level Security</b>: a switch on each table, plus written policies that say who may see which rows. Supabase's docs say that once the switch is on, no data can be reached with the app's public key until you write a policy. Firestore's rules file does the same job for TeamDesk. Whichever database you use, the two questions above are the check.</p>
+  <p>The cause there was the access rules of Supabase, another popular database. Its version of a rules file is called <b>Row Level Security</b>: a switch on each table, plus written policies that say who may see which rows. Supabase's docs say that once the switch is on, no data can be reached with the app's public key until you write a policy. Firestore's rules file does the same job for TeamDesk. Whichever database you use, the two questions above are the check. Book 6 shows an open rule beside a safe one, and how a rule goes live.</p>
 
   <div class="call try"><div class="tag">Try it</div>
     <div class="code prompt"><div class="label"><span>Prompt for an app with a database</span><button class="copy" type="button">Copy</button></div><pre>Read the database and storage security rules in this repo. In a plain-English table, for each collection: who can read it and who can write it, including under any testing or trial switch. Then tell me the exact steps to confirm the live rules match this file. Don't change the rules.</pre></div>
   </div>
+</section>
+
+<section class="lesson" id="backend" data-part="1 · How your apps work" data-title="Your first back end" data-min="30">
+  <div class="eyebrow"></div>
+  <h2>Your first back end</h2>
+  <p class="lede">Book 1 said what a back end is, and Book 5 covered hosting and keys. This book adds a back end to an app from zero: a sign-in, a database with rules, server code that holds a key, and a job that runs on a clock. It starts with whether you need any of it.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>Three questions that tell you whether your app needs a back end, and what one starts costing</li>
+    <li>Which kind of sign-in to pick</li>
+    <li>Setting up Firebase and Vercel, click by click</li>
+    <li>An open database rule beside a safe one, and how a rule goes live</li>
+    <li>Scheduled jobs, their limits, and a check to run before launch</li>
+  </ul></div>
+  <p>Every step here was read off Firebase's and Vercel's own pages in November 2026. Both services move their buttons often. If a screen doesn't match, trust the screen and the live page (they are listed in Sources), and tell Claude what you see.</p>
+
+  <h3>Do you need one?</h3>
+  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 17 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
+  <p>Ask three questions. One "yes" is enough.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Question</th><th>Why a static site can't do it</th><th>Example</th></tr>
+    <tr><td><b>1. Does the app use a key that costs money?</b></td><td>Everything in a static site is sent to the phone, so anyone can read it. A paid key needs server code to hide behind.</td><td>TeamDesk asks Claude to draft replies, paid per request</td></tr>
+    <tr><td><b>2. Must data be seen on more than one phone?</b></td><td>The phone's own storage never leaves that phone. Sharing between people, or one person on two devices, needs a database.</td><td>TeamDesk's team all see the same messages</td></tr>
+    <tr><td><b>3. Must something happen while nobody has the app open?</b></td><td>A web page only runs while it is open. A job on a clock needs a server.</td><td>TeamDesk's summary, written every morning</td></tr>
+  </table></div>
+  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 17), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
+  <h4>What a back end starts costing</h4>
+  <ul>
+    <li><b>Other people's data becomes your job.</b> With no back end, the worst bug loses one person's progress on one phone. With a database, the worst bug shows everyone's data to a stranger.</li>
+    <li><b>Money, sooner or later.</b> Firebase's no-cost plan (called Spark) needs no card. Its database allows 50,000 reads, 20,000 writes and 20,000 deletes a day and 1 GiB of stored data. Past that you must turn on billing, which is the pay-as-you-go plan (called Blaze). Vercel's free plan is for personal projects only (Book 5).</li>
+    <li><b>A budget alert is not a brake.</b> Firebase's billing page says it plainly: "Budget alerts do not pause services." An alert emails you while the bill keeps growing.</li>
+    <li><b>More accounts and more places to look.</b> A bug can now be in the page, the rules, the server code, a setting on Vercel or a setting on Firebase. Claude can read the first three in your repo. It can't see the last two unless you tell it what they say.</li>
+  </ul>
+  <p><em>Checked in November 2026 against Firebase's pages on Firestore quotas, pricing and avoiding surprise bills.</em></p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Every item the app loads from the database counts as one read. A screen that loads 200 messages every time it opens uses 200 of the day's 50,000. Fifty people opening it five times a day would use the whole allowance. When you ask for a feature that reads from the database, add: "Tell me how many reads one visit costs, and keep it small."</p>
+  </div>
+
+  <h3>Which login to pick</h3>
+  <p>A database needs to know who is asking, or its rules have nothing to check. That is what a sign-in is for. Firebase offers several kinds. These are the four worth knowing, from least work to most.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Kind</th><th>What the user does</th><th>Pick it when</th><th>The catch</th></tr>
+    <tr><td><b>None</b></td><td>Nothing</td><td>All three answers in section 1 were "no"</td><td>No database either. Data stays on the phone.</td></tr>
+    <tr><td><b>Anonymous</b></td><td>Nothing. Firebase gives the phone a temporary account without asking for a name.</td><td>People need their own private space but you don't need to know who they are. Pocket Pet saving a pet online.</td><td>There is nothing to sign back in with. A new phone starts a new, empty account unless the app later links the account to an email or Google sign-in, which Firebase supports. Firebase also limits new accounts to 100 an hour from one internet address, which a classroom on one Wi-Fi can reach.</td></tr>
+    <tr><td><b>Emailed link</b></td><td>Types an email address, then taps a link in the email</td><td>You need to know who each person is, and they may not have Google accounts. A club's member list.</td><td>On the no-cost plan Firebase sends <b>5</b> of these emails a day, too few for anything but a test. The paid plan sends 25,000. The link works most smoothly when it is opened on the same phone that asked for it; on another device the person is asked for their email again.</td></tr>
+    <tr><td><b>Google</b></td><td>Taps "Sign in with Google"</td><td>Your users already have Google accounts</td><td>Leaves out anyone without one. Your app's web address may need adding to Firebase's list of allowed addresses (below).</td></tr>
+  </table></div>
+  <p><b>What about a six-digit code by email?</b> Many apps send a code to type in instead of a link. Firebase's page describes only the link. A code means your own server code plus a separate email service with its own key and its own bill. It can be built, but it is a project of its own. TeamDesk went a third way, one shared team code checked by its own server code (Book 1), which is simple but can't tell one person from another. Start with the link.</p>
+  <h4>Turning one on</h4>
+  <ol class="steps">
+    <li><b>Open the sign-in settings</b>In the Firebase console (<code>console.firebase.google.com</code>), open your project (section 3 makes one), then <b>Security</b>, then <b>Authentication</b>, then the <b>Sign-in method</b> tab.</li>
+    <li><b>Switch on the kind you chose</b><b>Anonymous</b> and <b>Google</b> each have one switch, then <b>Save</b>. For the emailed link, switch on <b>Email/Password</b> first (Firebase requires it), then <b>Email link (passwordless sign-in)</b>, then <b>Save</b>.</li>
+    <li><b>Check the allowed addresses</b>On the <b>Settings</b> tab of the same screen is a list called <b>Authorized domains</b>. Firebase's sign-in pages say to add your site's own address to this list with <b>Add domain</b>. If sign-in works in testing and fails on your live site, look here first. Firebase's page notes that projects made after April 28, 2025 no longer include <code>localhost</code> (the address of a preview on your own computer) by default.</li>
+  </ol>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Anonymous sign-in makes one common rule worthless. A rule that says "any signed-in user may read and write" sounds safe, but with anonymous sign-in on, every visitor is signed in the moment the page loads. Section 4 shows the rule to use instead.</p>
+  </div>
+  <p><em>Checked in November 2026 against Firebase's pages on anonymous, email link and Google sign-in, and its page of limits.</em></p>
+
+  <h3>Firebase from zero</h3>
+  <p>Firebase is Google's back end. This section makes a project, adds a database, and gets the project's settings into your repo. The clicks are yours; Claude can't press buttons in the Firebase console.</p>
+  <ol class="steps">
+    <li><b>Make the project</b>Sign in at <code>console.firebase.google.com</code> with a Google account and press the button to create a new project. Type a name, press <b>Continue</b>, then <b>Create project</b>. Google Analytics is offered along the way. It is optional, and you can add it later.</li>
+    <li><b>Register your web app</b>On the project's overview page, press the <b>Web</b> icon. Give the app a nickname (only you see it) and press <b>Register app</b>. Firebase shows a block of settings called the <b>Firebase configuration</b>. Copy it.</li>
+    <li><b>Create the database</b>In the side list: <b>Databases and Storage</b>, then <b>Firestore</b>, then <b>Create database</b>. Choose a location near your users. Then Firebase asks for a starting mode. Choose <b>Production mode</b>, press <b>Create</b>, and read the box below.</li>
+    <li><b>Turn on a sign-in</b>The three steps in section 2.</li>
+    <li><b>Hand the settings to Claude</b>Use the prompt below. The configuration goes in a file in the repo.</li>
+  </ol>
+  <div class="call straight"><div class="tag">The risky shortcut: test mode</div>
+    <p>The other starting mode is <b>Test mode</b>. It is tempting because everything works at once. Firebase's own description: it "allows anyone to read and overwrite your data."</p>
+    <p><b>What it costs:</b> from that minute, anyone who learns your project's name can read, change or delete everything in the database. No sign-in is needed. Your project's name is in the configuration that every visitor's phone receives.</p>
+    <p><b>How to close it:</b> start in Production mode, which Firebase describes as "Denies all reads and writes" from apps. Nothing works until you publish rules that allow what your app needs. Section 4 does that. If your database is already in test mode, go to section 4 today.</p>
+  </div>
+  <h4>Where the configuration goes</h4>
+  <p>The configuration is a short list of names and values, one of them called <code>apiKey</code>. It looks like a secret. Book 3 covered why it is not: Firebase's page says keys for Firebase services "are OK to include in code or checked-in config files", because they only say which project the app belongs to. So it goes in a file in the repo, such as <code>firebase-config.js</code>, even a public repo.</p>
+  <div class="call straight"><div class="tag">The risky shortcut: every key in the front end</div>
+    <p>Readers see a key in the code here and conclude that keys can go in the code. Only this one can.</p>
+    <p><b>What it costs:</b> the configuration protects nothing. It is an address, not a lock. If the rules are open, the configuration is all a stranger needs. And a key for anything else pasted beside it (the Claude API, Gemini, a maps service, an email service) can be copied by anyone and spent on your bill. Firebase's page says a Gemini key "should never be included in your code or configuration files."</p>
+    <p><b>How to close it:</b> safe rules (section 4) are the lock on the database. Every other key lives in an environment variable on the server (section 5).</p>
+  </div>
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Connect the app to Firebase</span><button class="copy" type="button">Copy</button></div><pre>I made a Firebase project with a Firestore database in production mode and turned on [anonymous / email link / Google] sign-in. Here is the Firebase configuration: [paste it].
+
+Put the configuration in one file. Load Firebase the way its current web setup page says for a site with no build step, and tell me which version you used. Sign the user in when the app opens. Save [what, in plain words] under that user's own id, so one user can never reach another's.
+
+Write a firestore.rules file to match: each user can read and write only their own data, and everything else is refused. Don't put any other key in the front end. Tell me the exact clicks to publish the rules, and how to test them.</pre></div>
+    <p><b>You should see:</b> a pull request with a configuration file, a <code>firestore.rules</code> file, and a list of clicks. The app will not save anything yet. That is correct: the rules in the repo are not live until section 4.</p>
+  </div>
+  <p><b>What you can't get on the no-cost plan.</b> Firebase's pricing page lists its own server code (Cloud Functions) and its file storage (Cloud Storage) only under the pay-as-you-go plan. That is one reason TeamDesk's server code runs on Vercel instead, while its database stays on Firebase.</p>
+  <p><em>Checked in November 2026 against Firebase's web setup page, its Firestore quickstart, its API keys page and its pricing page.</em></p>
+
+  <h3>Rules: an open one beside a safe one</h3>
+  <p>Rules are the only thing standing between the internet and your database. The app's code doesn't count: anyone can talk to the database directly, without your app, using the configuration from section 3. Here are three rules. Learn to tell them apart by sight, because you will be the one checking.</p>
+  <div class="code"><div class="label"><span>Open. Never publish this</span></div><pre>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}</pre></div>
+  <p><code>if true</code> means "always". Firebase's page on insecure rules: "anyone who guesses your project ID can steal, modify, or delete the data."</p>
+  <div class="code"><div class="label"><span>Looks safe, is not</span></div><pre>    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }</pre></div>
+  <p><code>request.auth != null</code> means "is signed in". Firebase's words: "Any logged-in user has read and write access to your entire database." Every TeamDesk user could read every other team's messages. With anonymous sign-in on, "logged-in" means everyone.</p>
+  <div class="code"><div class="label"><span>Safe: each user reaches only their own data</span><button class="copy" type="button">Copy</button></div><pre>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, write: if request.auth != null &amp;&amp; request.auth.uid == uid;
+    }
+  }
+}</pre></div>
+  <p>The added part, <code>request.auth.uid == uid</code>, means "and the data is filed under this user's own id". Anything not named in the file is refused. Shared data, like a team's messages, needs a longer rule that checks team membership. Ask Claude for it, then ask for the plain-English table in the prompt below.</p>
+  <h4>How a rule gets from the repo to the live database</h4>
+  <p>The <code>firestore.rules</code> file in your repo does nothing by being there. Merging it changes nothing. The live database uses whatever was last <b>published</b>, and there are two ways to publish.</p>
+  <div class="tablewrap"><table>
+    <tr><th></th><th>Paste in the console</th><th>Deploy with a command</th></tr>
+    <tr><td><b>How</b></td><td><b>Databases and Storage</b>, <b>Firestore</b>, the <b>Rules</b> tab. Paste the whole file over what is there and press <b>Publish</b>.</td><td>Someone with a computer runs <code>firebase deploy --only firestore:rules</code> from the repo, signed in to Firebase.</td></tr>
+    <tr><td><b>Works from a phone</b></td><td>Yes</td><td>No</td></tr>
+    <tr><td><b>The catch</b></td><td>The repo and the console drift apart the day someone edits one and forgets the other.</td><td>Firebase warns that the rules in the project folder "overwrite any existing rules in the Firebase console". An edit made only in the console is erased.</td></tr>
+  </table></div>
+  <p>Pick one way and keep to it. For most readers of this library that is the console. Make it a habit: every pull request that touches <code>firestore.rules</code> ends with you pasting and publishing, and saying so in the pull request.</p>
+  <ul>
+    <li><b>Test before you publish.</b> The Rules tab has a <b>Rules Playground</b>. It lets you try a request against the rules without touching real data: set up the request, press <b>Run</b>, and it says whether the rules allow it. Try a signed-out visitor, then a signed-in user asking for someone else's data. Both should be refused.</li>
+    <li><b>Wait before you judge.</b> Firebase says a change "can take up to a minute to affect new queries" and up to 10 minutes to reach everything already open.</li>
+  </ul>
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Read my rules back to me</span><button class="copy" type="button">Copy</button></div><pre>Read firestore.rules. In a plain-English table, one row per kind of data: who can read it, who can write it, and whether someone who is signed out, or signed in anonymously, could reach it. Flag any rule that is only "if true" or only "signed in". Then give me three tests to run in the Rules Playground, with the exact values to type and the result I should see. Don't change the rules.</pre></div>
+    <p>Then open the Rules tab in the console and compare what is live with the file, line by line. If they differ, the console is what is live. Decide which of the two is right, then make them match.</p>
+  </div>
+  <p><b>What App Check is.</b> You will see it offered in the console. Firebase describes it as helping "protect your app backends from abuse by preventing unauthorized clients from accessing your backend resources": it tries to confirm that a request comes from your real app and not from a script. Firebase adds that it "prevents some, but not all, abuse". It works beside rules and sign-in and replaces neither. Setting it up is not covered here. Get the rules right first.</p>
+  <p><em>Checked in November 2026 against Firebase's pages on getting started with rules, insecure rules, managing and deploying rules, and App Check.</em></p>
+
+  <h3>Vercel from zero</h3>
+  <p>Vercel hosts the app like GitHub Pages does, and also runs server code and keeps secrets. This section follows one of TeamDesk's uses for it: a small piece of server code holds the Claude API key and asks Claude for a draft reply, so the key never reaches a phone. TeamDesk is a work tool, so it needs Vercel's paid plan (Book 5).</p>
+  <ol class="steps">
+    <li><b>Connect the repo</b>Sign in at <code>vercel.com</code>. Open the <b>New Project</b> page, connect GitHub, and choose whether Vercel may see <b>All repositories</b> or <b>Only select repositories</b>. Choose only the one. Select the repo and press <b>Deploy</b>. For a repo on a personal GitHub account, you must be its owner.</li>
+    <li><b>Know what happens on every push</b>Vercel's page: it will "deploy every push by default". A merge to <code>main</code> goes live. Every pull request gets its own preview link, so you can try a change on your phone before it is live. That preview is the main thing GitHub Pages lacks.</li>
+    <li><b>Add the key</b>Open the project, then <b>Environment Variables</b> in the side list. Type the name exactly as Claude gave it (for example <code>ANTHROPIC_API_KEY</code>), paste the value, and under <b>Type</b> choose <b>Secret</b>. Vercel's page: "Secret values are write-only after saving." Keep your own copy somewhere safe.</li>
+    <li><b>Redeploy</b>A new or changed variable does nothing to what is already live. Vercel: changes "only apply to new deployments". Redeploy, or merge any change, before you test.</li>
+    <li><b>Read the logs</b>Open <b>Logs</b> in the side list from the project's overview. Each request to your server code is a row; tap one to see what the code printed and any error. Copy the error text to Claude as it is.</li>
+  </ol>
+  <p><b>Where the server code lives.</b> For a plain site with no framework, Vercel's page says it "creates a separate function for each supported source file in the root <code>api/</code> directory". So <code>api/reply.js</code> in the repo becomes server code at the address <code>/api/reply</code>. You don't set that up anywhere. Claude adds the file and Vercel finds it.</p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>On the free plan Vercel keeps logs for <b>one hour</b>. If a user says "it broke last night", the log is gone. Two habits fix this. Ask Claude to make server code return a short, clear error the app can show. And test the feature yourself right after each merge, with the Logs screen open.</p>
+    <p>An address like <code>/api/reply</code> is public, even though the key behind it is hidden. Anyone who finds it can call it and spend your credits. Ask Claude to make the server code check that the caller is signed in, and to cap how many requests one user can make in a day.</p>
+  </div>
+  <ul>
+    <li><b>If you go past the free plan's limits,</b> Vercel's page says that in most cases "you will have to wait until 30 days have passed before you can use the feature again". For an app people rely on, that is an outage of a month.</li>
+    <li><b>If a merge breaks the live app,</b> the project's overview has <b>Instant Rollback</b>. On the free plan it goes back one step only, to "the immediately previous deployment".</li>
+    <li><b>Preview links have their own settings.</b> A variable can be set for Production, for Preview, or both. A feature that works live and fails on a preview link usually has its key set for Production only.</li>
+  </ul>
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Move a key behind server code</span><button class="copy" type="button">Copy</button></div><pre>This app is hosted on Vercel with no framework. Add one server function in the api/ folder that [does what, in plain words] using the [name] API. The key must come from an environment variable and never appear in the repo or in anything sent to the phone. The function must refuse callers who aren't signed in, limit each user to [number] requests a day, and return a short plain error message when something fails.
+
+Then tell me: the exact name of the environment variable, one per line in a code block; the clicks to add it in Vercel as a Secret; that I need to redeploy; and one test I can run from my phone, with what I should see in Vercel's Logs.</pre></div>
+  </div>
+  <p><em>Checked in November 2026 against Vercel's pages on importing a project, Vercel for GitHub, environment variables, functions, runtime logs, the Hobby plan and Instant Rollback.</em></p>
+
+  <h3>Scheduled jobs and their limits</h3>
+  <p>A scheduled job is server code that runs on a clock instead of when someone taps. Developers call it a <b>cron job</b>. TeamDesk has one: every morning it writes a summary of yesterday's messages. On Vercel it is two things: a server function, and a few lines in a file called <code>vercel.json</code> that say when to run it.</p>
+  <div class="code"><div class="label"><span>vercel.json</span><button class="copy" type="button">Copy</button></div><pre>{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    {
+      "path": "/api/hello",
+      "schedule": "0 5 * * *"
+    }
+  ]
+}</pre></div>
+  <p>That is Vercel's own example. <code>path</code> is the server code to run. <code>schedule</code> is a five-part code for the time; <code>0 5 * * *</code> means "every day at 5:00". Don't learn the code. Tell Claude the time in words and ask it to read the schedule back to you in words.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Limit</th><th>What Vercel's pages say</th><th>What to do about it</th></tr>
+    <tr><td><b>The clock is not yours</b></td><td>"The timezone is always UTC."</td><td>5:00 UTC is midnight or 1 a.m. in New York, depending on the season. Give Claude your city and the local time you mean.</td></tr>
+    <tr><td><b>Once a day on the free plan</b></td><td>The free plan allows a job "Once per day". A schedule that runs more often makes the whole deployment fail, with a message that starts "Hobby accounts are limited to daily cron jobs."</td><td>If you need hourly, that is the paid plan. Don't let Claude work around it.</td></tr>
+    <tr><td><b>Not on time</b></td><td>On the free plan, a job set for 1:00 "will trigger anywhere between 1:00 am and 1:59 am".</td><td>Never promise users an exact minute.</td></tr>
+    <tr><td><b>Live version only</b></td><td>Vercel runs these jobs "only for production deployments and not for preview deployments".</td><td>You can't test the clock on a preview link. Ask Claude for a way to test the function that still carries the lock described below, then check the first real run.</td></tr>
+    <tr><td><b>No second try</b></td><td>"Vercel will not retry an invocation if a cron job fails."</td><td>A failed morning is a missed morning. Have the job record each run in the database, so a missing record is visible.</td></tr>
+    <tr><td><b>Sometimes twice</b></td><td>Delivery "can also occasionally invoke the same scheduled run more than once".</td><td>Ask for a job that is safe to run twice. "Write today's summary" is safe. "Send everyone an email" is not, unless it first checks that today's was sent.</td></tr>
+  </table></div>
+  <div class="call straight"><div class="tag">The risky shortcut: an unlocked job</div>
+    <p>A job's address works like any other. Without a lock, anyone who finds <code>/api/summary</code> can run it whenever they like. (Vercel's example above calls its function <code>hello</code>; TeamDesk's is <code>summary</code>.)</p>
+    <p><b>What it costs:</b> if the job calls a paid API or sends messages, a stranger can run it a thousand times on your bill.</p>
+    <p><b>How to close it:</b> Vercel's own method. Add an environment variable named <code>CRON_SECRET</code> holding a random string; Vercel recommends "at least 16 characters". Vercel sends it along each time it runs the job, and the function refuses any call that doesn't carry it. Ask Claude to add that check and to show you the line.</p>
+  </div>
+  <p><b>Where to see it.</b> In the project, open <b>Schedules</b> in the side list, then the <b>Cron Jobs</b> tab. Each job has <b>View Logs</b>. Remember the one-hour limit on logs from section 5: a job that runs at 5 a.m. has no log left by breakfast. That is the second reason to have it record each run in the database.</p>
+  <p><b>A name that is changing.</b> In November 2026 Vercel's pages call Cron Jobs "a legacy feature" that is moving into a newer one called Schedules. The steps above are from those pages as they stand. If your screen looks different, ask Claude to read Vercel's current page before it writes anything.</p>
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Ask for a scheduled job</span><button class="copy" type="button">Copy</button></div><pre>Read Vercel's current page on scheduled jobs first, and tell me if anything below no longer matches it.
+
+Add a scheduled job that [does what] once a day at about [time] in [city]. I'm on Vercel's [free / paid] plan. Tell me the schedule in words, in my time zone, for both summer and winter. Protect the function with CRON_SECRET. Make it safe to run twice in one day. Have it save a record of each run (time, what it did, any error) where I can see it in the app. Tell me how to test it without waiting for the clock, and what to check the morning after the first real run.</pre></div>
+  </div>
+  <p><em>Checked in November 2026 against Vercel's pages on cron jobs: the overview, the quickstart, usage and pricing, and managing cron jobs.</em></p>
+
+  <h3>The before-launch check</h3>
+  <p>Start here has the library's rule for what always gets a check before other people use an app. A back end is most of that list. Run this prompt in a fresh session (so Claude checks what is in the repo, not what it remembers writing), and do the five checks only you can do.</p>
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Back-end check before launch</span><button class="copy" type="button">Copy</button></div><pre>This app is about to be used by other people. Check its back end and report in a plain-English table: item, pass or fail, where you looked, what to fix. Change nothing yet.
+
+1. Keys: search the whole repo and its history for anything that looks like a key or password. The Firebase configuration is allowed. Nothing else is.
+2. Rules: for each kind of data, who can read and write it. Fail any rule that is "if true", or that only checks the user is signed in.
+3. Sign-in: which kinds are on, and whether a signed-out or anonymous visitor can reach anything they shouldn't.
+4. Server functions: for each file in api/, does it check who is calling, limit how often, and return a clear error?
+5. Scheduled jobs: is each one protected by CRON_SECRET, safe to run twice, and does it record its runs?
+6. Cost: how many database reads one normal visit uses, and which action could run up a bill if someone repeated it all day.
+7. What you could not check because it lives in the Firebase or Vercel settings. List the exact screens I should open and what I should see there.</pre></div>
+  </div>
+  <h4>Five checks only you can do</h4>
+  <ol class="steps">
+    <li><b>Live rules match the file</b>Firebase console, the <b>Rules</b> tab. Compare with <code>firestore.rules</code> in the repo. This is the check people skip.</li>
+    <li><b>The stranger test</b>Open the live app in a private browser window, signed out. Try to reach someone else's data. Then run the same attempt in the Rules Playground.</li>
+    <li><b>Keys are Secrets</b>Vercel, <b>Environment Variables</b>. Every key is there, set for Production, with type Secret.</li>
+    <li><b>Spending has an alarm</b>If either service has your card, set a budget alert and a spending limit on every paid API. Remember that an alert warns and does not stop.</li>
+    <li><b>You can undo</b>Find <b>Instant Rollback</b> in Vercel and the "Revert" button on your last pull request before you need them.</li>
+  </ol>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>This check finds the common mistakes. It does not make an app safe to hold health records, payments or children's data. Those have laws attached. If your app is heading there, pay a person who does this for a living to review it before launch.</p>
+  </div>
+  <p><em>Checked in November 2026: every screen named in the five checks comes from the Firebase and Vercel pages used in sections 3 to 6.</em></p>
+  <p><em>Not in this book: taking payments, push notifications, setting up App Check, and Supabase beyond the note in Book 5.</em></p>
 </section>
 
 <!-- ===================== PART 2 ===================== -->
@@ -944,7 +1165,7 @@ How do you want the changes back?
     <tr><td><b>ultrathink</b> (a word in one prompt)</td><td>Deeper reasoning for that one message only.</td><td>One tricky question in otherwise routine work.</td></tr>
   </table></div>
   <div class="call"><div class="tag">Anthropic says</div>
-    <p>Phrases like "think hard", "be thorough" or "think step by step" are ordinary text now, not switches. Effort is the real control. The phrase that does still change behavior is <b>"be ambitious"</b>, because Claude tends to build the smallest thing that satisfies a request. Book 11 shows how to use it.</p>
+    <p>Phrases like "think hard", "be thorough" or "think step by step" are ordinary text now, not switches. Effort is the real control. The phrase that does still change behavior is <b>"be ambitious"</b>, because Claude tends to build the smallest thing that satisfies a request. Book 12 shows how to use it.</p>
   </div>
 
   <div class="call"><div class="tag">On your phone</div>
@@ -1623,7 +1844,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 
   <div class="code prompt"><div class="label"><span>See design options</span><button class="copy" type="button">Copy</button></div><pre>Mock up 3 different options for [screen/element] on a scratch copy of the app (not the repo). Render each at 390px and desktop and send the screenshots, each with one line on its trade-off. Mark your pick. Don't build until I choose.</pre></div>
 
-  <div class="code prompt"><div class="label"><span>Fix a bug</span><button class="copy" type="button">Copy</button></div><pre>[Paste the bug report template from Book 14.] Reproduce it first, explain the cause in plain words, make the smallest fix, add a check that would have caught it, and show me the evidence.</pre></div>
+  <div class="code prompt"><div class="label"><span>Fix a bug</span><button class="copy" type="button">Copy</button></div><pre>[Paste the bug report template from Book 15.] Reproduce it first, explain the cause in plain words, make the smallest fix, add a check that would have caught it, and show me the evidence.</pre></div>
 
   <div class="code prompt"><div class="label"><span>Explain something to me</span><button class="copy" type="button">Copy</button></div><pre>Explain [file / feature / error] as if I can't read code. What it does, what it depends on, and what would break if it were removed. Use a small diagram if it helps. Don't change anything.</pre></div>
 
@@ -1680,11 +1901,11 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Here is my idea: [three sentences]. Interview me with multiple-choice questions until you can write SPEC.md: who uses it, each feature with a "Done when" line, "Not in v1", "Later", and phases of one pull request each. Push me on anything that would need a server, accounts or paid services, and tell me the cheapest way to do it. Write SPEC.md when done. No code.</pre></div>
       <p><b>You should see:</b> 8 to 15 questions, then a SPEC.md. <b>Your decision:</b> check-in needs shared data (the coach must see it), so this app needs a back end. Claude should raise that.</p>
     </li>
-    <li><b>Look at similar apps</b>Use the Book 13 prompt. Expect well-known gym booking apps and a list of what to copy and what to skip.</li>
+    <li><b>Look at similar apps</b>Use the Book 14 prompt. Expect well-known gym booking apps and a list of what to copy and what to skip.</li>
     <li><b>Choose the structure deliberately</b>
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Propose the structure for this app. I want small files with one job each and no build step. For the shared check-in data, compare Firebase and Vercel functions with a simple database: cost at 100 members, effort, and security. Recommend one. Write the choice and the reason into SPEC.md.</pre></div>
     </li>
-    <li><b>Set up the instruction files</b>Paste items A, B, C, E and F from the Starter kit (Book 10). Then:
+    <li><b>Set up the instruction files</b>Paste items A, B, C, E and F from the Starter kit (Book 11). Then:
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>I've added starter files. Fill in CLAUDE.md for this app from SPEC.md. Keep it under 60 lines. Only write what you couldn't learn by reading the code once it exists. Then tell me how many lines it is.</pre></div>
       When it's done, type <code>/context all</code> yourself and check CLAUDE.md is in the list under "Memory files".
     </li>
@@ -1693,8 +1914,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       <p>Why first: Anthropic's whole "give Claude a check to run" section. With a check, Claude can close its own loop.</p>
     </li>
     <li><b>Protect main</b>Add the branch rule from Book 3, requiring the new Site check.</li>
-    <li><b>Build Phase 1 in plan mode</b><code>/clear</code>, plan mode, then the Book 13 plan prompt. Read the plan. Approve.</li>
-    <li><b>Check, review, approve</b>Evidence, reviewer, pull request, your approval. Exactly Book 13, steps 6 to 8.</li>
+    <li><b>Build Phase 1 in plan mode</b><code>/clear</code>, plan mode, then the Book 14 plan prompt. Read the plan. Approve.</li>
+    <li><b>Check, review, approve</b>Evidence, reviewer, pull request, your approval. Exactly Book 14, steps 6 to 8.</li>
     <li><b>Show a real user before Phase 2</b>Send the coach the link. Write down what they say, in their words. Feed it to Claude as context for Phase 2: "The coach said: '...'. Update SPEC.md, then plan Phase 2."</li>
     <li><b>Keep the files honest</b>After each phase: phase checked off in SPEC.md; one CLAUDE.md line only for repeated mistakes; <code>/doctor prompt-audit</code> once a month.</li>
   </ol>
@@ -1791,6 +2012,22 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li><a href="https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/">WebKit, web apps on iPhone</a> (February 2023) and <a href="https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid">Google, Use web apps</a>: the Home Screen steps on iPhone and on Android.</li>
     <li><a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable">MDN, Making PWAs installable</a>: what the manifest and icons must contain.</li>
   </ul>
+  <h3>Firebase and Vercel documentation</h3>
+  <p>The pages behind Book 6, read in November 2026. Both services change their screens often; the live page wins.</p>
+  <ul>
+    <li><a href="https://firebase.google.com/docs/web/setup">Firebase, Add Firebase to your JavaScript project</a>: making a project, registering a web app, the configuration.</li>
+    <li><a href="https://firebase.google.com/docs/auth/web/anonymous-auth">Firebase, anonymous sign-in</a>, <a href="https://firebase.google.com/docs/auth/web/email-link-auth">email link sign-in</a> and <a href="https://firebase.google.com/docs/auth/web/google-signin">Google sign-in</a>: how to turn each on, linking an anonymous account, authorized domains.</li>
+    <li><a href="https://firebase.google.com/docs/auth/limits">Firebase Authentication limits</a>: 5 sign-in link emails a day on the no-cost plan, and 100 new accounts an hour from one address.</li>
+    <li><a href="https://firebase.google.com/docs/firestore/quickstart">Firestore quickstart</a>: creating the database, test mode and production mode in Firebase's words.</li>
+    <li><a href="https://firebase.google.com/docs/firestore/security/get-started">Get started with Firestore rules</a>, <a href="https://firebase.google.com/docs/firestore/security/insecure-rules">Fix insecure rules</a> and <a href="https://firebase.google.com/docs/rules/manage-deploy">Manage and deploy rules</a>: the open and the safe rule, the Rules tab and Publish, the deploy command, the Rules Playground, how long a change takes.</li>
+    <li><a href="https://firebase.google.com/docs/firestore/quotas">Firestore quotas</a>, <a href="https://firebase.google.com/pricing">Firebase pricing</a> and <a href="https://firebase.google.com/docs/projects/billing/avoid-surprise-bills">Avoid surprise bills</a>: the daily allowance, the two plans, and "Budget alerts do not pause services."</li>
+    <li><a href="https://firebase.google.com/docs/app-check">Firebase App Check</a>: what it is and what it doesn't cover.</li>
+    <li><a href="https://vercel.com/docs/getting-started-with-vercel/import">Vercel, Import an existing project</a> and <a href="https://vercel.com/docs/git/vercel-for-github">Vercel for GitHub</a>: connecting a repo, which repos Vercel may see, what each push deploys.</li>
+    <li><a href="https://vercel.com/docs/environment-variables">Vercel, Environment variables</a>: the Secret type, and changes applying only to new deployments.</li>
+    <li><a href="https://vercel.com/docs/functions/quickstart">Vercel Functions quickstart</a> and <a href="https://vercel.com/docs/logs/runtime">Runtime logs</a>: the <code>api/</code> folder, the Logs screen, and logs kept one hour on the free plan.</li>
+    <li><a href="https://vercel.com/docs/cron-jobs">Vercel, Cron jobs</a>, its <a href="https://vercel.com/docs/cron-jobs/quickstart">quickstart</a>, <a href="https://vercel.com/docs/cron-jobs/usage-and-pricing">usage and pricing</a> and <a href="https://vercel.com/docs/cron-jobs/manage-cron-jobs">managing cron jobs</a>: the <code>vercel.json</code> example, UTC, once a day on the free plan, no retries, CRON_SECRET.</li>
+    <li><a href="https://vercel.com/docs/plans/hobby">Vercel, Hobby plan</a> and <a href="https://vercel.com/docs/instant-rollback">Instant Rollback</a>: the 30-day wait after passing a limit, and going back one deployment.</li>
+  </ul>
   <h3>Going further</h3>
   <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
   <h4>What vibe coding is</h4>
@@ -1844,6 +2081,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     git:      ["#0F1C33","#E8C88A","Git and GitHub", .9],
     forks:    ["#1B3A5E","#E8C88A","Forks", 1],
     hosting:  ["#142A49","#E8C88A","Hosting and data", .95],
+    backend:  ["#10243F","#E8C88A","Your first back end", .98],
     agent:    ["#0E3A44","#E8C88A","How it works", 1],
     toolkit:  ["#134B55","#E8C88A","The toolkit", .92],
     claudemd: ["#2A1B40","#E8C88A","The CLAUDE.md rules", 1],
@@ -1861,7 +2099,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   };
   var SHELF_NOTES = {
     "Start here": "Read this first: who this library is for, the example apps, and how to use it.",
-    "1 · How your apps work": "The parts of a web app, Git, forks, hosting and data.",
+    "1 · How your apps work": "The parts of a web app, Git, forks, hosting, data and a first back end.",
     "2 · Claude Code": "How the tool works and what each piece of it is for.",
     "3 · CLAUDE.md, Anthropic's way": "The official guidance, your audit and a starter kit.",
     "4 · Talking to Claude": "Requests, terms, the workflow, bugs and a prompt library.",
@@ -1875,6 +2113,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     git:'<circle cx="20" cy="14" r="4"/><circle cx="20" cy="50" r="4"/><circle cx="44" cy="24" r="4"/><path d="M20 18v28M44 28c0 10-24 8-24 18"/>',
     forks:'<circle cx="32" cy="52" r="4"/><circle cx="18" cy="12" r="4"/><circle cx="46" cy="12" r="4"/><path d="M32 48V38c0-8-14-8-14-22M32 38c0-8 14-8 14-22"/>',
     hosting:'<path d="M16 40c-7 0-8-11 0-12 0-9 11-12 16-6 5-6 17-3 16 6 7 1 7 12 0 12z"/><circle cx="26" cy="50" r="3"/><path d="M29 50h12M37 50v4"/>',
+    backend:'<ellipse cx="32" cy="16" rx="18" ry="6"/><path d="M14 16v32c0 3 8 6 18 6s18-3 18-6V16M14 32c0 3 8 6 18 6s18-3 18-6"/>',
     agent:'<path d="M48 26a18 18 0 1 0 2 14"/><path d="M50 14v12H38"/>',
     toolkit:'<path d="M40 12a10 10 0 0 0-10 14L12 44l8 8 18-18a10 10 0 0 0 14-10l-6 6-6-2-2-6z"/>',
     claudemd:'<path d="M18 10h20l10 10v34H18z"/><path d="M38 10v10h10M24 30h18M24 37h18M24 44h12"/>',
@@ -2377,6 +2616,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["API", "A way for one program to ask another for something. The Claude API is how an app's server asks Claude questions."],
     ["Auto mode", "Claude Code's default in the terminal: works without asking each time, while a checker model stops risky actions."],
     ["Backup file", "A file holding everything an app saved on the phone, so it can be restored after a new phone or a cleared browser."],
+    ["Anonymous sign-in", "A sign-in where the app gives the phone a temporary account without asking for a name. Private, but nothing to sign back in with on a new phone."],
+    ["App Check", "A Firebase feature that tries to confirm a request comes from your real app. It works beside security rules and does not replace them."],
     ["Back end", "Code that runs on a server, not the phone. For example an api/ folder on Vercel."],
     ["Branch", "A parallel copy of the code where work happens without touching the live version."],
     ["Branch rule", "A GitHub setting that blocks changes to a branch (like main) unless conditions are met, such as a passing check."],
@@ -2391,6 +2632,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Component", "A reusable piece of UI, like a card or a button group."],
     ["Console error", "An error the browser reports in its developer console (F12 in Chrome). Copy the exact text."],
     ["Context window", "Everything Claude holds in mind during a session: messages, files read, outputs and instruction files."],
+    ["Cron job", "Server code that runs on a clock instead of when someone taps. Also called a scheduled job."],
     ["Deny rule", "A permission rule that blocks an action in every mode. Enforced by Claude Code."],
     ["Deploy", "Publishing a version of the app so users get it."],
     ["Diff", "The exact lines added and removed by a change."],
@@ -2436,6 +2678,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Service worker", "The script (sw.js) that caches files so a PWA works offline."],
     ["Skill", "A saved procedure in .claude/skills/name/SKILL.md. Claude loads the full text only when needed."],
     ["Smoke test", "A quick check that the app loads and does its basic job."],
+    ["Spark and Blaze", "Firebase's two plans. Spark costs nothing and needs no card. Blaze is pay as you go."],
     ["Spec", "The written description of what an app does, who it's for and what's in or out. Your SPEC.md."],
     ["State", "The data an app currently holds, like the current question and score."],
     ["Static site", "A site made only of files, with no server code. Most of your apps."],
