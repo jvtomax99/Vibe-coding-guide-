@@ -35,7 +35,20 @@ merges first; (2) one pull request for gaps 1, 2, 3, 8 and 9 in Start here, Book
 Book 16, written and checked, waiting on #9; (3) three new books, one pull request each,
 each with a short plan he OKs first: "Your first back end" (gaps 5, 6, 7), "Updates
 without reinstalling" (gap 4), "From web app to the App Store and Play Store" (gap 10).
-"Is my app safe?" stays on the list after those. A new book needs a BOOK and an ICON
+"Is my app safe?" stays on the list after those.
+
+State on 2026-11-15: #9 is merged. Step (2) is pull request #10, waiting for Jose's
+"push". Jose OK'd the plan for "Your first back end": new Book 6, right after Hosting,
+seven sections: do you need one (a three-question test and what it starts costing);
+which login to pick (none, anonymous, emailed code, Google); Firebase from zero (make the
+project, turn on sign-in, where the config goes); rules (an open rule beside a safe one,
+and how rules get from the repo to the live database); Vercel from zero (connect the
+repo, add a key, read function logs); scheduled jobs and their limits; a before-launch
+check prompt. Not in it: payments, push notifications, App Check setup (one paragraph
+on what App Check is), Supabase beyond the existing mention. Each section says the month
+it was checked. Fetch every Firebase and Vercel step from the official page that day.
+A leftover branch, `day-one-steps`, holds the same commit as #10 and can be deleted
+once #10 is merged (ask Jose first). A new book needs a BOOK and an ICON
 entry, and every "Book N" in the text after it renumbered.
 
 Corrections to the audit table below, found while re-checking: the Windows symlink note
