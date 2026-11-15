@@ -8,7 +8,7 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 19 short books on glass shelves
+A one-page course site, drawn as a small library aboard a ship: 20 short books on glass shelves
 (about six hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 19 books on shelves, grouped in five parts (How your apps
+1. **The library.** All 20 books on shelves, grouped in five parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Practice) plus
    Start here and the reference books.
    - Done when: every book opens from its spine on a phone and on a desktop.
@@ -109,6 +109,24 @@ apps (told through the made-up ones).
    - Done when: the book opens from its spine as Book 6 at 390px and desktop, all seven
      sections are reachable from its Contents, every Firebase and Vercel step matches a
      page listed in Sources, and every "Book N" in the other books points at the right
+     book.
+
+11. **Book 7, "Updates without reinstalling".** Added 2026-11-15 (Jose's OK on the plan
+   the same day). Six sections: why people keep seeing the old version, apps with no
+   offline worker, three update styles for apps with one, what never updates by itself
+   (name, icon, saved data), store wrappers in brief, and asking Claude for it (a
+   version on screen, a two-phone test). It steers readers to no offline worker unless
+   they need the app without signal.
+   - Compared: web.dev's "Learn PWA: Update" and service worker lifecycle (the same
+     patterns, in code, for developers), MDN's service worker guide (correct on the
+     waiting rule, also code-first), Capacitor's "Deploying updates" (one line on what is
+     allowed, then a paid product). Where this one differs: it starts from the symptom,
+     gives a pick-one table and a prompt per style.
+   - Not in it: building a store wrapper or submitting to a store, paid live-update
+     services, push notifications, worker code to read.
+   - Done when: the book opens from its spine as Book 7 at 390px and desktop, all six
+     sections are reachable from its Contents, every claim about browsers and stores
+     matches a page listed in Sources, and every "Book N" elsewhere points at the right
      book.
 
 ## Not in v1

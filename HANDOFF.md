@@ -51,6 +51,13 @@ Update, later on 2026-11-15: #10 is merged. "Your first back end" is written as 
 (id `backend`) on the branch `first-back-end`, with its pull request waiting for Jose's
 "push". Books 6 to 17 became 7 to 18, and the count is 19. Next after that merge: a short
 plan for "Updates without reinstalling", then Jose's OK, before any writing.
+Update 2: #11 is merged. Jose OK'd the plan for "Updates without reinstalling" (six
+sections, Book 7 after the back-end book, without reading the two private repos). It is
+written as Book 7 (id `updates`) on the branch `updates-book`, pull request waiting for
+Jose's "push". Books 7 to 18 became 8 to 19, and the count is 20. Next: a short plan for
+"From web app to the App Store and Play Store", then Jose's OK. Open question for Jose:
+whether "Is my app safe?" is still needed now that Book 6 ends with a before-launch check.
+Leftover merged branch `first-back-end` can also be deleted (ask Jose).
 A leftover branch, `day-one-steps`, holds the same commit as #10 and can be deleted
 once #10 is merged (ask Jose first). A new book needs a BOOK and an ICON
 entry, and every "Book N" in the text after it renumbered.
