@@ -530,6 +530,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
 
   <h3>How to use this library</h3>
   <ol>
+    <li><b>Never opened GitHub or Claude Code?</b> Read Book 16's first section, "Before step 1", today. It gets you an account, a first session and something to try the other books on.</li>
     <li><b>One book at a time.</b> Tap a spine to take a book off the shelf, then tap it again to open it. Each book takes 10 to 20 minutes, and the shelves are in reading order.</li>
     <li><b>Do the "Try it" box.</b> Each one is a real prompt to send Claude in one of your own projects. Reading teaches the words; trying teaches the judgment.</li>
     <li><b>Mark it read.</b> A gold bookmark appears on the spine. Progress is remembered in your browser.</li>
@@ -836,13 +837,14 @@ How do you want the changes back?
   </div>
 </section>
 
-<section class="lesson" id="hosting" data-part="1 · How your apps work" data-title="Hosting, secrets and data" data-min="15">
+<section class="lesson" id="hosting" data-part="1 · How your apps work" data-title="Hosting, secrets and data" data-min="18">
   <div class="eyebrow"></div>
   <h2>Hosting, secrets and data</h2>
   <p class="lede">Where an app lives decides what it can do, what it costs and what can go wrong. This is the book about the parts users never see.</p>
   <div class="learn"><b>In this book</b><ul>
     <li>When to use GitHub Pages and when to use Vercel</li>
     <li>What an environment variable is and why keys go there</li>
+    <li>Where a key goes when Claude itself needs a paid tool</li>
     <li>Changing saved data safely, and checking security rules</li>
   </ul></div>
 
@@ -866,6 +868,22 @@ How do you want the changes back?
   <h3>Changing what's saved</h3>
   <p>If version 2 of FlashDeck saves progress as <code>{"mastered": [...]}</code> and version 1 saved <code>{"done": [...]}</code>, the new code must read the old shape and convert it. Otherwise every user loses their progress on the next update. Developers call this a <b>data migration</b>.</p>
   <p>Say it like this: <em>"This changes the shape of the saved data. Include a migration so existing users keep their progress, and add a test that loads an old save."</em></p>
+
+  <h3>Keys for tools Claude uses while it works</h3>
+  <p>Environment variables on the host are for keys your <b>app</b> uses. A different case: a paid tool that <b>Claude</b> uses while building, such as a voice or picture generator for Corner Gym's class videos. In a cloud session there are three tempting places for that key, and all three are wrong:</p>
+  <div class="tablewrap"><table>
+    <tr><th>Tempting place</th><th>Why not</th></tr>
+    <tr><td>Pasted into the chat</td><td>It is now in the conversation for good.</td></tr>
+    <tr><td>A file in the repo</td><td>In a public repo, everyone can read it, and it stays in the history after you delete it (Book 3).</td></tr>
+    <tr><td>An environment variable on the cloud environment</td><td>Anthropic's page: "Anyone who uses the environment can read the values."</td></tr>
+  </table></div>
+  <p>The right place is a <b>network secret</b>. On <code>claude.ai/code</code>, open your cloud environment's settings, choose <b>Network secrets</b>, then <b>Add secret</b>. You give it the tool's address (for example <code>api.example.com</code>) and the key. From then on the key is attached to requests to that address after they leave the session, so Claude can use the tool without ever seeing the key. You can't view the value again after saving, so keep your own copy somewhere safe.</p>
+  <ul>
+    <li><b>A cloud session can't reach every site.</b> A new environment starts with limited network access. If Claude reports that a site is blocked, that is the setting working, not a bug. The environment's settings hold the list of sites it may reach.</li>
+    <li><b>The key still spends money.</b> Set a monthly spending limit on the tool's own website before you add it, and tell Claude the budget: "Ask me before any step that would generate more than five clips."</li>
+    <li><b>What the tool makes may not be yours to publish.</b> Read its license before the sounds or pictures go into a public repo.</li>
+  </ul>
+  <p>How to ask: <em>"This task needs the [tool] API. Don't ask me to paste a key. Tell me the exact address it calls so I can add a network secret, then try one small request to prove it works."</em></p>
 
   <h3>Security rules</h3>
   <p>A database like Firestore decides who can read and write each collection using a rules file. Apps built quickly often start with open rules "for testing", or with a switch that keeps things open until someone turns it off. TeamDesk had one: a trial switch that left the database open until the owner locked it. These get forgotten once real people join.</p>
@@ -1625,16 +1643,36 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 </section>
 
 <!-- ===================== PART 5 ===================== -->
-<section class="lesson" id="project" data-part="5 · Practice" data-title="Build your next app from zero" data-min="30">
+<section class="lesson" id="project" data-part="5 · Practice" data-title="Build your next app from zero" data-min="45">
   <div class="eyebrow"></div>
   <h2>Build your next app from zero</h2>
   <p class="lede">A full walk-through using everything in this course. The example is a class schedule and check-in app for Corner Gym members. Swap in any idea; the steps don't change.</p>
   <div class="learn"><b>In this book</b><ul>
+    <li>What to set up before step 1: the two accounts and your first session, from a phone</li>
     <li>Twelve steps from empty repo to live app</li>
     <li>The exact prompt at each step, and what you should see back</li>
     <li>The decisions only you can make</li>
+    <li>Putting it online, on a phone's Home Screen, and giving it a backup</li>
   </ul></div>
 
+  <h3>Before step 1: accounts and a first session</h3>
+  <p>The twelve steps assume three things are already in place. None needs a computer; a phone is enough.</p>
+  <ol class="steps">
+    <li><b>A GitHub account</b>GitHub is where the app's files live. Go to <code>github.com/signup</code>, follow the prompts, and verify your email address when GitHub asks; an account without a verified email can't do much. The free plan is enough for everything in this library.</li>
+    <li><b>A Claude plan that includes Claude Code</b>Anthropic's quickstart lists cloud sessions on the Pro, Max, Ultra and Team plans (and some Enterprise seats). This is the part that costs money every month. Check the current price before you sign up.</li>
+    <li><b>Connect the two</b>Open <code>claude.ai/code</code> and sign in. It asks you to connect GitHub; approve the request and GitHub sends you back. With that, a session can copy any public repo. To work in a <b>private</b> repo, the Claude GitHub App must also be installed on your GitHub account. The connect screen offers it.</li>
+    <li><b>Start a session from your phone</b>In the Claude app, open the <b>Code</b> tab. Tap the repository selector under the box you type in and pick your repo. Type what you want in plain words and send it. Claude works on its own branch and pushes it for you to review.</li>
+  </ol>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Connecting GitHub gives Claude the power to change your repos. That is the point, and it is also why Book 3's branch rule on <code>main</code> matters: it is the one lock Claude can't talk its way past. To take the access back, remove the Claude app in GitHub under Settings, then Applications.</p>
+  </div>
+  <div class="call try"><div class="tag">Try it</div>
+    <p>No repo yet? Do step 2 below first (a new public repo with a README), then send this as your first session:</p>
+    <div class="code prompt"><div class="label"><span>First session</span><button class="copy" type="button">Copy</button></div><pre>Read this repo and tell me, in plain words, what is in it. Change nothing.</pre></div>
+    <p><b>You should see:</b> a short description and no new branch. If your repo isn't in the list, the GitHub connection didn't finish; open <code>claude.ai/code</code> in a browser and connect again.</p>
+  </div>
+
+  <h3>The twelve steps</h3>
   <ol class="steps">
     <li><b>Write the idea in three sentences, by hand</b>Who it's for, what they do with it, why it's better than what they do now. Example: "Gym members open it to see today's classes and tap to check in. The coach sees who's coming. Today it's a group chat and guessing." If you can't write these three sentences, you aren't ready to prompt.</li>
     <li><b>Create the repo on GitHub</b>New repository, public, with a README. Name it plainly (<code>corner-gym-classes</code>). Then open a Claude Code session on it.</li>
@@ -1664,6 +1702,46 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>The step people skip is 11. It's easy to spend weeks on polish and 3D for an app built for one real user (a friend, a client, family) whose feedback isn't written down anywhere. A spec built from your guesses is still a guess. One conversation with the real user beats a phase of polish.</p>
   </div>
+
+  <h3>Put it online with GitHub Pages</h3>
+  <p>If the app is plain files (HTML, CSS, JavaScript) with no server code of its own, GitHub can host it for free. You turn it on once, by hand, in the repo's settings. Claude can't press these buttons for you.</p>
+  <ol class="steps">
+    <li><b>Open the setting</b>In the repo on GitHub: <b>Settings</b>, then <b>Pages</b> in the side list.</li>
+    <li><b>Pick the source</b>Under "Build and deployment", set Source to <b>Deploy from a branch</b>. Choose the branch <code>main</code> and the folder <code>/ (root)</code>. Press <b>Save</b>.</li>
+    <li><b>Find the link</b>Come back to the same screen after a few minutes and press <b>Visit site</b>. The address has this shape: <code>https://your-name.github.io/your-repo/</code>. That is the link you send people.</li>
+    <li><b>Know the delay</b>GitHub says a change can take up to 10 minutes to show after it reaches <code>main</code>. If the old version is still there, wait before asking Claude to "fix" it.</li>
+  </ol>
+  <p>Three things to know before you rely on it:</p>
+  <ul>
+    <li><b>From now on, merging to main is publishing.</b> There is no preview and no "are you sure". This is why the steps above put a check and a branch rule in place first.</li>
+    <li><b>On the free plan the repo must be public.</b> Everyone can read every file in it, so it can never hold a key or a password (Book 3).</li>
+    <li><b>The app lives in a subfolder</b> (<code>/your-repo/</code>). A link inside the app that starts with <code>/</code> works on your computer and breaks on the live site. Tell Claude once: "This site is served from a subfolder on GitHub Pages. Never start a link with a slash."</li>
+  </ul>
+  <p>Book 5 has what Pages may not be used for (a shop, anything taking passwords or card numbers) and when to pick Vercel instead.</p>
+
+  <h3>Put it on a phone's Home Screen</h3>
+  <p>A web app can sit on the Home Screen with its own icon and open without the browser's bars, like an app from a store. No store, no fee, no review. People do it themselves in two taps, but only if you tell them how.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Phone</th><th>What the person does</th></tr>
+    <tr><td><b>iPhone</b> (Safari)</td><td>Open the link, tap the <b>Share</b> button, then <b>Add to Home Screen</b>.</td></tr>
+    <tr><td><b>Android</b> (Chrome)</td><td>Open the link, tap the three dots beside the address, then the install choice. Chrome's wording changes between versions ("Install" or "Add to Home screen").</td></tr>
+  </table></div>
+  <p><b>Why it matters more on iPhone.</b> Safari can erase what a site saved on the phone after seven days of browsing without a visit to that site. For a study app that means a week away can wipe someone's progress. The makers of Safari say an app added to the Home Screen is counted separately and they don't expect its data to be erased. So for any app that saves on the phone, "add it to your Home Screen" is advice that protects people, and it belongs on the app's first screen.</p>
+  <p>For the Home Screen version to look right the app needs a small settings file called a <b>manifest</b> (its name, its colors, how it opens) and icons in two sizes. Ask for them:</p>
+  <div class="code prompt"><div class="label"><span>Make it installable</span><button class="copy" type="button">Copy</button></div><pre>Make this app installable on a phone's Home Screen. Add a web app manifest with a name, a short name, a start address, "standalone" display, and icons at 192 and 512 pixels, plus the icon iPhones use. Keep every link relative, because the site is served from a subfolder. Do not add an offline worker. Then add a short, dismissible note on the first screen that tells iPhone users to tap Share, then Add to Home Screen, and says why. Finish with the steps for me to check it on an iPhone and on an Android phone.</pre></div>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>The prompt says "no offline worker" on purpose. An offline worker (a service worker) keeps a copy of the app on the phone so it opens without signal. It also means people can keep seeing an old version after you publish a new one, unless updates were planned for. Add one when someone needs the app with no signal, and ask Claude how updates will reach people before you do.</p>
+  </div>
+
+  <h3>Give it a backup</h3>
+  <p>An app with no back end keeps each person's progress in one place: that browser, on that phone. A new phone, a cleared browser or Safari's seven-day rule and it is gone, and nobody can get it back, including you. A backup file is the cheap fix: one button that saves everything to a file, one that loads it again.</p>
+  <div class="code prompt"><div class="label"><span>Add a backup</span><button class="copy" type="button">Copy</button></div><pre>Add "Save a backup" and "Restore from backup" to the settings screen. Save writes everything this app keeps in the browser's storage to one dated file the person can keep in their Files app or email to themselves. Restore reads such a file, shows what it holds (the date and how many items) and asks before replacing anything. Refuse a file that isn't one of ours with a plain message. Then give me the steps to prove it works: save on one browser, restore on another, and the same progress shows.</pre></div>
+  <p>Do the proof yourself, on two browsers or two phones. A backup that has never been restored is a guess.</p>
+  <ul>
+    <li><b>What it costs:</b> nothing to run. The person has to remember to press the button, so show the date of their last backup and nudge them when it is old.</li>
+    <li><b>What it exposes:</b> the file is readable by anyone who gets it. Fine for flashcard progress. If the app holds anything private, say so beside the button.</li>
+    <li><b>When it stops being enough:</b> when people want the same progress on two devices, or you need to see their data. That is the moment for a login and a database, which is a bigger step with its own checks (Start here, "What needs a check before launch").</li>
+  </ul>
 </section>
 
 <section class="lesson" id="quiz" data-part="5 · Practice" data-title="Check yourself" data-min="10">
@@ -1696,16 +1774,22 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li><a href="https://code.claude.com/docs/en/hooks-guide">Hooks guide</a>, <a href="https://code.claude.com/docs/en/skills">Skills</a>, <a href="https://code.claude.com/docs/en/sub-agents">Subagents</a>, <a href="https://code.claude.com/docs/en/permissions">Permissions</a>: details behind the Starter kit. The permissions page also says what a deny rule doesn't catch.</li>
     <li><a href="https://code.claude.com/docs/en/permission-modes">Permission modes</a>: auto, plan and manual, the terminal keys, and the menu a cloud session uses instead.</li>
     <li><a href="https://code.claude.com/docs/en/claude-code-on-the-web">Claude Code on the web</a> and its <a href="https://code.claude.com/docs/en/web-quickstart">quickstart</a>: what a cloud session is, and how to start one from a browser or a phone.</li>
+    <li><a href="https://code.claude.com/docs/en/cloud-environments">Cloud environments</a>: network access, and network secrets for keys a session uses without seeing them.</li>
     <li><a href="https://code.claude.com/docs/en/settings#settings-in-cloud-sessions">Settings in cloud sessions</a>: which of a repo's settings reach a cloud session, and where permission rules and hooks don't apply.</li>
   </ul>
   <h3>GitHub and hosting documentation</h3>
   <ul>
     <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">Creating a pull request from a fork</a>: compare across forks, allow edits from maintainers, who can open one.</li>
     <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">Syncing a fork</a>: the Sync fork button and what happens on conflicts.</li>
+    <li><a href="https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github">Creating an account on GitHub</a>: signing up and verifying your email.</li>
+    <li><a href="https://docs.github.com/en/apps/using-github-apps/reviewing-and-modifying-installed-github-apps">Reviewing and modifying installed GitHub Apps</a>: where to see, limit or remove an app's access to your repos.</li>
+    <li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">Configuring a publishing source</a> and <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">Creating a GitHub Pages site</a>: the "Deploy from a branch" steps, Visit site, and the wait of up to 10 minutes.</li>
     <li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits">GitHub Pages limits</a>: what Pages may not be used for, and its size and traffic limits.</li>
     <li><a href="https://vercel.com/legal/terms">Vercel, Terms of Service</a>: the line that keeps the free (Hobby) plan to personal or non-commercial use.</li>
     <li><a href="https://firebase.google.com/docs/projects/api-keys">Firebase, API keys</a>: why the Firebase web key can be public, and why a Gemini key never can.</li>
     <li><a href="https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/">WebKit, the seven-day cap on saved data</a> (March 2020): the makers of Safari on when a site's saved data is erased, and that Home Screen apps are counted separately.</li>
+    <li><a href="https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/">WebKit, web apps on iPhone</a> (February 2023) and <a href="https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid">Google, Use web apps</a>: the Home Screen steps on iPhone and on Android.</li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable">MDN, Making PWAs installable</a>: what the manifest and icons must contain.</li>
   </ul>
   <h3>Going further</h3>
   <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
@@ -2292,6 +2376,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["AGENTS.md", "An instruction file other AI tools read. Claude Code reads it by itself only when the repo has no CLAUDE.md; when both exist, import it with @AGENTS.md."],
     ["API", "A way for one program to ask another for something. The Claude API is how an app's server asks Claude questions."],
     ["Auto mode", "Claude Code's default in the terminal: works without asking each time, while a checker model stops risky actions."],
+    ["Backup file", "A file holding everything an app saved on the phone, so it can be restored after a new phone or a cleared browser."],
     ["Back end", "Code that runs on a server, not the phone. For example an api/ folder on Vercel."],
     ["Branch", "A parallel copy of the code where work happens without touching the live version."],
     ["Branch rule", "A GitHub setting that blocks changes to a branch (like main) unless conditions are met, such as a passing check."],
@@ -2320,17 +2405,20 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Sync fork", "The button on a fork's page that pulls the original repo's new work into your fork."],
     ["Front end", "Code that runs in the user's browser: HTML, CSS and JavaScript."],
     ["GitHub Actions", "GitHub's robots that run checks or jobs automatically."],
+    ["Home Screen app", "A web app someone added to their phone's Home Screen from the browser. It opens like a store app, with no store involved."],
     ["GitHub Pages", "Free hosting that serves a repo's files as a website. Merging to main is going live."],
     ["GLB", "A 3D model file format holding shapes, textures and animations together."],
     ["Hook", "A script Claude Code runs at a fixed moment (session start, before or after a tool, before stopping). Enforced every time."],
     ["Import (@)", "A line like @AGENTS.md that pulls another file into CLAUDE.md. Expanded at launch, so it doesn't save context."],
     ["localStorage", "A small notebook in the browser, one per phone and browser. Where study apps often keep progress."],
     ["main", "The branch that's live."],
+    ["Manifest", "A small settings file that tells a phone how to show a web app on the Home Screen: its name, icons and colors."],
     ["MCP", "Model Context Protocol: a standard way to connect Claude to an outside tool. Often used to connect Playwright."],
     ["Merge", "Joining a branch's changes into another branch, usually main."],
     ["Migration", "Code that converts saved data from an old shape to a new one so users keep their progress."],
     ["Node.js", "A program that runs JavaScript outside a browser. Your checks and tests use it."],
     ["npm", "The tool that installs JavaScript packages and runs the commands listed in package.json."],
+    ["Network secret", "A key stored on a cloud environment and attached to requests after they leave the session, so Claude can use a paid tool without seeing the key."],
     ["Path rule", "A file in .claude/rules/ with a paths: list. Loads only when Claude touches matching files."],
     ["Plan mode", "A mode where Claude reads and plans but can't edit. Shift+Tab in the terminal; the mode menu in a cloud session."],
     ["Playwright", "A robot browser that opens pages, clicks and takes screenshots. How Claude sees your app."],
