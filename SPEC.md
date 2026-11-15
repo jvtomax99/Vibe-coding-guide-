@@ -58,7 +58,9 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A short quiz with a score.
+5. **Check yourself.** A quiz with a score: 19 questions, three of them on each of
+   Books 6, 7 and 8 (added 2026-11-15), so the quiz now covers those three books.
+   Each of those nine right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
