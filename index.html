@@ -249,6 +249,13 @@ a{color:var(--accent);text-underline-offset:3px}
 .tsz-p .l{font-size:23px}
 #tszVal{min-width:4.4em;text-align:center;font:600 11px/1 var(--mono);letter-spacing:.1em;color:var(--sdim)}
 #main>.lesson{zoom:var(--tz,1)}
+/* The lit page: a gold light along the top edge and a soft cyan glow, so the page belongs to the ship */
+.sheet{box-shadow:0 0 0 1px rgba(var(--holo-rgb),.25), inset 0 -2px 0 var(--sgold), 1px 1px 0 var(--line), 0 30px 60px rgba(0,0,0,.65), 0 0 90px rgba(var(--holo-rgb),.18)}
+.sheet::before{content:"";position:sticky;z-index:2;top:0;display:block;height:3px;margin-bottom:-3px;pointer-events:none;background:linear-gradient(90deg,transparent,var(--sgold),transparent)}
+.page .sec-k{display:inline-block;background:var(--accent-2-soft);color:var(--accent-2);border-radius:99px;padding:5px 12px 4px}
+.page h3::after{content:"";display:block;width:64px;height:2px;background:linear-gradient(90deg,var(--sgold-lo),transparent);margin:16px 0 0}
+.page li::marker{color:var(--accent-2)}
+.page .call{border-left-color:var(--sgold-lo)}
 .read-mid{position:relative;flex:1;min-height:0;display:flex;gap:28px;justify-content:center;padding:6px 14px 0}
 .sheet{position:relative;flex:1;min-width:0;max-width:860px;background:var(--paper);color:var(--ink);border-radius:3px 5px 5px 3px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;
   box-shadow:1px 1px 0 var(--line), 3px 2px 0 var(--paper), 4px 3px 0 var(--line), 0 30px 60px rgba(0,0,0,.65), 0 0 70px rgba(var(--holo-rgb),.1)}
@@ -345,7 +352,7 @@ td.good{font-weight:500}
 .steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--paper);font-family:var(--display);font-weight:600;display:grid;place-items:center;font-size:18px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.15)}
 .steps>li::after{content:"";position:absolute;left:19px;top:46px;bottom:6px;width:1px;background:var(--line)}
 .steps>li:last-child::after{display:none}
-.steps>li>b{font-family:var(--display);font-size:20px;font-weight:600;display:block;margin:6px 0 4px}
+.steps>li>b:first-child{font-family:var(--display);font-size:20px;font-weight:600;display:block;margin:6px 0 4px}
 /* Diagrams */
 .figure{margin:22px 0 28px;background:var(--soft);border-radius:4px;padding:16px;overflow-x:auto}
 .figure svg{display:block;width:100%;min-width:560px;height:auto}
