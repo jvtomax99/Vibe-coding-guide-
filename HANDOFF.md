@@ -25,14 +25,22 @@ OK after each:
 
 ## Next step
 
-Job 2 is paused on three answers from Jose. Ask them first, as buttons, recommended first:
+Jose answered the three questions on 2026-11-15: fix everything in the audit and fill
+gaps 1, 2, 3 and 8, as two pull requests; rename the leaked names and shift TeamDesk's
+numbers; go on without the two unread repos (retry before Job 3b).
 
-1. OK the audit's fixes, and should gaps 1, 2, 3 and 8 (getting started, turning Pages on,
-   installing on a phone, backups) join Job 2 in Start here and Book 16? Recommended: yes.
-2. Rename the real details that leaked into the made-up apps (see the note under Part 1)?
-   Recommended: yes.
-3. Two of Jose's app repos (Reels, Cat-app) could not be attached last time: `add_repo` was
-   stopped by the session's permission check. Retry, or continue without them?
+Job 2, part 1 (the audit's fixes and the renames) is in a pull request from this branch,
+waiting for Jose's "push". Part 2 is next: gaps 1, 2, 3 and 8 in Start here and Book 16.
+Facts already checked for it: the cloud quickstart steps (code.claude.com/docs/en/web-quickstart),
+the GitHub Pages "Deploy from a branch" steps and the "up to 10 minutes" line, Chrome on
+Android's install steps. Apple's own page for "Add to Home Screen" would not load for a
+robot; find a page that does before writing those steps. Stop for Jose's OK before Job 3.
+
+Corrections to the audit table below, found while re-checking: the Windows symlink note
+IS still on Anthropic's memory page, so it stayed. Vercel's terms do say the free plan is
+for "personal or non-commercial use". The cloud pages say each session gets "its own
+branch" and never mention a claude/ prefix. The settings page says nothing about path
+rules in project threads, so the guide does not claim it.
 
 Also still open: Jose should tap the two YouTube links in Sources, section 3. They could
 not be checked by a robot.
