@@ -50,6 +50,9 @@ Search for these markers:
 - `id="libraryView"` The window picture with the reader's name and count on it
   (`#borrower`, `#readCount`), the next-book cover (`#contLink`), `#resetBtn`, and
   `#case`, where the script builds the shelves.
+- `#rail` The book's section list. Beside the page on wide screens; below 1000px the
+  Contents button (`openToc()`) adds `.toc-open` to the reader, which pulls the same
+  list up over the page with a backdrop (`#tocBack`) and a Close button.
 - `id="readerView"` The top bar (back, the text size button `#tszBtn` with its panel
   `#tszPanel`, `#tocBtn`), `#rail`, the page `#sheet` with
   `<main id="main">` holding every lesson, and the foot (`#pgPrev`, `#readProg`,
