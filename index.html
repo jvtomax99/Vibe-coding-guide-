@@ -6,7 +6,7 @@
 <title>The Launch Manual: Building Apps With Claude</title>
 <meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
 <meta property="og:title" content="The Launch Manual: Building Apps With Claude">
-<meta property="og:description" content="A reading room for builders: 20 short books on building apps with Claude.">
+<meta property="og:description" content="A reading room for builders: 21 short books on building apps with Claude.">
 <meta name="theme-color" content="#05070F">
 <meta property="og:image" content="https://jvtomax99.github.io/Vibe-coding-guide-/icons/icon-512.png">
 <link rel="icon" href="icons/favicon.ico" sizes="any">
@@ -478,7 +478,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">20</div><small>short books on five shelves, about six hours in all</small></div>
+    <div class="stat"><div class="big-num">21</div><small>short books on five shelves, about six hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -501,7 +501,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <h3>What you'll learn to use</h3>
   <div class="cards">
     <div class="card"><span class="k">SPEC.md</span><h4>A written spec</h4><p>What the app does, who it's for and how you'll know each feature is done. Anthropic recommends having Claude interview you to write it.</p></div>
-    <div class="card"><span class="k">CLAUDE.md</span><h4>Instructions for every session</h4><p>A short file of facts Claude can't learn from the code. Book 10 covers Anthropic's guidance in detail.</p></div>
+    <div class="card"><span class="k">CLAUDE.md</span><h4>Instructions for every session</h4><p>A short file of facts Claude can't learn from the code. Book 11 covers Anthropic's guidance in detail.</p></div>
     <div class="card"><span class="k">.claude/rules/</span><h4>Rules for one part of the app</h4><p>Instructions that load only when Claude works on certain files.</p></div>
     <div class="card"><span class="k">.claude/agents/</span><h4>Helpers and reviewers</h4><p>Cheap helpers for repetitive work, and a reviewer that never saw the code being written.</p></div>
     <div class="card"><span class="k">hooks and permissions</span><h4>Hard limits</h4><p>The things that must always or never happen, enforced by Claude Code instead of requested in words.</p></div>
@@ -509,7 +509,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </div>
 
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>The belief most builders hold, and most need to drop: <b>"more rules make Claude more reliable."</b> Each time something goes wrong, it's natural to add a rule. After a few months the instruction file is hundreds of lines long, some rules contradict each other, and Claude follows all of them a little less. Anthropic's docs say longer instruction files reduce how well Claude follows them. Book 11 shows how to cut a bloated file back down.</p>
+    <p>The belief most builders hold, and most need to drop: <b>"more rules make Claude more reliable."</b> Each time something goes wrong, it's natural to add a rule. After a few months the instruction file is hundreds of lines long, some rules contradict each other, and Claude follows all of them a little less. Anthropic's docs say longer instruction files reduce how well Claude follows them. Book 12 shows how to cut a bloated file back down.</p>
   </div>
 
   <h3>What needs a check before launch</h3>
@@ -525,12 +525,12 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </table></div>
   <p>Why the right-hand column exists: in a 2025 test by the security company Veracode, covering more than 100 AI models, 45% of the code samples failed security tests. Veracode sells security scanning, and its tasks were designed to expose common weaknesses, so read that figure as a worst case, not an average. It is still a reason not to take the right-hand column on trust.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 18), a reviewer that never saw the code being written (Book 12), the rules prompt in Book 5, the security check in the Prompt library (Book 17), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
+    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 19), a reviewer that never saw the code being written (Book 13), the rules prompt in Book 5, the security check in the Prompt library (Book 18), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
   </div>
 
   <h3>How to use this library</h3>
   <ol>
-    <li><b>Never opened GitHub or Claude Code?</b> Read Book 18's first section, "Before step 1", today. It gets you an account, a first session and something to try the other books on.</li>
+    <li><b>Never opened GitHub or Claude Code?</b> Read Book 19's first section, "Before step 1", today. It gets you an account, a first session and something to try the other books on.</li>
     <li><b>One book at a time.</b> Tap a spine to take a book off the shelf, then tap it again to open it. Each book takes 10 to 20 minutes, and the shelves are in reading order.</li>
     <li><b>Do the "Try it" box.</b> Each one is a real prompt to send Claude in one of your own projects. Reading teaches the words; trying teaches the judgment.</li>
     <li><b>Mark it read.</b> A gold bookmark appears on the spine. Progress is remembered in your browser.</li>
@@ -912,7 +912,7 @@ How do you want the changes back?
   <p>Every step here was read off Firebase's and Vercel's own pages in November 2026. Both services move their buttons often. If a screen doesn't match, trust the screen and the live page (they are listed in Sources), and tell Claude what you see.</p>
 
   <h3>Do you need one?</h3>
-  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 18 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
+  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 19 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
   <p>Ask three questions. One "yes" is enough.</p>
   <div class="tablewrap"><table>
     <tr><th>Question</th><th>Why a static site can't do it</th><th>Example</th></tr>
@@ -920,7 +920,7 @@ How do you want the changes back?
     <tr><td><b>2. Must data be seen on more than one phone?</b></td><td>The phone's own storage never leaves that phone. Sharing between people, or one person on two devices, needs a database.</td><td>TeamDesk's team all see the same messages</td></tr>
     <tr><td><b>3. Must something happen while nobody has the app open?</b></td><td>A web page only runs while it is open. A job on a clock needs a server.</td><td>TeamDesk's summary, written every morning</td></tr>
   </table></div>
-  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 18), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
+  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 19), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
   <h4>What a back end starts costing</h4>
   <ul>
     <li><b>Other people's data becomes your job.</b> With no back end, the worst bug loses one person's progress on one phone. With a database, the worst bug shows everyone's data to a stranger.</li>
@@ -1162,7 +1162,7 @@ Add a scheduled job that [does what] once a day at about [time] in [city]. I'm o
   <p><em>Checked in November 2026 against GitHub's page on creating a Pages site and MDN's pages on HTTP caching and the visibilitychange event.</em></p>
 
   <h3>Apps with an offline worker: three update styles</h3>
-  <p>An offline worker is a small script that keeps a copy of the app on the phone so it opens with no signal. Developers call it a <b>service worker</b>. Book 18 leaves it out on purpose. Add one only when people need the app without signal, because from that day updates are something you plan.</p>
+  <p>An offline worker is a small script that keeps a copy of the app on the phone so it opens with no signal. Developers call it a <b>service worker</b>. Book 19 leaves it out on purpose. Add one only when people need the app without signal, because from that day updates are something you plan.</p>
   <p>Here is what the browser does if nobody plans anything. When the app is opened, the browser checks whether the worker file has changed. If it has, the new version is downloaded in the background while the person keeps using the old one. Then it waits. MDN: the new version "is only activated when there are no longer any pages loaded that are still using the old service worker." So the person sees your fix on the open <em>after</em> the next one, and only if the app was fully closed in between. People rarely close an app fully.</p>
   <p>Two things follow. The browser only notices a new version if the worker file itself changed, which is why other books say to bump <code>CACHE_VERSION</code> in <code>sw.js</code>: changing that one line is the signal. And someone has to decide when the waiting ends. There are three sensible answers.</p>
   <div class="tablewrap"><table>
@@ -1179,7 +1179,7 @@ Add a scheduled job that [does what] once a day at about [time] in [city]. I'm o
   <h4>Never forget the version bump</h4>
   <p>Styles A and B depend entirely on that version line changing with each release, style C still needs it for the saved copy, and people forget. Two ways to stop relying on memory:</p>
   <ul>
-    <li><b>A rule Claude loads.</b> The offline-worker path rule in the Starter kit (Book 12) loads only when Claude opens <code>sw.js</code> or the manifest, so a change to any other saved file can slip past it. It is also guidance, which can be missed.</li>
+    <li><b>A rule Claude loads.</b> The offline-worker path rule in the Starter kit (Book 13) loads only when Claude opens <code>sw.js</code> or the manifest, so a change to any other saved file can slip past it. It is also guidance, which can be missed.</li>
     <li><b>A robot.</b> GitHub Actions can run a job "when someone pushes to <code>main</code>". Ask Claude for one that sets the version from the date and time of each merge. Then it can't be forgotten, because no person does it.</li>
   </ul>
   <div class="call try"><div class="tag">Try it</div>
@@ -1192,13 +1192,13 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <h3>What never updates by itself</h3>
   <p>Two things don't arrive with the next merge, whatever style you chose.</p>
   <h4>The name and icon on the Home Screen</h4>
-  <p>The name and icon come from the manifest (Book 18), and the phone reads them when the app is installed.</p>
+  <p>The name and icon come from the manifest (Book 19), and the phone reads them when the app is installed.</p>
   <div class="tablewrap"><table>
     <tr><th>Phone</th><th>What the official pages say</th></tr>
     <tr><td><b>iPhone</b> (Safari)</td><td>Google's web.dev: "the only way to get the new manifest metadata is to re-install the app from the browser."</td></tr>
     <tr><td><b>Android</b> (Chrome)</td><td>Chrome looks for manifest changes at most once every 24 hours. "In most cases, changes should be reflected within a day or two" of the app being opened, and only once the phone is plugged in, on Wi-Fi, and the app is closed.</td></tr>
   </table></div>
-  <p>So choose the name and the icon as if they were permanent. On iPhones they are, unless every user removes the app and adds it again. Before anyone does that, have them save a backup file (Book 18). Don't count on saved progress surviving a removal.</p>
+  <p>So choose the name and the icon as if they were permanent. On iPhones they are, unless every user removes the app and adds it again. Before anyone does that, have them save a backup file (Book 19). Don't count on saved progress surviving a removal.</p>
   <h4>Saved data in the old shape</h4>
   <p>The new code arrives on a phone that still holds data saved by the old code. If the new version expects a different shape, people's progress looks empty or the app breaks on open. This is the migration from Book 5, and it matters more with slow update styles: under style A, phones on three different versions can be in use in the same week. Add to any request that changes what is saved: "Assume phones are updating from any earlier version, not only the last one."</p>
   <p><em>Checked in November 2026 against Google's web.dev pages on updating an installable web app and on how Chrome handles manifest updates.</em></p>
@@ -1218,7 +1218,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   </ul>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>These rules leave room for argument. Capacitor's page says "Apple and Google explicitly allow web content updates to apps", and Apple's wording still forbids downloaded code that "introduces or changes features". This library's advice is the cautious reading, not a rule either store states: send fixes, wording and content as a live update, and send a new feature through review even when it is only web code. Apple decides, and an app removed from the store costs far more than the wait for a review.</p>
-    <p>The three routes into a store, the fees and the review rules that get thin wrappers rejected are for a later book.</p>
+    <p>Book 8 has the three routes into a store, the fees and the review rules that get thin wrappers rejected.</p>
   </div>
   <p><em>Checked in November 2026 against Apple's App Review Guidelines (2.5.2 and 4.2), Google Play's Device and Network Abuse policy, and Capacitor's page on deploying updates.</em></p>
 
@@ -1242,6 +1242,147 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   </div>
   <p><em>Checked in November 2026: the waits in the two-phone test come from the pages used in sections 1 to 4.</em></p>
   <p><em>Not in this book: building a store wrapper or submitting to a store, paid live-update services, push notifications, and the worker's code itself.</em></p>
+</section>
+
+<section class="lesson" id="stores" data-part="1 · How your apps work" data-title="From web app to the App Store and Play Store" data-min="20">
+  <div class="eyebrow"></div>
+  <h2>From web app to the App Store and Play Store</h2>
+  <p class="lede">Sooner or later someone asks, "Is it in the App Store?" This book is for deciding how to answer. It lays out what a store adds, what it costs, the three ways in, and why most apps in this library are better off without one.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>What a store gives you that a link and a Home Screen icon don't</li>
+    <li>The three routes into a store, side by side</li>
+    <li>The accounts, the fees, and Google's rule about testers</li>
+    <li>Why a wrapped website gets rejected, in the stores' own words</li>
+    <li>The step that can't be done from a phone, and a prompt for deciding</li>
+  </ul></div>
+  <p>This is a book for deciding, not a build guide. None of the five example apps is in a store. Every fee and rule was read off Apple's and Google's own pages in November 2026; they change, so check the live pages (listed in Sources) before you pay for anything.</p>
+
+  <h3>Do you need a store at all?</h3>
+  <p>Your app already installs. Book 19 put it on a Home Screen with its own icon, with no fee and no review. A store is a second way to hand out the same app, and it comes with a landlord.</p>
+  <div class="tablewrap"><table>
+    <tr><th></th><th>A link, added to the Home Screen</th><th>A store</th></tr>
+    <tr><td><b>How people get it</b></td><td>You send them the link</td><td>They search the store, or you send a store link</td></tr>
+    <tr><td><b>Strangers can find it</b></td><td>Only if they find your link</td><td>Yes, by searching</td></tr>
+    <tr><td><b>Cost</b></td><td>Nothing</td><td>Apple: 99 USD every year. Google: 25 USD once.</td></tr>
+    <tr><td><b>Who decides it can go out</b></td><td>You</td><td>A reviewer, each time</td></tr>
+    <tr><td><b>A fix reaches people</b></td><td>Minutes after the merge (Book 7)</td><td>After a new build and a review, for anything beyond the web part (Book 7, section 5)</td></tr>
+    <tr><td><b>Your name</b></td><td>Not shown</td><td>Your legal name is shown as the seller</td></tr>
+    <tr><td><b>What you need</b></td><td>A phone</td><td>A computer. For the App Store, a Mac.</td></tr>
+  </table></div>
+  <p>So the question is not "is my app good enough for a store?" It is "do strangers need to find it?"</p>
+  <ul>
+    <li><b>Corner Gym, TeamDesk, ExamTown.</b> The gym's members, a 40-person team and a group of friends studying together all get a link from someone they know. A store adds a fee and a wait, and nothing they would notice.</li>
+    <li><b>FlashDeck.</b> A study app for you and your friends: a link. If you came to want strangers studying with it, that is the day to read the rest of this book.</li>
+    <li><b>Pocket Pet.</b> A game people might search for is the best case for a store among the five. It is also a friend's project, so it is their decision and their name on the account.</li>
+  </ul>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>"It's in the App Store" feels like the moment an app becomes real. That feeling is the most common reason people start down this road, and it is not a reason. Most readers of this library should finish this book having decided not to, and that is a good result.</p>
+  </div>
+  <p><em>Checked in November 2026 against Apple's and Google's fee pages and Apple's enrollment page.</em></p>
+
+  <h3>The three routes</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Route</th><th>What it is</th><th>Stores</th><th>What it takes</th></tr>
+    <tr><td><b>1. Installable web app</b></td><td>What you already have: a link people add to the Home Screen</td><td>None</td><td>Nothing more. Book 19.</td></tr>
+    <tr><td><b>2. A wrapper</b></td><td>A thin store app whose screen shows your web app. Your web files stay the app.</td><td>Both, by different tools</td><td>A developer account, a computer, a review, and an app that is more than a website (section 4)</td></tr>
+    <tr><td><b>3. A full rewrite</b></td><td>The app built again as a native app, in the languages phones use</td><td>Both</td><td>A developer and months. Out of reach for this library, and rarely needed.</td></tr>
+  </table></div>
+  <h4>Two kinds of wrapper</h4>
+  <ul>
+    <li><b>For Google Play: a Trusted Web Activity.</b> This is Google's own way to put a web app in its store. Chrome's page says such apps "are run fullscreen", using the Chrome that is already on the phone. You must show that the website and the store app belong to the same person: "You prove ownership by setting up Digital Asset Links", a small file placed on your site. The site has to meet the same conditions as adding to the Home Screen. The tool Google names for building one is Bubblewrap, which is run by typing commands on a computer.</li>
+    <li><b>For both stores: Capacitor.</b> A tool that puts your web files inside a real iPhone or Android project. It is the usual route to the App Store, and section 5 says what it needs.</li>
+  </ul>
+  <p>Whichever wrapper you use, updates then work as Book 7, section 5 describes: the web part can change quickly, and the native part goes back through the store.</p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>If you ever go to a store, go to Google Play first. It costs 25 USD once instead of 99 USD a year, it has an official route for web apps, and it doesn't need a Mac. Learn what a review is like there before paying Apple.</p>
+  </div>
+  <p><em>Checked in November 2026 against Chrome's pages on Trusted Web Activities and Capacitor's getting-started pages.</em></p>
+
+  <h3>Accounts and fees</h3>
+  <div class="tablewrap"><table>
+    <tr><th></th><th>Apple (App Store)</th><th>Google (Play Store)</th></tr>
+    <tr><td><b>Fee</b></td><td>"99 USD per membership year"</td><td>"a US$25 one-time registration fee"</td></tr>
+    <tr><td><b>To sign up</b></td><td>An Apple Account with two-factor authentication (a second check when you sign in, such as a code sent to your phone), and being an adult where you live. Your legal name must be on the account.</td><td>A choice between a <b>personal</b> account and an <b>organization</b> account. You must verify your identity details. An organization also needs a business ID number called a D-U-N-S number.</td></tr>
+    <tr><td><b>What the public sees</b></td><td>"Your name will be displayed as the seller name of your apps on the App Store."</td><td>For a personal account: "your legal name, your country (based on your legal address), and your developer email address".</td></tr>
+    <tr><td><b>Before your first app goes public</b></td><td>A review (section 4)</td><td>A review, and for new personal accounts the tester rule below</td></tr>
+  </table></div>
+  <h4>Google's tester rule</h4>
+  <p>Google's page: "Google Play requires personal developer accounts created after November 13, 2023, to test their apps" before they can publish. The test is "a closed test" with "a minimum of 12 testers who have been opted in continuously for at least 14 days".</p>
+  <p>In plain words: before the public can download your app, twelve real people with Android phones must join a private test and stay in it for two weeks without dropping out. As this library reads "continuously", a tester who leaves part-way doesn't count, so ask more than twelve.</p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Twelve is harder than it sounds. Count the people you know who own an Android phone, will follow a link, and will leave something installed for two weeks. Line them up before you pay the 25 USD, and ask more than twelve.</p>
+    <p>The fees are the small part. A store account puts your legal name on a public page and makes you the person Apple or Google writes to when something is wrong with the app. For a friend's project like Pocket Pet, that should be the friend.</p>
+  </div>
+  <p><em>Checked in November 2026 against Apple's "What's included" and enrollment pages, and Google Play's pages on the registration fee, account types and the testing requirement.</em></p>
+
+  <h3>Why thin wrappers get rejected</h3>
+  <p>Both stores have a rule aimed at exactly what a beginner would submit: a website in a wrapper.</p>
+  <ul>
+    <li><b>Apple</b>, guideline 4.2: "Your app should include features, content, and UI that elevate it beyond a repackaged website." And: "If your app is not particularly useful, unique, or "app-like," it doesn't belong on the App Store." Apple's review page lists "Web clippings, content aggregators, or a collection of links" and "Not enough lasting value" among the common problems.</li>
+    <li><b>Google</b>: "We do not allow apps that only have limited functionality and content." Its examples include "Apps that are static without app-specific functionalities, for example, text only or PDF file apps". Its spam policy also bans apps that "provide a webview of a website without permission from the website owner". You own your site, so that one is not about you, but it shows how closely wrapped websites are watched.</li>
+  </ul>
+  <p>Apple says it reviews "at least 50% of submissions in less than 24 hours and 90% in less than 48 hours." The wait is short. Being turned down and trying again is where the weeks go.</p>
+  <h4>What "more than a website" tends to mean</h4>
+  <p>Neither store publishes a checklist, so this part is this library's reading of those rules, not a promise of approval:</p>
+  <ul>
+    <li><b>It does something, and keeps doing it.</b> FlashDeck schedules your reviews and remembers your progress. A page of gym opening hours does not pass.</li>
+    <li><b>It behaves like an app.</b> No browser bars, no links that throw the person out to a website, nothing that says "open in browser", no dead buttons, no "coming soon".</li>
+    <li><b>It opens with no signal</b> and says something sensible when it can't load.</li>
+    <li><b>It is finished.</b> Apple's own list of common problems starts with "Crashes and bugs", "Broken links", "Placeholder content" and "Incomplete information".</li>
+  </ul>
+  <div class="call straight"><div class="tag">The risky shortcut: wrap it as it is and see what happens</div>
+    <p>The tools make wrapping quick, so it is tempting to submit today's website and let the reviewer say what is missing.</p>
+    <p><b>What it costs:</b> the fee is paid before the first review. Each rejection is another round of building and waiting. And an app that needs no signal means an offline worker, which Book 7 says to add only with an update plan.</p>
+    <p><b>How to close it:</b> run the readiness prompt in section 6 before you open a developer account. If the honest answer is "this is a website", it should stay a link.</p>
+  </div>
+  <p><em>Checked in November 2026 against Apple's App Review Guidelines (4.2) and App Review page, and Google Play's policies on functionality and on spam.</em></p>
+
+  <h3>What you can't do from a phone</h3>
+  <p>Everything in this library so far can be done from a phone, with Claude working in a cloud session. Getting into a store is where that stops.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Step</th><th>What the official pages say</th><th>From a phone?</th></tr>
+    <tr><td><b>Open the developer accounts</b></td><td>Web forms and identity checks</td><td>Yes</td></tr>
+    <tr><td><b>Get the web app ready</b> (section 4)</td><td>Ordinary changes to your repo</td><td>Yes, with Claude</td></tr>
+    <tr><td><b>Build the Android app</b></td><td>Bubblewrap is run from a command line and needs Node.js. Capacitor asks for Android Studio.</td><td>No. A computer of any kind.</td></tr>
+    <tr><td><b>Build the iPhone app</b></td><td>Capacitor: "To build iOS apps, you will need <b>macOS</b>." It also needs Xcode, Apple's own building tool, which is a Mac program.</td><td>No. A Mac.</td></tr>
+    <tr><td><b>Recruit and keep 12 testers</b></td><td>Google's tester rule (section 3)</td><td>Yes, and only you can do it</td></tr>
+  </table></div>
+  <p>A cloud session is not a Mac, so Claude can prepare the project in your repo but can't produce the iPhone app there. You have three honest options:</p>
+  <ul>
+    <li><b>Borrow the step.</b> A friend with a Mac, an afternoon, and Claude Code running on that Mac. The build is their machine's job; the app and the account stay yours.</li>
+    <li><b>Pay for the step.</b> A developer who has shipped to a store before can do the build and the first submission. Ask for the project to be left in your repo and the accounts in your name.</li>
+    <li><b>Don't.</b> Stay on the Home Screen. Nothing is lost, and the door stays open.</li>
+  </ul>
+  <p>There are also paid services that build in the cloud without a Mac. Capacitor's page mentions one. They are not covered here, and they are another monthly bill and another account.</p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>This is the one place in the library where "ask Claude" is not enough. If a guide or a video makes a store launch look like an evening's work from a phone, look for the step it skipped.</p>
+  </div>
+  <p><em>Checked in November 2026 against Capacitor's environment setup page and Chrome's Trusted Web Activity quick start.</em></p>
+
+  <h3>Deciding, and asking Claude</h3>
+  <p>Take the questions in this order. Stop at the first "no".</p>
+  <ol class="steps">
+    <li><b>Do strangers need to find this app?</b>If everyone who will use it can be sent a link, stop. Put "Add to Home Screen" on the first screen (Book 19) and you are done.</li>
+    <li><b>Is it more than a website?</b>Run the readiness prompt below. Fix what it finds as ordinary pull requests. This costs nothing and makes the app better even if you never go to a store.</li>
+    <li><b>Can you get the build done?</b>A computer for Android, a Mac for iPhone, or someone who has one (section 5).</li>
+    <li><b>Can you carry the account?</b>Your legal name in public, the fee, twelve testers for two weeks on Google, and a review each time the native part changes.</li>
+    <li><b>Then: Google Play first.</b>One store, the cheaper one. Add the App Store only once people are asking for it.</li>
+  </ol>
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Is my app ready to be wrapped?</span><button class="copy" type="button">Copy</button></div><pre>I'm deciding whether this web app should ever go in the App Store or Play Store. Don't build or install anything. Read the repo and answer in a plain-English table: item, pass or fail, where you looked, what it would take to fix.
+
+1. Does it do something lasting for the user, or is it mostly pages to read?
+2. Does anything send the user out to a browser, or show a dead button, a broken link, or placeholder text?
+3. Does it open with no signal? If it has an offline worker, how do updates reach people?
+4. Does it have a manifest with a name, icons and a start address, and is every link relative?
+5. Does it use anything a store would ask about: sign-in, saved personal data, payments, content written by users?
+6. Which parts would have to become native (camera, notifications, payments), and which could stay web?
+
+Then tell me plainly: would a reviewer see this as more than a repackaged website? Give your reasons for and against, and say what you can't judge.</pre></div>
+    <div class="code prompt"><div class="label"><span>Help me decide</span><button class="copy" type="button">Copy</button></div><pre>Here is who uses my app and how they get it today: [describe]. Here is why I'm thinking about a store: [describe]. Argue both sides, a store and staying a link on the Home Screen, for this app and these people. Include the yearly cost, who has to do the build, and what changes about updates. Read the current Apple and Google pages for any fee or rule you mention and tell me which pages you read. Finish with the one you would pick and the strongest reason against it.</pre></div>
+  </div>
+  <p><em>Checked in November 2026: the fees and rules named in these steps are the ones quoted in sections 1 to 5.</em></p>
+  <p><em>Not in this book: step-by-step building in Xcode or Android Studio, store listings and screenshots, payments and in-app purchases, push notifications, paid build services, and how to do a rewrite.</em></p>
 </section>
 
 <!-- ===================== PART 2 ===================== -->
@@ -1290,7 +1431,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
     <tr><td><b>ultrathink</b> (a word in one prompt)</td><td>Deeper reasoning for that one message only.</td><td>One tricky question in otherwise routine work.</td></tr>
   </table></div>
   <div class="call"><div class="tag">Anthropic says</div>
-    <p>Phrases like "think hard", "be thorough" or "think step by step" are ordinary text now, not switches. Effort is the real control. The phrase that does still change behavior is <b>"be ambitious"</b>, because Claude tends to build the smallest thing that satisfies a request. Book 13 shows how to use it.</p>
+    <p>Phrases like "think hard", "be thorough" or "think step by step" are ordinary text now, not switches. Effort is the real control. The phrase that does still change behavior is <b>"be ambitious"</b>, because Claude tends to build the smallest thing that satisfies a request. Book 14 shows how to use it.</p>
   </div>
 
   <div class="call"><div class="tag">On your phone</div>
@@ -1969,7 +2110,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 
   <div class="code prompt"><div class="label"><span>See design options</span><button class="copy" type="button">Copy</button></div><pre>Mock up 3 different options for [screen/element] on a scratch copy of the app (not the repo). Render each at 390px and desktop and send the screenshots, each with one line on its trade-off. Mark your pick. Don't build until I choose.</pre></div>
 
-  <div class="code prompt"><div class="label"><span>Fix a bug</span><button class="copy" type="button">Copy</button></div><pre>[Paste the bug report template from Book 16.] Reproduce it first, explain the cause in plain words, make the smallest fix, add a check that would have caught it, and show me the evidence.</pre></div>
+  <div class="code prompt"><div class="label"><span>Fix a bug</span><button class="copy" type="button">Copy</button></div><pre>[Paste the bug report template from Book 17.] Reproduce it first, explain the cause in plain words, make the smallest fix, add a check that would have caught it, and show me the evidence.</pre></div>
 
   <div class="code prompt"><div class="label"><span>Explain something to me</span><button class="copy" type="button">Copy</button></div><pre>Explain [file / feature / error] as if I can't read code. What it does, what it depends on, and what would break if it were removed. Use a small diagram if it helps. Don't change anything.</pre></div>
 
@@ -2026,11 +2167,11 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Here is my idea: [three sentences]. Interview me with multiple-choice questions until you can write SPEC.md: who uses it, each feature with a "Done when" line, "Not in v1", "Later", and phases of one pull request each. Push me on anything that would need a server, accounts or paid services, and tell me the cheapest way to do it. Write SPEC.md when done. No code.</pre></div>
       <p><b>You should see:</b> 8 to 15 questions, then a SPEC.md. <b>Your decision:</b> check-in needs shared data (the coach must see it), so this app needs a back end. Claude should raise that.</p>
     </li>
-    <li><b>Look at similar apps</b>Use the Book 15 prompt. Expect well-known gym booking apps and a list of what to copy and what to skip.</li>
+    <li><b>Look at similar apps</b>Use the Book 16 prompt. Expect well-known gym booking apps and a list of what to copy and what to skip.</li>
     <li><b>Choose the structure deliberately</b>
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Propose the structure for this app. I want small files with one job each and no build step. For the shared check-in data, compare Firebase and Vercel functions with a simple database: cost at 100 members, effort, and security. Recommend one. Write the choice and the reason into SPEC.md.</pre></div>
     </li>
-    <li><b>Set up the instruction files</b>Paste items A, B, C, E and F from the Starter kit (Book 12). Then:
+    <li><b>Set up the instruction files</b>Paste items A, B, C, E and F from the Starter kit (Book 13). Then:
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>I've added starter files. Fill in CLAUDE.md for this app from SPEC.md. Keep it under 60 lines. Only write what you couldn't learn by reading the code once it exists. Then tell me how many lines it is.</pre></div>
       When it's done, type <code>/context all</code> yourself and check CLAUDE.md is in the list under "Memory files".
     </li>
@@ -2039,8 +2180,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       <p>Why first: Anthropic's whole "give Claude a check to run" section. With a check, Claude can close its own loop.</p>
     </li>
     <li><b>Protect main</b>Add the branch rule from Book 3, requiring the new Site check.</li>
-    <li><b>Build Phase 1 in plan mode</b><code>/clear</code>, plan mode, then the Book 15 plan prompt. Read the plan. Approve.</li>
-    <li><b>Check, review, approve</b>Evidence, reviewer, pull request, your approval. Exactly Book 15, steps 6 to 8.</li>
+    <li><b>Build Phase 1 in plan mode</b><code>/clear</code>, plan mode, then the Book 16 plan prompt. Read the plan. Approve.</li>
+    <li><b>Check, review, approve</b>Evidence, reviewer, pull request, your approval. Exactly Book 16, steps 6 to 8.</li>
     <li><b>Show a real user before Phase 2</b>Send the coach the link. Write down what they say, in their words. Feed it to Claude as context for Phase 2: "The coach said: '...'. Update SPEC.md, then plan Phase 2."</li>
     <li><b>Keep the files honest</b>After each phase: phase checked off in SPEC.md; one CLAUDE.md line only for repeated mistakes; <code>/doctor prompt-audit</code> once a month.</li>
   </ol>
@@ -2154,7 +2295,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li><a href="https://vercel.com/docs/plans/hobby">Vercel, Hobby plan</a> and <a href="https://vercel.com/docs/instant-rollback">Instant Rollback</a>: the 30-day wait after passing a limit, and going back one deployment.</li>
   </ul>
   <h3>Updates and store rules</h3>
-  <p>The pages behind Book 7, read in November 2026.</p>
+  <p>The pages behind Books 7 and 8, read in November 2026.</p>
   <ul>
     <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching">MDN, HTTP caching</a>: what the browser's saved copy is, and what "stale" means.</li>
     <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilitychange_event">MDN, the visibilitychange event</a>: how a page learns it has gone to the background or come back.</li>
@@ -2165,6 +2306,12 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li><a href="https://developer.apple.com/app-store/review/guidelines/">Apple, App Review Guidelines</a>: 2.5.2 on downloaded code, 4.2 on repackaged websites.</li>
     <li><a href="https://support.google.com/googleplay/android-developer/answer/9888379">Google Play, Device and Network Abuse policy</a>: an app may update itself only through Google Play, with the exception for code run by an interpreter.</li>
     <li><a href="https://capacitorjs.com/docs/guides/deploying-updates">Capacitor, Deploying and updating</a>: what a live update can and can't carry.</li>
+    <li><a href="https://developer.apple.com/programs/whats-included/">Apple Developer Program, What's included</a> and <a href="https://developer.apple.com/programs/enroll/">Enroll</a>: the yearly fee, who can sign up, and the seller name shown on the store.</li>
+    <li><a href="https://developer.apple.com/distribute/app-review/">Apple, App Review</a>: how long a review usually takes and the common reasons for a rejection. Guideline 4.2 is on the guidelines page above.</li>
+    <li><a href="https://support.google.com/googleplay/android-developer/answer/6112435">Google Play, the registration fee</a>, <a href="https://support.google.com/googleplay/android-developer/answer/13628312">choosing an account type</a> and <a href="https://support.google.com/googleplay/android-developer/answer/14151465">the testing requirement for new personal accounts</a>: 25 USD once, what a personal account shows, and 12 testers for 14 days.</li>
+    <li><a href="https://support.google.com/googleplay/android-developer/answer/9898783">Google Play, Functionality, Content, and User Experience</a> and <a href="https://support.google.com/googleplay/android-developer/answer/9899034">Spam</a>: limited functionality, and web views of someone else's site.</li>
+    <li><a href="https://developer.chrome.com/docs/android/trusted-web-activity">Chrome, Trusted Web Activities</a> and its <a href="https://developer.chrome.com/docs/android/trusted-web-activity/quick-start">quick start</a>: Google's route for a web app into the Play Store, Digital Asset Links, Bubblewrap.</li>
+    <li><a href="https://capacitorjs.com/docs/getting-started/environment-setup">Capacitor, Environment setup</a>: a Mac and Xcode for iPhone, Android Studio for Android.</li>
   </ul>
   <h3>Going further</h3>
   <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
@@ -2221,6 +2368,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     hosting:  ["#142A49","#E8C88A","Hosting and data", .95],
     backend:  ["#10243F","#E8C88A","Your first back end", .98],
     updates:  ["#1D3F66","#E8C88A","Updates", .91],
+    stores:   ["#16304F","#E8C88A","The app stores", .96],
     agent:    ["#0E3A44","#E8C88A","How it works", 1],
     toolkit:  ["#134B55","#E8C88A","The toolkit", .92],
     claudemd: ["#2A1B40","#E8C88A","The CLAUDE.md rules", 1],
@@ -2238,7 +2386,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   };
   var SHELF_NOTES = {
     "Start here": "Read this first: who this library is for, the example apps, and how to use it.",
-    "1 · How your apps work": "The parts of a web app, Git, forks, hosting, data, a first back end and updates.",
+    "1 · How your apps work": "The parts of a web app, Git, forks, hosting, data, a first back end, updates and the app stores.",
     "2 · Claude Code": "How the tool works and what each piece of it is for.",
     "3 · CLAUDE.md, Anthropic's way": "The official guidance, your audit and a starter kit.",
     "4 · Talking to Claude": "Requests, terms, the workflow, bugs and a prompt library.",
@@ -2254,6 +2402,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     hosting:'<path d="M16 40c-7 0-8-11 0-12 0-9 11-12 16-6 5-6 17-3 16 6 7 1 7 12 0 12z"/><circle cx="26" cy="50" r="3"/><path d="M29 50h12M37 50v4"/>',
     backend:'<ellipse cx="32" cy="16" rx="18" ry="6"/><path d="M14 16v32c0 3 8 6 18 6s18-3 18-6V16M14 32c0 3 8 6 18 6s18-3 18-6"/>',
     updates:'<rect x="20" y="8" width="24" height="48" rx="4"/><path d="M32 20v18M25 31l7 7 7-7M28 48h8"/>',
+    stores:'<path d="M12 26h40l-3 26H15z"/><path d="M22 26v-4a10 10 0 0 1 20 0v4"/>',
     agent:'<path d="M48 26a18 18 0 1 0 2 14"/><path d="M50 14v12H38"/>',
     toolkit:'<path d="M40 12a10 10 0 0 0-10 14L12 44l8 8 18-18a10 10 0 0 0 14-10l-6 6-6-2-2-6z"/>',
     claudemd:'<path d="M18 10h20l10 10v34H18z"/><path d="M38 10v10h10M24 30h18M24 37h18M24 44h12"/>',
@@ -2827,6 +2976,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Subagent", "A helper with its own fresh context, its own model and a limited set of tools."],
     ["Tap target", "The touchable area of a button. Aim for at least 44 to 48 pixels."],
     ["Tech debt", "Shortcuts in code that make future changes slower or riskier."],
+    ["Trusted Web Activity", "Google's way to put a web app in the Play Store: a store app that shows your site full screen using Chrome."],
     ["three.js", "A JavaScript library for 3D in the browser."],
     ["Upstream", "The original repo a fork was copied from."],
     ["Vercel", "Hosting with server functions, environment variables and preview links per branch."],
