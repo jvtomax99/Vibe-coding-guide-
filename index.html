@@ -2232,11 +2232,11 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   </ul>
 </section>
 
-<section class="lesson" id="quiz" data-part="5 · Practice" data-title="Check yourself" data-min="10">
+<section class="lesson" id="quiz" data-part="5 · Practice" data-title="Check yourself" data-min="15">
   <div class="eyebrow"></div>
   <h2>Check yourself</h2>
-  <p class="lede">Ten questions on the ideas that matter most. Tap an answer to see why.</p>
-  <p class="score" id="quizScore">0 of 10 answered</p>
+  <p class="lede">Nineteen questions on the ideas that matter most. Tap an answer to see why.</p>
+  <p class="score" id="quizScore">0 of 19 answered</p>
   <div id="quizBox"></div>
   <button class="btn" type="button" id="quizReset">Start over</button>
 </section>
@@ -2867,7 +2867,37 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   ];
   Q.splice(3, 0, { q: "Your fork of a friend's app is far ahead of their original. What should come before sending a pull request?",
       o: ["Nothing: open one pull request with everything", "Ask which route they want (small pull requests, collaborator, or your version replacing theirs)", "Delete their repo's old files"], a: 1,
-      w: "One huge pull request is something nobody can review. It's their app: agree on the route first, then send small, themed pull requests if that's what they picks." });
+      w: "One huge pull request is something nobody can review. It's their app: agree on the route first, then send small, themed pull requests if that's what they pick." });
+  // The back end, updates and stores books, three questions each. Every right answer is what that book says.
+  Q.push(
+    { q: "FlashDeck has no back end: progress stays on each person's phone. Someone says a real app needs a database. Should you add one?",
+      o: ["No. Keep it static, give it a backup file, and come back when an answer changes", "Yes, a database is safer than the phone's storage", "Yes, every app that people rely on needs one"], a: 0,
+      w: "The book asks three questions: a key that costs money, data seen on more than one phone, something that happens while nobody has the app open. Three 'no' answers mean stop here." },
+    { q: "A database rule says any signed-in user may read and write, and the app uses anonymous sign-in. Who can reach the data?",
+      o: ["Only the people you invited", "Each user, but only their own data", "Every visitor, because each one is signed in the moment the page loads"], a: 2,
+      w: "Firebase's words: 'Any logged-in user has read and write access to your entire database.' The safe rule also checks that the data is filed under that user's own id." },
+    { q: "Claude fixes an open rule in firestore.rules and you merge the pull request. Is the live database protected?",
+      o: ["Yes, merging to main publishes the rules", "Not yet. The live database uses whatever was last published", "Yes, after about ten minutes"], a: 1,
+      w: "The file in the repo does nothing by being there. Paste it into the Rules tab of the Firebase console and press Publish, then compare what is live with the file." },
+    { q: "Corner Gym's website has no offline worker. A member who added it to their Home Screen in March still sees March's class videos. Why?",
+      o: ["The page was loaded once and never closed, so it has had no reason to load again", "The offline worker's cache version wasn't bumped", "GitHub Pages takes months to update a Home Screen app"], a: 0,
+      w: "With no offline worker there is no cache version to bump, and the host has the new files minutes after a merge. The fix is small: each time the app comes back to the front of the phone, it asks the host whether the page has changed." },
+    { q: "ExamTown learns there is a new version while someone is halfway through a quiz. What should it do?",
+      o: ["Reload at once, so everyone is on the newest version", "Nothing. They will get it when they reinstall", "Show a 'New version. Tap to refresh' button and let them choose the moment"], a: 2,
+      w: "A reload wipes whatever is on the screen and not yet saved. Reload by itself only on a screen where nothing can be lost, such as a home screen." },
+    { q: "You want proof that an update reaches phones that already have FlashDeck installed. Which test shows it?",
+      o: ["Install it fresh on another phone and look for the new version", "On a phone that already has the old version, merge a small visible change and count how many times you come back before it shows", "Check that the pull request says merged"], a: 1,
+      w: "A fresh install always gets the newest files and proves nothing. An update can only be tested on a phone that already has the old version." },
+    { q: "Corner Gym's members all get the link from the gym. One asks, 'Is it in the App Store?' What should decide the answer?",
+      o: ["Whether the app is good enough for a store", "Whether strangers need to find it", "Whether you can afford 99 USD a year"], a: 1,
+      w: "Everyone who will use it can be sent a link, so it stays a link on the Home Screen. A store adds a fee and a wait, and nothing the members would notice." },
+    { q: "You decide strangers should find FlashDeck, and you open a new personal Google Play account. What must happen before the public can download it?",
+      o: ["Twelve testers must join a private test and stay in it for 14 days without dropping out", "Twelve people must rate it within 14 days", "You pay 25 USD and it goes public the same day"], a: 0,
+      w: "A tester who opts out before the 14 days are up does not count toward the twelve. Line up more than twelve people with Android phones before you pay the 25 USD." },
+    { q: "You work only from a phone and want FlashDeck in the App Store. Which step can't you do?",
+      o: ["Open the developer account", "Get the web app ready, with Claude", "Build the iPhone app"], a: 2,
+      w: "Building the iPhone app needs a Mac, and a cloud session is not a Mac. Borrow that step from a friend with a Mac, pay a developer for it, or stay on the Home Screen." }
+  );
   var box = document.getElementById("quizBox");
   var answered = 0, right = 0;
   function renderQuiz(){
