@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Launch Manual: Building Apps With Claude</title>
 <meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
 <meta property="og:title" content="The Launch Manual: Building Apps With Claude">
@@ -61,7 +61,7 @@ a{color:var(--accent);text-underline-offset:3px}
 .lib-win{position:absolute;inset:0;background:url(start/closed-phone.webp) 50% 0/cover no-repeat var(--void)}
 @media (min-aspect-ratio:1/1){.lib-win{background-image:url(start/closed-desk.webp);background-position:60% 0}}
 .lib-top::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(5,7,15,.3), rgba(5,7,15,0) 40%, rgba(5,7,15,.86) 84%, var(--void))}
-.lib-hud{position:absolute;z-index:2;top:max(16px,env(safe-area-inset-top));left:clamp(16px,4vw,48px);right:clamp(16px,4vw,48px);display:flex;justify-content:space-between;gap:16px;
+.lib-hud{position:absolute;z-index:2;top:max(16px,env(safe-area-inset-top));left:max(clamp(16px,4vw,48px),env(safe-area-inset-left));right:max(clamp(16px,4vw,48px),env(safe-area-inset-right));display:flex;justify-content:space-between;gap:16px;
   font:600 10px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;text-shadow:0 1px 6px #000}
 .lib-hud label,.lib-hud small{display:block;font:inherit;color:var(--sdim)}
 .lib-hud b{display:block;font:600 13px/1.4 var(--mono);letter-spacing:.08em;color:var(--stext)}
@@ -71,11 +71,11 @@ a{color:var(--accent);text-underline-offset:3px}
 .borrow::placeholder{color:var(--sdim);opacity:.9}
 .meter{display:block;width:96px;height:3px;border-radius:99px;background:rgba(var(--holo-rgb),.28);margin:6px 0 0 auto;overflow:hidden}
 .meter i{display:block;height:100%;width:0;background:var(--sgold);border-radius:99px;transition:width .4s}
-.lib-name{position:absolute;z-index:2;left:clamp(16px,4vw,48px);right:clamp(16px,4vw,48px);bottom:10px}
+.lib-name{position:absolute;z-index:2;left:max(clamp(16px,4vw,48px),env(safe-area-inset-left));right:max(clamp(16px,4vw,48px),env(safe-area-inset-right));bottom:10px}
 .lib-script{font:600 10.5px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--holo);margin:0 0 8px}
 .lib-title{font-family:var(--display);font-weight:500;font-size:clamp(38px,5.4vw,62px);line-height:1;letter-spacing:-.01em;margin:0;font-variation-settings:"opsz" 96;
   background:linear-gradient(180deg,#F6E3B4 0%,var(--sgold) 38%,#B8904E 62%,#F0D9A3 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lib-body{max-width:1240px;margin:0 auto;padding:14px clamp(16px,4vw,48px) 0;display:grid;grid-template-columns:1fr;gap:34px}
+.lib-body{max-width:1240px;margin:0 auto;padding:14px max(clamp(16px,4vw,48px),env(safe-area-inset-right)) env(safe-area-inset-bottom) max(clamp(16px,4vw,48px),env(safe-area-inset-left));display:grid;grid-template-columns:1fr;gap:34px}
 /* The next book, shown as a cover with a way in */
 .card-lib{min-width:0}
 .cont{position:relative;display:grid;grid-template-columns:128px 1fr;gap:18px;align-items:end;padding:22px 16px 18px;border-radius:6px;text-decoration:none;color:var(--ink);
@@ -201,7 +201,7 @@ a{color:var(--accent);text-underline-offset:3px}
 .intro.playing .in-glow{animation:none;opacity:0}
 .intro.ended .in-end{opacity:1;transition:opacity .3s}
 .in-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(3,5,12,.6), transparent 16%, transparent 58%, rgba(3,5,12,.6) 76%, rgba(3,5,12,.92));transition:opacity .35s}
-.intro .hud{position:absolute;z-index:2;top:max(16px,env(safe-area-inset-top));left:18px;right:18px;display:flex;justify-content:space-between;gap:16px;font:600 10px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;text-shadow:0 1px 8px var(--sp-0);transition:opacity .35s}
+.intro .hud{position:absolute;z-index:2;top:max(16px,env(safe-area-inset-top));left:max(18px,env(safe-area-inset-left));right:max(18px,env(safe-area-inset-right));display:flex;justify-content:space-between;gap:16px;font:600 10px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;text-shadow:0 1px 8px var(--sp-0);transition:opacity .35s}
 .intro .hud small{display:block;font:inherit;color:var(--sp-dim)}
 .intro .hud b{display:block;font:600 13px/1.4 var(--mono);letter-spacing:.08em;color:var(--sp-text);max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .intro .hud .r{text-align:right}
@@ -236,10 +236,10 @@ a{color:var(--accent);text-underline-offset:3px}
 .readbar a:hover{color:var(--stext)}
 .readbar button{color:var(--holo);border:1px solid rgba(var(--holo-rgb),.4);border-radius:4px;padding:9px 10px}
 .readbar button:hover{background:rgba(var(--holo-rgb),.14)}
-.read-mid{position:relative;flex:1;min-height:0;display:flex;gap:28px;justify-content:center;padding:6px 12px 0}
+.read-mid{position:relative;flex:1;min-height:0;display:flex;gap:28px;justify-content:center;padding:6px 14px 0}
 .sheet{position:relative;flex:1;min-width:0;max-width:860px;background:var(--paper);color:var(--ink);border-radius:3px 5px 5px 3px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;
   box-shadow:1px 1px 0 var(--line), 3px 2px 0 var(--paper), 4px 3px 0 var(--line), 0 30px 60px rgba(0,0,0,.65), 0 0 70px rgba(var(--holo-rgb),.1)}
-#main{position:relative;min-height:100%;display:flex;flex-direction:column;background:linear-gradient(90deg, rgba(10,16,32,.1), transparent 22px)}
+#main{position:relative;min-height:100%;display:flex;flex-direction:column;background:linear-gradient(90deg, rgba(10,16,32,.1), transparent 14px)}
 .rail{display:none}
 .upd{position:absolute;z-index:5;bottom:14px;left:50%;transform:translateX(-50%);font:600 13.5px/1 var(--body);color:var(--void);background:linear-gradient(#F0D9A3, var(--sgold) 50%, var(--sgold-lo));border:0;border-radius:99px;padding:11px 16px;cursor:pointer;white-space:nowrap;box-shadow:0 10px 24px rgba(0,0,0,.5)}
 .readfoot{position:relative;flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px 12px}
@@ -277,7 +277,7 @@ a{color:var(--accent);text-underline-offset:3px}
 .toc button:hover .ct,.toc button.on .ct{color:var(--accent);font-style:italic}
 .cp .learn{margin:34px 0 0}
 /* Section pages */
-.page{position:relative;padding:34px clamp(22px,6vw,72px) 44px}
+.page{position:relative;width:100%;max-width:calc(70ch + 2 * clamp(26px,6vw,72px));margin:0 auto;padding:34px clamp(26px,6vw,72px) 44px}
 .sec-k{color:var(--accent);margin:0 0 4px}
 .learn{background:var(--soft);border-radius:4px;padding:16px 20px;margin:0 0 30px;border-left:3px solid var(--accent)}
 .learn b{display:block;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
@@ -395,6 +395,18 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   .readfoot{padding:10px 22px 14px}
   .readbar button{visibility:hidden}
 }
+@media (max-width: 999px){
+  .readbar,.readfoot{align-self:center;width:min(100%, 888px)}
+}
+/* A phone held sideways: slimmer bar and foot, so the page gets the height. */
+@media (orientation: landscape) and (max-height: 500px){
+  .readbar{padding:2px 14px 0}
+  .readbar a{padding:9px 4px}
+  .readbar button{padding:6px 10px}
+  .read-mid{padding-top:4px}
+  .readfoot{padding:5px 14px 6px}
+  .readfoot button{width:38px;height:38px;font-size:21px}
+}
 @media (max-width: 760px){
   body{font-size:17px}
   .case{gap:40px}
@@ -403,7 +415,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   .sp-min{font-size:9.5px;letter-spacing:.08em}
   .slot{--t:clamp(46px,13.2vw,62px) !important}
   .sp-title{font-size:13.5px}
-  .page{padding:28px 20px 34px}
+  .page{padding:28px 26px 34px}
   .page h3{font-size:27px}
   .cp{padding-top:44px}
   .foot{grid-template-columns:1fr 1fr}
