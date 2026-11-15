@@ -148,6 +148,21 @@ apps (told through the made-up ones).
      sections are reachable from its Contents, every fee and rule matches a page listed
      in Sources, and every "Book N" elsewhere points at the right book.
 
+13. **Text size.** Added 2026-11-15 at Jose's request (plan OK'd the same day). An "Aa"
+   button beside Contents opens a smaller A and a bigger A: five steps, 90% to 140%,
+   default 100%. The size applies to everything on the paper page, tables and copy boxes
+   included, and is saved in `bac-course-v1` as `size`; "Return all books" keeps it, like
+   the name. After a change the reader stays on the paragraph they were reading.
+   - Compared: Apple Books (small and big A, fonts under Customize; users report the
+     control sometimes missing), Kindle (Aa menu with a size slider, spacing and margins,
+     pinch to resize). Where this one differs: one control in plain sight, and the place
+     is kept on a resize.
+   - Not in it: fonts, line spacing, margins, extra themes, pinch to resize.
+   - Done when: at 390px, sideways and desktop, every step changes the page, nothing on
+     a page reaches past the paper's edge at 140% (wide tables scroll inside their own
+     box, as at 100%), the reader stays on the same paragraph, and the size survives a
+     reload and "Return all books".
+
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.
