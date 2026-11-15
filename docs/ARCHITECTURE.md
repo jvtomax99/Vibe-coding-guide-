@@ -50,7 +50,8 @@ Search for these markers:
 - `id="libraryView"` The window picture with the reader's name and count on it
   (`#borrower`, `#readCount`), the next-book cover (`#contLink`), `#resetBtn`, and
   `#case`, where the script builds the shelves.
-- `id="readerView"` The top bar (back, `#tocBtn`), `#rail`, the page `#sheet` with
+- `id="readerView"` The top bar (back, the text size button `#tszBtn` with its panel
+  `#tszPanel`, `#tocBtn`), `#rail`, the page `#sheet` with
   `<main id="main">` holding every lesson, and the foot (`#pgPrev`, `#readProg`,
   `#pgNext`).
 - `<!-- ===================== START =====================` and the markers after it:
@@ -72,5 +73,7 @@ Search for these markers:
 ## What the browser stores
 
 One `localStorage` entry, `bac-course-v1`: the reader's name (`name`), which books
-are read (`done`) and the page they were on in each book (`pos`). Nothing leaves the
+are read (`done`), the page they were on in each book (`pos`) and the text size step
+(`size`, left out at the default). The size is applied as `--tz` on `#main`, which
+zooms each lesson. Nothing leaves the
 phone.

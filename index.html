@@ -236,6 +236,19 @@ a{color:var(--accent);text-underline-offset:3px}
 .readbar a:hover{color:var(--stext)}
 .readbar button{color:var(--holo);border:1px solid rgba(var(--holo-rgb),.4);border-radius:4px;padding:9px 10px}
 .readbar button:hover{background:rgba(var(--holo-rgb),.14)}
+/* Text size: an Aa button beside Contents; the chosen size scales everything on the paper page */
+.rb-r{display:flex;align-items:center;gap:10px}
+.tsz{position:relative}
+.readbar #tszBtn{font:500 16px/1 var(--display);letter-spacing:0;text-transform:none;padding:7px 11px 8px}
+.readbar #tszBtn[aria-expanded="true"]{background:rgba(var(--holo-rgb),.14);color:var(--stext)}
+.tsz-p{position:absolute;z-index:6;top:calc(100% + 8px);right:0;display:flex;align-items:center;gap:6px;padding:8px;background:var(--panel);border:1px solid rgba(var(--holo-rgb),.4);border-radius:6px;box-shadow:0 14px 30px rgba(0,0,0,.6)}
+.tsz-p[hidden]{display:none}
+.readbar .tsz-p button{width:46px;height:42px;padding:0 0 2px;font-family:var(--display);font-weight:500;letter-spacing:0;text-transform:none;display:grid;place-items:center}
+.readbar .tsz-p button:disabled{opacity:.3;cursor:default;background:none}
+.tsz-p .s{font-size:14px}
+.tsz-p .l{font-size:23px}
+#tszVal{min-width:4.4em;text-align:center;font:600 11px/1 var(--mono);letter-spacing:.1em;color:var(--sdim)}
+#main>.lesson{zoom:var(--tz,1)}
 .read-mid{position:relative;flex:1;min-height:0;display:flex;gap:28px;justify-content:center;padding:6px 14px 0}
 .sheet{position:relative;flex:1;min-width:0;max-width:860px;background:var(--paper);color:var(--ink);border-radius:3px 5px 5px 3px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;
   box-shadow:1px 1px 0 var(--line), 3px 2px 0 var(--paper), 4px 3px 0 var(--line), 0 30px 60px rgba(0,0,0,.65), 0 0 70px rgba(var(--holo-rgb),.1)}
@@ -393,7 +406,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   .rail .toc .no{color:var(--sgold)}
   .rail .toc button:hover .ct,.rail .toc button.on .ct{color:var(--holo)}
   .readfoot{padding:10px 22px 14px}
-  .readbar button{visibility:hidden}
+  .readbar #tocBtn{display:none}
 }
 @media (max-width: 999px){
   .readbar,.readfoot{align-self:center;width:min(100%, 888px)}
@@ -469,7 +482,17 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
 <div class="reader" id="readerView" hidden>
   <div class="readbar">
     <a href="#shelves" id="backBtn">&lsaquo;&nbsp; Back to the shelves</a>
-    <button type="button" id="tocBtn">Contents</button>
+    <div class="rb-r">
+      <div class="tsz" id="tsz">
+        <button type="button" id="tszBtn" aria-expanded="false" aria-controls="tszPanel" aria-label="Text size">Aa</button>
+        <div class="tsz-p" id="tszPanel" hidden>
+          <button type="button" id="tszDown" aria-label="Smaller text"><span class="s">A</span></button>
+          <span id="tszVal" aria-live="polite">100%</span>
+          <button type="button" id="tszUp" aria-label="Bigger text"><span class="l">A</span></button>
+        </div>
+      </div>
+      <button type="button" id="tocBtn">Contents</button>
+    </div>
   </div>
   <div class="read-mid">
     <button type="button" class="upd" id="updBtn" hidden>New version. Tap to refresh</button>
@@ -2662,6 +2685,34 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   pgPrev.addEventListener("click", function(){ go(current._at - 1); });
   pgNext.addEventListener("click", function(){ go(current._at + 1); });
   tocBtn.addEventListener("click", function(){ go(current._toc); });
+
+  // Text size: five steps, saved as store.size (the step's number). "Return all books" leaves it alone, like the name.
+  // After a change, the reader stays on the paragraph that was at the top of the page.
+  var SIZES = [0.9, 1, 1.12, 1.25, 1.4], tsz = document.getElementById("tsz"), tszBtn = document.getElementById("tszBtn"),
+      tszPanel = document.getElementById("tszPanel"), tszDown = document.getElementById("tszDown"), tszUp = document.getElementById("tszUp"),
+      tszVal = document.getElementById("tszVal"), mainEl = document.getElementById("main");
+  var sizeI = (typeof store.size === "number" && SIZES[store.size]) ? store.size : 1;
+  function topBlock(){
+    var top = sheet.getBoundingClientRect().top, list = mainEl.querySelectorAll(".lesson.on p, .lesson.on li, .lesson.on h3, .lesson.on h4, .lesson.on tr, .lesson.on pre, .lesson.on .q");
+    for (var i = 0; i < list.length; i++) { var r = list[i].getBoundingClientRect(); if (r.height && r.bottom > top + 2) return { el: list[i], off: r.top - top }; }
+    return null;
+  }
+  function setSize(i, keep){
+    sizeI = Math.max(0, Math.min(SIZES.length - 1, i));
+    var a = keep ? topBlock() : null;
+    mainEl.style.setProperty("--tz", SIZES[sizeI]);
+    tszVal.textContent = Math.round(SIZES[sizeI] * 100) + "%";
+    tszDown.disabled = sizeI === 0; tszUp.disabled = sizeI === SIZES.length - 1;
+    if (a) sheet.scrollTop += a.el.getBoundingClientRect().top - sheet.getBoundingClientRect().top - a.off;
+  }
+  function sizeTo(i){ setSize(i, true); if (sizeI === 1) delete store.size; else store.size = sizeI; save(); }
+  function openSize(on){ tszPanel.hidden = !on; tszBtn.setAttribute("aria-expanded", on ? "true" : "false"); }
+  tszBtn.addEventListener("click", function(){ openSize(tszPanel.hidden); });
+  tszDown.addEventListener("click", function(){ sizeTo(sizeI - 1); });
+  tszUp.addEventListener("click", function(){ sizeTo(sizeI + 1); });
+  document.addEventListener("click", function(e){ if (!tszPanel.hidden && !tsz.contains(e.target)) openSize(false); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape" && !tszPanel.hidden) { openSize(false); tszBtn.focus(); } });
+  setSize(sizeI, false);
   readerView.addEventListener("click", function(e){
     var b = e.target.closest ? e.target.closest("[data-go]") : null;
     if (b) go(+b.dataset.go);
