@@ -44,8 +44,10 @@ apps (told through the made-up ones).
    turned a section at a time: a title page, a Contents page listing the book's
    sections, then one section per page (a long one scrolls inside its page). Arrows,
    the keyboard's arrow keys or a sideways swipe turn the page; the foot of the screen
-   says where you are ("SECTION 2 OF 4"); the Contents button (or, on a wide screen,
-   the list beside the page) jumps to any section. The book reopens on the page you
+   says where you are ("SECTION 2 OF 4"); the Contents button pulls the book's section
+   list up over the page, with the current section marked, and a tap jumps there (on a
+   wide screen the same list sits beside the page). The Contents page is still the
+   second page of each book. (Pull-up list added 2026-11-15 at Jose's request.) The book reopens on the page you
    left. Previous book, next book and "mark as read" are on the last page.
    (Reworked 2026-11-14, Phase 2.)
    - Done when: a reader goes from Start here to the next book and back to the shelves

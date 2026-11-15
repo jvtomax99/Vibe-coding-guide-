@@ -261,6 +261,27 @@ a{color:var(--accent);text-underline-offset:3px}
   box-shadow:1px 1px 0 var(--line), 3px 2px 0 var(--paper), 4px 3px 0 var(--line), 0 30px 60px rgba(0,0,0,.65), 0 0 70px rgba(var(--holo-rgb),.1)}
 #main{position:relative;min-height:100%;display:flex;flex-direction:column;background:linear-gradient(90deg, rgba(10,16,32,.1), transparent 14px)}
 .rail{display:none}
+.rail small{display:block;font:600 10.5px/1.4 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--sdim)}
+.rail small.k{color:var(--holo)}
+.rail b{display:block;font:500 24px/1.1 var(--display);margin:8px 0 26px;color:var(--sgold)}
+.rail .toc{margin-top:8px;gap:2px}
+.rail .toc .ct{font-size:16px;color:var(--sdim)}
+.rail .toc .no{color:var(--sgold)}
+.rail .toc button:hover .ct,.rail .toc button.on .ct{color:var(--holo)}
+.rail-x{display:none;background:var(--panel)}
+/* Phones and tablets: Contents pulls the same list up over the page, and a tap on a section jumps there */
+.toc-back{position:fixed;inset:0;z-index:7;background:rgba(3,5,12,.62)}
+.toc-back[hidden]{display:none}
+.reader.toc-open .rail{display:block;position:fixed;z-index:8;left:0;right:0;bottom:0;max-height:78%;overflow-y:auto;overscroll-behavior:contain;
+  margin:0 auto;width:min(100%, 640px);padding:14px max(22px,env(safe-area-inset-right)) calc(22px + env(safe-area-inset-bottom)) max(22px,env(safe-area-inset-left));
+  background:var(--panel);border:1px solid rgba(var(--holo-rgb),.35);border-bottom:0;border-radius:16px 16px 0 0;
+  box-shadow:0 -2px 0 rgba(var(--holo-rgb),.2), 0 -24px 60px rgba(0,0,0,.6);animation:tocup .28s cubic-bezier(.2,.75,.2,1) both}
+.reader.toc-open .rail::before{content:"";display:block;width:40px;height:4px;border-radius:99px;background:rgba(var(--holo-rgb),.35);margin:0 auto 14px}
+.reader.toc-open .rail-x{display:block;position:sticky;z-index:1;top:0;float:right;margin-left:12px;font:600 10.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--holo);background:var(--panel);border:1px solid rgba(var(--holo-rgb),.4);border-radius:4px;padding:9px 10px;cursor:pointer}
+.reader.toc-open .rail .toc button{padding:11px 0}
+.reader.toc-open .rail .toc .ct{font-size:18px}
+@keyframes tocup{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion: reduce){.reader.toc-open .rail{animation:none}}
 .upd{position:absolute;z-index:5;bottom:14px;left:50%;transform:translateX(-50%);font:600 13.5px/1 var(--body);color:var(--void);background:linear-gradient(#F0D9A3, var(--sgold) 50%, var(--sgold-lo));border:0;border-radius:99px;padding:11px 16px;cursor:pointer;white-space:nowrap;box-shadow:0 10px 24px rgba(0,0,0,.5)}
 .readfoot{position:relative;flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px 12px}
 .readfoot button{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid rgba(var(--holo-rgb),.45);background:none;color:var(--holo);font:400 24px/1 var(--display);cursor:pointer;display:grid;place-items:center;padding:0 0 3px;box-shadow:0 0 14px rgba(var(--holo-rgb),.18)}
@@ -405,13 +426,6 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
 @media (min-width: 1000px){
   .read-mid{padding:6px 28px 0}
   .rail{display:block;flex:none;width:236px;padding:16px 0 0;overflow-y:auto}
-  .rail small{display:block;font:600 10.5px/1.4 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--sdim)}
-  .rail small.k{color:var(--holo)}
-  .rail b{display:block;font:500 24px/1.1 var(--display);margin:8px 0 26px;color:var(--sgold)}
-  .rail .toc{margin-top:8px;gap:2px}
-  .rail .toc .ct{font-size:16px;color:var(--sdim)}
-  .rail .toc .no{color:var(--sgold)}
-  .rail .toc button:hover .ct,.rail .toc button.on .ct{color:var(--holo)}
   .readfoot{padding:10px 22px 14px}
   .readbar #tocBtn{display:none}
 }
@@ -498,11 +512,12 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
           <button type="button" id="tszUp" aria-label="Bigger text"><span class="l">A</span></button>
         </div>
       </div>
-      <button type="button" id="tocBtn">Contents</button>
+      <button type="button" id="tocBtn" aria-expanded="false" aria-controls="rail">Contents</button>
     </div>
   </div>
   <div class="read-mid">
     <button type="button" class="upd" id="updBtn" hidden>New version. Tap to refresh</button>
+    <div class="toc-back" id="tocBack" hidden></div>
     <nav class="rail" id="rail" aria-label="This book"></nav>
     <div class="sheet" id="sheet">
   <main id="main">
@@ -2691,7 +2706,16 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   }
   pgPrev.addEventListener("click", function(){ go(current._at - 1); });
   pgNext.addEventListener("click", function(){ go(current._at + 1); });
-  tocBtn.addEventListener("click", function(){ go(current._toc); });
+  // Contents pulls the section list up over the page (on a wide screen the list is always beside the page)
+  var tocBack = document.getElementById("tocBack");
+  function openToc(on){
+    readerView.classList.toggle("toc-open", on); tocBack.hidden = !on; tocBtn.setAttribute("aria-expanded", on ? "true" : "false");
+    if (on) { var cur = rail.querySelector("button.on") || rail.querySelector("[data-go]"); if (cur) { try { cur.focus({ preventScroll: true }); } catch (e) {} cur.scrollIntoView({ block: "nearest" }); } }
+  }
+  tocBtn.addEventListener("click", function(){ openToc(!readerView.classList.contains("toc-open")); });
+  tocBack.addEventListener("click", function(){ openToc(false); tocBtn.focus(); });
+  rail.addEventListener("click", function(e){ if (e.target.closest && e.target.closest(".rail-x")) { openToc(false); tocBtn.focus(); } });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape" && readerView.classList.contains("toc-open")) { openToc(false); tocBtn.focus(); } });
 
   // Text size: five steps, saved as store.size (the step's number). "Return all books" leaves it alone, like the name.
   // After a change, the reader stays on the paragraph that was at the top of the page.
@@ -2722,7 +2746,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   setSize(sizeI, false);
   readerView.addEventListener("click", function(e){
     var b = e.target.closest ? e.target.closest("[data-go]") : null;
-    if (b) go(+b.dataset.go);
+    if (b) { openToc(false); go(+b.dataset.go); }
   });
   document.addEventListener("keydown", function(e){
     if (readerView.hidden || !current || e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
@@ -2750,6 +2774,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     var isBook = !!target && target.classList.contains("lesson");
     libraryView.hidden = isBook; readerView.hidden = !isBook;
     if (isBook) select(null);
+    openToc(false);
     if (isBook) {
       lessons.forEach(function(s){ s.classList.toggle("on", s === target); });
       current = target;
@@ -2758,7 +2783,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       var k = document.createElement("small"); k.className = "k";
       k.textContent = (target.dataset.num ? "Book " + target.dataset.num + " of " + (counted.length - 1) : "Reference") + (+target.dataset.min ? " \u00b7 " + target.dataset.min + " min" : "");
       var b = document.createElement("b"); b.textContent = target.dataset.title;
-      rail.appendChild(k); rail.appendChild(b);
+      var x = document.createElement("button"); x.type = "button"; x.className = "rail-x"; x.textContent = "Close";
+      rail.appendChild(x); rail.appendChild(k); rail.appendChild(b);
       if (target._toc) {
         var h = document.createElement("small"); h.textContent = "Contents"; rail.appendChild(h);
         var ol = document.createElement("ol"); ol.className = "toc";
