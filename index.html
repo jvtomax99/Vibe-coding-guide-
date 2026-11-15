@@ -6,7 +6,7 @@
 <title>The Launch Manual: Building Apps With Claude</title>
 <meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
 <meta property="og:title" content="The Launch Manual: Building Apps With Claude">
-<meta property="og:description" content="A reading room for builders: 19 short books on building apps with Claude.">
+<meta property="og:description" content="A reading room for builders: 20 short books on building apps with Claude.">
 <meta name="theme-color" content="#05070F">
 <meta property="og:image" content="https://jvtomax99.github.io/Vibe-coding-guide-/icons/icon-512.png">
 <link rel="icon" href="icons/favicon.ico" sizes="any">
@@ -478,7 +478,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">19</div><small>short books on five shelves, about six hours in all</small></div>
+    <div class="stat"><div class="big-num">20</div><small>short books on five shelves, about six hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -501,7 +501,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <h3>What you'll learn to use</h3>
   <div class="cards">
     <div class="card"><span class="k">SPEC.md</span><h4>A written spec</h4><p>What the app does, who it's for and how you'll know each feature is done. Anthropic recommends having Claude interview you to write it.</p></div>
-    <div class="card"><span class="k">CLAUDE.md</span><h4>Instructions for every session</h4><p>A short file of facts Claude can't learn from the code. Book 9 covers Anthropic's guidance in detail.</p></div>
+    <div class="card"><span class="k">CLAUDE.md</span><h4>Instructions for every session</h4><p>A short file of facts Claude can't learn from the code. Book 10 covers Anthropic's guidance in detail.</p></div>
     <div class="card"><span class="k">.claude/rules/</span><h4>Rules for one part of the app</h4><p>Instructions that load only when Claude works on certain files.</p></div>
     <div class="card"><span class="k">.claude/agents/</span><h4>Helpers and reviewers</h4><p>Cheap helpers for repetitive work, and a reviewer that never saw the code being written.</p></div>
     <div class="card"><span class="k">hooks and permissions</span><h4>Hard limits</h4><p>The things that must always or never happen, enforced by Claude Code instead of requested in words.</p></div>
@@ -509,7 +509,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </div>
 
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>The belief most builders hold, and most need to drop: <b>"more rules make Claude more reliable."</b> Each time something goes wrong, it's natural to add a rule. After a few months the instruction file is hundreds of lines long, some rules contradict each other, and Claude follows all of them a little less. Anthropic's docs say longer instruction files reduce how well Claude follows them. Book 10 shows how to cut a bloated file back down.</p>
+    <p>The belief most builders hold, and most need to drop: <b>"more rules make Claude more reliable."</b> Each time something goes wrong, it's natural to add a rule. After a few months the instruction file is hundreds of lines long, some rules contradict each other, and Claude follows all of them a little less. Anthropic's docs say longer instruction files reduce how well Claude follows them. Book 11 shows how to cut a bloated file back down.</p>
   </div>
 
   <h3>What needs a check before launch</h3>
@@ -525,12 +525,12 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </table></div>
   <p>Why the right-hand column exists: in a 2025 test by the security company Veracode, covering more than 100 AI models, 45% of the code samples failed security tests. Veracode sells security scanning, and its tasks were designed to expose common weaknesses, so read that figure as a worst case, not an average. It is still a reason not to take the right-hand column on trust.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 17), a reviewer that never saw the code being written (Book 11), the rules prompt in Book 5, the security check in the Prompt library (Book 16), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
+    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 18), a reviewer that never saw the code being written (Book 12), the rules prompt in Book 5, the security check in the Prompt library (Book 17), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
   </div>
 
   <h3>How to use this library</h3>
   <ol>
-    <li><b>Never opened GitHub or Claude Code?</b> Read Book 17's first section, "Before step 1", today. It gets you an account, a first session and something to try the other books on.</li>
+    <li><b>Never opened GitHub or Claude Code?</b> Read Book 18's first section, "Before step 1", today. It gets you an account, a first session and something to try the other books on.</li>
     <li><b>One book at a time.</b> Tap a spine to take a book off the shelf, then tap it again to open it. Each book takes 10 to 20 minutes, and the shelves are in reading order.</li>
     <li><b>Do the "Try it" box.</b> Each one is a real prompt to send Claude in one of your own projects. Reading teaches the words; trying teaches the judgment.</li>
     <li><b>Mark it read.</b> A gold bookmark appears on the spine. Progress is remembered in your browser.</li>
@@ -912,7 +912,7 @@ How do you want the changes back?
   <p>Every step here was read off Firebase's and Vercel's own pages in November 2026. Both services move their buttons often. If a screen doesn't match, trust the screen and the live page (they are listed in Sources), and tell Claude what you see.</p>
 
   <h3>Do you need one?</h3>
-  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 17 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
+  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 18 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
   <p>Ask three questions. One "yes" is enough.</p>
   <div class="tablewrap"><table>
     <tr><th>Question</th><th>Why a static site can't do it</th><th>Example</th></tr>
@@ -920,7 +920,7 @@ How do you want the changes back?
     <tr><td><b>2. Must data be seen on more than one phone?</b></td><td>The phone's own storage never leaves that phone. Sharing between people, or one person on two devices, needs a database.</td><td>TeamDesk's team all see the same messages</td></tr>
     <tr><td><b>3. Must something happen while nobody has the app open?</b></td><td>A web page only runs while it is open. A job on a clock needs a server.</td><td>TeamDesk's summary, written every morning</td></tr>
   </table></div>
-  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 17), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
+  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 18), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
   <h4>What a back end starts costing</h4>
   <ul>
     <li><b>Other people's data becomes your job.</b> With no back end, the worst bug loses one person's progress on one phone. With a database, the worst bug shows everyone's data to a stranger.</li>
@@ -1119,6 +1119,130 @@ Add a scheduled job that [does what] once a day at about [time] in [city]. I'm o
   <p><em>Not in this book: taking payments, push notifications, setting up App Check, and Supabase beyond the note in Book 5.</em></p>
 </section>
 
+<section class="lesson" id="updates" data-part="1 · How your apps work" data-title="Updates without reinstalling" data-min="20">
+  <div class="eyebrow"></div>
+  <h2>Updates without reinstalling</h2>
+  <p class="lede">You fixed the bug and merged it. Your friend still sees the old app. This book is about the gap between "it's merged" and "it's on their phone", and how to close it without asking anyone to delete and reinstall.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>The three places an old copy of your app can hide</li>
+    <li>What updates by itself, and what to add when it doesn't</li>
+    <li>Three ways an app with an offline worker can update, and how to pick</li>
+    <li>What never updates by itself: the name, the icon and saved data</li>
+    <li>What changes if the app is ever wrapped for a store</li>
+  </ul></div>
+  <p>Read off the official pages in November 2026. They are listed in Sources.</p>
+
+  <h3>Why people keep seeing the old version</h3>
+  <p>A phone almost never loads your app fresh from the host. To be fast, and to work with poor signal, something along the way keeps a copy and hands that over instead. There are three such places. When someone sees an old version, the first job is working out which one it is.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Where the old copy sits</th><th>Which apps have it</th><th>How long it lasts</th></tr>
+    <tr><td><b>1. The host hasn't switched yet</b></td><td>Every app</td><td>Minutes. GitHub: "It can take up to 10 minutes for changes to your site to publish".</td></tr>
+    <tr><td><b>2. The browser's saved copy</b>, or a page that was never closed</td><td>Every app</td><td>Until the page is loaded again. An app left open on a Home Screen can sit on last week's version for days.</td></tr>
+    <tr><td><b>3. The offline worker's saved copy</b></td><td>Only apps that were given an offline worker (a file usually named <code>sw.js</code>)</td><td>Until the worker is told there is a new version, and then until it is allowed to switch. This is the one that lasts.</td></tr>
+  </table></div>
+  <p>The browser's saved copy is called its <b>cache</b>. MDN, the web's reference manual, describes it in one line: it "stores a response associated with a request and reuses the stored response for subsequent requests." A copy that is past its date is called <b>stale</b>.</p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Check which of your apps has an offline worker before reading on. Ask Claude: "Does this repo register a service worker? Answer yes or no and name the file." FlashDeck does, because people study on the train. Corner Gym's website does not. If the answer is no, section 2 is all you need, and the best update plan is to keep it that way.</p>
+  </div>
+
+  <h3>Apps with no offline worker</h3>
+  <p>With no offline worker, the newest files are on the host a few minutes after the merge, and anyone who opens the link gets them. Most of the time there is nothing to build.</p>
+  <p>One case is left: the app that is never closed. Someone added Corner Gym's timetable to their Home Screen in March and has switched back to it ever since. The page was loaded once and has had no reason to load again. They are reading March's timetable.</p>
+  <p>The fix is small. Each time the app comes back to the front of the phone, it asks the host one question: has the page changed since I loaded it? If yes, it loads the new one. This library works that way: on the shelves it reloads by itself, and inside a book it shows a "New version. Tap to refresh" button instead, so nobody loses their place.</p>
+  <div class="call straight"><div class="tag">The risky shortcut: reload the moment there is an update</div>
+    <p>The simplest version reloads the page as soon as it learns of a new one.</p>
+    <p><b>What it costs:</b> a reload wipes whatever is on the screen and not yet saved. Someone halfway through an ExamTown quiz, or typing a long message in TeamDesk, loses it with no warning.</p>
+    <p><b>How to close it:</b> reload by itself only on a screen where nothing can be lost, such as a home screen. Everywhere else, show a button and let the person choose the moment.</p>
+  </div>
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Keep an app with no offline worker current</span><button class="copy" type="button">Copy</button></div><pre>This app has no offline worker, and I want to keep it that way. Make it stay current without anyone refreshing: when the app comes back to the front of the phone, ask the host whether the page has changed since it was loaded, skipping the browser's saved copy. If it has changed: on [the home screen] reload by itself; anywhere a person could be typing or part-way through something, show a small "New version. Tap to refresh" button instead. Never reload more than once for the same version. Then tell me how to test it with one phone.</pre></div>
+    <p><b>You should see:</b> after the next merge, leave the app open on your phone, wait ten minutes, switch to another app and back. The new version appears, or the button does.</p>
+  </div>
+  <p><em>Checked in November 2026 against GitHub's page on creating a Pages site and MDN's pages on HTTP caching and the visibilitychange event.</em></p>
+
+  <h3>Apps with an offline worker: three update styles</h3>
+  <p>An offline worker is a small script that keeps a copy of the app on the phone so it opens with no signal. Developers call it a <b>service worker</b>. Book 18 leaves it out on purpose. Add one only when people need the app without signal, because from that day updates are something you plan.</p>
+  <p>Here is what the browser does if nobody plans anything. When the app is opened, the browser checks whether the worker file has changed. If it has, the new version is downloaded in the background while the person keeps using the old one. Then it waits. MDN: the new version "is only activated when there are no longer any pages loaded that are still using the old service worker." So the person sees your fix on the open <em>after</em> the next one, and only if the app was fully closed in between. People rarely close an app fully.</p>
+  <p>Two things follow. The browser only notices a new version if the worker file itself changed, which is why earlier books say to bump <code>CACHE_VERSION</code> in <code>sw.js</code>: changing that one line is the signal. And someone has to decide when the waiting ends. There are three sensible answers.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Style</th><th>What the user sees</th><th>Good for</th><th>The catch</th></tr>
+    <tr><td><b>A. Next open</b><br>Leave the browser's waiting in place</td><td>Nothing. The new version appears one or two opens later.</td><td>Apps where a day's delay is harmless. Pocket Pet.</td><td>Slow, and you can't say when. A bad bug stays on phones until each person happens to close the app.</td></tr>
+    <tr><td><b>B. Swap while they're away</b><br>The new version takes over when the app goes to the background</td><td>Nothing. They switch away, come back, and it is the new version.</td><td>Most apps with a worker. FlashDeck.</td><td>Needs care to build. It must only swap when the app is hidden, never mid-use.</td></tr>
+    <tr><td><b>C. Fresh every time</b><br>Ask the host first on every open; use the saved copy only with no signal</td><td>Always the newest version when online.</td><td>Apps where old information does harm: prices, schedules, team data. TeamDesk.</td><td>Opens slower on weak signal, since it waits for the host before falling back. The saved copy is only as new as the last visit online.</td></tr>
+  </table></div>
+  <div class="call straight"><div class="tag">The risky shortcut: force the new worker in at once</div>
+    <p>There is a one-line way to end the waiting: tell the new worker to take over the instant it has downloaded. Developers call it <code>skipWaiting</code>. Claude may offer it, because it makes "the update isn't showing" go away.</p>
+    <p><b>What it costs:</b> the page on the screen was loaded by the old version, and the worker behind it is now the new one. Google's guide to service workers: "your new service worker is likely controlling pages that were loaded with an older version." The result is an app that is half old and half new, with bugs nobody can repeat.</p>
+    <p><b>How to close it:</b> style B. Let the new worker take over only while the app is hidden, and load the page again when it does, so the page and the worker always match. If Claude proposes <code>skipWaiting</code>, ask: "What happens to a page that is open when this runs?"</p>
+  </div>
+  <h4>Never forget the version bump</h4>
+  <p>Every style depends on that version line changing with each release, and people forget. Two ways to stop relying on memory:</p>
+  <ul>
+    <li><b>A rule Claude loads.</b> The offline-worker path rule in the Starter kit (Book 12) reminds Claude whenever it touches a saved file. That is guidance, so it can still be missed.</li>
+    <li><b>A robot.</b> GitHub Actions can run a job "when someone pushes to <code>main</code>". Ask Claude for one that sets the version from the date and time of each merge. Then it can't be forgotten, because no person does it.</li>
+  </ul>
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Pick an update style</span><button class="copy" type="button">Copy</button></div><pre>This app has an offline worker. First tell me in plain words how an update reaches an installed phone today: what the user sees, and after how many opens. Change nothing yet.
+
+Then change it to this style: [A: next open / B: swap when the app goes to the background / C: ask the host first on every open, saved copy only when offline]. Do not use skipWaiting on a page that is in use. The page and the worker must never be on different versions. Show the app's version in small text on [the settings or about screen]. Add a GitHub Actions job that sets the worker's version on every merge to main, so nobody bumps it by hand. Finish with a test I can run on two phones.</pre></div>
+  </div>
+  <p><em>Checked in November 2026 against MDN's guide to using service workers, Google's web.dev pages on the service worker lifecycle and on updating a PWA, and GitHub's page on events that trigger workflows.</em></p>
+
+  <h3>What never updates by itself</h3>
+  <p>Two things don't arrive with the next merge, whatever style you chose.</p>
+  <h4>The name and icon on the Home Screen</h4>
+  <p>The name and icon come from the manifest (Book 18), and the phone reads them when the app is installed.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Phone</th><th>What the official pages say</th></tr>
+    <tr><td><b>iPhone</b> (Safari)</td><td>Google's web.dev: "the only way to get the new manifest metadata is to re-install the app from the browser."</td></tr>
+    <tr><td><b>Android</b> (Chrome)</td><td>Chrome looks for manifest changes at most once every 24 hours. "In most cases, changes should be reflected within a day or two" of the app being opened, and only once the phone is plugged in, on Wi-Fi, and the app is closed.</td></tr>
+  </table></div>
+  <p>So choose the name and the icon as if they were permanent. On iPhones they are, unless every user removes the app and adds it again. Before anyone does that, have them save a backup file (Book 18). Don't count on saved progress surviving a removal.</p>
+  <h4>Saved data in the old shape</h4>
+  <p>The new code arrives on a phone that still holds data saved by the old code. If the new version expects a different shape, people's progress looks empty or the app breaks on open. This is the migration from Book 5, and it matters more with slow update styles: under style A, phones on three different versions can be in use in the same week. Add to any request that changes what is saved: "Assume phones are updating from any earlier version, not only the last one."</p>
+  <p><em>Checked in November 2026 against Google's web.dev pages on updating a PWA and on how Chrome handles manifest updates.</em></p>
+
+  <h3>If the app is in a store wrapper</h3>
+  <p>None of your apps needs this today. It is here so the word "update" doesn't surprise you later. A <b>wrapper</b> is a thin store app whose screen shows your web app. Capacitor is a common tool for making one. A wrapped app has two parts, and they update differently.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Part</th><th>What it is</th><th>How a change reaches phones</th></tr>
+    <tr><td><b>The web part</b></td><td>Your HTML, CSS and JavaScript: the same files this book has been about</td><td>Can be sent straight to phones, called a <b>live update</b>, within the stores' rules below</td></tr>
+    <tr><td><b>The native part</b></td><td>The shell, and anything that uses the phone itself: camera, notifications, payments</td><td>A new build, sent to the store, reviewed, then downloaded by each user</td></tr>
+  </table></div>
+  <p>Capacitor's page puts the line here: live updates work "as long as those changes do not require binary updates (aka compiled native functionality)."</p>
+  <p>The stores' own rules are stricter than that sounds:</p>
+  <ul>
+    <li><b>Apple</b>, guideline 2.5.2: apps may not "download, install, or execute code which introduces or changes features or functionality of the app". Guideline 4.2 asks that an app "elevate it beyond a repackaged website".</li>
+    <li><b>Google Play</b>: an app "may not modify, replace, or update itself using any method other than Google Play's update mechanism." It adds that this "does not apply to code that runs in a virtual machine or an interpreter", and gives JavaScript in a web view as the example.</li>
+  </ul>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Read together, the safe line is this. Fixes, wording and content can go out as a live update. A new feature goes through review, even if it is only web code, because "introduces or changes features" is Apple's wording and Apple is the one who decides. An app removed from the store costs far more than a week's wait for a review.</p>
+    <p>The stores book will cover the rest: the three routes into a store, the fees, and the review rules that get thin wrappers rejected.</p>
+  </div>
+  <p><em>Checked in November 2026 against Apple's App Review Guidelines (2.5.2 and 4.2), Google Play's Device and Network Abuse policy, and Capacitor's page on deploying updates.</em></p>
+
+  <h3>Asking Claude for it</h3>
+  <p>The prompts in sections 2 and 3 set the update style. Three habits make it checkable.</p>
+  <h4>A version people can read out</h4>
+  <p>When someone says "it's still broken", the first question is which version they have. Without a number on the screen, nobody can answer. Ask for one once: <em>"Show the app's version in small text at the bottom of the settings screen. Set it automatically on every merge, as the date and time."</em> Then "what does it say at the bottom of Settings?" settles most reports in one message.</p>
+  <h4>The two-phone test</h4>
+  <p>An update can only be tested on a phone that already has the <b>old</b> version. A fresh install always gets the newest files and proves nothing.</p>
+  <ol class="steps">
+    <li><b>Install the current version on two phones</b>Or one phone and one computer. Open the app on both and note the version number.</li>
+    <li><b>Merge a small visible change</b>A word on the home screen is enough. Wait ten minutes for the host.</li>
+    <li><b>Phone one: use it the way people do</b>Switch away and back. Don't close anything. Write down how many times you had to come back before the new version showed.</li>
+    <li><b>Phone two: airplane mode first</b>If the app has an offline worker, open it with no signal. It should still open, on the old version. Turn the signal back on and repeat step 3.</li>
+    <li><b>Check nothing was lost</b>Saved progress, the person's name and their settings should all be there on the new version.</li>
+  </ol>
+  <h4>A line for your users</h4>
+  <p>Decide now what you will tell people when an update matters, and make it true. For style B: "Switch to another app and back." For style C: "Close it and open it again with signal." If the only honest instruction is "delete it and add it again", the update plan isn't finished.</p>
+  <div class="call try"><div class="tag">Try it</div>
+    <div class="code prompt"><div class="label"><span>Explain my app's updates</span><button class="copy" type="button">Copy</button></div><pre>Read this repo and tell me, in a plain-English table, how a new version reaches each of these people after I merge to main: (1) someone opening the link for the first time, (2) someone with the tab left open, (3) someone with the app on their Home Screen who never closes it, (4) someone who opens it with no signal. For each: how long it takes, what they see, and what could go wrong. Say whether the app has an offline worker and how its version is bumped. Then tell me the one sentence I should give users who need the update now. Change nothing.</pre></div>
+  </div>
+  <p><em>Checked in November 2026: the waits in the two-phone test come from the pages used in sections 1 to 4.</em></p>
+  <p><em>Not in this book: building a store wrapper or submitting to a store, paid live-update services, and push notifications.</em></p>
+</section>
+
 <!-- ===================== PART 2 ===================== -->
 <section class="lesson" id="agent" data-part="2 · Claude Code" data-title="How Claude Code works" data-min="15">
   <div class="eyebrow"></div>
@@ -1165,7 +1289,7 @@ Add a scheduled job that [does what] once a day at about [time] in [city]. I'm o
     <tr><td><b>ultrathink</b> (a word in one prompt)</td><td>Deeper reasoning for that one message only.</td><td>One tricky question in otherwise routine work.</td></tr>
   </table></div>
   <div class="call"><div class="tag">Anthropic says</div>
-    <p>Phrases like "think hard", "be thorough" or "think step by step" are ordinary text now, not switches. Effort is the real control. The phrase that does still change behavior is <b>"be ambitious"</b>, because Claude tends to build the smallest thing that satisfies a request. Book 12 shows how to use it.</p>
+    <p>Phrases like "think hard", "be thorough" or "think step by step" are ordinary text now, not switches. Effort is the real control. The phrase that does still change behavior is <b>"be ambitious"</b>, because Claude tends to build the smallest thing that satisfies a request. Book 13 shows how to use it.</p>
   </div>
 
   <div class="call"><div class="tag">On your phone</div>
@@ -1844,7 +1968,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 
   <div class="code prompt"><div class="label"><span>See design options</span><button class="copy" type="button">Copy</button></div><pre>Mock up 3 different options for [screen/element] on a scratch copy of the app (not the repo). Render each at 390px and desktop and send the screenshots, each with one line on its trade-off. Mark your pick. Don't build until I choose.</pre></div>
 
-  <div class="code prompt"><div class="label"><span>Fix a bug</span><button class="copy" type="button">Copy</button></div><pre>[Paste the bug report template from Book 15.] Reproduce it first, explain the cause in plain words, make the smallest fix, add a check that would have caught it, and show me the evidence.</pre></div>
+  <div class="code prompt"><div class="label"><span>Fix a bug</span><button class="copy" type="button">Copy</button></div><pre>[Paste the bug report template from Book 16.] Reproduce it first, explain the cause in plain words, make the smallest fix, add a check that would have caught it, and show me the evidence.</pre></div>
 
   <div class="code prompt"><div class="label"><span>Explain something to me</span><button class="copy" type="button">Copy</button></div><pre>Explain [file / feature / error] as if I can't read code. What it does, what it depends on, and what would break if it were removed. Use a small diagram if it helps. Don't change anything.</pre></div>
 
@@ -1901,11 +2025,11 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Here is my idea: [three sentences]. Interview me with multiple-choice questions until you can write SPEC.md: who uses it, each feature with a "Done when" line, "Not in v1", "Later", and phases of one pull request each. Push me on anything that would need a server, accounts or paid services, and tell me the cheapest way to do it. Write SPEC.md when done. No code.</pre></div>
       <p><b>You should see:</b> 8 to 15 questions, then a SPEC.md. <b>Your decision:</b> check-in needs shared data (the coach must see it), so this app needs a back end. Claude should raise that.</p>
     </li>
-    <li><b>Look at similar apps</b>Use the Book 14 prompt. Expect well-known gym booking apps and a list of what to copy and what to skip.</li>
+    <li><b>Look at similar apps</b>Use the Book 15 prompt. Expect well-known gym booking apps and a list of what to copy and what to skip.</li>
     <li><b>Choose the structure deliberately</b>
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Propose the structure for this app. I want small files with one job each and no build step. For the shared check-in data, compare Firebase and Vercel functions with a simple database: cost at 100 members, effort, and security. Recommend one. Write the choice and the reason into SPEC.md.</pre></div>
     </li>
-    <li><b>Set up the instruction files</b>Paste items A, B, C, E and F from the Starter kit (Book 11). Then:
+    <li><b>Set up the instruction files</b>Paste items A, B, C, E and F from the Starter kit (Book 12). Then:
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>I've added starter files. Fill in CLAUDE.md for this app from SPEC.md. Keep it under 60 lines. Only write what you couldn't learn by reading the code once it exists. Then tell me how many lines it is.</pre></div>
       When it's done, type <code>/context all</code> yourself and check CLAUDE.md is in the list under "Memory files".
     </li>
@@ -1914,8 +2038,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       <p>Why first: Anthropic's whole "give Claude a check to run" section. With a check, Claude can close its own loop.</p>
     </li>
     <li><b>Protect main</b>Add the branch rule from Book 3, requiring the new Site check.</li>
-    <li><b>Build Phase 1 in plan mode</b><code>/clear</code>, plan mode, then the Book 14 plan prompt. Read the plan. Approve.</li>
-    <li><b>Check, review, approve</b>Evidence, reviewer, pull request, your approval. Exactly Book 14, steps 6 to 8.</li>
+    <li><b>Build Phase 1 in plan mode</b><code>/clear</code>, plan mode, then the Book 15 plan prompt. Read the plan. Approve.</li>
+    <li><b>Check, review, approve</b>Evidence, reviewer, pull request, your approval. Exactly Book 15, steps 6 to 8.</li>
     <li><b>Show a real user before Phase 2</b>Send the coach the link. Write down what they say, in their words. Feed it to Claude as context for Phase 2: "The coach said: '...'. Update SPEC.md, then plan Phase 2."</li>
     <li><b>Keep the files honest</b>After each phase: phase checked off in SPEC.md; one CLAUDE.md line only for repeated mistakes; <code>/doctor prompt-audit</code> once a month.</li>
   </ol>
@@ -1951,7 +2075,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <p>For the Home Screen version to look right the app needs a small settings file called a <b>manifest</b> (its name, its colors, how it opens) and icons in two sizes. Ask for them:</p>
   <div class="code prompt"><div class="label"><span>Make it installable</span><button class="copy" type="button">Copy</button></div><pre>Make this app installable on a phone's Home Screen. Add a web app manifest with a name, a short name, a start address, "standalone" display, and icons at 192 and 512 pixels, plus the icon iPhones use. Keep every link relative, because the site is served from a subfolder. Do not add an offline worker. Then add a short, dismissible note on the first screen that tells iPhone users to tap Share, then Add to Home Screen, and says why. Finish with the steps for me to check it on an iPhone and on an Android phone.</pre></div>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>The prompt says "no offline worker" on purpose. An offline worker (a service worker) keeps a copy of the app on the phone so it opens without signal. It also means people can keep seeing an old version after you publish a new one, unless updates were planned for. Add one when someone needs the app with no signal, and ask Claude how updates will reach people before you do.</p>
+    <p>The prompt says "no offline worker" on purpose. An offline worker (a service worker) keeps a copy of the app on the phone so it opens without signal. It also means people can keep seeing an old version after you publish a new one, unless updates were planned for. Add one when someone needs the app with no signal, and ask Claude how updates will reach people before you do. Book 7 has the three ways and how to pick.</p>
   </div>
 
   <h3>Give it a backup</h3>
@@ -2028,6 +2152,19 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li><a href="https://vercel.com/docs/cron-jobs">Vercel, Cron jobs</a>, its <a href="https://vercel.com/docs/cron-jobs/quickstart">quickstart</a>, <a href="https://vercel.com/docs/cron-jobs/usage-and-pricing">usage and pricing</a> and <a href="https://vercel.com/docs/cron-jobs/manage-cron-jobs">managing cron jobs</a>: the <code>vercel.json</code> example, UTC, once a day on the free plan, no retries, CRON_SECRET.</li>
     <li><a href="https://vercel.com/docs/plans/hobby">Vercel, Hobby plan</a> and <a href="https://vercel.com/docs/instant-rollback">Instant Rollback</a>: the 30-day wait after passing a limit, and going back one deployment.</li>
   </ul>
+  <h3>Updates and store rules</h3>
+  <p>The pages behind Book 7, read in November 2026.</p>
+  <ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching">MDN, HTTP caching</a>: what the browser's saved copy is, and what "stale" means.</li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilitychange_event">MDN, the visibilitychange event</a>: how a page learns it has gone to the background or come back.</li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers">MDN, Using Service Workers</a>: a new version installs in the background and waits until no page uses the old one.</li>
+    <li><a href="https://web.dev/articles/service-worker-lifecycle">web.dev, The service worker lifecycle</a>: when the browser checks for a new worker, the waiting step, and the risk of skipping it.</li>
+    <li><a href="https://web.dev/learn/pwa/update">web.dev, Learn PWA: Update</a> and <a href="https://web.dev/articles/manifest-updates">How Chrome handles updates to the web app manifest</a>: update patterns, and when an installed app's name and icon change on iPhone and Android.</li>
+    <li><a href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#push">GitHub, Events that trigger workflows</a>: a job that runs on every push to <code>main</code>.</li>
+    <li><a href="https://developer.apple.com/app-store/review/guidelines/">Apple, App Review Guidelines</a>: 2.5.2 on downloaded code, 4.2 on repackaged websites.</li>
+    <li><a href="https://support.google.com/googleplay/android-developer/answer/9888379">Google Play, Device and Network Abuse policy</a>: an app may update itself only through Google Play, with the exception for code run by an interpreter.</li>
+    <li><a href="https://capacitorjs.com/docs/guides/deploying-updates">Capacitor, Deploying and updating</a>: what a live update can and can't carry.</li>
+  </ul>
   <h3>Going further</h3>
   <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
   <h4>What vibe coding is</h4>
@@ -2082,6 +2219,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     forks:    ["#1B3A5E","#E8C88A","Forks", 1],
     hosting:  ["#142A49","#E8C88A","Hosting and data", .95],
     backend:  ["#10243F","#E8C88A","Your first back end", .98],
+    updates:  ["#1D3F66","#E8C88A","Updates", .91],
     agent:    ["#0E3A44","#E8C88A","How it works", 1],
     toolkit:  ["#134B55","#E8C88A","The toolkit", .92],
     claudemd: ["#2A1B40","#E8C88A","The CLAUDE.md rules", 1],
@@ -2099,7 +2237,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   };
   var SHELF_NOTES = {
     "Start here": "Read this first: who this library is for, the example apps, and how to use it.",
-    "1 · How your apps work": "The parts of a web app, Git, forks, hosting, data and a first back end.",
+    "1 · How your apps work": "The parts of a web app, Git, forks, hosting, data, a first back end and updates.",
     "2 · Claude Code": "How the tool works and what each piece of it is for.",
     "3 · CLAUDE.md, Anthropic's way": "The official guidance, your audit and a starter kit.",
     "4 · Talking to Claude": "Requests, terms, the workflow, bugs and a prompt library.",
@@ -2114,6 +2252,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     forks:'<circle cx="32" cy="52" r="4"/><circle cx="18" cy="12" r="4"/><circle cx="46" cy="12" r="4"/><path d="M32 48V38c0-8-14-8-14-22M32 38c0-8 14-8 14-22"/>',
     hosting:'<path d="M16 40c-7 0-8-11 0-12 0-9 11-12 16-6 5-6 17-3 16 6 7 1 7 12 0 12z"/><circle cx="26" cy="50" r="3"/><path d="M29 50h12M37 50v4"/>',
     backend:'<ellipse cx="32" cy="16" rx="18" ry="6"/><path d="M14 16v32c0 3 8 6 18 6s18-3 18-6V16M14 32c0 3 8 6 18 6s18-3 18-6"/>',
+    updates:'<rect x="20" y="8" width="24" height="48" rx="4"/><path d="M32 20v18M25 31l7 7 7-7M28 48h8"/>',
     agent:'<path d="M48 26a18 18 0 1 0 2 14"/><path d="M50 14v12H38"/>',
     toolkit:'<path d="M40 12a10 10 0 0 0-10 14L12 44l8 8 18-18a10 10 0 0 0 14-10l-6 6-6-2-2-6z"/>',
     claudemd:'<path d="M18 10h20l10 10v34H18z"/><path d="M38 10v10h10M24 30h18M24 37h18M24 44h12"/>',
@@ -2633,6 +2772,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Console error", "An error the browser reports in its developer console (F12 in Chrome). Copy the exact text."],
     ["Context window", "Everything Claude holds in mind during a session: messages, files read, outputs and instruction files."],
     ["Cron job", "Server code that runs on a clock instead of when someone taps. Also called a scheduled job."],
+    ["Live update", "Sending new web files straight to a store app that is already installed, without a new store download. Allowed only within the stores' rules."],
     ["Deny rule", "A permission rule that blocks an action in every mode. Enforced by Claude Code."],
     ["Deploy", "Publishing a version of the app so users get it."],
     ["Diff", "The exact lines added and removed by a change."],
@@ -2679,6 +2819,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Skill", "A saved procedure in .claude/skills/name/SKILL.md. Claude loads the full text only when needed."],
     ["Smoke test", "A quick check that the app loads and does its basic job."],
     ["Spark and Blaze", "Firebase's two plans. Spark costs nothing and needs no card. Blaze is pay as you go."],
+    ["Stale", "Past its date. A stale copy of an app is an old one the phone is still showing."],
     ["Spec", "The written description of what an app does, who it's for and what's in or out. Your SPEC.md."],
     ["State", "The data an app currently holds, like the current question and score."],
     ["Static site", "A site made only of files, with no server code. Most of your apps."],
@@ -2691,6 +2832,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Vibe coding", "Building with an AI and accepting what it writes without reviewing it. Coined by Andrej Karpathy in 2025. Fine for personal tools and experiments; not for logins, payments, secrets or other people's data."],
     ["Viewport", "The visible area of the screen. 390px is a common phone width."],
     ["Write access", "Permission to push changes to a repo or branch. You always have it on your own fork."],
+    ["Wrapper", "A thin store app whose screen shows your web app. Capacitor is a common tool for making one."],
     ["WebGL", "The browser feature that lets JavaScript use the graphics chip. three.js draws with it."]
   ];
   var gl = document.getElementById("glossList");
