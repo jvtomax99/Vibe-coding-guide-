@@ -47,6 +47,10 @@ repo, add a key, read function logs); scheduled jobs and their limits; a before-
 check prompt. Not in it: payments, push notifications, App Check setup (one paragraph
 on what App Check is), Supabase beyond the existing mention. Each section says the month
 it was checked. Fetch every Firebase and Vercel step from the official page that day.
+Update, later on 2026-11-15: #10 is merged. "Your first back end" is written as Book 6
+(id `backend`) on the branch `first-back-end`, with its pull request waiting for Jose's
+"push". Books 6 to 17 became 7 to 18, and the count is 19. Next after that merge: a short
+plan for "Updates without reinstalling", then Jose's OK, before any writing.
 A leftover branch, `day-one-steps`, holds the same commit as #10 and can be deleted
 once #10 is merged (ask Jose first). A new book needs a BOOK and an ICON
 entry, and every "Book N" in the text after it renumbered.

@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 18 short books on glass shelves
-(about five hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 19 short books on glass shelves
+(about six hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 18 books on shelves, grouped in five parts (How your apps
+1. **The library.** All 19 books on shelves, grouped in five parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Practice) plus
    Start here and the reference books.
    - Done when: every book opens from its spine on a phone and on a desktop.
@@ -91,6 +91,25 @@ apps (told through the made-up ones).
    - Done when: with the site left open on the shelves, a change merged to main shows
      up the next time the reader comes back to it, without them refreshing; and a
      reader inside a book is never reloaded without tapping.
+
+10. **Book 6, "Your first back end".** Added 2026-11-15 (Jose's OK on the plan the same
+   day). Seven sections: do you need one (three questions and what it starts costing),
+   which login to pick, Firebase from zero, rules (an open one beside a safe one, and how
+   a rule goes live), Vercel from zero, scheduled jobs and their limits, a before-launch
+   check. Each section names the month it was checked against the official pages.
+   - Compared: Firebase's own codelab and quickstarts (written for developers, assume a
+     command line), Vercel's getting-started pages (one service only), and paid no-code
+     courses (mostly one tool, rarely the costs). Where this one differs: it starts with
+     whether to have a back end at all, and every risky shortcut comes with its cost and
+     its fix.
+   - Changed from the plan: "emailed code" became "emailed link", because Firebase's own
+     page offers only a link; the book says what a code would take.
+   - Not in it: payments, push notifications, App Check setup (one paragraph on what it
+     is), Supabase beyond the existing mention in Book 5.
+   - Done when: the book opens from its spine as Book 6 at 390px and desktop, all seven
+     sections are reachable from its Contents, every Firebase and Vercel step matches a
+     page listed in Sources, and every "Book N" in the other books points at the right
+     book.
 
 ## Not in v1
 
