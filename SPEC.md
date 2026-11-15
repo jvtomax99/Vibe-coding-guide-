@@ -9,8 +9,7 @@ Site title: **The Launch Manual** (small line: "building apps with Claude"), cho
 Jose 2026-11-14. The repo and these docs keep the working name.
 
 A one-page course site, drawn as a small library aboard a ship: 18 short books on glass shelves
-(the site says about four hours; the books' own minute counts add to
-about five, see Later), plus a Glossary and a Sources book. Tap a spine to take
+(about five hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -107,9 +106,6 @@ apps (told through the made-up ones).
 - Spanish.
 - A short how-to video, like the Citizenship and CPA apps.
 - A live demo book showing a real Firestore rule beside the data it protects.
-- Fix the reading time: the intro and Start here say "about four hours", but the
-  books' `data-min` values add up to 308 minutes (about five hours). Change one or the
-  other (Jose's call, in `index.html`).
 
 ## Phases
 

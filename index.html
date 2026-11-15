@@ -478,7 +478,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">18</div><small>short books on five shelves, about four hours in all</small></div>
+    <div class="stat"><div class="big-num">18</div><small>short books on five shelves, about five hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -493,7 +493,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <div class="cards">
     <div class="card"><span class="k">small files, no build step</span><h4>FlashDeck</h4><p>A phone study app with spaced repetition. Progress is saved on the phone. Hosted free on GitHub Pages. The best-organized of the five.</p></div>
     <div class="card"><span class="k">built into one file</span><h4>ExamTown</h4><p>A study game with a 3D town that grows as you learn. Small source files are assembled into one big page by a script.</p></div>
-    <div class="card"><span class="k">front end plus a back end</span><h4>TeamDesk</h4><p>A tool for a 40-person team at work. One 18,000-line page, plus server code on Vercel that calls the Claude API and a shared Firebase database.</p></div>
+    <div class="card"><span class="k">front end plus a back end</span><h4>TeamDesk</h4><p>A tool for a 40-person team at work. One 15,000-line page, plus server code on Vercel that calls the Claude API and a shared Firebase database.</p></div>
     <div class="card"><span class="k">one big file</span><h4>Corner Gym</h4><p>A website for a neighborhood gym, with class videos, a 3D hero scene and a Spanish version.</p></div>
     <div class="card"><span class="k">a fork</span><h4>Pocket Pet</h4><p>A friend's virtual pet game that you've been asked to help improve. Lives in your copy of their repo.</p></div>
   </div>
@@ -555,13 +555,13 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
     <div class="card"><span class="k">.css</span><h4>CSS: how it looks</h4><p>Colors, fonts, spacing, layout, animation. In FlashDeck the whole look lives in <code>css/app.css</code>.</p></div>
     <div class="card"><span class="k">.js</span><h4>JavaScript: what it does</h4><p>Behavior: what happens on tap, timers, saving progress, 3D scenes, talking to a server. The verbs.</p></div>
   </div>
-  <p>A browser (Chrome, Safari) is the engine that reads these three and draws the app. FlashDeck's <code>index.html</code> is under 50 lines because it hands everything else to <code>css/app.css</code> and the files in <code>js/</code>. TeamDesk's is 18,000 lines because the HTML, CSS and JavaScript are all packed into one file.</p>
+  <p>A browser (Chrome, Safari) is the engine that reads these three and draws the app. FlashDeck's <code>index.html</code> is under 50 lines because it hands everything else to <code>css/app.css</code> and the files in <code>js/</code>. TeamDesk's is 15,000 lines because the HTML, CSS and JavaScript are all packed into one file.</p>
 
   <h3>Front end and back end</h3>
   <p><b>Front end</b> is code that runs on the user's phone, inside the browser. <b>Back end</b> is code that runs on a server you don't hold in your hand. Most beginner apps are front end only, which developers call a <b>static site</b>: a host hands the files to the phone as they are, and the phone does all the work.</p>
   <p>TeamDesk needs more. It has an <code>api/</code> folder of back-end code running on Vercel's servers, because some jobs must never run on a phone:</p>
   <ul>
-    <li><b>Secret keys.</b> <code>api/ask.js</code> and <code>api/translate.js</code> call the Claude API with a key that costs money per request. If that key were in the front end, anyone could copy it from their browser.</li>
+    <li><b>Secret keys.</b> <code>api/reply.js</code> and <code>api/summary.js</code> call the Claude API with a key that costs money per request. If that key were in the front end, anyone could copy it from their browser.</li>
     <li><b>Sending to other people.</b> Push notifications and email.</li>
     <li><b>Checking secrets.</b> Verifying a team sign-in code.</li>
     <li><b>Running on a schedule.</b> A daily job, set up in <code>vercel.json</code>.</li>
@@ -583,7 +583,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
       <rect x="20" y="192" width="190" height="80" rx="12" class="d-box hi"/>
       <text x="38" y="224" class="d-t">Phone browser</text><text x="38" y="244" class="d-s">index.html</text>
       <rect x="290" y="192" width="200" height="80" rx="12" class="d-box hot"/>
-      <text x="306" y="222" class="d-t">Vercel functions</text><text x="306" y="242" class="d-s">api/ask.js, api/translate.js</text><text x="306" y="258" class="d-s">secret keys live here</text>
+      <text x="306" y="222" class="d-t">Vercel functions</text><text x="306" y="242" class="d-s">api/reply.js, api/summary.js</text><text x="306" y="258" class="d-s">secret keys live here</text>
       <rect x="560" y="186" width="180" height="44" rx="10" class="d-box"/>
       <text x="576" y="213" class="d-t">Claude API</text>
       <rect x="560" y="238" width="180" height="44" rx="10" class="d-box"/>
@@ -599,7 +599,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <div class="tablewrap"><table>
     <tr><th>Place</th><th>Who can see it</th><th>Survives</th><th>Typical use</th></tr>
     <tr><td><b>Files in the repo</b> (<code>data/questions.json</code>)</td><td>Everyone, if the repo is public</td><td>Forever, in Git history</td><td>Question banks, product lists, guides</td></tr>
-    <tr><td><b>localStorage</b> (the browser's small notebook)</td><td>Only that phone, only that browser</td><td>Until the user clears it or switches phones</td><td>Study progress, settings. Offer a backup file.</td></tr>
+    <tr><td><b>localStorage</b> (the browser's small notebook)</td><td>Only that phone, only that browser</td><td>Until the user clears it or switches phones. On an iPhone, Safari can also erase it after seven days of browsing without a visit to your app, unless the app was added to the Home Screen</td><td>Study progress, settings. Offer a backup file.</td></tr>
     <tr><td><b>A database</b> (like Firestore)</td><td>Whoever its security rules allow</td><td>Until deleted, shared across phones</td><td>Team data, chat, anything people share</td></tr>
   </table></div>
 
@@ -607,7 +607,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <p>Vague words make Claude guess which layer you mean. Naming the layer removes the guess:</p>
   <div class="tablewrap"><table>
     <tr><th>Instead of</th><th>Say</th></tr>
-    <tr><td class="bad">"The AI lookup is slow"</td><td class="good">"The term lookup is slow. Is the delay in the front end or in <code>api/lookup.js</code>? Measure both before changing anything."</td></tr>
+    <tr><td class="bad">"The AI summary is slow"</td><td class="good">"The ticket summary is slow. Is the delay in the front end or in <code>api/summary.js</code>? Measure both before changing anything."</td></tr>
     <tr><td class="bad">"My progress disappeared"</td><td class="good">"Progress saved in localStorage on my iPhone is gone after today's update. Check whether the saved data shape changed."</td></tr>
     <tr><td class="bad">"Make it look nicer"</td><td class="good">"Change only the CSS on the Drill screen. Don't touch the JavaScript."</td></tr>
   </table></div>
@@ -640,9 +640,9 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
     <tr><td><b>Playwright</b></td><td>A robot browser: opens your page, clicks, takes screenshots, catches errors.</td><td>Site checks, screenshots at phone width</td><td>It's how Claude "sees" your app. Ask for screenshots at phone width.</td></tr>
     <tr><td><b>GitHub Actions</b></td><td>Robots on GitHub that run checks when you open a pull request. This is called CI.</td><td><code>.github/workflows/site-check.yml</code></td><td>CI can break without you changing anything, when GitHub updates its machines. Pin versions.</td></tr>
     <tr><td><b>GitHub Pages</b></td><td>Free hosting of a repo's files as a website.</td><td>FlashDeck, ExamTown, Corner Gym</td><td>Merging to <code>main</code> is going live. There are no previews.</td></tr>
-    <tr><td><b>Vercel</b></td><td>Hosting with server functions, secret settings and a preview link per branch.</td><td>TeamDesk</td><td>Previews can be switched off for some branches, so not every branch has a link.</td></tr>
+    <tr><td><b>Vercel</b></td><td>Hosting with server functions, secret settings and a preview link per branch.</td><td>TeamDesk</td><td>Previews can be switched off for some branches, so not every branch has a link. The free plan is for personal projects; a work tool like TeamDesk needs a paid plan.</td></tr>
     <tr><td><b>Firebase</b></td><td>Google's back end: Firestore (database), Storage (files), Auth (sign-in).</td><td>TeamDesk: <code>firestore.rules</code>, <code>firebase.json</code></td><td>The rules file in your repo isn't live until it's deployed or pasted into the Firebase console.</td></tr>
-    <tr><td><b>Claude API</b></td><td>Calling Claude from your own code, paid per request.</td><td>TeamDesk's <code>api/ask.js</code></td><td>A loop or a busy team can run up a bill. Ask for usage limits.</td></tr>
+    <tr><td><b>Claude API</b></td><td>Calling Claude from your own code, paid per request.</td><td>TeamDesk's <code>api/reply.js</code></td><td>A loop or a busy team can run up a bill. Ask for usage limits.</td></tr>
     <tr><td><b>Remotion</b></td><td>Making videos with code.</td><td>A <code>promo/</code> folder</td><td>Has its own <code>package.json</code>: a mini-project inside the repo.</td></tr>
   </table></div>
 
@@ -652,7 +652,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
     <div class="card"><span class="k">ExamTown</span><h4>B. Split source, built into one file</h4><p>You edit small files in <code>src/</code>; a script glues them together. Good when one self-contained file is the deliverable. Adds a build rule to remember.</p></div>
     <div class="card"><span class="k">FlashDeck</span><h4>C. Small files, no build</h4><p>One job per file: <code>store.js</code> saves, <code>srs.js</code> schedules reviews, <code>speak.js</code> reads aloud. Claude can change one piece safely and test it alone. <b>Use this for your next app.</b></p></div>
   </div>
-  <p>Structure is something you request up front, in the spec. FlashDeck is well organized because its spec asked for small files and tests from day one. Adding structure to an 18,000-line file later is a project in itself.</p>
+  <p>Structure is something you request up front, in the spec. FlashDeck is well organized because its spec asked for small files and tests from day one. Adding structure to an 15,000-line file later is a project in itself.</p>
 
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>If one of your apps has grown into a single giant file, splitting it should come <b>before</b> the next big feature. Every session pays to search that file, and every edit risks breaking a section nobody was looking at.</p>
@@ -714,7 +714,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <p>Or ask Claude: <em>"Walk me through adding a branch rule on main for this repo that requires a pull request and a passing site check. Give me exact clicks."</em></p>
 
   <h3>Public repos</h3>
-  <p>Anything ever committed to a public repo stays visible in its history, even after you delete the file. Never commit API keys or passwords; they belong in environment variables (Book 5). One exception surprises people: a Firebase web "apiKey" in the front end is public by design. Firebase security comes from its rules file, not from hiding that key.</p>
+  <p>Anything ever committed to a public repo stays visible in its history, even after you delete the file. Never commit API keys or passwords; they belong in environment variables (Book 5). One exception surprises people: the web "apiKey" that Firebase creates for you is safe in the front end, as long as it is used only for Firebase. Firebase security comes from its rules file, not from hiding that key. Don't stretch the exception to other keys. Firebase's own page says a key for Gemini (Google's AI) must never be in your code: anyone could copy it and spend your money. That one stays on the server, like every other paid key.</p>
 
   <div class="call try"><div class="tag">Try it</div>
     <div class="code prompt"><div class="label"><span>Prompt for any repo</span><button class="copy" type="button">Copy</button></div><pre>Show me the last 10 commits on main in plain English: what each one changed for a user, not for a programmer. Then tell me how I would undo the most recent one if it broke something. Also check the whole history for any committed keys or passwords.</pre></div>
@@ -849,17 +849,18 @@ How do you want the changes back?
   <h3>GitHub Pages or Vercel</h3>
   <div class="tablewrap"><table>
     <tr><th></th><th>GitHub Pages</th><th>Vercel</th></tr>
-    <tr><td><b>Cost for small apps</b></td><td>Free</td><td>Free tier, paid above limits</td></tr>
+    <tr><td><b>Cost for small apps</b></td><td>Free</td><td>Free plan for personal projects only; paid for work or business use, and above its limits</td></tr>
     <tr><td><b>Server code</b></td><td>None. Files only.</td><td>Yes: the <code>api/</code> folder</td></tr>
     <tr><td><b>Preview before live</b></td><td>No. Merge equals live.</td><td>A preview link per branch</td></tr>
     <tr><td><b>Private repo</b></td><td>Needs a paid GitHub plan</td><td>Works on the free tier</td></tr>
     <tr><td><b>Secret settings</b></td><td>No</td><td>Environment variables</td></tr>
+    <tr><td><b>Not allowed</b></td><td>Running an online business or shop, or (GitHub's words) "sensitive transactions like sending passwords or credit card numbers". A site can be 1 GB, with about 100 GB of traffic a month.</td><td>Work or business use on the free plan. Vercel's terms keep it to "personal or non-commercial use".</td></tr>
     <tr><td><b>Pick it when</b></td><td>The app needs no secrets and no shared data</td><td>The app calls a paid API, sends messages or shares data between users</td></tr>
   </table></div>
   <p>A useful rule for any instruction file: before buying an asset you can't commit to a public repo (paid fonts, 3D models), have Claude ask whether to use free assets, upgrade GitHub, or move to a host that allows a private repo.</p>
 
   <h3>Environment variables</h3>
-  <p>An environment variable is a named setting stored on the host, outside the code. TeamDesk's <code>ANTHROPIC_API_KEY</code> lives in its Vercel project settings. The code in <code>api/ask.js</code> reads it by name when it runs. The key never appears in the repo, so nobody reading the code can spend your credits.</p>
+  <p>An environment variable is a named setting stored on the host, outside the code. TeamDesk's <code>ANTHROPIC_API_KEY</code> lives in its Vercel project settings. The code in <code>api/reply.js</code> reads it by name when it runs. The key never appears in the repo, so nobody reading the code can spend your credits.</p>
   <p>How to ask for one: <em>"This feature needs a new environment variable. Tell me its exact name, what the value looks like, and the exact clicks to add it in Vercel. Put the name in a code block, one per line."</em></p>
 
   <h3>Changing what's saved</h3>
@@ -867,7 +868,7 @@ How do you want the changes back?
   <p>Say it like this: <em>"This changes the shape of the saved data. Include a migration so existing users keep their progress, and add a test that loads an old save."</em></p>
 
   <h3>Security rules</h3>
-  <p>A database like Firestore decides who can read and write each collection using a rules file. Apps built quickly often start with open rules "for testing", or with a switch that keeps things open until someone turns it off. TeamDesk had one: a practice switch that left the database open until the owner locked it. These get forgotten once real people join.</p>
+  <p>A database like Firestore decides who can read and write each collection using a rules file. Apps built quickly often start with open rules "for testing", or with a switch that keeps things open until someone turns it off. TeamDesk had one: a trial switch that left the database open until the owner locked it. These get forgotten once real people join.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>If your app shares data between people, check your rules today, not after launch. Two questions: who can read and write each collection right now, and does the live configuration match the file in your repo? The file is only what you last deployed or pasted.</p>
   </div>
@@ -875,7 +876,7 @@ How do you want the changes back?
   <p>The cause there was the access rules of Supabase, another popular database. Its version of a rules file is called <b>Row Level Security</b>: a switch on each table, plus written policies that say who may see which rows. Supabase's docs say that once the switch is on, no data can be reached with the app's public key until you write a policy. Firestore's rules file does the same job for TeamDesk. Whichever database you use, the two questions above are the check.</p>
 
   <div class="call try"><div class="tag">Try it</div>
-    <div class="code prompt"><div class="label"><span>Prompt for an app with a database</span><button class="copy" type="button">Copy</button></div><pre>Read the database and storage security rules in this repo. In a plain-English table, for each collection: who can read it and who can write it, including under any testing or practice switch. Then tell me the exact steps to confirm the live rules match this file. Don't change the rules.</pre></div>
+    <div class="code prompt"><div class="label"><span>Prompt for an app with a database</span><button class="copy" type="button">Copy</button></div><pre>Read the database and storage security rules in this repo. In a plain-English table, for each collection: who can read it and who can write it, including under any testing or trial switch. Then tell me the exact steps to confirm the live rules match this file. Don't change the rules.</pre></div>
   </div>
 </section>
 
@@ -904,7 +905,7 @@ How do you want the changes back?
     <tr><th>Where</th><th>What's different</th></tr>
     <tr><td><b>Terminal on your computer</b> (<code>claude</code>)</td><td>Works on the copy of the repo on your computer. Can see your personal settings in your home folder's <code>.claude</code> folder.</td></tr>
     <tr><td><b>Desktop app</b></td><td>Same engine, with a window, and several sessions side by side.</td></tr>
-    <tr><td><b>Cloud sessions</b> (claude.ai/code, also from your phone)</td><td>A fresh copy of the repo on Anthropic's machines, on a <code>claude/...</code> branch. Your computer's personal files don't come along, so any rule a cloud session needs has to live inside the repo.</td></tr>
+    <tr><td><b>Cloud sessions</b> (claude.ai/code, also from your phone)</td><td>A fresh copy of the repo on Anthropic's machines, on its own branch. Your computer's personal files don't come along, so any rule a cloud session needs has to live inside the repo.</td></tr>
   </table></div>
 
   <h3>The context window</h3>
@@ -928,6 +929,10 @@ How do you want the changes back?
     <p>Phrases like "think hard", "be thorough" or "think step by step" are ordinary text now, not switches. Effort is the real control. The phrase that does still change behavior is <b>"be ambitious"</b>, because Claude tends to build the smallest thing that satisfies a request. Book 11 shows how to use it.</p>
   </div>
 
+  <div class="call"><div class="tag">On your phone</div>
+    <p><code>Shift+Tab</code> and <code>Esc</code> are keyboard keys for the terminal. A cloud session picks its mode from a menu: on claude.ai/code it sits under the box you type in, and in the phone app you tap <b>+</b>, then <b>Permission</b>. The choices there are <b>Accept edits</b>, <b>Plan</b> and <b>Auto</b>. There is no Manual mode: a cloud session always edits files without asking, so the menu shows Accept edits in its place.</p>
+  </div>
+
   <h3>Keys and commands to know by heart</h3>
   <div class="tablewrap"><table>
     <tr><th>Key or command</th><th>Use it when</th></tr>
@@ -936,13 +941,13 @@ How do you want the changes back?
     <tr><td><code>/clear</code></td><td>Starting an unrelated task, or after two failed corrections on the same thing.</td></tr>
     <tr><td><code>/compact keep the X decisions</code></td><td>A long session you want to keep going, summarized around what matters.</td></tr>
     <tr><td><code>/rename name</code>, then <code>claude --resume name</code></td><td>Work that spans days.</td></tr>
-    <tr><td><code>/context</code> and <code>/memory</code></td><td>Checking which instruction files actually loaded.</td></tr>
+    <tr><td><code>/context all</code></td><td>Checking which instruction files actually loaded: read the list under "Memory files". You type this yourself; Claude can't run it for you.</td></tr>
     <tr><td><code>/usage</code></td><td>Seeing where your usage went (by skill, helper and connector).</td></tr>
     <tr><td><code>/btw</code></td><td>A quick side question that won't clutter the session.</td></tr>
   </table></div>
 
   <div class="call try"><div class="tag">Try it</div>
-    <p>In your next Claude Code session on any repo, type <code>/memory</code> and read which files are listed. Then type <code>/context</code>. You're looking at what Claude reads before you say a word.</p>
+    <p>In your next Claude Code session on any repo, type <code>/context all</code> and read the list under "Memory files". You're looking at what Claude reads before you say a word.</p>
   </div>
 </section>
 
@@ -992,6 +997,10 @@ How do you want the changes back?
     <tr><td><b>MCP</b></td><td>Connects Claude to an outside tool that has no command line.</td><td><code>.mcp.json</code></td><td>Playwright, for screenshots</td></tr>
     <tr><td><b>Plugins</b></td><td>A bundle of skills, agents, hooks and MCP servers you install as one.</td><td>Installed, not in the repo</td><td>A team's shared toolkit</td></tr>
   </table></div>
+
+  <div class="call"><div class="tag">Where hard limits don't reach</div>
+    <p>Hooks and permissions in <code>.claude/settings.json</code> are enforced in the terminal and in a cloud session opened on one repo. In a cloud thread inside a Claude project they are not: Anthropic's settings page says none of the repo's permission rules or hooks apply there. If that is how you work, the lock you can count on is the one GitHub enforces, a branch rule on <code>main</code> (Book 3).</p>
+  </div>
 
   <h3>Your own documents are not Claude features</h3>
   <p><code>SPEC.md</code>, <code>DESIGN.md</code>, <code>docs/ARCHITECTURE.md</code>, <code>HANDOFF.md</code> and <code>docs/PLAN.md</code> are ordinary files. Claude reads them only because a CLAUDE.md line tells it to. That's fine, and it's a strength: these files load on demand, not every session. The risk is when CLAUDE.md says "read all of these first" for a two-line fix.</p>
@@ -1086,13 +1095,13 @@ How do you want the changes back?
   </table></div>
 
   <h3>AGENTS.md</h3>
-  <p>AGENTS.md is a similar file other AI tools (like Codex) read. Anthropic's docs: Claude Code reads CLAUDE.md, not AGENTS.md. To share one set of rules, put <code>@AGENTS.md</code> at the top of CLAUDE.md. On Windows, use the import rather than a symlink. TeamDesk does exactly this, which is correct. The catch is size, covered in the next book.</p>
+  <p>AGENTS.md is a similar file other AI tools (like Codex) read. Anthropic's docs: Claude Code reads AGENTS.md by itself only when the repo has no CLAUDE.md. Once both files exist it reads CLAUDE.md alone. To share one set of rules, put <code>@AGENTS.md</code> at the top of CLAUDE.md. On Windows, use the import rather than a symlink. TeamDesk does exactly this, which is correct. The catch is size, covered in the next book.</p>
 
   <h3>Commands that help</h3>
   <div class="tablewrap"><table>
     <tr><th>Command</th><th>What it does</th></tr>
     <tr><td><code>/init</code></td><td>Writes a first CLAUDE.md from your code. Anthropic: from there the work is mostly removing lines.</td></tr>
-    <tr><td><code>/memory</code></td><td>Lists every instruction file that loaded and opens them for editing.</td></tr>
+    <tr><td><code>/memory</code></td><td>Lists the places instruction files can live, including ones that don't exist yet, and opens one for editing. To see what actually loaded, type <code>/context all</code>.</td></tr>
     <tr><td><code>/doctor</code></td><td>Suggests cuts for anything Claude can work out from the code.</td></tr>
     <tr><td><code>/doctor prompt-audit</code></td><td>Flags lines written for older models, lines pointing at files that no longer exist, and lines that contradict each other.</td></tr>
     <tr><td>"add this to CLAUDE.md"</td><td>Just say it. Claude edits the file.</td></tr>
@@ -1122,13 +1131,14 @@ How do you want the changes back?
     <li>every file in <code>.claude/rules/</code> <b>without</b> a <code>paths:</code> list.</li>
   </ul>
   <p>Rules with a <code>paths:</code> list load only when Claude touches matching files, so count them separately.</p>
-  <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Run /memory and list every instruction file that loads at the start of a session in this repo, including imports and rules files without a paths: list. Count the lines of each and give me the total. List path-specific rules separately.</pre></div>
+  <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>List every instruction file that loads at the start of a session in this repo, including imports and rules files without a paths: list. Count the lines of each and give me the total. List path-specific rules separately.</pre></div>
+  <p>Then check its answer yourself: type <code>/context all</code> and compare it with the list under "Memory files". That command is one you type; Claude can't run it for you.</p>
 
   <h3>A sample scorecard</h3>
   <p>Here's how the five example apps measure up. The numbers are typical of what builders' projects look like a few months in.</p>
   <div class="tablewrap"><table>
     <tr><th>App</th><th class="num">CLAUDE.md</th><th>Also loaded every session</th><th class="num">Every session</th><th>Path rules</th><th>Verdict</th></tr>
-    <tr><td><b>TeamDesk</b></td><td class="num">73</td><td>AGENTS.md (513, imported)</td><td class="num">586</td><td>none</td><td><span class="pill over">2.9x the target</span></td></tr>
+    <tr><td><b>TeamDesk</b></td><td class="num">64</td><td>AGENTS.md (470, imported)</td><td class="num">534</td><td>none</td><td><span class="pill over">2.7x the target</span></td></tr>
     <tr><td><b>Pocket Pet</b></td><td class="num">160</td><td>none</td><td class="num">160</td><td>none</td><td><span class="pill warn">Near the limit</span></td></tr>
     <tr><td><b>ExamTown</b></td><td class="num">71</td><td>shared rules (16)</td><td class="num">87</td><td>none</td><td><span class="pill ok">Good</span></td></tr>
     <tr><td><b>Corner Gym</b></td><td class="num">65</td><td>shared rules (16)</td><td class="num">81</td><td>3D scene rule (20)</td><td><span class="pill ok">Good</span></td></tr>
@@ -1148,7 +1158,7 @@ How do you want the changes back?
 
   <h3>Six fixes, ranked</h3>
   <h4>1. Shrink what loads every session</h4>
-  <p>TeamDesk's CLAUDE.md is only 73 lines, but its first line imports a 513-line AGENTS.md. Claude reads 586 lines before every task, including a one-word copy fix. AGENTS.md got long because it holds procedures (how a session runs, branching, handoffs) and topic rules (database, server functions, chat) that only matter some of the time.</p>
+  <p>TeamDesk's CLAUDE.md is only 64 lines, but its first line imports a 470-line AGENTS.md. Claude reads 534 lines before every task, including a one-word copy fix. AGENTS.md got long because it holds procedures (how a session runs, branching, handoffs) and topic rules (database, server functions, chat) that only matter some of the time.</p>
   <ul>
     <li>Keep in the always-loaded files only what's true for every task: who it's for, what it must never do, the check commands, the branch rule. Aim for 120 to 150 lines.</li>
     <li>Move topic rules to <code>.claude/rules/</code> with <code>paths:</code> (for example <code>firestore.rules</code>; <code>api/**</code>).</li>
@@ -1165,7 +1175,7 @@ How do you want the changes back?
     <tr><th>Line in CLAUDE.md</th><th>Move it to</th></tr>
     <tr><td>"<code>index.html</code> is built. Never edit it by hand."</td><td>A PreToolUse hook that blocks edits to it (Starter kit, item D)</td></tr>
     <tr><td>"Never commit secrets."</td><td>Deny rules on reading <code>.env</code> files</td></tr>
-    <tr><td>"Never force push."</td><td>A deny rule on <code>git push --force</code></td></tr>
+    <tr><td>"Never force push."</td><td>A deny rule on <code>git push --force</code>, plus a GitHub branch rule on <code>main</code>, which is the lock that can't be worded around</td></tr>
     <tr><td>"Ask before anything that touches main."</td><td>A GitHub branch rule (Book 3), plus an ask rule on pushing to main</td></tr>
   </table></div>
   <p>Keep a short version of the line in CLAUDE.md too, so Claude knows the reason and doesn't waste a turn hitting the wall.</p>
@@ -1178,7 +1188,7 @@ How do you want the changes back?
   <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Compare .claude/rules/[shared file].md across these repos: [list]. List any differences. Then make the version in [template repo] the master and give me a one-line prompt I can reuse to copy it into every repo.</pre></div>
 
   <h4>5. Replace "read all of this first" with "read this when"</h4>
-  <p>Many files open with "Read first: SPEC.md, docs/ARCHITECTURE.md, DESIGN.md". For a small repo, Claude reads the code faster than three documents about it. Keep an architecture map only where searching is expensive (like an 18,000-line file). Elsewhere: "Read SPEC.md before a new feature; read DESIGN.md before a UI change."</p>
+  <p>Many files open with "Read first: SPEC.md, docs/ARCHITECTURE.md, DESIGN.md". For a small repo, Claude reads the code faster than three documents about it. Keep an architecture map only where searching is expensive (like an 15,000-line file). Elsewhere: "Read SPEC.md before a new feature; read DESIGN.md before a UI change."</p>
 
   <h4>6. Trim anything near 200 before it passes</h4>
   <p>At 160 lines, Pocket Pet's file is close. It also carries rules written for its original owner's workflow. In a fork you're changing for someone else, decide whose rules apply and cut the rest.</p>
@@ -1262,6 +1272,7 @@ The repo is public. Shared rules: .claude/rules/general.md.
 
   <h3>C. Hard limits: permissions</h3>
   <p>Deny rules hold in every mode, including auto. Ask rules make Claude stop and ask you. After adding, type <code>/permissions</code> in a session to confirm they loaded.</p>
+  <p>Two limits to know. A deny rule matches the words of a command, so a push written another way (<code>git -C . push --force</code>) slips past it; Anthropic's permissions page says a rule like this "isn't a security boundary". And in a cloud thread inside a Claude project, this file's rules and the hook in item D don't apply at all. The lock that holds everywhere is a branch rule on <code>main</code>, set in GitHub (Book 3).</p>
   <div class="code"><div class="label"><span>.claude/settings.json</span><button class="copy" type="button">Copy</button></div><pre>{
   "permissions": {
     "deny": [
@@ -1350,7 +1361,7 @@ disable-model-invocation: true
    "Keep going here", with a two-line summary.</pre></div>
 
   <div class="call try"><div class="tag">Try it</div>
-    <p>Pick the repo you'll touch next. Send: <em>"Add the permissions block from my starter kit to .claude/settings.json (I'll paste it below), then show me /permissions output proving it loaded."</em> and paste item C.</p>
+    <p>Pick the repo you'll touch next. Send: <em>"Add the permissions block from my starter kit to .claude/settings.json (I'll paste it below)."</em> and paste item C. When it's done, type <code>/permissions</code> yourself and check your rules are in the list. Claude can't run that command for you.</p>
   </div>
 </section>
 
@@ -1371,7 +1382,7 @@ disable-model-invocation: true
   <h3>The five parts</h3>
   <ol class="steps">
     <li><b>Goal</b>What you want and who it's for. "So students can practice timed exams on the train."</li>
-    <li><b>Where</b>The app, screen, file or URL. "The Drill screen in FlashDeck", "<code>api/translate.js</code>", a screenshot.</li>
+    <li><b>Where</b>The app, screen, file or URL. "The Drill screen in FlashDeck", "<code>api/summary.js</code>", a screenshot.</li>
     <li><b>Context</b>What Claude can't see: what users said, what you tried, why you want it, what you've decided before.</li>
     <li><b>Constraints</b>What must stay true. "No new libraries", "$0 budget", "keep DESIGN.md colors", "don't touch firestore.rules".</li>
     <li><b>Done when, plus proof</b>How you'll both know it's finished, and what you want to see. "Done when 4 answer buttons fit at 390px without scrolling. Send a screenshot."</li>
@@ -1505,7 +1516,7 @@ Proof: [screenshots at phone width / a "try this" list / test output]</pre></div
     <li><b>Look at how others do it</b>
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Look at how 2 or 3 similar tools handle this (their own sites or docs, not a summary article). Tell me what to copy and where ours can be better. Add the conclusions to the spec.</pre></div>
     </li>
-    <li><b>Fresh session, plan mode</b>Type <code>/clear</code> (Anthropic: start a fresh session to build from the spec, so the build begins with a clean context). Press <code>Shift+Tab</code> until it says plan mode.
+    <li><b>Fresh session, plan mode</b>Type <code>/clear</code> (Anthropic: start a fresh session to build from the spec, so the build begins with a clean context). Press <code>Shift+Tab</code> until it says plan mode (in a cloud session, pick Plan in the mode menu).
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Read the [feature] section of SPEC.md. Plan Phase 1 in plain words: what you'll change, which files, what could break, and how you'll prove it works. List your assumptions separately.</pre></div>
     </li>
     <li><b>Approve or correct the plan</b>Read it. Question anything you don't understand: "Why do we need a new file for that?" Approving switches Claude out of plan mode.</li>
@@ -1534,7 +1545,7 @@ Proof: [screenshots at phone width / a "try this" list / test output]</pre></div
     <tr><td>You want to try a bold version</td><td>Try it, and <code>/rewind</code> if it's worse</td></tr>
     <tr><td>It keeps making the same mistake</td><td><code>/clear</code> and a better first prompt; if it happens across sessions, one line in CLAUDE.md</td></tr>
     <tr><td>It stopped halfway</td><td>Say <code>continue</code></td></tr>
-    <tr><td>It's over-building</td><td>"Only make changes I asked for or that are clearly necessary. Keep it simple." (Anthropic's suggested wording)</td></tr>
+    <tr><td>It's over-building</td><td>"Avoid over-engineering. Only make changes that are directly requested or clearly necessary. Keep solutions simple and focused." (the opening of Anthropic's own sample prompt)</td></tr>
   </table></div>
 </section>
 
@@ -1626,7 +1637,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 
   <ol class="steps">
     <li><b>Write the idea in three sentences, by hand</b>Who it's for, what they do with it, why it's better than what they do now. Example: "Gym members open it to see today's classes and tap to check in. The coach sees who's coming. Today it's a group chat and guessing." If you can't write these three sentences, you aren't ready to prompt.</li>
-    <li><b>Create the repo on GitHub</b>New repository, public, with a README. Name it plainly (<code>lions-roar-classes</code>). Then open a Claude Code session on it.</li>
+    <li><b>Create the repo on GitHub</b>New repository, public, with a README. Name it plainly (<code>corner-gym-classes</code>). Then open a Claude Code session on it.</li>
     <li><b>Interview and spec</b>
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Here is my idea: [three sentences]. Interview me with multiple-choice questions until you can write SPEC.md: who uses it, each feature with a "Done when" line, "Not in v1", "Later", and phases of one pull request each. Push me on anything that would need a server, accounts or paid services, and tell me the cheapest way to do it. Write SPEC.md when done. No code.</pre></div>
       <p><b>You should see:</b> 8 to 15 questions, then a SPEC.md. <b>Your decision:</b> check-in needs shared data (the coach must see it), so this app needs a back end. Claude should raise that.</p>
@@ -1636,7 +1647,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Propose the structure for this app. I want small files with one job each and no build step. For the shared check-in data, compare Firebase and Vercel functions with a simple database: cost at 100 members, effort, and security. Recommend one. Write the choice and the reason into SPEC.md.</pre></div>
     </li>
     <li><b>Set up the instruction files</b>Paste items A, B, C, E and F from the Starter kit (Book 10). Then:
-      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>I've added starter files. Fill in CLAUDE.md for this app from SPEC.md. Keep it under 60 lines. Only write what you couldn't learn by reading the code once it exists. Then show me /memory output.</pre></div>
+      <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>I've added starter files. Fill in CLAUDE.md for this app from SPEC.md. Keep it under 60 lines. Only write what you couldn't learn by reading the code once it exists. Then tell me how many lines it is.</pre></div>
+      When it's done, type <code>/context all</code> yourself and check CLAUDE.md is in the list under "Memory files".
     </li>
     <li><b>Add a check before any features</b>
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Before features: add a site check like my other repos (.github/site-check.cjs and a GitHub Actions workflow) that opens every page at 390px and desktop with Playwright and fails on missing files or console errors. Add a node --test folder with one passing test. Put the commands in CLAUDE.md.</pre></div>
@@ -1675,18 +1687,25 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 <section class="lesson" id="sources" data-part="Reference" data-title="Sources" data-min="0">
   <div class="eyebrow"></div>
   <h2>Sources</h2>
-  <p class="lede">Everything about Anthropic's and GitHub's recommendations comes from these pages, read in November 2026. Tools change; check the live pages for anything that looks out of date. The last section, Going further, is different: it is outside reading and watching, other people's views and not the source of this library's claims.</p>
+  <p class="lede">Everything this library says about Claude Code, GitHub and the hosting services comes from these pages, read in November 2026. Tools change; check the live pages for anything that looks out of date. The last section, Going further, is different: it is outside reading and watching, other people's views and not the source of this library's claims.</p>
   <h3>Anthropic documentation</h3>
   <ul>
     <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: guidance versus enforcement, the two-question test, keeping CLAUDE.md short, "be ambitious", checks, reviews, steering, and the "what you can stop doing" table.</li>
     <li><a href="https://code.claude.com/docs/en/memory">How Claude Code remembers your project</a>: locations, loading order, imports, path rules, AGENTS.md, the 200-line target, troubleshooting.</li>
     <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Prompting best practices</a>: the colleague test, explaining why, saying what to do, examples, avoiding over-engineering.</li>
-    <li><a href="https://code.claude.com/docs/en/hooks-guide">Hooks guide</a>, <a href="https://code.claude.com/docs/en/skills">Skills</a>, <a href="https://code.claude.com/docs/en/sub-agents">Subagents</a>, <a href="https://code.claude.com/docs/en/permissions">Permissions</a>: details behind the Starter kit.</li>
+    <li><a href="https://code.claude.com/docs/en/hooks-guide">Hooks guide</a>, <a href="https://code.claude.com/docs/en/skills">Skills</a>, <a href="https://code.claude.com/docs/en/sub-agents">Subagents</a>, <a href="https://code.claude.com/docs/en/permissions">Permissions</a>: details behind the Starter kit. The permissions page also says what a deny rule doesn't catch.</li>
+    <li><a href="https://code.claude.com/docs/en/permission-modes">Permission modes</a>: auto, plan and manual, the terminal keys, and the menu a cloud session uses instead.</li>
+    <li><a href="https://code.claude.com/docs/en/claude-code-on-the-web">Claude Code on the web</a> and its <a href="https://code.claude.com/docs/en/web-quickstart">quickstart</a>: what a cloud session is, and how to start one from a browser or a phone.</li>
+    <li><a href="https://code.claude.com/docs/en/settings#settings-in-cloud-sessions">Settings in cloud sessions</a>: which of a repo's settings reach a cloud session, and where permission rules and hooks don't apply.</li>
   </ul>
-  <h3>GitHub documentation</h3>
+  <h3>GitHub and hosting documentation</h3>
   <ul>
     <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">Creating a pull request from a fork</a>: compare across forks, allow edits from maintainers, who can open one.</li>
     <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">Syncing a fork</a>: the Sync fork button and what happens on conflicts.</li>
+    <li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits">GitHub Pages limits</a>: what Pages may not be used for, and its size and traffic limits.</li>
+    <li><a href="https://vercel.com/legal/terms">Vercel, Terms of Service</a>: the line that keeps the free (Hobby) plan to personal or non-commercial use.</li>
+    <li><a href="https://firebase.google.com/docs/projects/api-keys">Firebase, API keys</a>: why the Firebase web key can be public, and why a Gemini key never can.</li>
+    <li><a href="https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/">WebKit, the seven-day cap on saved data</a> (March 2020): the makers of Safari on when a site's saved data is erased, and that Home Screen apps are counted separately.</li>
   </ul>
   <h3>Going further</h3>
   <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
@@ -2205,8 +2224,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 
   // Quiz
   var Q = [
-    { q: "An app's CLAUDE.md is 73 lines and its first line imports AGENTS.md (513 lines). How much does Claude load every session?",
-      o: ["73 lines, because imports load only when needed", "About 586 lines", "Only AGENTS.md, because it wins"], a: 1,
+    { q: "An app's CLAUDE.md is 64 lines and its first line imports AGENTS.md (470 lines). How much does Claude load every session?",
+      o: ["64 lines, because imports load only when needed", "About 534 lines", "Only AGENTS.md, because it wins"], a: 1,
       w: "Anthropic's memory docs: imports are expanded at launch and don't reduce context. Both files load in full, every session." },
     { q: "In an app with a build step, index.html must never be edited by hand. What's the most reliable way to make sure of that?",
       o: ["Write it in CLAUDE.md in capital letters", "Repeat it at the start of every prompt", "A PreToolUse hook that blocks edits to that file"], a: 2,
@@ -2214,8 +2233,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     { q: "Which line belongs in a CLAUDE.md?",
       o: ["Write clean, well-organized code", "Site check: node .github/site-check.cjs index.html", "The js/ folder holds the JavaScript files"], a: 1,
       w: "Anthropic calls the command that checks work the single most useful line. Generic advice changes nothing, and folder descriptions are things Claude can read from the repo." },
-    { q: "A rule only matters when Claude works on ringside.js. Where should it go?",
-      o: ["CLAUDE.md, so it's never missed", "A file in .claude/rules/ with paths: listing ringside.js", "A subagent"], a: 1,
+    { q: "A rule only matters when Claude works on scene.js. Where should it go?",
+      o: ["CLAUDE.md, so it's never missed", "A file in .claude/rules/ with paths: listing scene.js", "A subagent"], a: 1,
       w: "Path rules load only when Claude reads matching files, so they cost nothing on unrelated tasks." },
     { q: "You've corrected Claude twice on the same thing and it's still wrong. Anthropic's advice?",
       o: ["Correct it a third time, more firmly", "Type /clear and write one better prompt that includes what you learned", "Add IMPORTANT to CLAUDE.md"], a: 1,
@@ -2270,7 +2289,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   var G = [
     ["Acceptance criteria", "The checkable conditions that mean a feature is done. The 'Done when' lines in a spec."],
     ["Agentic engineering", "Building with an AI coding agent while still reviewing, testing and understanding the result. The careful end of the scale; vibe coding is the other end."],
-    ["AGENTS.md", "An instruction file other AI tools read. Claude Code reads CLAUDE.md, so import it with @AGENTS.md."],
+    ["AGENTS.md", "An instruction file other AI tools read. Claude Code reads it by itself only when the repo has no CLAUDE.md; when both exist, import it with @AGENTS.md."],
     ["API", "A way for one program to ask another for something. The Claude API is how an app's server asks Claude questions."],
     ["Auto mode", "Claude Code's default in the terminal: works without asking each time, while a checker model stops risky actions."],
     ["Back end", "Code that runs on a server, not the phone. For example an api/ folder on Vercel."],
@@ -2313,7 +2332,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Node.js", "A program that runs JavaScript outside a browser. Your checks and tests use it."],
     ["npm", "The tool that installs JavaScript packages and runs the commands listed in package.json."],
     ["Path rule", "A file in .claude/rules/ with a paths: list. Loads only when Claude touches matching files."],
-    ["Plan mode", "A mode where Claude reads and plans but can't edit. Shift+Tab to switch."],
+    ["Plan mode", "A mode where Claude reads and plans but can't edit. Shift+Tab in the terminal; the mode menu in a cloud session."],
     ["Playwright", "A robot browser that opens pages, clicks and takes screenshots. How Claude sees your app."],
     ["Plugin", "An installable bundle of skills, agents, hooks and MCP servers."],
     ["Pull request", "A request to merge a branch into main, where checks run and changes are reviewed."],
