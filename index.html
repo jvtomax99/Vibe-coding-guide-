@@ -1799,6 +1799,19 @@ The repo is public. Shared rules: .claude/rules/general.md.
 - &lt;Any rule the code can't show: who signs off, a source every
   claim must cite, data that must never be stored.&gt;
 
+## Security (delete what doesn't apply)
+- Keys only in server code and the host's environment variables.
+  Never in front-end files, never under a VITE_ or NEXT_PUBLIC_ name.
+- Never build a login or store a password: use &lt;Firebase
+  Authentication&gt;. Database and storage rules check the user's id;
+  never "if true", never only "signed in".
+- Every file in api/ checks who is calling, what they may do and how
+  often. Show people's text as text, never as HTML.
+- Tests and scripts use &lt;the test project&gt;, never the live
+  database.
+- Ask before adding a package: say why, and show it is real, widely
+  used and still maintained.
+
 ## Working with &lt;your name&gt;
 - I can't read code. End each change with proof I can see:
   screenshots at 390px and desktop, plus a 3-line "try this" list.
@@ -1922,6 +1935,14 @@ disable-model-invocation: true
 3. Commit and push the branch.
 4. Ask me with buttons: "Start a new session (Recommended)" or
    "Keep going here", with a two-line summary.</pre></div>
+
+  <h3>H. Security switches on GitHub</h3>
+  <p>Files can't do everything. Turn these on once per repo, on the first day, so GitHub keeps watching while you build. Book 20 says what each one does.</p>
+  <ol class="steps">
+    <li><b>Dependabot alerts and push protection</b>In the repo: <b>Settings</b>, then under "Security and quality" choose <b>Advanced Security</b>. Enable Dependabot alerts, and push protection if the page offers it. Secret scanning already runs by itself on public repos.</li>
+    <li><b>A security review on every pull request</b>Anthropic's support page on automated security reviews links to its GitHub Action. Ask Claude: <em>"Read Anthropic's current page on the Claude Code security review GitHub Action and set it up on this repo. Tell me what it costs per pull request before you add it."</em></li>
+    <li><b>The security lines in CLAUDE.md</b>Keep the "Security" block from item A. It is how Claude builds safely by default, instead of you finding the holes at the end.</li>
+  </ol>
 
   <div class="call try"><div class="tag">Try it</div>
     <p>Pick the repo you'll touch next. Send: <em>"Add the permissions block from my starter kit to .claude/settings.json (I'll paste it below)."</em> and paste item C. When it's done, type <code>/permissions</code> yourself and check your rules are in the list. Claude can't run that command for you.</p>
@@ -2273,8 +2294,11 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   </table></div>
   <p><b>The pick for apps built from this library:</b> keep Firebase's or Supabase's default, and spend the effort on what makes browser storage dangerous: cross-site scripting (Book 20, section 2) and a Content Security Policy (Book 20, section 4). If the app will hold payments, health records or children's data, that changes: move to cookies, and have a person who does this for a living check it (Book 6).</p>
   <p>Whatever you pick, some things never go in browser storage: passwords, your own API keys, Supabase's secret key, anything other than the login library's own pass.</p>
+  <h4>Every outside script can read it too</h4>
+  <p>Cross-site scripting isn't the only way a stranger's code gets onto your page. An analytics tag, a chat widget or a library loaded from someone else's site runs with the same access as your own code, so it can read that pass too. If that site is hacked, so is your app. Three habits keep this small: add an outside script only when the app needs it; load a library at an exact version, never "the latest"; and give it an <code>integrity</code> code, a fingerprint of the file. MDN, the reference site for web developers, says this lets the browser check a file from another site was "delivered without unexpected manipulation"; a changed file is refused.</p>
+  <p>How to ask: <em>"List every script this app loads from another website. For each: what it's for, whether we still need it, its exact version, and whether it has an integrity code. Add the missing integrity codes."</em></p>
   <p>How to ask: <em>"List everything this app saves in the browser (localStorage, sessionStorage, cookies, IndexedDB): each name, what's in it, and who could use it if they copied it. Flag anything that's a password, a key or someone else's data."</em></p>
-  <p><em>Checked in November 2026 against OWASP's HTML5 Security cheat sheet, Firebase's auth state persistence page and Supabase's client setup reference.</em></p>
+  <p><em>Checked in November 2026 against OWASP's HTML5 Security cheat sheet, Firebase's auth state persistence page, Supabase's client setup reference and MDN's Subresource Integrity page.</em></p>
 
   <h3>Ask Claude for it</h3>
   <p>Run this in a fresh session, so Claude checks what is in the repo, not what it remembers writing.</p>
@@ -2502,7 +2526,8 @@ Before deploy
     </li>
     <li><b>Protect main</b>Add the branch rule from Book 3, requiring the new Site check.</li>
     <li><b>Build Phase 1 in plan mode</b><code>/clear</code>, plan mode, then the Book 16 plan prompt. Read the plan. Approve.</li>
-    <li><b>Check, review, approve</b>Evidence, reviewer, pull request, your approval. Exactly Book 16, steps 6 to 8.</li>
+    <li><b>Check, review, approve</b>Evidence, reviewer, pull request, your approval. Exactly Book 16, steps 6 to 8.
+      <p><b>Before the coach gets the link:</b> this app has a sign-in and shared data, so other people's data is now your job. In a fresh session run the full audit from Book 20 and fix every "fail". Then do the two-account test at the end of Book 19 yourself. Run both again before any later phase that touches sign-in, the rules or <code>api/</code>.</p></li>
     <li><b>Show a real user before Phase 2</b>Send the coach the link. Write down what they say, in their words. Feed it to Claude as context for Phase 2: "The coach said: '...'. Update SPEC.md, then plan Phase 2."</li>
     <li><b>Keep the files honest</b>After each phase: phase checked off in SPEC.md; one CLAUDE.md line only for repeated mistakes; <code>/doctor prompt-audit</code> once a month.</li>
   </ol>
@@ -2653,6 +2678,7 @@ Before deploy
     <li><a href="https://docs.stripe.com/webhooks">Stripe, webhooks</a>: why to verify, the signature header, the raw body and the 5-minute tolerance.</li>
     <li><a href="https://docs.djangoproject.com/en/stable/ref/settings/#debug">Django, the DEBUG setting</a> and <a href="https://flask.palletsprojects.com/en/stable/debugging/">Flask, debugging</a>: why debug mode stays off in production.</li>
     <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP">MDN, Content Security Policy</a>: setting a policy in a meta tag, and its limits.</li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity">MDN, Subresource Integrity</a>: the integrity code that lets a browser refuse a changed file from another site.</li>
     <li><a href="https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code">Anthropic, Automated security reviews in Claude Code</a>: what <code>/security-review</code> checks, the GitHub Action, and that it complements human review.</li>
   </ul>
   <h3>Going further</h3>
