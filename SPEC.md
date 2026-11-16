@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 23 short books on glass shelves
-(about seven and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 24 short books on glass shelves
+(about eight hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 23 books on shelves, grouped in six parts (How your apps
+1. **The library.** All 24 books on shelves, grouped in six parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Before launch,
    Practice) plus
    Start here and the reference books.
@@ -61,8 +61,8 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 25 questions, three of them on each of
-   Books 6, 7 and 8 (added 2026-11-15) and on each of Books 19 and 20 (added
+5. **Check yourself.** A quiz with a score: 28 questions, three of them on each of
+   Books 6, 7 and 8 (added 2026-11-15) and on each of Books 19, 20 and 21 (added
    2026-11-16). Each of those right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
@@ -166,14 +166,15 @@ apps (told through the made-up ones).
      box, as at 100%), the reader stays on the same paragraph, and the size survives a
      reload and "Return all books".
 
-14. **Books 19 and 20, a security shelf.** Added 2026-11-16 at Jose's request, from a
+14. **Books 20 and 21, a security shelf** (Books 19 and 20 when added; Book 19 below
+   now comes first). Added 2026-11-16 at Jose's request, from a
    26-item security checklist he sent (plan OK'd the same day). A new part, "5 · Before
-   launch", between Talking to Claude and Practice, so Practice became Books 21 and 22.
-   Book 19, "Who gets in, and what they see" (6 sections): the server decides (admin
+   launch", between Talking to Claude and Practice, so Practice moved to the end (now
+   Books 22 and 23). Book 20, "Who gets in, and what they see" (6 sections): the server decides (admin
    actions, custom claims), only your own data (storage, server code, lists; Row Level
    Security), the front door of server code (four questions, rate limits), logins (never
    store a password; email verification), where the login is kept (both sides and a
-   pick), and a check with a two-account test. Book 20, "The security pass before
+   pick), and a check with a two-account test. Book 21, "The security pass before
    launch" (6 sections): how keys leak, input checks and cross-site scripting and
    parameterized queries, uploads and webhook signatures, logs and debug mode and
    headers, old packages and unused code, and a 26-item audit prompt with
@@ -189,9 +190,32 @@ apps (told through the made-up ones).
      fallback.
    - Not in it: penetration testing, paid scanners, App Check, two-step sign-in,
      payments beyond the webhook, laws on health, payment or children's data.
-   - Done when: both books open from their spines as Books 19 and 20 at 390px and
+   - Done when: both books open from their spines as Books 20 and 21 at 390px and
      desktop, every section is reachable from Contents, every claim matches a page in
      Sources ("Security pages"), and every "Book N" elsewhere points at the right book.
+
+15. **Book 19, "When an AI does the building".** Added 2026-11-16 after Jose asked what
+   else a safe vibe-coded app needs (plan OK'd the same day). First on the Before launch
+   shelf. Six sections: Claude and your live data (the July 2025 Replit incident, a
+   separate test project, walls instead of words), instructions hidden in what Claude
+   reads (prompt injection, trusting MCP servers and other add-ons), packages that don't
+   exist (the USENIX Security 2025 study, slopsquatting), your own accounts (two-step
+   sign-in, collaborators and apps, preview protection), AI features inside the app
+   (hidden instructions, the answer shown as text, a person taps Send, a spend limit),
+   and when something goes wrong (backups off by default, the day something leaks,
+   collect less). Shipped with three fixes: a Security block and GitHub's security
+   switches in the starter kit (Book 13), the full audit before the practice app's first
+   user (Book 22), and outside scripts with integrity codes (Book 20).
+   - Compared: OWASP's Top 10 for LLM Applications (for people building AI products, in
+     code), Claude Code's security page (what Anthropic protects, not what the builder
+     does), and news coverage of the Replit incident (a story, no checklist). Where this
+     differs: one place, plain words, and a shortcut, cost, fix, prompt and check per
+     risk.
+   - Not in it: building AI agents, choosing a model, the laws on reporting a leak, paid
+     security tools, penetration testing.
+   - Done when: the book opens from its spine as Book 19 at 390px and desktop, all six
+     sections are reachable from its Contents, every claim matches a page in Sources
+     ("Security pages"), and every "Book N" elsewhere points at the right book.
 
 ## Not in v1
 
