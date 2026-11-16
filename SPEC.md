@@ -214,8 +214,8 @@ apps (told through the made-up ones).
    - Not in it: building AI agents, choosing a model, the laws on reporting a leak, paid
      security tools, penetration testing.
    - Done when: the book opens from its spine as Book 19 at 390px and desktop, all six
-     sections are reachable from its Contents, every claim matches a page in Sources
-     ("Security pages"), and every "Book N" elsewhere points at the right book.
+     sections are reachable from its Contents, every claim matches a page in Sources,
+     and every "Book N" elsewhere points at the right book.
 
 ## Not in v1
 
