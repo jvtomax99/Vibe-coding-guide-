@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 21 short books on glass shelves
-(about six and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 23 short books on glass shelves
+(about seven and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,8 +36,9 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 21 books on shelves, grouped in five parts (How your apps
-   work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Practice) plus
+1. **The library.** All 23 books on shelves, grouped in six parts (How your apps
+   work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Before launch,
+   Practice) plus
    Start here and the reference books.
    - Done when: every book opens from its spine on a phone and on a desktop.
 2. **Reading a book.** One book open at a time as a paper page on a dark surround,
@@ -60,9 +61,9 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 19 questions, three of them on each of
-   Books 6, 7 and 8 (added 2026-11-15), so the quiz now covers those three books.
-   Each of those nine right answers is what the book itself says.
+5. **Check yourself.** A quiz with a score: 25 questions, three of them on each of
+   Books 6, 7 and 8 (added 2026-11-15) and on each of Books 19 and 20 (added
+   2026-11-16). Each of those right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -164,6 +165,33 @@ apps (told through the made-up ones).
      a page reaches past the paper's edge at 140% (wide tables scroll inside their own
      box, as at 100%), the reader stays on the same paragraph, and the size survives a
      reload and "Return all books".
+
+14. **Books 19 and 20, a security shelf.** Added 2026-11-16 at Jose's request, from a
+   26-item security checklist he sent (plan OK'd the same day). A new part, "5 · Before
+   launch", between Talking to Claude and Practice, so Practice became Books 21 and 22.
+   Book 19, "Who gets in, and what they see" (6 sections): the server decides (admin
+   actions, custom claims), only your own data (storage, server code, lists; Row Level
+   Security), the front door of server code (four questions, rate limits), logins (never
+   store a password; email verification), where the login is kept (both sides and a
+   pick), and a check with a two-account test. Book 20, "The security pass before
+   launch" (6 sections): how keys leak, input checks and cross-site scripting and
+   parameterized queries, uploads and webhook signatures, logs and debug mode and
+   headers, old packages and unused code, and a 26-item audit prompt with
+   `/security-review` and the checks only the owner can do.
+   - Compared: Supabase's and Vercel's production checklists (one product each, a few
+     lines on security, no "how do I check this"), OWASP's cheat sheets (thorough, written
+     in code), and viral checklists like the one sent (names only). Where these differ:
+     each item says what it is, the risky shortcut with its cost and fix, a prompt, and a
+     check the reader can do without reading code.
+   - Changed from the checklist: "hash passwords" became "never store one"; token
+     storage argues both sides and picks the tools' defaults plus XSS defenses; headers
+     note that GitHub Pages' docs offer no way to set them, so a CSP meta tag is the
+     fallback.
+   - Not in it: penetration testing, paid scanners, App Check, two-step sign-in,
+     payments beyond the webhook, laws on health, payment or children's data.
+   - Done when: both books open from their spines as Books 19 and 20 at 390px and
+     desktop, every section is reachable from Contents, every claim matches a page in
+     Sources ("Security pages"), and every "Book N" elsewhere points at the right book.
 
 ## Not in v1
 
