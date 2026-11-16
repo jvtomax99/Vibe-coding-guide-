@@ -535,7 +535,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">21</div><small>short books on five shelves, about six and a half hours in all</small></div>
+    <div class="stat"><div class="big-num">23</div><small>short books on six shelves, about seven and a half hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -593,7 +593,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
     <li><b>Mark it read.</b> A gold bookmark appears on the spine. Progress is remembered in your browser.</li>
     <li><b>Keep the Prompt library and Starter kit handy.</b> They're built to be copied into your notes and your next project.</li>
   </ol>
-  <p>There are five shelves: how apps are put together (including forks and contributing to someone else's project), how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, and a full practice build. The bottom shelf holds the glossary and sources.</p>
+  <p>There are six shelves: how apps are put together (including forks and contributing to someone else's project), how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, a security pass before launch, and a full practice build. The bottom shelf holds the glossary and sources.</p>
 </section>
 
 <!-- ===================== SHELF 1 ===================== -->
@@ -2206,7 +2206,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <div class="call straight"><div class="tag">The risky shortcut: a hidden admin page</div>
     <p>TeamDesk's owner has a page at <code>/admin.html</code> that deletes messages and removes people from the team. Nothing links to it, and the page checks the owner's email before it shows the buttons.</p>
     <p><b>What it costs:</b> the check runs on the visitor's phone, so anyone can skip it. If the database rule lets any team member delete messages, the admin page was never the lock: a member can delete everything without ever opening it.</p>
-    <p><b>How to close it:</b> put the check where the visitor can't touch it, in the database rules or in server code. Firebase does this with a <b>custom claim</b>, a label such as "admin" attached to one account. Firebase's page says claims should only be set "from a privileged server environment by the Firebase Admin SDK", never from the app itself. A rule then reads the label: <code>allow write: if request.auth.token.admin == true;</code></p>
+    <p><b>How to close it:</b> put the check where the visitor can't touch it, in the database rules or in server code. Firebase does this with a <b>custom claim</b>, a label such as "admin" attached to one account. Firebase's page says claims should only be set "from a privileged server environment by the Firebase Admin SDK" (Firebase's toolkit for server code), never from the app itself. A rule then reads the label: <code>allow write: if request.auth.token.admin == true;</code></p>
   </div>
   <h4>Lock the actions, not the page</h4>
   <p>What matters is what the admin page does: delete, change someone's role, see everyone's data, export a list. Each of those actions needs its own check, every time. OWASP: "Validating permissions correctly on just the majority of requests is insufficient." And start from no: OWASP's rule is that an app "should be configured to deny access by default", then allow each thing on purpose. Firebase rules already work that way; anything not named in the file is refused.</p>
@@ -2246,12 +2246,12 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li><b>Sending email or texts.</b> Sign-in links, invitations, password resets. Without a limit, your app becomes someone's spam cannon, and the email service may block you.</li>
     <li><b>Sign-in and sign-up.</b> Firebase already limits these for you (Book 6 lists 100 new accounts an hour from one address). Code you write yourself has no limit until you add one.</li>
   </ul>
-  <p>Two ways to add one. Vercel's firewall has rate limiting "on all plans"; the free plan gets one rate limiting rule. Or ask Claude to count in the database: "20 drafts a day per person" is simple, works on any plan, and is easy to check.</p>
+  <p>Two ways to add one. Vercel's firewall (a filter in front of your app that can block or slow down requests) has rate limiting "on all plans"; the free plan gets one rate limiting rule. Or ask Claude to count in the database: "20 drafts a day per person" is simple, works on any plan, and is easy to check.</p>
   <p>How to ask: <em>"For every file in api/: who can call it, what it checks before acting, and how often one person can call it. Add a limit to anything that costs money or sends a message, and tell me the number you picked and why."</em></p>
   <p><em>Checked in November 2026 against Vercel's WAF rate limiting page and Firebase's Authentication limits.</em></p>
 
   <h3>Logins: borrow one, never build one</h3>
-  <p>The checklist says "hash passwords securely". For apps built from this library the better rule is: never hold a password at all. Firebase Authentication and Supabase Auth store passwords, send reset emails and slow down guessing for you. Your app never sees a password, so it can never leak one.</p>
+  <p>The checklist says "hash passwords securely". For apps built from this library the better rule is: never hold a password at all. Firebase Authentication and Supabase Auth store passwords, send reset emails and slow down guessing for you. Your app's database never stores a password, so it can't leak one. (The password still passes through your page while the person types it, which is one more reason Book 20's advice on logs and cross-site scripting matters.)</p>
   <div class="call straight"><div class="tag">The risky shortcut: a password column</div>
     <p>Ask for "a login" without saying how, and Claude may build its own: a <code>users</code> table with an email column and a password column.</p>
     <p><b>What it costs:</b> one leak exposes every password, and people reuse passwords, so it exposes their email and bank too.</p>
@@ -2269,7 +2269,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <p>After someone signs in, the phone keeps a <b>token</b>, a digital pass, so they stay signed in. The checklist says "keep auth tokens out of insecure browser storage". This is the one item where the experts and the tools you use disagree, so here are both sides.</p>
   <div class="tablewrap"><table>
     <tr><th>The case for moving the token</th><th>The case for leaving the default</th></tr>
-    <tr><td>OWASP: "Do not store session identifiers in local storage as the data is always accessible by JavaScript." If a stranger gets a script onto your page (cross-site scripting, Book 20), that script can read the pass and use it from anywhere. A cookie marked <code>httpOnly</code> can't be read by scripts.</td><td>Supabase's library saves the session "into local storage" by default, and Firebase's default for web apps, called <code>local</code>, keeps people signed in in the browser too. Moving to cookies needs server code that manages sessions, which is more to get wrong. And a script on your page can still act as the user while the page is open, cookie or not.</td></tr>
+    <tr><td>OWASP: "Do not store session identifiers in local storage as the data is always accessible by JavaScript." If a stranger gets a script onto your page (cross-site scripting, Book 20), that script can read the pass and use it from anywhere. A <b>cookie</b> is a small note a website asks the browser to keep and send back with every visit. One marked <code>httpOnly</code> can't be read by scripts on the page.</td><td>Supabase's library saves the session "into local storage" by default, and Firebase's default for web apps, called <code>local</code>, keeps people signed in in the browser too. Moving to cookies needs server code that manages sessions, which is more to get wrong. And a script on your page can still act as the user while the page is open, cookie or not.</td></tr>
   </table></div>
   <p><b>The pick for apps built from this library:</b> keep Firebase's or Supabase's default, and spend the effort on what makes browser storage dangerous: cross-site scripting (Book 20, section 2) and a Content Security Policy (Book 20, section 4). If the app will hold payments, health records or children's data, that changes: move to cookies, and have a person who does this for a living check it (Book 6).</p>
   <p>Whatever you pick, some things never go in browser storage: passwords, your own API keys, Supabase's secret key, anything other than the login library's own pass.</p>
@@ -2294,7 +2294,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li><b>Swap addresses</b>As the second account, paste the addresses of the first account's pages, bookings or files. You should see nothing.</li>
     <li><b>Try the admin page</b>As an ordinary account, open the admin address and try each button. Every one should fail with an error, not just hide.</li>
     <li><b>Signed out</b>Paste each <code>api/</code> address into the private window, signed out. It should refuse.</li>
-    <li><b>Tap fast</b>Press "send reset email" or "draft a reply" twenty times. It should stop you before twenty.</li>
+    <li><b>Go past the limit</b>Ask Claude what limit it set on "send reset email" or "draft a reply", then do it one more time than that. The extra one should be refused.</li>
   </ol>
 </section>
 
@@ -2315,10 +2315,10 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <p>Book 5's rule: a key lives in an environment variable on the host, and only server code reads it. Keys leak anyway, in four ways.</p>
   <div class="tablewrap"><table>
     <tr><th>The leak</th><th>Why it happens</th><th>The check</th></tr>
-    <tr><td><b>A public name</b></td><td>Some tools send variables to the browser on purpose if their name starts a certain way. Vite: names starting <code>VITE_</code> "will be exposed in client-side source code". Next.js: names starting <code>NEXT_PUBLIC_</code> are "inlined into any JavaScript sent to the browser". A key called <code>VITE_OPENAI_KEY</code> is public, wherever you stored it.</td><td>Ask Claude for every variable name, whether the browser or the server reads it, and whether it's secret. A secret with a public name fails.</td></tr>
+    <tr><td><b>A public name</b></td><td>Some tools send variables to the browser on purpose if their name starts a certain way. Vite: names starting <code>VITE_</code> "will be exposed in client-side source code". Next.js: names starting <code>NEXT_PUBLIC_</code> are "inlined into any JavaScript sent to the browser". A key called <code>VITE_OPENAI_KEY</code> is public, wherever you stored it.</td><td>Ask Claude for every variable name, whether the browser or the server reads it, and whether it's secret. A secret with a public name fails. The fix: change the key on the service's website (browsers already have the old one), store the new one under a name without the prefix, and read it only in server code.</td></tr>
     <tr><td><b>A committed .env file</b></td><td>A <code>.env</code> file holds keys on your own computer. A <code>.gitignore</code> file tells Git which files to leave out, but GitHub's page warns that a file already committed isn't ignored: "you must untrack the file before you add a rule to ignore it."</td><td>Is <code>.env</code> listed in <code>.gitignore</code>, and was any <code>.env</code> file ever committed?</td></tr>
     <tr><td><b>Old history</b></td><td>Deleting a file leaves it in the history (Book 3).</td><td>Search the whole history, not just today's files.</td></tr>
-    <tr><td><b>Exposed files</b></td><td>On GitHub Pages every file in the repo is a public address: a backup, a <code>config.json</code>, a test page, a log.</td><td>List every file the host serves that a visitor has no reason to open.</td></tr>
+    <tr><td><b>Exposed files</b></td><td>In a public repo every file can be read on GitHub, and on GitHub Pages most of them are also served at their own address: a backup, a <code>config.json</code>, a test page, a log.</td><td>List every file the host serves that a visitor has no reason to open.</td></tr>
   </table></div>
   <p>Two keys are allowed in the front end because they were made for it: the Firebase configuration (Book 6) and Supabase's public key. Nothing else is.</p>
   <div class="call straight"><div class="tag">The risky shortcut: deleting a leaked key</div>
@@ -2343,7 +2343,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <p>If a person's text is put on the page as code instead of as text, a "name" that contains a script runs in the browser of everyone who sees it. That is <b>cross-site scripting</b> (often written XSS). The script runs as if it were your app: it can read what Book 19, section 5 said is kept in the browser, and act as the person viewing. TeamDesk shows messages from team members; one poisoned message would run on every teammate's screen.</p>
   <p>The fix is a habit, not a tool: show people's text as text. OWASP names the two ways: avoid "unsafe sinks like innerHTML, and instead use textContent". Tools like React show text safely by default, except through what OWASP calls "escape hatches", such as React's <code>dangerouslySetInnerHTML</code> used "without sanitizing the HTML". If the app must allow formatting (bold, links), ask Claude for a well-known sanitizing library, not a homemade one.</p>
   <h4>Parameterized queries</h4>
-  <p>The same danger, aimed at the database. It only applies when server code writes database commands as text, as it can with Supabase's underlying database. If a person's text is glued into the command, they can rewrite the command; that is an <b>injection</b>. OWASP's fix is "parameterized queries": the command and the person's text travel separately, so the text can never become part of the command. Firestore, and Supabase's normal library calls, do this for you. Hand-written database commands are where it goes wrong.</p>
+  <p>The same danger, aimed at the database. It only applies when server code writes database commands as text, as it can with Supabase's underlying database. If a person's text is glued into the command, they can rewrite the command; that is an <b>injection</b>. OWASP's fix is "parameterized queries": the command and the person's text travel separately, so the text can never become part of the command. Firestore, and Supabase's normal library calls used as intended, keep the text separate for you. It goes wrong where code builds a command, or a search filter, by joining a person's text into it.</p>
   <p>How to ask: <em>"For every place this app takes input from a person (forms, addresses, uploads): is it checked on the server, and how? Is any of it ever put on a page as HTML, or into a database command as text? Show me each place and the fix."</em></p>
   <p><em>Checked in November 2026 against OWASP's Input Validation, Cross Site Scripting Prevention and SQL Injection Prevention cheat sheets.</em></p>
 
@@ -2358,7 +2358,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <tr><td>"Change the filename to something generated by the application"</td><td>Never keep the name the person chose.</td></tr>
     <tr><td>"Store the files on a different server"</td><td>In Cloud Storage or Supabase Storage, never in the site's own folder.</td></tr>
   </table></div>
-  <p>Firebase's storage rules can enforce the size and the kind on their own, so the check holds even if someone skips your app: <code>request.resource.size &lt; 5 * 1024 * 1024</code> and <code>request.resource.contentType.matches('image/.*')</code>.</p>
+  <p>Firebase's storage rules can enforce the size on their own, so that limit holds even if someone skips your app: <code>request.resource.size &lt; 5 * 1024 * 1024</code>. Firebase's example also checks the kind with <code>request.resource.contentType.matches('image/.*')</code>, but that reads the file's label, which is the part OWASP says can lie. Keep it as a first filter. A check of what's really inside the file needs server code; ask Claude for one if the uploads are shown to other people.</p>
   <h4>Webhooks: messages that say "paid"</h4>
   <p>When Corner Gym sells a class pack, the payment service tells the app it was paid by calling an address on the app's server, say <code>/api/paid</code>. That call is a <b>webhook</b>. Anyone can call the same address and say "paid". Stripe's page: "Without verification, an attacker could send fake webhook events to your endpoint to trigger actions like fulfilling orders, granting account access, or modifying records."</p>
   <p>The fix is the signature. Stripe "signs every webhook event" with a secret that only Stripe and your server know (it starts with <code>whsec_</code>), and the function refuses any message whose signature doesn't match. Two details Claude gets wrong often: the check needs "the raw body of the request", exactly as it arrived, and Stripe's own libraries refuse messages more than 5 minutes old, so an old message can't be replayed. Other payment and messaging services sign their webhooks in a similar way; ask Claude to read that service's own page.</p>
@@ -2382,7 +2382,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <h3>Old parts: packages and endpoints</h3>
   <p>A <b>dependency</b> (or package) is code other people wrote that your app uses, listed in <code>package.json</code>. People find holes in popular packages all the time, and your app has the hole until you update.</p>
   <ul>
-    <li><b>Dependabot alerts.</b> GitHub's tool that "help you find and fix vulnerable dependencies". Turn it on in the repo: <b>Settings</b>, then under "Security and quality" choose <b>Advanced Security</b>, then <b>Enable</b> next to Dependabot alerts.</li>
+    <li><b>Dependabot alerts.</b> GitHub's tool for finding vulnerable packages; GitHub's words: they "help you find and fix vulnerable dependencies". Turn it on in the repo: <b>Settings</b>, then under "Security and quality" choose <b>Advanced Security</b>, then <b>Enable</b> next to Dependabot alerts.</li>
     <li><b>Dependabot security updates.</b> GitHub's words: "automated pull requests that help you update dependencies with known vulnerabilities." Treat each one like any pull request: the site check must pass, and you look at the preview before merging.</li>
     <li><b>npm audit.</b> The command that asks for "a report of known vulnerabilities" in your packages. Claude can run it in a session and explain the results in plain words.</li>
   </ul>
@@ -3371,6 +3371,7 @@ Before deploy
     ["Firestore", "Firebase's database. Who can read and write is set by firestore.rules."],
     ["Fork", "Your own copy, on GitHub, of a repo someone else owns. GitHub remembers the link to the original."],
     ["Content Security Policy", "A security header listing which scripts a page may run. A second lock against cross-site scripting, not the only one."],
+    ["Cookie", "A small note a website asks the browser to keep and send back on every visit. One marked httpOnly can't be read by the page's scripts."],
     ["Cross-site scripting (XSS)", "A stranger's text shown on a page as code instead of text, so their script runs in every visitor's browser. Prevented by showing people's text as text."],
     ["Custom claim", "A label such as admin attached to one Firebase account from server code. Rules read it to decide who may do admin actions."],
     ["Collaborator", "Someone the owner has added to a personal repo, with write access to it."],
