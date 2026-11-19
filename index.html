@@ -523,7 +523,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <main id="main">
 
 <!-- ===================== START ===================== -->
-<section class="lesson" id="start" data-part="Start here" data-title="Start here" data-min="10">
+<section class="lesson" id="start" data-part="Start here" data-title="Start here" data-min="15">
   <div class="eyebrow"></div>
   <h2>Start here</h2>
   <p class="lede">This library is for people who build real apps with Claude without a developer background. It teaches how those apps are put together, and how to talk to Claude so it builds them well the first time.</p>
@@ -532,6 +532,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
     <li>The five example apps used throughout</li>
     <li>The one belief this library will try to change</li>
     <li>What must get a check before anyone else uses your app</li>
+    <li>The two accounts and your first session, from a phone</li>
   </ul></div>
 
   <div class="stat-row">
@@ -587,13 +588,31 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
 
   <h3>How to use this library</h3>
   <ol>
-    <li><b>Never opened GitHub or Claude Code?</b> Read Book 20's first section, "Before step 1", today. It gets you an account, a first session and something to try the other books on.</li>
+    <li><b>Never opened GitHub or Claude Code?</b> Read the next page, "Before your first session", before Book 1. It gets you an account, a first session and something to try the other books on.</li>
     <li><b>One book at a time.</b> Tap a spine to take a book off the shelf, then tap it again to open it. Each book takes 10 to 20 minutes, and the shelves are in reading order.</li>
     <li><b>Do the "Try it" box.</b> Each one is a real prompt to send Claude in one of your own projects. Reading teaches the words; trying teaches the judgment.</li>
     <li><b>Mark it read.</b> A gold bookmark appears on the spine. Progress is remembered in your browser.</li>
     <li><b>Keep the Prompt library and Starter kit handy.</b> They're built to be copied into your notes and your next project.</li>
   </ol>
   <p>There are five shelves: how apps are put together (including forks and contributing to someone else's project), how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, and a full practice build. The bottom shelf holds the glossary and sources.</p>
+
+  <h3>Before your first session</h3>
+  <p>Every "Try it" box from Book 1 on is a message to send Claude in a Claude Code session. Four things make that possible. None needs a computer; a phone is enough.</p>
+  <ol class="steps">
+    <li><b>A GitHub account</b>GitHub is where the app's files live. Go to <code>github.com/signup</code>, follow the prompts, and verify your email address when GitHub asks; an account without a verified email can't do much. The free plan is enough for everything in this library.</li>
+    <li><b>A Claude plan that includes Claude Code</b>Anthropic's quickstart lists cloud sessions on the Pro, Max, Ultra and Team plans (and some Enterprise seats). This is the part that costs money every month. Check the current price before you sign up.</li>
+    <li><b>Connect the two</b>Open <code>claude.ai/code</code> and sign in. It asks you to connect GitHub; approve the request and GitHub sends you back. With that, a session can copy any public repo. To work in a <b>private</b> repo, the Claude GitHub App must also be installed on your GitHub account. The connect screen offers it.</li>
+    <li><b>Start a session from your phone</b>In the Claude app, open the <b>Code</b> tab. Tap the repository selector under the box you type in and pick your repo. Type what you want in plain words and send it. Claude works on its own branch and pushes it for you to review.</li>
+  </ol>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Connecting GitHub gives Claude the power to change your repos. That is the point, and it is also why Book 3's branch rule on <code>main</code> matters (a setting on GitHub that stops changes reaching the live copy without a pull request): with bypassing switched off, it is the one lock Claude can't talk its way past. To take the access back, remove the Claude app in GitHub under Settings, then Applications.</p>
+  </div>
+  <div class="call try"><div class="tag">Try it</div>
+    <p>No repo yet? Make a practice one: on github.com, press New repository, name it <code>practice</code>, choose Public, tick Add a README, and press Create repository. Then send this as your first session:</p>
+    <div class="code prompt"><div class="label"><span>First session</span><button class="copy" type="button">Copy</button></div><pre>Read this repo and tell me, in plain words, what is in it. Change nothing.</pre></div>
+    <p><b>You should see:</b> a short description and no new branch. If your repo isn't in the list, the GitHub connection didn't finish; open <code>claude.ai/code</code> in a browser and connect again.</p>
+  </div>
+
 </section>
 
 <!-- ===================== SHELF 1 ===================== -->
@@ -739,7 +758,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
     <tr><td><b>Commit</b></td><td>One saved snapshot with a message saying what changed. Small commits with plain messages make it easy to undo one thing.</td></tr>
     <tr><td><b>Branch</b></td><td>A parallel copy where work happens without touching the live version. Cloud sessions usually get their own branch.</td></tr>
     <tr><td><b>main</b></td><td>The branch that is live. On GitHub Pages, merging into <code>main</code> publishes the site.</td></tr>
-    <tr><td><b>Push</b></td><td>Sending commits from a computer up to GitHub.</td></tr>
+    <tr><td><b>Push</b></td><td>Sending commits up to GitHub. In a cloud session, Claude does this for you.</td></tr>
     <tr><td><b>Pull request (PR)</b></td><td>A request to merge a branch into main. Checks run here and you review here.</td></tr>
     <tr><td><b>Merge</b></td><td>Joining a branch's changes into main.</td></tr>
     <tr><td><b>Diff</b></td><td>The exact lines added and removed. "Show me the diff in plain English" is a great prompt.</td></tr>
@@ -765,17 +784,19 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <h3>Protect main with a branch rule</h3>
   <p>Many builders write "ask before anything that touches main" in their instructions. That's guidance Claude reads, so it's followed nearly every time. Anthropic's best-practices guide says that before you let a scheduled task run without you, you should protect <code>main</code> with a GitHub branch rule the task can't bypass. A branch rule is enforced by GitHub itself.</p>
   <ol class="steps">
-    <li><b>Open the repo's settings</b>On GitHub: your repo, then Settings, then Branches (or Rules, then Rulesets).</li>
-    <li><b>Add a rule for main</b>Require a pull request before merging, and require your check (for example "Site check") to pass.</li>
+    <li><b>Open the repo's settings</b>On github.com in your phone's browser or a computer: your repo, then Settings, then Branches, then Add classic branch protection rule. Type <code>main</code> under Branch name pattern.</li>
+    <li><b>Require a pull request and your check</b>Tick Require a pull request before merging. Tick Require status checks to pass before merging, then search for your check (for example "Site check") and pick it. Leave Require approvals off: once the next step is done, an approval would have to come from someone other than you.</li>
+    <li><b>Close the owner's way around it</b>Tick Do not allow bypassing the above settings, then press Create. This is the step people miss. GitHub's page: "By default, the restrictions of a branch protection rule don't apply to people with admin permissions", and you are the admin of your own repo. Claude in a cloud session pushes with the GitHub access you connected, and Anthropic's page says "a rule that access can bypass doesn't block a session's push." Without this tick the rule doesn't apply to you, so it doesn't apply to Claude working as you either.</li>
     <li><b>Repeat for each live repo</b>Start with the app that has the most real users.</li>
   </ol>
-  <p>Or ask Claude: <em>"Walk me through adding a branch rule on main for this repo that requires a pull request and a passing site check. Give me exact clicks."</em></p>
+  <p>Or ask Claude: <em>"Walk me through adding a branch rule on main for this repo that requires a pull request and a passing site check, with Do not allow bypassing the above settings ticked. Give me exact clicks."</em></p>
 
   <h3>Public repos</h3>
   <p>Anything ever committed to a public repo stays visible in its history, even after you delete the file. Never commit API keys or passwords; they belong in environment variables (Book 5). One exception surprises people: the web "apiKey" that Firebase creates for you is safe in the front end, as long as it is used only for Firebase. Firebase security comes from its rules file, not from hiding that key. Don't stretch the exception to other keys. Firebase's own page says a key for Gemini (Google's AI) must never be in your code: anyone could copy it and spend your money. That one stays on the server, like every other paid key.</p>
+  <p><b>If a key was ever committed.</b> Deleting the file doesn't help, and cleaning the history takes a computer and a risky rewrite. GitHub's page on removing sensitive data says the first step is to revoke or rotate the key. That works from a phone: open the website of the service the key belongs to, delete the key, make a new one, and put the new one in an environment variable (Book 5). Once the old key is dead, it doesn't matter that it is still in the history. The same goes for a key you pasted into a chat.</p>
 
   <div class="call try"><div class="tag">Try it</div>
-    <div class="code prompt"><div class="label"><span>Prompt for any repo</span><button class="copy" type="button">Copy</button></div><pre>Show me the last 10 commits on main in plain English: what each one changed for a user, not for a programmer. Then tell me how I would undo the most recent one if it broke something. Also check the whole history for any committed keys or passwords.</pre></div>
+    <div class="code prompt"><div class="label"><span>Prompt for any repo</span><button class="copy" type="button">Copy</button></div><pre>Show me the last 10 commits on main in plain English: what each one changed for a user, not for a programmer. Then tell me how I would undo the most recent one if it broke something. Also check the whole history for any committed keys or passwords. If you find one, tell me which service it belongs to and the exact steps to delete it there and make a new one.</pre></div>
   </div>
 </section>
 
@@ -852,6 +873,7 @@ How do you want the changes back?
   <div class="code prompt"><div class="label"><span>When a pull request is ready</span><button class="copy" type="button">Copy</button></div><pre>I sent you a pull request on GitHub: "[title]". It adds [feature] and nothing else. There are before and after screenshots in it, and a "try this" list. If you like it, press "Merge pull request". If not, leave a comment and I'll change it.</pre></div>
 
   <h3>What you need on GitHub</h3>
+  <p>Do the clicks in this section on github.com in your phone's browser or on a computer. The GitHub app may not have all of these screens.</p>
   <h4>From you</h4>
   <ul>
     <li><b>A GitHub account and a fork.</b> Open the original repo and press Fork.</li>
@@ -911,7 +933,7 @@ How do you want the changes back?
     <tr><td><b>Cost for small apps</b></td><td>Free</td><td>Free plan for personal projects only; paid for work or business use, and above its limits</td></tr>
     <tr><td><b>Server code</b></td><td>None. Files only.</td><td>Yes: the <code>api/</code> folder</td></tr>
     <tr><td><b>Preview before live</b></td><td>No. Merge equals live.</td><td>A preview link per branch</td></tr>
-    <tr><td><b>Private repo</b></td><td>Needs a paid GitHub plan</td><td>Works on the free tier</td></tr>
+    <tr><td><b>Private repo</b></td><td>Needs a paid GitHub plan</td><td>Works on the free tier only for commits made under your own name. Vercel: "The Hobby Plan does not support collaboration for private repositories." Commits Claude makes in a cloud session can be refused, so keep the repo public or plan on the paid plan.</td></tr>
     <tr><td><b>Secret settings</b></td><td>No</td><td>Environment variables</td></tr>
     <tr><td><b>Not allowed</b></td><td>Running an online business or shop, or (GitHub's words) "sensitive transactions like sending passwords or credit card numbers". A site can be 1 GB, with about 100 GB of traffic a month.</td><td>Work or business use on the free plan. Vercel's terms keep it to "personal or non-commercial use".</td></tr>
     <tr><td><b>Pick it when</b></td><td>The app needs no secrets and no shared data</td><td>The app calls a paid API, sends messages or shares data between users</td></tr>
@@ -930,7 +952,7 @@ How do you want the changes back?
   <p>Environment variables on the host are for keys your <b>app</b> uses. A different case: a paid tool that <b>Claude</b> uses while building, such as a voice or picture generator for Corner Gym's class videos. In a cloud session there are three tempting places for that key, and all three are wrong:</p>
   <div class="tablewrap"><table>
     <tr><th>Tempting place</th><th>Why not</th></tr>
-    <tr><td>Pasted into the chat</td><td>It is now in the conversation for good.</td></tr>
+    <tr><td>Pasted into the chat</td><td>It is now in the conversation for good. If it happened, delete that key on the tool's website and make a new one (Book 3).</td></tr>
     <tr><td>A file in the repo</td><td>In a public repo, everyone can read it, and it stays in the history after you delete it (Book 3).</td></tr>
     <tr><td>An environment variable on the cloud environment</td><td>Anthropic's page: "Anyone who uses the environment can read the values."</td></tr>
   </table></div>
@@ -1508,6 +1530,15 @@ Then tell me plainly: would a reviewer see this as more than a repackaged websit
     <tr><td><code>/usage</code></td><td>Seeing where your usage went (by skill, helper and connector).</td></tr>
     <tr><td><code>/btw</code></td><td>A quick side question that won't clutter the session.</td></tr>
   </table></div>
+  <div class="call"><div class="tag">On your phone</div>
+    <p>The Esc key (pressed once or twice) and the command <code>claude --resume</code> belong to the terminal, and Anthropic's pages don't list <code>/rewind</code>, <code>/btw</code> or <code>/resume</code> among the commands that work from the phone app or the web. Instead:</p>
+    <ul>
+      <li><b>Instead of Esc:</b> send a new message saying what's wrong and what you meant. Claude reads it and changes course.</li>
+      <li><b>Instead of <code>/rewind</code>:</b> on claude.ai/code, use Rewind to here on the message you want to go back to.</li>
+      <li><b>Instead of resume:</b> your cloud sessions stay in the session list. Open the one you want and keep typing.</li>
+      <li><b>Works as is:</b> <code>/clear</code>, <code>/compact</code>, <code>/context all</code> and <code>/usage</code> (on a phone, <code>/usage</code> shows only the session you're in).</li>
+    </ul>
+  </div>
 
   <div class="call try"><div class="tag">Try it</div>
     <p>In your next Claude Code session on any repo, type <code>/context all</code> and read the list under "Memory files". You're looking at what Claude reads before you say a word.</p>
@@ -1562,7 +1593,7 @@ Then tell me plainly: would a reviewer see this as more than a repackaged websit
   </table></div>
 
   <div class="call"><div class="tag">Where hard limits don't reach</div>
-    <p>Hooks and permissions in <code>.claude/settings.json</code> are enforced in the terminal and in a cloud session opened on one repo. In a cloud thread inside a Claude project they are not: Anthropic's settings page says none of the repo's permission rules or hooks apply there. If that is how you work, the lock you can count on is the one GitHub enforces, a branch rule on <code>main</code> (Book 3).</p>
+    <p>Hooks and permissions in <code>.claude/settings.json</code> are enforced in the terminal and in a cloud session opened on one repo. They don't apply in a cloud session that has more than one repo, or in a cloud thread inside a Claude project. A project thread loads even less: Anthropic's projects page says it reads the repo's main CLAUDE.md and rules without <code>paths:</code>, but not path rules, CLAUDE.md files in subfolders, skills, helpers (subagents), MCP servers or plugins. When you need those, start a plain session on one repo. Wherever you work, the lock you can count on is the one GitHub enforces, a branch rule on <code>main</code> with bypassing switched off (Book 3).</p>
   </div>
 
   <h3>Your own documents are not Claude features</h3>
@@ -1580,7 +1611,7 @@ Then tell me plainly: would a reviewer see this as more than a repackaged websit
     <tr><td>A multi-step procedure</td><td>A skill</td><td>Writing a handoff, running the cleanup audit</td></tr>
     <tr><td>Repetitive, noisy work</td><td>A subagent</td><td>Running the full test suite and reporting only failures</td></tr>
     <tr><td>Lives in another system</td><td>A command-line tool or MCP</td><td>GitHub through <code>gh</code>, Playwright</td></tr>
-    <tr><td>Only your personal taste</td><td><code>CLAUDE.local.md</code> (not committed)</td><td>"Use buttons for choices"</td></tr>
+    <tr><td>Only your personal taste</td><td><code>CLAUDE.local.md</code> (not committed) in the terminal. A cloud session starts from a fresh copy of the repo, so that file never reaches it: from a phone, put it in your shared rules file instead (anyone can read it if the repo is public, so taste only, never secrets).</td><td>"Use buttons for choices"</td></tr>
   </table></div>
 
   <div class="call try"><div class="tag">Try it</div>
@@ -1606,9 +1637,9 @@ Then tell me plainly: would a reviewer see this as more than a repackaged websit
   <div class="tablewrap"><table>
     <tr><th>Scope</th><th>Location</th><th>Who it applies to</th></tr>
     <tr><td><b>Organization</b></td><td>Set by an admin (Windows: <code>C:\Program Files\ClaudeCode\CLAUDE.md</code>)</td><td>Everyone in a company</td></tr>
-    <tr><td><b>You, all projects</b></td><td><code>~/.claude/CLAUDE.md</code> (on Windows: <code>C:\Users\&lt;you&gt;\.claude\CLAUDE.md</code>)</td><td>Only you, only on that computer</td></tr>
+    <tr><td><b>You, all projects</b></td><td><code>~/.claude/CLAUDE.md</code> (on Windows: <code>C:\Users\&lt;you&gt;\.claude\CLAUDE.md</code>)</td><td>Only you, only on that computer. Cloud sessions don't see it.</td></tr>
     <tr><td><b>This project</b></td><td><code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code></td><td>Anyone working in the repo, including cloud sessions</td></tr>
-    <tr><td><b>You, this project</b></td><td><code>./CLAUDE.local.md</code> (add it to <code>.gitignore</code>)</td><td>Only you</td></tr>
+    <tr><td><b>You, this project</b></td><td><code>./CLAUDE.local.md</code> (add it to <code>.gitignore</code>)</td><td>Only you, and only on your computer: it isn't committed, so cloud sessions never get it</td></tr>
   </table></div>
 
   <h3>How loading works</h3>
@@ -1634,7 +1665,7 @@ Then tell me plainly: would a reviewer see this as more than a repackaged websit
     <li><b>Generic good practice.</b> "Write clean code" changes nothing.</li>
     <li><b>Long procedures.</b> Those go in a skill, which loads only when needed.</li>
     <li><b>Rules with zero exceptions.</b> Those go in a hook or deny rule.</li>
-    <li><b>Personal preferences.</b> Those go in <code>CLAUDE.local.md</code>.</li>
+    <li><b>Personal preferences.</b> Those go in <code>CLAUDE.local.md</code> if you work in a terminal. If you work from a phone, they go in your shared rules file (Book 13, item B), because a cloud session never sees an uncommitted file. Anthropic's cloud environments page also shows how a setup script on your cloud environment can add personal instructions.</li>
   </ul>
   <div class="call"><div class="tag">Anthropic's two-question test</div>
     <p>Before writing anything down for Claude: (1) Could it find this by reading the code? (2) Would it actually go and look? If both answers are yes, leave it out.</p>
@@ -1664,14 +1695,14 @@ Then tell me plainly: would a reviewer see this as more than a repackaged websit
   <div class="tablewrap"><table>
     <tr><th>Command</th><th>What it does</th></tr>
     <tr><td><code>/init</code></td><td>Writes a first CLAUDE.md from your code. Anthropic: from there the work is mostly removing lines.</td></tr>
-    <tr><td><code>/memory</code></td><td>Lists the places instruction files can live, including ones that don't exist yet, and opens one for editing. To see what actually loaded, type <code>/context all</code>.</td></tr>
+    <tr><td><code>/memory</code></td><td>In the terminal: lists the places instruction files can live and opens one for editing. From a phone, ask Claude to show you the file instead. To see what actually loaded, type <code>/context all</code>, which works on the phone too.</td></tr>
     <tr><td><code>/doctor</code></td><td>Suggests cuts for anything Claude can work out from the code.</td></tr>
     <tr><td><code>/doctor prompt-audit</code></td><td>Flags lines written for older models, lines pointing at files that no longer exist, and lines that contradict each other.</td></tr>
     <tr><td>"add this to CLAUDE.md"</td><td>Just say it. Claude edits the file.</td></tr>
   </table></div>
 
   <div class="call try"><div class="tag">Try it</div>
-    <p>In any repo, run <code>/doctor prompt-audit</code> and read what it flags. Don't accept changes yet. Just learn what it thinks is stale.</p>
+    <p>In any repo, run <code>/doctor prompt-audit</code> and read what it flags. Don't accept changes yet. Just learn what it thinks is stale. If your phone or browser doesn't offer it (the audit runs through a built-in skill that Anthropic's page says isn't available when typed from mobile or web), send the "Monthly CLAUDE.md trim" prompt from the Prompt library (Book 19) instead.</p>
   </div>
 </section>
 
@@ -1757,7 +1788,7 @@ Then tell me plainly: would a reviewer see this as more than a repackaged websit
   <p>At 160 lines, Pocket Pet's file is close. It also carries rules written for its original owner's workflow. In a fork you're changing for someone else, decide whose rules apply and cut the rest.</p>
 
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Rules pile up because each one is added after a mistake, and nobody deletes the old ones. A good habit: <b>every rule you add should replace or delete one.</b> Run <code>/doctor prompt-audit</code> once a month in each active repo. If a line is about a problem that hasn't happened in a month, try deleting it and see if anything breaks.</p>
+    <p>Rules pile up because each one is added after a mistake, and nobody deletes the old ones. A good habit: <b>every rule you add should replace or delete one.</b> Run <code>/doctor prompt-audit</code> (or, from a phone, the "Monthly CLAUDE.md trim" prompt in Book 19) once a month in each active repo. If a line is about a problem that hasn't happened in a month, try deleting it and see if anything breaks.</p>
   </div>
 </section>
 <section class="lesson" id="starter" data-part="3 · CLAUDE.md, Anthropic's way" data-title="Your starter kit" data-min="20">
@@ -1834,8 +1865,8 @@ The repo is public. Shared rules: .claude/rules/general.md.
 - When a session gets heavy, run /handoff.</pre></div>
 
   <h3>C. Hard limits: permissions</h3>
-  <p>Deny rules hold in every mode, including auto. Ask rules make Claude stop and ask you. After adding, type <code>/permissions</code> in a session to confirm they loaded.</p>
-  <p>Two limits to know. A deny rule matches the words of a command, so a push written another way (<code>git -C . push --force</code>) slips past it; Anthropic's permissions page says a rule like this "isn't a security boundary". And in a cloud thread inside a Claude project, this file's rules and the hook in item D don't apply at all. The lock that holds everywhere is a branch rule on <code>main</code>, set in GitHub (Book 3).</p>
+  <p>Deny rules hold in every mode, including auto. Ask rules make Claude stop and ask you. After adding, check they loaded. In the terminal, type <code>/permissions</code>. From a phone or browser, ask Claude to read <code>.claude/settings.json</code> back to you, then ask it to use its Read tool on a file the deny list blocks and check that it is refused.</p>
+  <p>Two limits to know. A deny rule matches the words of a command, so a push written another way (<code>git -C . push --force</code>) slips past it; Anthropic's permissions page says a rule like this "isn't a security boundary". And in a cloud thread inside a Claude project, this file's rules and the hook in item D don't apply at all; neither do the path rule, reviewer and skill in items E, F and G (Book 10 has the full list). The lock that holds everywhere is a branch rule on <code>main</code>, set in GitHub with bypassing switched off (Book 3).</p>
   <div class="code"><div class="label"><span>.claude/settings.json</span><button class="copy" type="button">Copy</button></div><pre>{
   "permissions": {
     "deny": [
@@ -1852,7 +1883,7 @@ The repo is public. Shared rules: .claude/rules/general.md.
 }</pre></div>
 
   <h3>D. A hook that protects a built file (for apps like ExamTown)</h3>
-  <p>A PreToolUse hook runs before Claude edits a file. If the script exits with code 2, the edit is blocked and the message goes back to Claude. Anthropic's tip: you don't have to write hooks yourself; asking "write a hook that blocks edits to X" works, and <code>/hooks</code> shows the result.</p>
+  <p>A PreToolUse hook runs before Claude edits a file. If the script exits with code 2, the edit is blocked and the message goes back to Claude. Anthropic's tip: you don't have to write hooks yourself; asking "write a hook that blocks edits to X" works. To check it, ask Claude to try the blocked edit and show you the refusal (in the terminal, <code>/hooks</code> also lists it).</p>
   <div class="code"><div class="label"><span>.claude/hooks/protect-built.cjs</span><button class="copy" type="button">Copy</button></div><pre>// Blocks direct edits to the built index.html.
 const path = require("path");
 let raw = "";
@@ -1924,7 +1955,7 @@ disable-model-invocation: true
    "Keep going here", with a two-line summary.</pre></div>
 
   <div class="call try"><div class="tag">Try it</div>
-    <p>Pick the repo you'll touch next. Send: <em>"Add the permissions block from my starter kit to .claude/settings.json (I'll paste it below)."</em> and paste item C. When it's done, type <code>/permissions</code> yourself and check your rules are in the list. Claude can't run that command for you.</p>
+    <p>Pick the repo you'll touch next. Send: <em>"Add the permissions block from my starter kit to .claude/settings.json (I'll paste it below)."</em> and paste item C. When it's done, send: <em>"Use your Read tool to open .env, and show me exactly what happens."</em> You should see the read refused by a permission rule. In the terminal you can also type <code>/permissions</code> and see your rules in the list.</p>
   </div>
 </section>
 
@@ -1993,7 +2024,7 @@ Proof: [screenshots at phone width / a "try this" list / test output]</pre></div
   <h3>Hand it over instead of describing it</h3>
   <ul>
     <li><b>Screenshots.</b> Paste the screen that's wrong, or a design you like. A picture removes a paragraph of guessing.</li>
-    <li><b>Files.</b> Type <code>@</code> and a path to include a file's contents.</li>
+    <li><b>Files.</b> Name the file: "look at <code>js/match.js</code>", and Claude opens it. (In the terminal you can also type <code>@</code> and a path.)</li>
     <li><b>Error text.</b> Copy the exact red text. Paraphrased errors lose the clue.</li>
     <li><b>Examples.</b> Anthropic calls examples one of the most reliable ways to steer format and tone. "Write all the guide steps like this one: ..."</li>
   </ul>
@@ -2083,7 +2114,7 @@ Proof: [screenshots at phone width / a "try this" list / test output]</pre></div
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Read the [feature] section of SPEC.md. Plan Phase 1 in plain words: what you'll change, which files, what could break, and how you'll prove it works. List your assumptions separately.</pre></div>
     </li>
     <li><b>Approve or correct the plan</b>Read it. Question anything you don't understand: "Why do we need a new file for that?" Approving switches Claude out of plan mode.</li>
-    <li><b>Build one phase on a branch</b>One phase per pull request. Small commits with plain names. Watch the first minute; press <code>Esc</code> if it heads somewhere you didn't intend.</li>
+    <li><b>Build one phase on a branch</b>One phase per pull request. Small commits with plain names. Watch the first minute; if it heads somewhere you didn't intend, press <code>Esc</code> in the terminal, or on a phone send a message saying what you meant.</li>
     <li><b>Check, with evidence</b>
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Run the site check and tests. Show me the commands you ran and the output. Then screenshots at 390px and desktop, and a 3-line "try this" list for me.</pre></div>
     </li>
@@ -2098,14 +2129,14 @@ Proof: [screenshots at phone width / a "try this" list / test output]</pre></div
   <ul>
     <li><b>Between unrelated tasks.</b> <code>/clear</code> costs nothing; Anthropic notes a focused context gives better answers and costs less.</li>
     <li><b>After two failed corrections.</b> Anthropic's rule of thumb: a third correction mostly adds to a conversation that already contains two failed attempts. <code>/clear</code>, then one new prompt that includes what you learned.</li>
-    <li><b>When work spans days.</b> Run <code>/handoff</code> (your skill), or <code>/rename</code> and resume later.</li>
+    <li><b>When work spans days.</b> Run <code>/handoff</code> (your skill). On a phone, cloud sessions stay in your session list; in the terminal, <code>/rename</code> it and resume later.</li>
   </ul>
 
   <h3>Steering</h3>
   <div class="tablewrap"><table>
     <tr><th>Situation</th><th>Do this</th></tr>
-    <tr><td>It's building the wrong thing</td><td><code>Esc</code>, then say what's wrong and what you meant</td></tr>
-    <tr><td>You want to try a bold version</td><td>Try it, and <code>/rewind</code> if it's worse</td></tr>
+    <tr><td>It's building the wrong thing</td><td><code>Esc</code> in the terminal (on a phone, skip this), then say what's wrong and what you meant</td></tr>
+    <tr><td>You want to try a bold version</td><td>Try it, and go back if it's worse: <code>/rewind</code> in the terminal, Rewind to here on claude.ai/code</td></tr>
     <tr><td>It keeps making the same mistake</td><td><code>/clear</code> and a better first prompt; if it happens across sessions, one line in CLAUDE.md</td></tr>
     <tr><td>It stopped halfway</td><td>Say <code>continue</code></td></tr>
     <tr><td>It's over-building</td><td>"Avoid over-engineering. Only make changes that are directly requested or clearly necessary. Keep solutions simple and focused." (the opening of Anthropic's own sample prompt)</td></tr>
@@ -2302,29 +2333,12 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <h2>Build your next app from zero</h2>
   <p class="lede">A full walk-through using everything in this course. The example is a class schedule and check-in app for Corner Gym members. Swap in any idea; the steps don't change.</p>
   <div class="learn"><b>In this book</b><ul>
-    <li>What to set up before step 1: the two accounts and your first session, from a phone</li>
-    <li>Twelve steps from empty repo to live app</li>
+        <li>Twelve steps from empty repo to live app</li>
     <li>The exact prompt at each step, and what you should see back</li>
     <li>The decisions only you can make</li>
     <li>Putting it online, on a phone's Home Screen, and giving it a backup</li>
   </ul></div>
-
-  <h3>Before step 1: accounts and a first session</h3>
-  <p>The twelve steps assume three things are already in place. None needs a computer; a phone is enough.</p>
-  <ol class="steps">
-    <li><b>A GitHub account</b>GitHub is where the app's files live. Go to <code>github.com/signup</code>, follow the prompts, and verify your email address when GitHub asks; an account without a verified email can't do much. The free plan is enough for everything in this library.</li>
-    <li><b>A Claude plan that includes Claude Code</b>Anthropic's quickstart lists cloud sessions on the Pro, Max, Ultra and Team plans (and some Enterprise seats). This is the part that costs money every month. Check the current price before you sign up.</li>
-    <li><b>Connect the two</b>Open <code>claude.ai/code</code> and sign in. It asks you to connect GitHub; approve the request and GitHub sends you back. With that, a session can copy any public repo. To work in a <b>private</b> repo, the Claude GitHub App must also be installed on your GitHub account. The connect screen offers it.</li>
-    <li><b>Start a session from your phone</b>In the Claude app, open the <b>Code</b> tab. Tap the repository selector under the box you type in and pick your repo. Type what you want in plain words and send it. Claude works on its own branch and pushes it for you to review.</li>
-  </ol>
-  <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Connecting GitHub gives Claude the power to change your repos. That is the point, and it is also why Book 3's branch rule on <code>main</code> matters: it is the one lock Claude can't talk its way past. To take the access back, remove the Claude app in GitHub under Settings, then Applications.</p>
-  </div>
-  <div class="call try"><div class="tag">Try it</div>
-    <p>No repo yet? Do step 2 below first (a new public repo with a README), then send this as your first session:</p>
-    <div class="code prompt"><div class="label"><span>First session</span><button class="copy" type="button">Copy</button></div><pre>Read this repo and tell me, in plain words, what is in it. Change nothing.</pre></div>
-    <p><b>You should see:</b> a short description and no new branch. If your repo isn't in the list, the GitHub connection didn't finish; open <code>claude.ai/code</code> in a browser and connect again.</p>
-  </div>
+  <p>The steps assume you already have a GitHub account, a Claude plan and a first session working. If not, the last page of Start here, "Before your first session", sets them up from a phone.</p>
 
   <h3>The twelve steps</h3>
   <ol class="steps">
@@ -2350,7 +2364,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li><b>Build Phase 1 in plan mode</b><code>/clear</code>, plan mode, then the Book 16 plan prompt. Read the plan. Approve.</li>
     <li><b>Check, review, approve</b>Evidence, reviewer, pull request, your approval. Exactly Book 16, steps 6 to 8.</li>
     <li><b>Show a real user before Phase 2</b>Send the coach the link. Write down what they say, in their words. Feed it to Claude as context for Phase 2: "The coach said: '...'. Update SPEC.md, then plan Phase 2."</li>
-    <li><b>Keep the files honest</b>After each phase: phase checked off in SPEC.md; one CLAUDE.md line only for repeated mistakes; <code>/doctor prompt-audit</code> once a month.</li>
+    <li><b>Keep the files honest</b>After each phase: phase checked off in SPEC.md; one CLAUDE.md line only for repeated mistakes; <code>/doctor prompt-audit</code> or the Book 19 "Monthly CLAUDE.md trim" prompt once a month.</li>
   </ol>
 
   <div class="call straight"><div class="tag">Straight talk</div>
@@ -2360,7 +2374,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <h3>Put it online with GitHub Pages</h3>
   <p>If the app is plain files (HTML, CSS, JavaScript) with no server code of its own, GitHub can host it for free. You turn it on once, by hand, in the repo's settings. Claude can't press these buttons for you.</p>
   <ol class="steps">
-    <li><b>Open the setting</b>In the repo on GitHub: <b>Settings</b>, then <b>Pages</b> in the side list.</li>
+    <li><b>Open the setting</b>In the repo on github.com (your phone's browser works): <b>Settings</b>, then <b>Pages</b> in the side list.</li>
     <li><b>Pick the source</b>Under "Build and deployment", set Source to <b>Deploy from a branch</b>. Choose the branch <code>main</code> and the folder <code>/ (root)</code>. Press <b>Save</b>.</li>
     <li><b>Find the link</b>Come back to the same screen after a few minutes and press <b>Visit site</b>. The address has this shape: <code>https://your-name.github.io/your-repo/</code>. That is the link you send people.</li>
     <li><b>Know the delay</b>GitHub says a change can take up to 10 minutes to show after it reaches <code>main</code>. If the old version is still there, wait before asking Claude to "fix" it.</li>
@@ -2428,18 +2442,24 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li><a href="https://code.claude.com/docs/en/hooks-guide">Hooks guide</a>, <a href="https://code.claude.com/docs/en/skills">Skills</a>, <a href="https://code.claude.com/docs/en/sub-agents">Subagents</a>, <a href="https://code.claude.com/docs/en/permissions">Permissions</a>: details behind the Starter kit. The permissions page also says what a deny rule doesn't catch.</li>
     <li><a href="https://code.claude.com/docs/en/permission-modes">Permission modes</a>: auto, plan and manual, the terminal keys, and the menu a cloud session uses instead.</li>
     <li><a href="https://code.claude.com/docs/en/claude-code-on-the-web">Claude Code on the web</a> and its <a href="https://code.claude.com/docs/en/web-quickstart">quickstart</a>: what a cloud session is, and how to start one from a browser or a phone.</li>
-    <li><a href="https://code.claude.com/docs/en/cloud-environments">Cloud environments</a>: network access, and network secrets for keys a session uses without seeing them.</li>
+    <li><a href="https://code.claude.com/docs/en/cloud-environments">Cloud environments</a>: network access, network secrets for keys a session uses without seeing them, what carries over from your own setup (not CLAUDE.local.md or your home folder), and adding personal instructions with a setup script.</li>
     <li><a href="https://code.claude.com/docs/en/settings#settings-in-cloud-sessions">Settings in cloud sessions</a>: which of a repo's settings reach a cloud session, and where permission rules and hooks don't apply.</li>
+    <li><a href="https://code.claude.com/docs/en/claude-projects">Claude projects</a>: what a thread inside a project picks up from your repositories, and what it leaves out.</li>
+    <li><a href="https://code.claude.com/docs/en/security">Security</a>: how GitHub's branch rules apply to a cloud session's pushes, and that "a rule that access can bypass doesn't block a session's push."</li>
+    <li><a href="https://code.claude.com/docs/en/remote-control">Remote Control</a> and <a href="https://code.claude.com/docs/en/mobile">Claude Code on mobile</a>: which commands work from the phone app and the web, and which don't.</li>
   </ul>
   <h3>GitHub and hosting documentation</h3>
   <ul>
     <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">Creating a pull request from a fork</a>: compare across forks, allow edits from maintainers, who can open one.</li>
     <li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">Syncing a fork</a>: the Sync fork button and what happens on conflicts.</li>
     <li><a href="https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github">Creating an account on GitHub</a>: signing up and verifying your email.</li>
+    <li><a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule">Managing a branch protection rule</a> and <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches">About protected branches</a>: the clicks for a rule on main, and that admins skip it unless Do not allow bypassing the above settings is ticked.</li>
+    <li><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository">Removing sensitive data from a repository</a>: revoke or rotate a leaked key first.</li>
     <li><a href="https://docs.github.com/en/apps/using-github-apps/reviewing-and-modifying-installed-github-apps">Reviewing and modifying installed GitHub Apps</a>: where to see, limit or remove an app's access to your repos.</li>
     <li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">Configuring a publishing source</a> and <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">Creating a GitHub Pages site</a>: the "Deploy from a branch" steps, Visit site, and the wait of up to 10 minutes.</li>
     <li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits">GitHub Pages limits</a>: what Pages may not be used for, and its size and traffic limits.</li>
     <li><a href="https://vercel.com/legal/terms">Vercel, Terms of Service</a>: the line that keeps the free (Hobby) plan to personal or non-commercial use.</li>
+    <li><a href="https://vercel.com/docs/deployments/troubleshoot-project-collaboration">Vercel, Troubleshooting project collaboration</a>: on the free plan, a private repo deploys only commits made by the account's owner.</li>
     <li><a href="https://firebase.google.com/docs/projects/api-keys">Firebase, API keys</a>: why the Firebase web key can be public, and why a Gemini key never can.</li>
     <li><a href="https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/">WebKit, the seven-day cap on saved data</a> (March 2020): the makers of Safari on when a site's saved data is erased, and that Home Screen apps are counted separately.</li>
     <li><a href="https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/">WebKit, web apps on iPhone</a> (February 2023) and <a href="https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid">Google, Use web apps</a>: the Home Screen steps on iPhone and on Android.</li>
