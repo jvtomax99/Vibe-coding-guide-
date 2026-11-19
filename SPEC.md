@@ -207,7 +207,7 @@ apps (told through the made-up ones).
   (cross-site scripting; today one word, "escaped", in the Prompt library). Prompt
   injection in apps that send users' text to the Claude API, and showing model output as
   HTML (OWASP Top 10 for LLM apps lists it first). Two-factor sign-in on GitHub, Google,
-  Vercel and Anthropic. What to do when a key leaks: revoke and replace first. GitHub
+  Vercel and Anthropic. (What to do when a key leaks is done: Books 3 and 5, PR #22.) GitHub
   secret scanning and push protection. Code from strangers: CDN scripts, pinned versions,
   made-up package names.
 - **Claude Code as a risk.** Third-party MCP servers, skills and plugins run with your
@@ -225,7 +225,7 @@ apps (told through the made-up ones).
 - **Smaller.** An accessibility check to run, a performance measure, a one-page payments
   decision (hosted checkout, never touch card numbers), custom domains.
 - **Reading order.** Books 6 to 8 (about 10,000 words) come before How Claude Code works,
-  and "Before step 1" is in the last book. A beginner path: Start here, a first tiny
+  and "Before step 1" was in the last book (moved to Start here in PR #22). A beginner path: Start here, a first tiny
   build, How Claude Code works, Checks you can trust, then the rest when needed.
 
 ## Phases
