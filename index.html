@@ -2186,7 +2186,7 @@ Don't change any test to get these results. If a step doesn't go the way I descr
   <p>Anthropic's prompting guide has this exact rule in its own example: "It is unacceptable to remove or edit tests because this could lead to missing or buggy functionality." Written your way, with the reason:</p>
   <div class="code prompt"><div class="label"><span>CLAUDE.md line</span><button class="copy" type="button">Copy</button></div><pre>- Never edit, skip or delete an existing test to make it pass. If a test looks wrong, stop and tell me why: a changed test can hide the bug it was written to catch.</pre></div>
   <h4>Enforced: GitHub flags it</h4>
-  <p>A line in CLAUDE.md is followed almost always. For the checks themselves, add something GitHub runs on every pull request: a small job that warns whenever an existing test, or the check itself, is changed or removed. GitHub's page on these warnings says the message "will create an annotation", a note attached to the pull request's checks. It doesn't block the merge. It makes sure you see it before you approve.</p>
+  <p>A line in CLAUDE.md is followed almost always. For the checks themselves, add something GitHub runs on every pull request: a small job that warns whenever an existing test, or the check itself, is changed or removed. GitHub's page on these warnings says the message "will create an annotation", a note on the check's run. It doesn't block the merge. The prompt below has Claude show you where it appears, so you know where to look before you approve.</p>
   <div class="code prompt"><div class="label"><span>Flag changed tests</span><button class="copy" type="button">Copy</button></div><pre>Add a GitHub Actions job that runs on every pull request. If the pull request changes or deletes any existing file in tests/ or .github/ (new test files are fine), it prints a GitHub warning naming each file, saying "A check was changed. Read why before approving." It must not fail the pull request. Then open a small test pull request that changes one test, show me where the warning appears, and close it without merging.</pre></div>
   <div class="call straight"><div class="tag">The risky shortcut: "the test was wrong, so I fixed it"</div>
     <p>Sometimes a test really is wrong. When Claude says so, it is tempting to approve and move on.</p>
@@ -2214,7 +2214,7 @@ Report only problems that would affect a user. Skip style.</pre></div>
   <div class="call try"><div class="tag">Try it</div>
     <p>Pick the last bug Claude fixed in one of your apps. Send the "Break it on purpose" prompt for it. If the test doesn't fail with the fix undone, you have just found a check that was never protecting you.</p>
   </div>
-  <p><em>Checked in November 2026 against Anthropic's best-practices page for Claude Code, its prompting best practices, its commands reference, Google's "What to look for in a code review", GitHub's pages on reviewing pull requests and on workflow commands, and Stryker's introduction to mutation testing.</em></p>
+  <p><em>Checked in November 2026 against Anthropic's best-practices page for Claude Code, its prompting best practices, Google's "What to look for in a code review", GitHub's pages on reviewing pull requests and on workflow commands, and Stryker's introduction to mutation testing.</em></p>
 </section>
 
 <section class="lesson" id="debug" data-part="4 · Talking to Claude" data-title="Debugging with Claude" data-min="15">
