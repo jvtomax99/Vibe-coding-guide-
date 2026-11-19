@@ -201,6 +201,33 @@ apps (told through the made-up ones).
 - The two YouTube links in Sources ("Going further") were never opened by a person; a
   robot can't check them. Jose taps both, and any dead one is replaced or removed.
 
+### Gaps found in the 2026-11-19 review (Book 17 came from the first one)
+
+- **Security beyond keys and rules.** What users type and the app shows to others
+  (cross-site scripting; today one word, "escaped", in the Prompt library). Prompt
+  injection in apps that send users' text to the Claude API, and showing model output as
+  HTML (OWASP Top 10 for LLM apps lists it first). Two-factor sign-in on GitHub, Google,
+  Vercel and Anthropic. What to do when a key leaks: revoke and replace first. GitHub
+  secret scanning and push protection. Code from strangers: CDN scripts, pinned versions,
+  made-up package names.
+- **Claude Code as a risk.** Third-party MCP servers, skills and plugins run with your
+  access; pages and files Claude reads can carry instructions.
+- **Life after launch.** Knowing it broke (logs kept one hour on Vercel's free plan),
+  users reporting bugs with the version number, backing up and restoring the shared
+  database (check whether Firestore's managed backups need the paid plan), keeping
+  libraries current, and handing an app over (TeamDesk has one non-developer behind it).
+- **Other people's data, at work.** A plain privacy note, deleting data on request,
+  collecting less. For coworkers: whether the employer allows a work tool on a personal
+  Firebase project that sends colleagues' messages to an outside AI service.
+- **Debugging is thin (about 340 words).** Revert first when live breaks, find which
+  change broke it, tell a code bug from a settings bug Claude can't see, what to do when
+  Claude goes in circles.
+- **Smaller.** An accessibility check to run, a performance measure, a one-page payments
+  decision (hosted checkout, never touch card numbers), custom domains.
+- **Reading order.** Books 6 to 8 (about 10,000 words) come before How Claude Code works,
+  and "Before step 1" is in the last book. A beginner path: Start here, a first tiny
+  build, How Claude Code works, Checks you can trust, then the rest when needed.
+
 ## Phases
 
 - [x] **Phase 0. Project setup.** CLAUDE.md, shared rules, docs, helpers, site check
