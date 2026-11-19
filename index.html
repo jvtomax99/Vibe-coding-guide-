@@ -605,7 +605,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
     <li><b>Start a session from your phone</b>In the Claude app, open the <b>Code</b> tab. Tap the repository selector under the box you type in and pick your repo. Type what you want in plain words and send it. Claude works on its own branch and pushes it for you to review.</li>
   </ol>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Connecting GitHub gives Claude the power to change your repos. That is the point, and it is also why Book 3's branch rule on <code>main</code> matters: with bypassing switched off, it is the one lock Claude can't talk its way past. To take the access back, remove the Claude app in GitHub under Settings, then Applications.</p>
+    <p>Connecting GitHub gives Claude the power to change your repos. That is the point, and it is also why Book 3's branch rule on <code>main</code> matters (a setting on GitHub that stops changes reaching the live copy without a pull request): with bypassing switched off, it is the one lock Claude can't talk its way past. To take the access back, remove the Claude app in GitHub under Settings, then Applications.</p>
   </div>
   <div class="call try"><div class="tag">Try it</div>
     <p>No repo yet? Make a practice one: on github.com, press New repository, name it <code>practice</code>, choose Public, tick Add a README, and press Create repository. Then send this as your first session:</p>
@@ -786,7 +786,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   <ol class="steps">
     <li><b>Open the repo's settings</b>On github.com in your phone's browser or a computer: your repo, then Settings, then Branches, then Add classic branch protection rule. Type <code>main</code> under Branch name pattern.</li>
     <li><b>Require a pull request and your check</b>Tick Require a pull request before merging. Tick Require status checks to pass before merging, then search for your check (for example "Site check") and pick it. Leave Require approvals off: once the next step is done, an approval would have to come from someone other than you.</li>
-    <li><b>Close the owner's way around it</b>Tick Do not allow bypassing the above settings, then press Create. This is the step people miss. GitHub's page: "By default, the restrictions of a branch protection rule don't apply to people with admin permissions", and you are the admin of your own repo. Claude in a cloud session pushes with the GitHub access you connected, and Anthropic's page says "a rule that access can bypass doesn't block a session's push." Without this tick the rule stops nobody, Claude included.</li>
+    <li><b>Close the owner's way around it</b>Tick Do not allow bypassing the above settings, then press Create. This is the step people miss. GitHub's page: "By default, the restrictions of a branch protection rule don't apply to people with admin permissions", and you are the admin of your own repo. Claude in a cloud session pushes with the GitHub access you connected, and Anthropic's page says "a rule that access can bypass doesn't block a session's push." Without this tick the rule doesn't apply to you, so it doesn't apply to Claude working as you either.</li>
     <li><b>Repeat for each live repo</b>Start with the app that has the most real users.</li>
   </ol>
   <p>Or ask Claude: <em>"Walk me through adding a branch rule on main for this repo that requires a pull request and a passing site check, with Do not allow bypassing the above settings ticked. Give me exact clicks."</em></p>
@@ -873,6 +873,7 @@ How do you want the changes back?
   <div class="code prompt"><div class="label"><span>When a pull request is ready</span><button class="copy" type="button">Copy</button></div><pre>I sent you a pull request on GitHub: "[title]". It adds [feature] and nothing else. There are before and after screenshots in it, and a "try this" list. If you like it, press "Merge pull request". If not, leave a comment and I'll change it.</pre></div>
 
   <h3>What you need on GitHub</h3>
+  <p>Do the clicks in this section on github.com in your phone's browser or on a computer. The GitHub app may not have all of these screens.</p>
   <h4>From you</h4>
   <ul>
     <li><b>A GitHub account and a fork.</b> Open the original repo and press Fork.</li>
@@ -1530,7 +1531,7 @@ Then tell me plainly: would a reviewer see this as more than a repackaged websit
     <tr><td><code>/btw</code></td><td>A quick side question that won't clutter the session.</td></tr>
   </table></div>
   <div class="call"><div class="tag">On your phone</div>
-    <p>Esc, Esc Esc and <code>claude --resume</code> belong to the terminal, and Anthropic's pages don't list <code>/rewind</code>, <code>/btw</code> or <code>/resume</code> among the commands that work from the phone app or the web. Instead:</p>
+    <p>The Esc key (pressed once or twice) and the command <code>claude --resume</code> belong to the terminal, and Anthropic's pages don't list <code>/rewind</code>, <code>/btw</code> or <code>/resume</code> among the commands that work from the phone app or the web. Instead:</p>
     <ul>
       <li><b>Instead of Esc:</b> send a new message saying what's wrong and what you meant. Claude reads it and changes course.</li>
       <li><b>Instead of <code>/rewind</code>:</b> on claude.ai/code, use Rewind to here on the message you want to go back to.</li>
@@ -1610,7 +1611,7 @@ Then tell me plainly: would a reviewer see this as more than a repackaged websit
     <tr><td>A multi-step procedure</td><td>A skill</td><td>Writing a handoff, running the cleanup audit</td></tr>
     <tr><td>Repetitive, noisy work</td><td>A subagent</td><td>Running the full test suite and reporting only failures</td></tr>
     <tr><td>Lives in another system</td><td>A command-line tool or MCP</td><td>GitHub through <code>gh</code>, Playwright</td></tr>
-    <tr><td>Only your personal taste</td><td><code>CLAUDE.local.md</code> (not committed) in the terminal. A cloud session starts from a fresh copy of the repo, so that file never reaches it: from a phone, put it in your shared rules file instead.</td><td>"Use buttons for choices"</td></tr>
+    <tr><td>Only your personal taste</td><td><code>CLAUDE.local.md</code> (not committed) in the terminal. A cloud session starts from a fresh copy of the repo, so that file never reaches it: from a phone, put it in your shared rules file instead (anyone can read it if the repo is public, so taste only, never secrets).</td><td>"Use buttons for choices"</td></tr>
   </table></div>
 
   <div class="call try"><div class="tag">Try it</div>
@@ -1954,7 +1955,7 @@ disable-model-invocation: true
    "Keep going here", with a two-line summary.</pre></div>
 
   <div class="call try"><div class="tag">Try it</div>
-    <p>Pick the repo you'll touch next. Send: <em>"Add the permissions block from my starter kit to .claude/settings.json (I'll paste it below)."</em> and paste item C. When it's done, send: <em>"Use your Read tool to open .env, and show me exactly what happens."</em> You should see the read refused by a permission rule, even if the repo has no .env. In the terminal you can also type <code>/permissions</code> and see your rules in the list.</p>
+    <p>Pick the repo you'll touch next. Send: <em>"Add the permissions block from my starter kit to .claude/settings.json (I'll paste it below)."</em> and paste item C. When it's done, send: <em>"Use your Read tool to open .env, and show me exactly what happens."</em> You should see the read refused by a permission rule. In the terminal you can also type <code>/permissions</code> and see your rules in the list.</p>
   </div>
 </section>
 
@@ -2264,7 +2265,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <h3>Put it online with GitHub Pages</h3>
   <p>If the app is plain files (HTML, CSS, JavaScript) with no server code of its own, GitHub can host it for free. You turn it on once, by hand, in the repo's settings. Claude can't press these buttons for you.</p>
   <ol class="steps">
-    <li><b>Open the setting</b>In the repo on GitHub: <b>Settings</b>, then <b>Pages</b> in the side list.</li>
+    <li><b>Open the setting</b>In the repo on github.com (your phone's browser works): <b>Settings</b>, then <b>Pages</b> in the side list.</li>
     <li><b>Pick the source</b>Under "Build and deployment", set Source to <b>Deploy from a branch</b>. Choose the branch <code>main</code> and the folder <code>/ (root)</code>. Press <b>Save</b>.</li>
     <li><b>Find the link</b>Come back to the same screen after a few minutes and press <b>Visit site</b>. The address has this shape: <code>https://your-name.github.io/your-repo/</code>. That is the link you send people.</li>
     <li><b>Know the delay</b>GitHub says a change can take up to 10 minutes to show after it reaches <code>main</code>. If the old version is still there, wait before asking Claude to "fix" it.</li>
