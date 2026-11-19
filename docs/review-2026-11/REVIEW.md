@@ -1,6 +1,7 @@
 # Whole-site review, November 2026
 
 Done 2026-11-19 on `main` at 7cc5f17. Report only: nothing on the site was changed.
+Book numbers below are as of that commit. Book 17, "Checks you can trust", was added to main the same day, so the old Books 17 to 20 are now 18 to 21.
 Readers assumed: friends and coworkers who use Claude only from a phone or browser (no terminal), and nobody besides Jose has read the books yet.
 
 How it was checked:
