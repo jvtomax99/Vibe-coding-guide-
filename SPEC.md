@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 21 short books on glass shelves
-(about six and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 22 short books on glass shelves
+(about seven hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 21 books on shelves, grouped in five parts (How your apps
+1. **The library.** All 22 books on shelves, grouped in five parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Practice) plus
    Start here and the reference books.
    - Done when: every book opens from its spine on a phone and on a desktop.
@@ -60,9 +60,9 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 19 questions, three of them on each of
-   Books 6, 7 and 8 (added 2026-11-15), so the quiz now covers those three books.
-   Each of those nine right answers is what the book itself says.
+5. **Check yourself.** A quiz with a score: 22 questions, three of them on each of
+   Books 6, 7 and 8 (added 2026-11-15) and three on Book 17 (added 2026-11-19).
+   Each of those twelve right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -164,6 +164,25 @@ apps (told through the made-up ones).
      a page reaches past the paper's edge at 140% (wide tables scroll inside their own
      box, as at 100%), the reader stays on the same paragraph, and the size survives a
      reload and "Return all books".
+
+14. **Book 17, "Checks you can trust".** Added 2026-11-19 (Jose's OK on the plan the
+   same day), after a gap review found the library tells readers to insist on checks but
+   never how to tell a real check from a fake one. Six sections: why "all tests pass"
+   proves little (four ways a check lies), break it on purpose, what your checks should
+   cover, reading a pull request without reading code, a lock on the checks (a CLAUDE.md
+   line and a GitHub warning when tests change), and a second opinion. Placed after The
+   workflow, so Debugging, Prompt library and Build from zero became Books 18 to 20.
+   - Compared: Google's "What to look for in a code review" (asks whether tests would
+     fail when the code is broken, but assumes reading every line), GitHub's review docs
+     and GitHub Skills course (the buttons, not judging), Stryker's mutation testing intro
+     (for developers with a tool). Where this one differs: moves that need no code
+     reading, a red-flag list read off the Files changed screen, and a lock GitHub runs.
+   - Not in it: writing or reading tests, test tools, coverage numbers, CODEOWNERS (a
+     solo owner can't approve their own pull request), setting up CI (Book 20 does).
+   - Done when: the book opens from its spine as Book 17 at 390px and desktop, all six
+     sections are reachable from its Contents, every Anthropic and GitHub claim matches a
+     page in Sources, every "Book N" elsewhere points at the right book, and the quiz has
+     22 questions.
 
 ## Not in v1
 
