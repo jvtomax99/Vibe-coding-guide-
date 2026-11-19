@@ -44,7 +44,7 @@ The paper page (light, then dark; the phone's setting picks):
 | Variable | Light | Dark | Used for |
 |---|---|---|---|
 | `--paper` | #F8F5EE | #121827 | The page |
-| `--ink` / `--muted` | #141824 / #666C7A | #E7EDF8 / #98A3B8 | Text, quieter text |
+| `--ink` / `--muted` | #141824 / #606674 | #E7EDF8 / #98A3B8 | Text, quieter text |
 | `--line` | #DDD6C8 | #273149 | Rules and borders |
 | `--soft` / `--ink-soft` | #EFEBE1 / #ECE7DC | #182036 / #1C2540 | Soft filled panels, inline code |
 | `--accent` / `--accent-soft` | #0F6C86 / #E0EEF1 | #7FE3FF / #12303B | Links, section labels, main buttons on the page |

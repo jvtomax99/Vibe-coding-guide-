@@ -23,7 +23,7 @@
 :root{
   --void:#05070F; --hull:#0A0F1E; --panel:#0E1629; --holo:#7FE3FF; --holo-rgb:127,227,255; --sgold:#E8C88A; --sgold-lo:#C9A25B;
   --stext:#EAF2FF; --sdim:rgba(200,220,255,.74);
-  --paper:#F8F5EE; --ink:#141824; --muted:#666C7A; --line:#DDD6C8; --soft:#EFEBE1; --ink-soft:#ECE7DC;
+  --paper:#F8F5EE; --ink:#141824; --muted:#606674; --line:#DDD6C8; --soft:#EFEBE1; --ink-soft:#ECE7DC;
   --accent:#0F6C86; --accent-soft:#E0EEF1; --accent-2:#775A20; --accent-2-soft:#F3EAD6; --gold:#C9A25B;
   --code-bg:#0B1020; --code-ink:#DCE8F7;
   --display:"Bodoni Moda","Bodoni 72","Didot",Georgia,serif;
@@ -93,7 +93,7 @@ a{color:var(--accent);text-underline-offset:3px}
 .open{display:inline-block;font:600 15px/1 var(--body);color:var(--void);background:linear-gradient(#F0D9A3, var(--sgold) 50%, var(--sgold-lo));border-radius:4px;padding:13px 18px;box-shadow:0 0 0 1px rgba(255,255,255,.2) inset, 0 0 22px rgba(232,200,138,.25)}
 .lib-intro{color:var(--muted);font-size:14.5px;line-height:1.5;margin:18px 2px 0}
 .card-lib .stamp{font-size:12px;color:var(--muted);margin:10px 2px 0;line-height:1.45}
-.card-lib .stamp button{font:inherit;color:var(--muted);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+.card-lib .stamp button{font:inherit;color:var(--muted);background:none;border:0;display:inline-block;padding:14px 4px;margin:-14px -4px;text-decoration:underline;cursor:pointer}
 @media (min-width:1000px){
   .lib-body{grid-template-columns:330px 1fr;gap:46px;align-items:start;padding-top:22px}
   .card-lib{position:sticky;top:20px}
@@ -231,19 +231,19 @@ a{color:var(--accent);text-underline-offset:3px}
 .reader::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(1px 1px at 12% 18%, #fff8, transparent), radial-gradient(1px 1px at 72% 9%, #fff7, transparent), radial-gradient(1px 1px at 88% 31%, #fff5, transparent),
     radial-gradient(1px 1px at 33% 6%, #fff6, transparent), radial-gradient(1.5px 1.5px at 55% 22%, #bfeaff88, transparent), radial-gradient(1px 1px at 6% 62%, #fff4, transparent), radial-gradient(1px 1px at 95% 70%, #fff4, transparent)}
-.readbar{position:relative;flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px 4px}
-.readbar a,.readbar button{font:600 10.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--sdim);background:none;border:0;text-decoration:none;cursor:pointer;padding:12px 4px;white-space:nowrap}
+.readbar{position:relative;flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 14px 2px}
+.readbar a,.readbar button{font:600 10.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--sdim);background:none;border:0;text-decoration:none;cursor:pointer;padding:0 4px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
 .readbar a:hover{color:var(--stext)}
-.readbar button{color:var(--holo);border:1px solid rgba(var(--holo-rgb),.4);border-radius:4px;padding:9px 10px}
+.readbar button{color:var(--holo);border:1px solid rgba(var(--holo-rgb),.4);border-radius:4px;padding:0 12px}
 .readbar button:hover{background:rgba(var(--holo-rgb),.14)}
 /* Text size: an Aa button beside Contents; the chosen size scales everything on the paper page */
 .rb-r{display:flex;align-items:center;gap:10px}
 .tsz{position:relative}
-.readbar #tszBtn{font:500 16px/1 var(--display);letter-spacing:0;text-transform:none;padding:7px 11px 8px}
+.readbar #tszBtn{font:500 16px/1 var(--display);letter-spacing:0;text-transform:none;padding:0 12px 1px;min-width:44px}
 .readbar #tszBtn[aria-expanded="true"]{background:rgba(var(--holo-rgb),.14);color:var(--stext)}
 .tsz-p{position:absolute;z-index:6;top:calc(100% + 8px);right:0;display:flex;align-items:center;gap:6px;padding:8px;background:var(--panel);border:1px solid rgba(var(--holo-rgb),.4);border-radius:6px;box-shadow:0 14px 30px rgba(0,0,0,.6)}
 .tsz-p[hidden]{display:none}
-.readbar .tsz-p button{width:46px;height:42px;padding:0 0 2px;font-family:var(--display);font-weight:500;letter-spacing:0;text-transform:none;display:grid;place-items:center}
+.readbar .tsz-p button{width:46px;height:44px;padding:0 0 2px;font-family:var(--display);font-weight:500;letter-spacing:0;text-transform:none;display:grid;place-items:center}
 .readbar .tsz-p button:disabled{opacity:.3;cursor:default;background:none}
 .tsz-p .s{font-size:14px}
 .tsz-p .l{font-size:23px}
@@ -277,7 +277,7 @@ a{color:var(--accent);text-underline-offset:3px}
   background:var(--panel);border:1px solid rgba(var(--holo-rgb),.35);border-bottom:0;border-radius:16px 16px 0 0;
   box-shadow:0 -2px 0 rgba(var(--holo-rgb),.2), 0 -24px 60px rgba(0,0,0,.6);animation:tocup .28s cubic-bezier(.2,.75,.2,1) both}
 .reader.toc-open .rail::before{content:"";display:block;width:40px;height:4px;border-radius:99px;background:rgba(var(--holo-rgb),.35);margin:0 auto 14px}
-.reader.toc-open .rail-x{display:block;position:sticky;z-index:1;top:0;float:right;margin-left:12px;font:600 10.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--holo);background:var(--panel);border:1px solid rgba(var(--holo-rgb),.4);border-radius:4px;padding:9px 10px;cursor:pointer}
+.reader.toc-open .rail-x{display:block;position:sticky;z-index:1;top:0;float:right;margin-left:12px;font:600 10.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--holo);background:var(--panel);border:1px solid rgba(var(--holo-rgb),.4);border-radius:4px;padding:0 12px;min-height:44px;cursor:pointer}
 .reader.toc-open .rail .toc button{padding:11px 0}
 .reader.toc-open .rail .toc .ct{font-size:18px}
 @keyframes tocup{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
@@ -339,12 +339,14 @@ code{font-family:var(--mono);font-size:.82em;background:var(--ink-soft);padding:
 .call.try{background:var(--accent-2-soft);border-left-color:var(--accent-2)} .call.try .tag{color:var(--accent-2)}
 /* Code and prompts */
 .code{position:relative;margin:18px 0 22px}
-.code .label{font-size:12.5px;font-weight:600;color:#D8C8B4;background:var(--code-bg);border-radius:6px 6px 0 0;padding:8px 10px 8px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.code .label{font-size:12.5px;font-weight:600;color:#D8C8B4;background:var(--code-bg);border-radius:6px 6px 0 0;padding:4px 6px 4px 14px;min-height:max(44px, calc(44px / var(--tz,1)));display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
 .code pre{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:0 0 6px 6px;padding:14px 18px 16px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.6;white-space:pre}
+/* A long title wraps at any character, so the Copy button always stays inside the box */
+.code .label>span{min-width:0;overflow-wrap:anywhere}
 .code.prompt .label{background:transparent;color:var(--muted);padding:0 0 6px;border:0;letter-spacing:.14em;text-transform:uppercase;font-size:11.5px}
 .code.prompt pre{white-space:pre-wrap;font-family:var(--body);font-size:16px;line-height:1.55;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:4px;
   background-image:repeating-linear-gradient(transparent 0 24.4px, color-mix(in srgb, var(--accent) 7%, transparent) 24.4px 25.4px);background-position:0 15px}
-.copy{font:600 12.5px/1 var(--body);border:1px solid rgba(201,162,91,.6);background:transparent;color:var(--gold);border-radius:4px;padding:6px 10px;cursor:pointer;letter-spacing:0;text-transform:none}
+.copy{flex:none;min-height:max(44px, calc(44px / var(--tz,1)));min-width:max(64px, calc(64px / var(--tz,1)));font:600 12.5px/1 var(--body);border:1px solid rgba(201,162,91,.6);background:transparent;color:var(--gold);border-radius:4px;padding:6px 12px;cursor:pointer;letter-spacing:0;text-transform:none}
 .code.prompt .copy{color:var(--accent);border-color:var(--line);background:var(--paper)}
 .copy:hover{border-color:var(--accent)}
 /* Tables */
@@ -353,6 +355,19 @@ table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.45}
 th,td{text-align:left;vertical-align:top;padding:11px 12px;border-bottom:1px solid var(--line)}
 th{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}
 tr:last-child td{border-bottom:0}
+/* Phones: a table with three or more columns shows each row as a card. The first column is the card's heading,
+   the others are labeled lines (the script copies each column's header onto its cells as data-label). */
+@media (max-width: 600px){
+  .tablewrap.stack{overflow:visible;border:0}
+  .stack table,.stack tbody,.stack tr,.stack td{display:block;width:auto}
+  .stack tr.th-row{display:none}
+  .stack tr{background:var(--soft);border-radius:6px;border-left:3px solid var(--line);padding:12px 16px 14px;margin:0 0 12px}
+  .stack td,.stack tr:nth-child(even) td{padding:0;border:0;background:none;text-align:left;white-space:normal}
+  .stack td:first-child{font-weight:600;font-size:17px;line-height:1.35}
+  .stack td+td{margin-top:10px}
+  .stack td+td::before{content:attr(data-label);display:block;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  .stack td:empty{display:none}
+}
 tbody tr:nth-child(even) td, table tr:nth-child(even) td{background:color-mix(in srgb, var(--soft) 45%, transparent)}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .bad{color:var(--accent)} .good{color:var(--ink)}
@@ -434,12 +449,10 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
 }
 /* A phone held sideways: slimmer bar and foot, so the page gets the height. */
 @media (orientation: landscape) and (max-height: 500px){
-  .readbar{padding:2px 14px 0}
-  .readbar a{padding:9px 4px}
-  .readbar button{padding:6px 10px}
-  .read-mid{padding-top:4px}
-  .readfoot{padding:5px 14px 6px}
-  .readfoot button{width:38px;height:38px;font-size:21px}
+  .readbar{padding:0 14px}
+  .read-mid{padding-top:2px}
+  .readfoot{padding:2px 14px 3px}
+  .readfoot button{font-size:21px}
 }
 @media (max-width: 760px){
   body{font-size:17px}
@@ -2921,7 +2934,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       // The contents beside the page (wide screens)
       rail.textContent = "";
       var k = document.createElement("small"); k.className = "k";
-      k.textContent = (target.dataset.num ? "Book " + target.dataset.num + " of " + (counted.length - 1) : "Reference") + (+target.dataset.min ? " \u00b7 " + target.dataset.min + " min" : "");
+      k.textContent = (target.dataset.num ? "Book " + target.dataset.num : "Reference") + (+target.dataset.min ? " \u00b7 " + target.dataset.min + " min" : "");
       var b = document.createElement("b"); b.textContent = target.dataset.title;
       var x = document.createElement("button"); x.type = "button"; x.className = "rail-x"; x.textContent = "Close";
       rail.appendChild(x); rail.appendChild(k); rail.appendChild(b);
@@ -3053,6 +3066,22 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   setTimeout(askHost, 3000);
 
   // Copy buttons
+  // Long file names in a code box title break after a "/" first, not in the middle of a word
+  Array.prototype.forEach.call(document.querySelectorAll(".code .label>span"), function(s){
+    if (s.children.length || s.textContent.indexOf("/") < 0) return;
+    var parts = s.textContent.split("/"); s.textContent = "";
+    parts.forEach(function(t, i){ if (i) { s.appendChild(document.createTextNode("/")); s.appendChild(document.createElement("wbr")); } s.appendChild(document.createTextNode(t)); });
+  });
+  // Tables with three or more columns become cards on phones: copy each column's header onto its cells
+  Array.prototype.forEach.call(document.querySelectorAll(".tablewrap table"), function(t){
+    var head = t.rows[0];
+    if (!head || head.cells.length < 3 || head.cells[0].tagName !== "TH") return;
+    head.classList.add("th-row");
+    t.parentNode.classList.add("stack");
+    Array.prototype.forEach.call(t.rows, function(r, i){
+      if (i) Array.prototype.forEach.call(r.cells, function(c, j){ if (head.cells[j]) c.setAttribute("data-label", head.cells[j].textContent.trim()); });
+    });
+  });
   Array.prototype.forEach.call(document.querySelectorAll(".copy"), function(btn){
     btn.addEventListener("click", function(){
       var pre = btn.closest(".code").querySelector("pre");
