@@ -1,6 +1,6 @@
 # The Launch Manual: Building Apps With Claude
 
-A small library for people who build real apps with Claude without a developer background. Twenty-one short books on five shelves: how apps are put together, how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, and a full practice build.
+A small library for people who build real apps with Claude without a developer background. Twenty-two short books on five shelves: how apps are put together, how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, and a full practice build.
 
 Open the site, tap a book to take it off the shelf, tap again to read it.
 

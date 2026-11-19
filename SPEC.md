@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 21 short books on glass shelves
-(about six and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 22 short books on glass shelves
+(about seven hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 21 books on shelves, grouped in five parts (How your apps
+1. **The library.** All 22 books on shelves, grouped in five parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Practice) plus
    Start here and the reference books.
    - Done when: every book opens from its spine on a phone and on a desktop.
@@ -60,9 +60,9 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 19 questions, three of them on each of
-   Books 6, 7 and 8 (added 2026-11-15), so the quiz now covers those three books.
-   Each of those nine right answers is what the book itself says.
+5. **Check yourself.** A quiz with a score: 22 questions, three of them on each of
+   Books 6, 7 and 8 (added 2026-11-15) and three on Book 17 (added 2026-11-19).
+   Each of those twelve right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -165,6 +165,25 @@ apps (told through the made-up ones).
      box, as at 100%), the reader stays on the same paragraph, and the size survives a
      reload and "Return all books".
 
+14. **Book 17, "Checks you can trust".** Added 2026-11-19 (Jose's OK on the plan the
+   same day), after a gap review found the library tells readers to insist on checks but
+   never how to tell a real check from a fake one. Six sections: why "all tests pass"
+   proves little (four ways a check lies), break it on purpose, what your checks should
+   cover, reading a pull request without reading code, a lock on the checks (a CLAUDE.md
+   line and a GitHub warning when tests change), and a second opinion. Placed after The
+   workflow, so Debugging, Prompt library and Build from zero became Books 18 to 20.
+   - Compared: Google's "What to look for in a code review" (asks whether tests would
+     fail when the code is broken, but assumes reading every line), GitHub's review docs
+     and GitHub Skills course (the buttons, not judging), Stryker's mutation testing intro
+     (for developers with a tool). Where this one differs: moves that need no code
+     reading, a red-flag list read off the Files changed screen, and a lock GitHub runs.
+   - Not in it: writing or reading tests, test tools, coverage numbers, CODEOWNERS (a
+     solo owner can't approve their own pull request), setting up CI (Book 20 does).
+   - Done when: the book opens from its spine as Book 17 at 390px and desktop, all six
+     sections are reachable from its Contents, every Anthropic and GitHub claim matches a
+     page in Sources, every "Book N" elsewhere points at the right book, and the quiz has
+     22 questions.
+
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.
@@ -181,6 +200,33 @@ apps (told through the made-up ones).
 - A live demo book showing a real Firestore rule beside the data it protects.
 - The two YouTube links in Sources ("Going further") were never opened by a person; a
   robot can't check them. Jose taps both, and any dead one is replaced or removed.
+
+### Gaps found in the 2026-11-19 review (Book 17 came from the first one)
+
+- **Security beyond keys and rules.** What users type and the app shows to others
+  (cross-site scripting; today one word, "escaped", in the Prompt library). Prompt
+  injection in apps that send users' text to the Claude API, and showing model output as
+  HTML (OWASP Top 10 for LLM apps lists it first). Two-factor sign-in on GitHub, Google,
+  Vercel and Anthropic. What to do when a key leaks: revoke and replace first. GitHub
+  secret scanning and push protection. Code from strangers: CDN scripts, pinned versions,
+  made-up package names.
+- **Claude Code as a risk.** Third-party MCP servers, skills and plugins run with your
+  access; pages and files Claude reads can carry instructions.
+- **Life after launch.** Knowing it broke (logs kept one hour on Vercel's free plan),
+  users reporting bugs with the version number, backing up and restoring the shared
+  database (check whether Firestore's managed backups need the paid plan), keeping
+  libraries current, and handing an app over (TeamDesk has one non-developer behind it).
+- **Other people's data, at work.** A plain privacy note, deleting data on request,
+  collecting less. For coworkers: whether the employer allows a work tool on a personal
+  Firebase project that sends colleagues' messages to an outside AI service.
+- **Debugging is thin (about 340 words).** Revert first when live breaks, find which
+  change broke it, tell a code bug from a settings bug Claude can't see, what to do when
+  Claude goes in circles.
+- **Smaller.** An accessibility check to run, a performance measure, a one-page payments
+  decision (hosted checkout, never touch card numbers), custom domains.
+- **Reading order.** Books 6 to 8 (about 10,000 words) come before How Claude Code works,
+  and "Before step 1" is in the last book. A beginner path: Start here, a first tiny
+  build, How Claude Code works, Checks you can trust, then the rest when needed.
 
 ## Phases
 
