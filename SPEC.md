@@ -190,7 +190,7 @@ apps (told through the made-up ones).
   the site check green, screenshots of the live site at 390px and desktop with no
   console errors. Live at https://jvtomax99.github.io/Vibe-coding-guide-/ on
   2026-11-14 (PR #1).
-- [ ] **Phase 2. The inside matches the start menu.** Asked by Jose 2026-11-14: "The
+- [x] **Phase 2. The inside matches the start menu.** Checked off 2026-11-19: every Done when line below tested at 390px and desktop (all 23 books open from their spines, every Contents entry reaches its section, an old save keeps its name and read marks, `#audit` opens its book, dark and light both readable). Results in `docs/review-2026-11/REVIEW.md`. Asked by Jose 2026-11-14: "The
   aesthetic needs to match the intro. And I want more of a kindle style outline, like
   Phillis bookshelves app." The shelves become glass ledges on the ship's dark console
   with navy books and gold lettering, and the next book shown as a cover with "Open
