@@ -6,7 +6,7 @@
 <title>The Launch Manual: Building Apps With Claude</title>
 <meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
 <meta property="og:title" content="The Launch Manual: Building Apps With Claude">
-<meta property="og:description" content="A reading room for builders: 25 short books on building apps with Claude.">
+<meta property="og:description" content="A reading room for builders: 26 short books on building apps with Claude.">
 <meta name="theme-color" content="#05070F">
 <meta property="og:image" content="https://jvtomax99.github.io/Vibe-coding-guide-/icons/icon-512.png">
 <link rel="icon" href="icons/favicon.ico" sizes="any">
@@ -536,7 +536,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">25</div><small>short books on six shelves, a little over eight hours in all</small></div>
+    <div class="stat"><div class="big-num">26</div><small>short books on six shelves, about eight and a half hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -1120,12 +1120,12 @@ service cloud.firestore {
   </ol>
   <p><b>Where the server code lives.</b> For a plain site with no framework, Vercel's page says it "creates a separate function for each supported source file in the root <code>api/</code> directory". So <code>api/reply.js</code> in the repo becomes server code at the address <code>/api/reply</code>. You don't set that up anywhere. Claude adds the file and Vercel finds it.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>On the free plan Vercel keeps logs for <b>one hour</b>. If a user says "it broke last night", the log is gone. Two habits fix this. Ask Claude to make server code return a short, clear error the app can show. And test the feature yourself right after each merge, with the Logs screen open.</p>
+    <p>On the free plan Vercel keeps logs for <b>one hour</b>. If a user says "it broke last night", the log is gone. Two habits fix this. Ask Claude to make server code return a short, clear error the app can show. And test the feature yourself right after each merge, with the Logs screen open. Book 24 adds a daily check and a "Report a problem" button.</p>
     <p>An address like <code>/api/reply</code> is public, even though the key behind it is hidden. Anyone who finds it can call it and spend your credits. Ask Claude to make the server code check that the caller is signed in, and to cap how many requests one user can make in a day.</p>
   </div>
   <ul>
     <li><b>If you go past the free plan's limits,</b> Vercel's page says that in most cases "you will have to wait until 30 days have passed before you can use the feature again". For an app people rely on, that is an outage of a month.</li>
-    <li><b>If a merge breaks the live app,</b> the project's overview has <b>Instant Rollback</b>. On the free plan it goes back one step only, to "the immediately previous deployment".</li>
+    <li><b>If a merge breaks the live app,</b> the project's overview has <b>Instant Rollback</b>. On the free plan it goes back one step only, to "the immediately previous deployment". After a rollback, new merges stop going live by themselves until you undo it; Book 24 has the steps.</li>
     <li><b>Preview links have their own settings.</b> A variable can be set for Production, for Preview, or both. A feature that works live and fails on a preview link usually has its key set for Production only.</li>
   </ul>
   <div class="call try"><div class="tag">Try it</div>
@@ -2746,7 +2746,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   <h3>Give it a backup</h3>
   <p>An app with no back end keeps each person's progress in one place: that browser, on that phone. A new phone, a cleared browser or Safari's seven-day rule and it is gone, and nobody can get it back, including you. A backup file is the cheap fix: one button that saves everything to a file, one that loads it again.</p>
   <div class="code prompt"><div class="label"><span>Add a backup</span><button class="copy" type="button">Copy</button></div><pre>Add "Save a backup" and "Restore from backup" to the settings screen. Save writes everything this app keeps in the browser's storage to one dated file the person can keep in their Files app or email to themselves. Restore reads such a file, shows what it holds (the date and how many items) and asks before replacing anything. Refuse a file that isn't one of ours with a plain message. Then give me the steps to prove it works: save on one browser, restore on another, and the same progress shows.</pre></div>
-  <p>Do the proof yourself, on two browsers or two phones. A backup that has never been restored is a guess.</p>
+  <p>Do the proof yourself, on two browsers or two phones. A backup that has never been restored is a guess. An app with a shared database needs a second kind of backup; Book 24 covers it.</p>
   <ul>
     <li><b>What it costs:</b> nothing to run. The person has to remember to press the button, so show the date of their last backup and nudge them when it is old.</li>
     <li><b>What it exposes:</b> the file is readable by anyone who gets it. Fine for flashcard progress. If the app holds anything private, say so beside the button.</li>
@@ -2754,11 +2754,137 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   </ul>
 </section>
 
+<section class="lesson" id="after" data-part="6 · Practice" data-title="Life after launch" data-min="25">
+  <div class="eyebrow"></div>
+  <h2>Life after launch</h2>
+  <p class="lede">The day people start using your app, your job changes. Building is over for now. Looking after it has begun: knowing when it breaks, hearing about it in a way you can act on, getting data back, keeping its parts current, and making sure it doesn't depend on you alone.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>Three ways to find out it broke, and which ones the free plans give you</li>
+    <li>A "Report a problem" button that tells you what you need</li>
+    <li>Going back first, fixing second</li>
+    <li>Backing up a shared database, and proving the backup works</li>
+    <li>Keeping libraries current without breaking the app</li>
+    <li>Handing the app over, and switching it off</li>
+  </ul></div>
+
+  <h3>Knowing it broke</h3>
+  <p>There are three ways to learn that your app is broken. A user tells you. You look. Or a robot tells you. Most small apps have only the first, which means every problem has already annoyed someone by the time you hear of it.</p>
+  <div class="tablewrap"><table>
+    <tr><th>What can tell you</th><th>What it catches</th><th>On the free plans</th></tr>
+    <tr><td>Vercel's email</td><td>A merge that failed to go live</td><td>Yes. "Vercel notifies the deployment's creator when a deployment fails. Web and email notifications are enabled by default."</td></tr>
+    <tr><td>Vercel's Logs screen</td><td>Errors in your server code</td><td>For one hour (Book 6). You can show only the bad rows: "You can filter requests that contain Warning, Error, or Fatal logs."</td></tr>
+    <tr><td>Vercel's alerts on a jump in errors</td><td>Something failing for many people at once</td><td>No. "Alerts are available on Enterprise and Pro plans with Observability Plus"</td></tr>
+    <tr><td>Firebase's Usage screen</td><td>Reads and writes far above or below a normal day</td><td>Yes. Firebase's page says the dashboards show "document reads, writes, and deletes over time"</td></tr>
+    <tr><td>A daily check you add yourself</td><td>The app not opening at all</td><td>Yes, with GitHub Actions (Book 17), below</td></tr>
+  </table></div>
+  <p>So on the free plans nothing tells you by itself that the running app has a problem. You have to look. Two habits fill the gap. After every merge, open the live app and do its main job once. And give the repo a robot that does the same every morning.</p>
+  <p>GitHub Actions can run a check on a timer as well as on a pull request. GitHub's page gives the limit: "The shortest interval you can run scheduled workflows is once every 5 minutes." Once a day is plenty for a small app. The timer is not exact: the same page warns of delays when GitHub is busy, and says "High load times include the start of every hour."</p>
+  <div class="code prompt"><div class="label"><span>Add a daily check</span><button class="copy" type="button">Copy</button></div><pre>Add a GitHub Actions check that runs once a day, at a minute that is not the start of an hour. It opens the live app at [address] in a robot browser at 390px, does the main job once ([for example: opens today's classes]), and fails if the page doesn't load, the main screen is empty, or the console shows an error. It must not change or save any real data. Tell me exactly how I will find out when it fails, and anything that could make the timer stop running by itself. Then prove it works: point it at a wrong address once, show me the failure, and put it back.</pre></div>
+
+  <h3>Bug reports you can act on</h3>
+  <p>"It's not working" is the report you will get, and it tells you nothing. Book 18 lists what a useful report holds. Your users won't write one, so make the app write it for them.</p>
+  <p>Book 7 gave the app a version number people can read out. Build on it: a "Report a problem" button that gathers the facts and leaves the person one sentence to add.</p>
+  <div class="tablewrap"><table>
+    <tr><th>The report holds</th><th>Why you need it</th></tr>
+    <tr><td>The app's version number</td><td>The bug may already be fixed, and they are on an old copy (Book 7)</td></tr>
+    <tr><td>The screen they were on</td><td>"The app" has twelve screens</td></tr>
+    <tr><td>The date and time</td><td>To match it against a log row, if the hour hasn't passed</td></tr>
+    <tr><td>The phone and browser</td><td>Some bugs live on one kind of phone only</td></tr>
+    <tr><td>The last error the app caught</td><td>The exact text Claude needs (Book 18)</td></tr>
+    <tr><td>One sentence from the person</td><td>What they were trying to do</td></tr>
+  </table></div>
+  <div class="code prompt"><div class="label"><span>Report a problem button</span><button class="copy" type="button">Copy</button></div><pre>Add "Report a problem" to the settings screen. When tapped, it builds a short report: the app's version number, the screen the person was on before they opened settings, the date and time, the phone and browser, and the last error the app caught, if any. It shows the report to the person with one box, "What were you trying to do?", and a button that copies everything so they can paste it into a message to me. Nothing is sent anywhere by itself. Never put anything the person typed or saved in the app into the report, and no names, emails or passwords. Show me a sample report.</pre></div>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Copy and paste into a message is the right size for an app your friends or coworkers use. GitHub has a tidier tool, issue forms: files in a folder called <code>.github/ISSUE_TEMPLATE</code> that ask each reporter the same questions. But a person needs a GitHub account to fill one in, and Corner Gym's members don't have one. Use issue forms when your users are builders too.</p>
+  </div>
+  <p>Keep one list of what comes in, anywhere you will see it: a note on your phone or the repo's Issues tab. For each report write the date, the version and whether it is fixed. Three reports of the same thing is your next task.</p>
+
+  <h3>Go back first, fix second</h3>
+  <p>When a merge breaks the live app, the urge is to fix it fast. Don't. A rushed fix on a live app is how one bug becomes two. Put the last good version back, then fix the problem on a branch with no one waiting.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Where the app lives</th><th>How to go back</th><th>The catch</th></tr>
+    <tr><td>GitHub Pages</td><td>Open the pull request that broke it and press <b>Revert</b>. That makes a new pull request that undoes it; merge that one (Book 3)</td><td>The site takes a few minutes to change, and installed copies follow the update rules in Book 7</td></tr>
+    <tr><td>Vercel</td><td><b>Instant Rollback</b> on the project's overview (Book 6)</td><td>On the free plan: "Hobby users can roll back to the immediately previous deployment." One step. Main still holds the broken code, so revert the pull request as well. And Vercel's page warns that after a rollback "new pushes to your production branch won't go live automatically" until you undo it "by promoting a different deployment". When the fix is merged, promote it, or it will sit unseen</td></tr>
+    <tr><td>Firebase rules</td><td>Paste the last good rules into the Rules tab and press Publish (Book 6)</td><td>Rules are not undone by reverting a pull request. The live database uses whatever was last published</td></tr>
+  </table></div>
+  <p>Going back undoes code. It does not undo data. If the broken version saved bad records for an hour, they are still there after the rollback. That is what the next section is for.</p>
+  <div class="code prompt"><div class="label"><span>After going back</span><button class="copy" type="button">Copy</button></div><pre>The live app broke after pull request [number] and I have reverted it. Don't fix anything yet. Tell me in plain English: what broke and for whom, whether anything wrong was saved while it was live and how to find it, and why the checks on the pull request didn't catch it. If I used Vercel's Instant Rollback, tell me how to make new merges go live again. Then propose the fix on a new branch, with a check that would have failed on the broken version.</pre></div>
+
+  <h3>Backing up shared data</h3>
+  <p>An app with no back end keeps each person's data on their own phone, and Book 23's backup file covers it. An app with a shared database, like TeamDesk, has one copy of everybody's data, and you are the person holding it. A bad update, a wrong rule or a slip in the Firebase console can empty it.</p>
+  <p>Firebase has three tools for this. All three need the paid plan.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Tool</th><th>What it does</th><th>On the free Spark plan?</th></tr>
+    <tr><td>Scheduled backups</td><td>"Backups let you configure backup schedules to take daily or weekly backups of the specified database." They can be kept for up to 14 weeks</td><td>No. "This feature requires the Blaze pricing plan"</td></tr>
+    <tr><td>Point-in-time recovery</td><td>Point-in-time recovery (PITR for short) reads the data as it was at an earlier moment, "up to a maximum of 7 days" back</td><td>No. "you must have billing enabled if you want to use PITR"</td></tr>
+    <tr><td>Export</td><td>Copies the whole database out to files in Google's storage</td><td>No. "Firebase projects must be on the Blaze plan to use the managed export and import service."</td></tr>
+  </table></div>
+  <p>One detail matters on the bad day. Firebase says "A restore operation writes the data from a backup to a new Cloud Firestore database." A restore doesn't repair the database your app is using. It makes a second one, and the app has to be pointed at it or the data copied across. Ask Claude to walk you through that once, before you need it.</p>
+  <div class="call straight"><div class="tag">The risky shortcut: turning on the paid plan only to get backups</div>
+    <p>It is one switch, and for a small app the bill is usually tiny.</p>
+    <p><b>What it costs:</b> a card on file and no ceiling. Book 6 explains that Blaze is pay as you go, and Firebase's launch checklist is blunt about the safety net: "Note that budget alerts are not budget caps." An alert sends an email. It does not stop the spending.</p>
+    <p><b>How to close it:</b> if you move to Blaze, set a budget alert the same day and set up the scheduled backup in the same sitting, so the switch buys what you wanted. If you stay on Spark, use the free route below.</p>
+  </div>
+  <h4>The free route</h4>
+  <p>Have the app make its own backup: a button only you can see that saves everything to one file.</p>
+  <div class="code prompt"><div class="label"><span>Owner's backup</span><button class="copy" type="button">Copy</button></div><pre>Add a "Download a backup" button that only I can see and use: check it in the database rules, not only by hiding the button. It saves every record in the shared database to one dated file on my device. Write a matching restore that loads such a file into an empty test project, never into the live one. Tell me how many reads one backup costs against the free plan's daily limit. Warn me if one backup would use more than a tenth of that limit. Then prove it: make a backup, restore it into the test project, and show me that the counts match. Last, write down in HANDOVER.md the steps for the bad day: how I would put a backup into the live database, and what would be overwritten.</pre></div>
+  <div class="call"><div class="tag">Where the backup file lives</div>
+    <p>That file holds everything every user saved. Keep it somewhere private that is itself backed up, such as your own cloud drive. Never commit it to the repo: Book 3 explains that a public repo is public all the way back through its history. Pick a rhythm you will keep, such as every Sunday and before any change to how data is saved (Book 5).</p>
+  </div>
+  <p>Whichever route you take, restore one backup for real. A backup that has never been restored is a guess.</p>
+
+  <h3>Keeping the parts current</h3>
+  <p>Your app is built on other people's code: the libraries from Book 2. Their makers keep fixing them, and sometimes a fix closes a hole that strangers could use against your users. An app nobody touches for a year is still running last year's parts.</p>
+  <p>GitHub has a free robot for this, Dependabot, and it does two separate jobs.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Job</th><th>GitHub's words</th><th>What you do</th></tr>
+    <tr><td>Alerts</td><td>"Dependabot alerts notify you about vulnerable dependencies so you can upgrade to secure versions and protect your project."</td><td>Read the email. Send it to Claude with the prompt below</td></tr>
+    <tr><td>Security updates</td><td>"Dependabot can fix vulnerable dependencies for you by raising pull requests with security updates."</td><td>Treat it like any pull request: checks green, preview opened, then merge</td></tr>
+  </table></div>
+  <p>A dependency is a library your app depends on. Vulnerable means it has a known hole. Both jobs are switched on in the repo's settings; ask Claude where, and to confirm they are on.</p>
+  <p>One limit, from how Dependabot works: it reads the list of libraries in files such as <code>package.json</code>. A library your page loads by a link to a CDN (a public server for libraries; see the Glossary) is not on that list, so nothing will warn you about it. For those, ask.</p>
+  <div class="code prompt"><div class="label"><span>Parts check</span><button class="copy" type="button">Copy</button></div><pre>List every outside library and service this app uses: its name, the version we use, the newest version, where it is loaded from (package.json or a link in the page), and whether our version has a known security problem. Don't update anything yet. Sort the list: fix now (security), worth doing, leave alone. For each "fix now", open its own pull request, one library per pull request, and tell me what to test by hand on the preview.</pre></div>
+  <ul>
+    <li><b>One at a time.</b> If five libraries change in one pull request and the app breaks, you can't tell which did it.</li>
+    <li><b>Security fixes soon, everything else on a rhythm.</b> Every three months is enough for a small app. A new version with a new first number (2 to 3) often changes how the library works; ask Claude what will break before saying yes.</li>
+    <li><b>Read the emails.</b> Services change their prices and limits, and retire things. Their emails to the account's owner are often the first warning, so don't let them pile up unread.</li>
+  </ul>
+
+  <h3>Handing it over, and switching it off</h3>
+  <p>TeamDesk has one person behind it, and that person can't read code. If they change jobs, lose their phone or simply get tired of it, the team loses the tool. The fix isn't more code. It is a second person and a written page.</p>
+  <h4>A second person on every account</h4>
+  <div class="tablewrap"><table>
+    <tr><th>Account</th><th>What the service says</th><th>What to do</th></tr>
+    <tr><td>GitHub</td><td>"Repositories owned by personal accounts have a single owner who has full control of the repository."</td><td>Invite a collaborator now (Book 4), so someone else can keep changes going. A collaborator can't change the repo's settings; only the owner can. A full handover is a transfer: "its issues, pull requests, wiki, stars, and watchers are also transferred"</td></tr>
+    <tr><td>Firebase</td><td>"Add more than one Owner to your Firebase projects, especially if your project is not in a Google Cloud organization."</td><td>Add the second person with the role of Owner. Firebase's help page: "On the Permissions page, click Add member."</td></tr>
+    <tr><td>Vercel</td><td>A project can be transferred with its settings: "Environment variables are copied to the target team". The person moving it must be "a member of the team you're transferring to"</td><td>Ask Claude to check the current steps for two free accounts before you promise a date. A second route: once the repo is theirs, the new person imports it into their own Vercel account (Book 6) and adds their own keys. Until then nobody else can reach the Vercel project, so write its settings into the handover page below</td></tr>
+    <tr><td>Paid keys</td><td></td><td>A key belongs to whoever pays for it. The new owner makes their own key, puts it in Vercel, and you delete yours (Book 5)</td></tr>
+  </table></div>
+  <p>One warning before you transfer a repo that is a GitHub Pages site. GitHub redirects the repo's old address, but in its own words "we don't redirect GitHub Pages associated with the repository." The app's address changes with its owner, and every link and Home Screen icon your users have points at the old one. Tell them first. What the app saved on each phone is tied to the old address and will not follow them to the new one, so have them save a backup file (Book 23) before the move.</p>
+  <h4>The page that replaces you</h4>
+  <p>GitHub's guide for people who look after projects says: "Writing things down is one of the most important things you can do as a maintainer." Claude can write most of it from the repo. You add what only you know.</p>
+  <div class="code prompt"><div class="label"><span>Write the handover page</span><button class="copy" type="button">Copy</button></div><pre>Write HANDOVER.md for someone who has never seen this app and can't read code. Cover: what the app does and who uses it; every account and service it depends on and what each is for; where each secret is kept (the place, never the value); how a change goes live; how to go back when one breaks; how to make and restore a backup; what costs money and when the bill comes; and what is known to be fragile. Leave a clearly marked blank for anything you can't learn from the repo, such as who the users are and how they reach me. Then list the questions I need to answer.</pre></div>
+  <p>Test it the way Book 22 tests a screen: hand the page to the second person, say nothing, and watch where they get stuck.</p>
+  <h4>Switching it off</h4>
+  <p>Some apps should end, and the same guide says so kindly: "there's no shame in asking someone else to take over for you." If nobody will, close it properly:</p>
+  <ol>
+    <li><b>Tell the users, with a date.</b> Put it on the app's first screen, not only in a message.</li>
+    <li><b>Give them their data.</b> A backup file, or a page they can save.</li>
+    <li><b>Delete the paid keys</b> where they were made, so nothing can spend after the app is gone.</li>
+    <li><b>Delete the shared data,</b> and your backup files of it. Other people's messages should not sit in a forgotten project or an old folder.</li>
+    <li><b>Leave a note in the README</b> saying the app is closed and when.</li>
+  </ol>
+  <div class="call try"><div class="tag">Try it</div>
+    <p>Pick one app that other people use. Answer four questions without opening anything: how would you know today if it stopped working, where is the last copy of its data, who else can get into its accounts, and when did you last update a library? Each "I don't know" is a prompt in this book.</p>
+  </div>
+  <p><em>Checked in November 2026 against Vercel's pages on notifications, runtime logs, alerts, Instant Rollback and transferring a project; Firebase's pages on Firestore backups, point-in-time recovery, export and import, monitoring usage and the launch checklist; GitHub's pages on scheduled workflows, issue templates, Dependabot alerts and security updates, transferring a repository and permission levels for a personal repository; Firebase Help's page on project access; and the Open Source Guides page "Best Practices for Maintainers". The "Report a problem" button, the owner's backup and the switching-off list are this library's own advice.</em></p>
+</section>
+
 <section class="lesson" id="quiz" data-part="6 · Practice" data-title="Check yourself" data-min="15">
   <div class="eyebrow"></div>
   <h2>Check yourself</h2>
-  <p class="lede">Thirty-one questions on the ideas that matter most. Tap an answer to see why.</p>
-  <p class="score" id="quizScore">0 of 31 answered</p>
+  <p class="lede">Thirty-four questions on the ideas that matter most. Tap an answer to see why.</p>
+  <p class="score" id="quizScore">0 of 34 answered</p>
   <div id="quizBox"></div>
   <button class="btn" type="button" id="quizReset">Start over</button>
 </section>
@@ -2870,6 +2996,22 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     <li><a href="https://developer.chrome.com/docs/lighthouse/accessibility/scoring">Chrome for Developers, Lighthouse accessibility score</a>: a weighted average of pass-or-fail audits.</li>
     <li><a href="https://lucide.dev/license">Lucide, License</a> and <a href="https://github.com/tailwindlabs/heroicons">Heroicons on GitHub</a>: two icon sets with open licenses.</li>
   </ul>
+  <h3>After launch</h3>
+  <p>The pages behind Book 24, read in November 2026, besides the Vercel pages on runtime logs and Instant Rollback listed above.</p>
+  <ul>
+    <li><a href="https://vercel.com/docs/notifications">Vercel, Notifications</a> and <a href="https://vercel.com/docs/alerts">Alerts</a>: the email when a deployment fails, and the plans that get alerts.</li>
+    <li><a href="https://vercel.com/docs/projects/transferring-projects">Vercel, Transferring a project</a>: who can move a project, and what moves with it.</li>
+    <li><a href="https://firebase.google.com/docs/firestore/backups">Firestore, Back up and restore data</a>, <a href="https://firebase.google.com/docs/firestore/pitr">Point-in-time recovery</a> and <a href="https://firebase.google.com/docs/firestore/manage-data/export-import">Export and import data</a>: what each does, and that each needs the Blaze plan or billing.</li>
+    <li><a href="https://firebase.google.com/docs/firestore/monitor-usage">Firestore, Monitor usage</a>: the dashboards for reads, writes and deletes.</li>
+    <li><a href="https://firebase.google.com/support/guides/launch-checklist">Firebase launch checklist</a>: more than one Owner, and "budget alerts are not budget caps".</li>
+    <li><a href="https://support.google.com/firebase/answer/7000272">Firebase Help, Manage project access</a>: adding a member and choosing a role.</li>
+    <li><a href="https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule">GitHub, Events that trigger workflows: schedule</a>: the five-minute limit, and delays at the start of each hour.</li>
+    <li><a href="https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/about-issue-and-pull-request-templates">GitHub, About issue and pull request templates</a>: the <code>.github/ISSUE_TEMPLATE</code> folder.</li>
+    <li><a href="https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts">GitHub, About Dependabot alerts</a> and <a href="https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/about-dependabot-security-updates">About Dependabot security updates</a>: the warning and the pull request.</li>
+    <li><a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/transferring-a-repository">GitHub, Transferring a repository</a>: what moves, the redirect, and that GitHub Pages sites are not redirected.</li>
+    <li><a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-user-account-settings/permission-levels-for-a-personal-account-repository">GitHub, Permission levels for a personal account repository</a>: one owner, and what collaborators can do.</li>
+    <li><a href="https://opensource.guide/best-practices/">Open Source Guides, Best Practices for Maintainers</a>: writing things down, and asking someone to take over.</li>
+  </ul>
   <h3>Going further</h3>
   <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
   <h4>What vibe coding is</h4>
@@ -2941,6 +3083,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     design:   ["#4A3518","#E8C88A","Decide the look", .92],
     finish:   ["#5A4320","#E8C88A","The finishing pass", .95],
     project:  ["#40161F","#E8C88A","Build from zero", 1],
+    after:    ["#4A1822","#E8C88A","Life after launch", .95],
     quiz:     ["#531C28","#E8C88A","Check yourself", .9],
     glossary: ["#C9CED8","#1B2233","Glossary", .95, "paper"],
     sources:  ["#DADFE8","#1B2233","Sources", .88, "paper"]
@@ -2952,7 +3095,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     "3 · CLAUDE.md, Anthropic's way": "The official guidance, your audit and a starter kit.",
     "4 · Talking to Claude": "Requests, terms, the workflow, checks you can trust, bugs and a prompt library.",
     "5 · Making it feel premium": "Why some apps look expensive, how to decide the look before anything is built, and the finishing pass.",
-    "6 · Practice": "A full build from zero, and a quiz.",
+    "6 · Practice": "A full build from zero, looking after an app once it is live, and a quiz.",
     "Reference": "Look things up any time."
   };
   var ICON = {
@@ -2980,6 +3123,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     design:'<rect x="12" y="10" width="28" height="44" rx="3"/><path d="M18 20h16M18 28h10"/><rect x="18" y="36" width="16" height="10" rx="2"/><path d="M46 18l6 6-4 22-4 6-4-6z"/>',
     finish:'<circle cx="30" cy="32" r="18"/><path d="M21 32l6 7 12-14"/><path d="M50 10v8M46 14h8"/>',
     project:'<path d="M12 30 32 14l20 16v22H12z"/><path d="M26 52V38h12v14"/>',
+    after:'<circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="8"/><path d="M18 18l8 8M46 18l-8 8M18 46l8-8M46 46l-8-8"/>',
     quiz:'<circle cx="32" cy="32" r="20"/><path d="M26 26a6 6 0 1 1 8 6c-2 1-2 3-2 5"/><path d="M32 44v1"/>',
     glossary:'<rect x="14" y="10" width="36" height="44" rx="2"/><path d="M22 40l6-18 6 18M24 34h8M38 24h6l-6 14h6"/>',
     sources:'<path d="M48 12C30 16 20 30 18 50l4-4c6-2 14-10 18-20 4-6 8-10 8-14z"/><path d="M18 50l-4 4M26 38l8-8"/>'
@@ -3536,7 +3680,16 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
       w: "The limits Jakob Nielsen summarizes: about 0.1 second to feel instant, about 1 second before a person's flow of thought breaks. Anything slower has to show it is working." },
     { q: "You bought a font and want it in Pocket Pet, whose repo is public. What comes first?",
       o: ["Commit the font file: you paid for it", "Ask Claude what the font's license allows before the file goes in", "Rename the file so nobody finds it"], a: 1,
-      w: "In a public repo anyone can download a committed file, and it stays in the history after you delete it. Paid licenses usually forbid handing the file out. Check first, and list it in CREDITS.md." }
+      w: "In a public repo anyone can download a committed file, and it stays in the history after you delete it. Paid licenses usually forbid handing the file out. Check first, and list it in CREDITS.md." },
+    { q: "A merge broke Corner Gym's live check-in. What comes first?",
+      o: ["Ask Claude for a quick fix straight on main", "Put the last good version back, then fix the problem on a branch", "Wait and see whether anyone notices"], a: 1,
+      w: "Book 24: go back first, fix second. Revert the pull request (and use Instant Rollback on Vercel). Going back undoes code, not data, so also ask what was saved while it was broken." },
+    { q: "TeamDesk is on Firebase's free Spark plan. How can its shared database be backed up without paying?",
+      o: ["Turn on Firebase's scheduled backups", "Nothing is needed: Firebase keeps a copy for you", "A button only the owner can use that saves everything to one file, kept somewhere private"], a: 2,
+      w: "Firebase's page: scheduled backups require 'the Blaze pricing plan', and so do export and point-in-time recovery. The free route is the app's own backup file. Restore one into a test project to prove it works." },
+    { q: "TeamDesk's builder is leaving the company. What keeps the app alive?",
+      o: ["A second person on every account, and a HANDOVER.md that person has tried to follow", "Sending a coworker the builder's passwords", "Nothing: the app keeps running by itself"], a: 0,
+      w: "Firebase's launch checklist says to add more than one Owner. A GitHub repo on a personal account has a single owner, so invite a collaborator or transfer it. Then write down what only you know." }
   );
   var box = document.getElementById("quizBox");
   var answered = 0, right = 0;
@@ -3597,6 +3750,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     ["Contrast ratio", "How different a text color is from the color behind it, as a number. The WCAG standard asks for at least 4.5:1 for normal text and 3:1 for large text."],
     ["Cron job", "Server code that runs on a clock instead of when someone taps. Also called a scheduled job."],
     ["Deny rule", "A permission rule that blocks an action in every mode. Enforced by Claude Code."],
+    ["Dependabot", "GitHub's free robot that warns you when a library your app uses has a known security hole, and can open a pull request with the fix. It only sees libraries listed in files such as package.json."],
     ["Deploy", "Publishing a version of the app so users get it."],
     ["Design system", "In Claude Design, the saved set of an app's colors, fonts, pieces and layout patterns, so every new design matches. In a repo, DESIGN.md does the same job."],
     ["Diff", "The exact lines added and removed by a change."],
