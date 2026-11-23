@@ -1125,7 +1125,7 @@ service cloud.firestore {
   </div>
   <ul>
     <li><b>If you go past the free plan's limits,</b> Vercel's page says that in most cases "you will have to wait until 30 days have passed before you can use the feature again". For an app people rely on, that is an outage of a month.</li>
-    <li><b>If a merge breaks the live app,</b> the project's overview has <b>Instant Rollback</b>. On the free plan it goes back one step only, to "the immediately previous deployment".</li>
+    <li><b>If a merge breaks the live app,</b> the project's overview has <b>Instant Rollback</b>. On the free plan it goes back one step only, to "the immediately previous deployment". After a rollback, new merges stop going live by themselves until you undo it; Book 24 has the steps.</li>
     <li><b>Preview links have their own settings.</b> A variable can be set for Production, for Preview, or both. A feature that works live and fails on a preview link usually has its key set for Production only.</li>
   </ul>
   <div class="call try"><div class="tag">Try it</div>
@@ -2777,7 +2777,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     <tr><td>Firebase's Usage screen</td><td>Reads and writes far above or below a normal day</td><td>Yes. Firebase's page says the dashboards show "document reads, writes, and deletes over time"</td></tr>
     <tr><td>A daily check you add yourself</td><td>The app not opening at all</td><td>Yes, with GitHub Actions (Book 17), below</td></tr>
   </table></div>
-  <p>So on the free plans nothing watches your app while it runs. Two habits fill the gap. After every merge, open the live app and do its main job once. And give the repo a robot that does the same every morning.</p>
+  <p>So on the free plans nothing tells you by itself that the running app has a problem. You have to look. Two habits fill the gap. After every merge, open the live app and do its main job once. And give the repo a robot that does the same every morning.</p>
   <p>GitHub Actions can run a check on a timer as well as on a pull request. GitHub's page gives the limit: "The shortest interval you can run scheduled workflows is once every 5 minutes." Once a day is plenty for a small app. The timer is not exact: the same page warns of delays when GitHub is busy, and says "High load times include the start of every hour."</p>
   <div class="code prompt"><div class="label"><span>Add a daily check</span><button class="copy" type="button">Copy</button></div><pre>Add a GitHub Actions check that runs once a day, at a minute that is not the start of an hour. It opens the live app at [address] in a robot browser at 390px, does the main job once ([for example: opens today's classes]), and fails if the page doesn't load, the main screen is empty, or the console shows an error. It must not change or save any real data. Tell me exactly how I will find out when it fails, and anything that could make the timer stop running by itself. Then prove it works: point it at a wrong address once, show me the failure, and put it back.</pre></div>
 
@@ -2793,7 +2793,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     <tr><td>The last error the app caught</td><td>The exact text Claude needs (Book 18)</td></tr>
     <tr><td>One sentence from the person</td><td>What they were trying to do</td></tr>
   </table></div>
-  <div class="code prompt"><div class="label"><span>Report a problem button</span><button class="copy" type="button">Copy</button></div><pre>Add "Report a problem" to the settings screen. When tapped, it builds a short report: the app's version number, the screen the person was on, the date and time, the phone and browser, and the last error the app caught, if any. It shows the report to the person with one box, "What were you trying to do?", and a button that copies everything so they can paste it into a message to me. Nothing is sent anywhere by itself. Never put anything the person typed or saved in the app into the report, and no names, emails or passwords. Show me a sample report.</pre></div>
+  <div class="code prompt"><div class="label"><span>Report a problem button</span><button class="copy" type="button">Copy</button></div><pre>Add "Report a problem" to the settings screen. When tapped, it builds a short report: the app's version number, the screen the person was on before they opened settings, the date and time, the phone and browser, and the last error the app caught, if any. It shows the report to the person with one box, "What were you trying to do?", and a button that copies everything so they can paste it into a message to me. Nothing is sent anywhere by itself. Never put anything the person typed or saved in the app into the report, and no names, emails or passwords. Show me a sample report.</pre></div>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>Copy and paste into a message is the right size for an app your friends or coworkers use. GitHub has a tidier tool, issue forms: files in a folder called <code>.github/ISSUE_TEMPLATE</code> that ask each reporter the same questions. But a person needs a GitHub account to fill one in, and Corner Gym's members don't have one. Use issue forms when your users are builders too.</p>
   </div>
@@ -2804,11 +2804,11 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   <div class="tablewrap"><table>
     <tr><th>Where the app lives</th><th>How to go back</th><th>The catch</th></tr>
     <tr><td>GitHub Pages</td><td>Open the pull request that broke it and press <b>Revert</b>. That makes a new pull request that undoes it; merge that one (Book 3)</td><td>The site takes a few minutes to change, and installed copies follow the update rules in Book 7</td></tr>
-    <tr><td>Vercel</td><td><b>Instant Rollback</b> on the project's overview (Book 6)</td><td>On the free plan: "Hobby users can roll back to the immediately previous deployment." One step. And main still holds the broken code, so revert the pull request as well</td></tr>
+    <tr><td>Vercel</td><td><b>Instant Rollback</b> on the project's overview (Book 6)</td><td>On the free plan: "Hobby users can roll back to the immediately previous deployment." One step. Main still holds the broken code, so revert the pull request as well. And Vercel's page warns that after a rollback "new pushes to your production branch won't go live automatically" until you undo it "by promoting a different deployment". When the fix is merged, promote it, or it will sit unseen</td></tr>
     <tr><td>Firebase rules</td><td>Paste the last good rules into the Rules tab and press Publish (Book 6)</td><td>Rules are not undone by reverting a pull request. The live database uses whatever was last published</td></tr>
   </table></div>
   <p>Going back undoes code. It does not undo data. If the broken version saved bad records for an hour, they are still there after the rollback. That is what the next section is for.</p>
-  <div class="code prompt"><div class="label"><span>After going back</span><button class="copy" type="button">Copy</button></div><pre>The live app broke after pull request [number] and I have reverted it. Don't fix anything yet. Tell me in plain English: what broke and for whom, whether anything wrong was saved while it was live and how to find it, and why the checks on the pull request didn't catch it. Then propose the fix on a new branch, with a check that would have failed on the broken version.</pre></div>
+  <div class="code prompt"><div class="label"><span>After going back</span><button class="copy" type="button">Copy</button></div><pre>The live app broke after pull request [number] and I have reverted it. Don't fix anything yet. Tell me in plain English: what broke and for whom, whether anything wrong was saved while it was live and how to find it, and why the checks on the pull request didn't catch it. If I used Vercel's Instant Rollback, tell me how to make new merges go live again. Then propose the fix on a new branch, with a check that would have failed on the broken version.</pre></div>
 
   <h3>Backing up shared data</h3>
   <p>An app with no back end keeps each person's data on their own phone, and Book 23's backup file covers it. An app with a shared database, like TeamDesk, has one copy of everybody's data, and you are the person holding it. A bad update, a wrong rule or a slip in the Firebase console can empty it.</p>
@@ -2816,7 +2816,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   <div class="tablewrap"><table>
     <tr><th>Tool</th><th>What it does</th><th>On the free Spark plan?</th></tr>
     <tr><td>Scheduled backups</td><td>"Backups let you configure backup schedules to take daily or weekly backups of the specified database." They can be kept for up to 14 weeks</td><td>No. "This feature requires the Blaze pricing plan"</td></tr>
-    <tr><td>Point-in-time recovery</td><td>Reads the data as it was at an earlier moment, "up to a maximum of 7 days" back</td><td>No. "you must have billing enabled if you want to use PITR"</td></tr>
+    <tr><td>Point-in-time recovery</td><td>Point-in-time recovery (PITR for short) reads the data as it was at an earlier moment, "up to a maximum of 7 days" back</td><td>No. "you must have billing enabled if you want to use PITR"</td></tr>
     <tr><td>Export</td><td>Copies the whole database out to files in Google's storage</td><td>No. "Firebase projects must be on the Blaze plan to use the managed export and import service."</td></tr>
   </table></div>
   <p>One detail matters on the bad day. Firebase says "A restore operation writes the data from a backup to a new Cloud Firestore database." A restore doesn't repair the database your app is using. It makes a second one, and the app has to be pointed at it or the data copied across. Ask Claude to walk you through that once, before you need it.</p>
@@ -2827,7 +2827,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   </div>
   <h4>The free route</h4>
   <p>Have the app make its own backup: a button only you can see that saves everything to one file.</p>
-  <div class="code prompt"><div class="label"><span>Owner's backup</span><button class="copy" type="button">Copy</button></div><pre>Add a "Download a backup" button that only I can see and use: check it in the database rules, not only by hiding the button. It saves every record in the shared database to one dated file on my device. Write a matching restore that loads such a file into an empty test project, never into the live one. Tell me how many reads one backup costs against the free plan's daily limit. Then prove it: make a backup, restore it into the test project, and show me that the counts match.</pre></div>
+  <div class="code prompt"><div class="label"><span>Owner's backup</span><button class="copy" type="button">Copy</button></div><pre>Add a "Download a backup" button that only I can see and use: check it in the database rules, not only by hiding the button. It saves every record in the shared database to one dated file on my device. Write a matching restore that loads such a file into an empty test project, never into the live one. Tell me how many reads one backup costs against the free plan's daily limit. Warn me if one backup would use more than a tenth of that limit. Then prove it: make a backup, restore it into the test project, and show me that the counts match. Last, write down in HANDOVER.md the steps for the bad day: how I would put a backup into the live database, and what would be overwritten.</pre></div>
   <div class="call"><div class="tag">Where the backup file lives</div>
     <p>That file holds everything every user saved. Keep it somewhere private that is itself backed up, such as your own cloud drive. Never commit it to the repo: Book 3 explains that a public repo is public all the way back through its history. Pick a rhythm you will keep, such as every Sunday and before any change to how data is saved (Book 5).</p>
   </div>
@@ -2842,12 +2842,12 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     <tr><td>Security updates</td><td>"Dependabot can fix vulnerable dependencies for you by raising pull requests with security updates."</td><td>Treat it like any pull request: checks green, preview opened, then merge</td></tr>
   </table></div>
   <p>A dependency is a library your app depends on. Vulnerable means it has a known hole. Both jobs are switched on in the repo's settings; ask Claude where, and to confirm they are on.</p>
-  <p>One limit, from how Dependabot works: it reads the list of libraries in files such as <code>package.json</code>. A library your page loads by a link to a CDN (Book 2) is not on that list, so nothing will warn you about it. For those, ask.</p>
+  <p>One limit, from how Dependabot works: it reads the list of libraries in files such as <code>package.json</code>. A library your page loads by a link to a CDN (a public server for libraries; see the Glossary) is not on that list, so nothing will warn you about it. For those, ask.</p>
   <div class="code prompt"><div class="label"><span>Parts check</span><button class="copy" type="button">Copy</button></div><pre>List every outside library and service this app uses: its name, the version we use, the newest version, where it is loaded from (package.json or a link in the page), and whether our version has a known security problem. Don't update anything yet. Sort the list: fix now (security), worth doing, leave alone. For each "fix now", open its own pull request, one library per pull request, and tell me what to test by hand on the preview.</pre></div>
   <ul>
     <li><b>One at a time.</b> If five libraries change in one pull request and the app breaks, you can't tell which did it.</li>
     <li><b>Security fixes soon, everything else on a rhythm.</b> Every three months is enough for a small app. A new version with a new first number (2 to 3) often changes how the library works; ask Claude what will break before saying yes.</li>
-    <li><b>Read the emails.</b> Vercel, Firebase, GitHub and Anthropic write to you before they change or retire something you use. Those emails are the only warning you get.</li>
+    <li><b>Read the emails.</b> Services change their prices and limits, and retire things. Their emails to the account's owner are often the first warning, so don't let them pile up unread.</li>
   </ul>
 
   <h3>Handing it over, and switching it off</h3>
@@ -2855,12 +2855,12 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   <h4>A second person on every account</h4>
   <div class="tablewrap"><table>
     <tr><th>Account</th><th>What the service says</th><th>What to do</th></tr>
-    <tr><td>GitHub</td><td>"Repositories owned by personal accounts have a single owner who has full control of the repository."</td><td>Invite a collaborator now (Book 4), so someone else can keep it running. A full handover is a transfer: "its issues, pull requests, wiki, stars, and watchers are also transferred"</td></tr>
+    <tr><td>GitHub</td><td>"Repositories owned by personal accounts have a single owner who has full control of the repository."</td><td>Invite a collaborator now (Book 4), so someone else can keep changes going. A collaborator can't change the repo's settings; only the owner can. A full handover is a transfer: "its issues, pull requests, wiki, stars, and watchers are also transferred"</td></tr>
     <tr><td>Firebase</td><td>"Add more than one Owner to your Firebase projects, especially if your project is not in a Google Cloud organization."</td><td>Add the second person with the role of Owner. Firebase's help page: "On the Permissions page, click Add member."</td></tr>
-    <tr><td>Vercel</td><td>A project can be transferred with its settings: "Environment variables are copied to the target team". The person moving it must be "a member of the team you're transferring to"</td><td>Ask Claude to check the current steps for two free accounts before you promise a date. One route always works: the new person imports the repo into their own Vercel account (Book 6) and adds their own keys</td></tr>
+    <tr><td>Vercel</td><td>A project can be transferred with its settings: "Environment variables are copied to the target team". The person moving it must be "a member of the team you're transferring to"</td><td>Ask Claude to check the current steps for two free accounts before you promise a date. A second route: once the repo is theirs, the new person imports it into their own Vercel account (Book 6) and adds their own keys. Until then nobody else can reach the Vercel project, so write its settings into the handover page below</td></tr>
     <tr><td>Paid keys</td><td></td><td>A key belongs to whoever pays for it. The new owner makes their own key, puts it in Vercel, and you delete yours (Book 5)</td></tr>
   </table></div>
-  <p>One warning before you transfer a repo that is a GitHub Pages site. GitHub redirects the repo's old address, but in its own words "we don't redirect GitHub Pages associated with the repository." The app's address changes with its owner, and every link and Home Screen icon your users have points at the old one. Tell them first, and remember Book 7: saved data on their phone belongs to the old address. Have them save a backup file before the move.</p>
+  <p>One warning before you transfer a repo that is a GitHub Pages site. GitHub redirects the repo's old address, but in its own words "we don't redirect GitHub Pages associated with the repository." The app's address changes with its owner, and every link and Home Screen icon your users have points at the old one. Tell them first. What the app saved on each phone is tied to the old address and will not follow them to the new one, so have them save a backup file (Book 23) before the move.</p>
   <h4>The page that replaces you</h4>
   <p>GitHub's guide for people who look after projects says: "Writing things down is one of the most important things you can do as a maintainer." Claude can write most of it from the repo. You add what only you know.</p>
   <div class="code prompt"><div class="label"><span>Write the handover page</span><button class="copy" type="button">Copy</button></div><pre>Write HANDOVER.md for someone who has never seen this app and can't read code. Cover: what the app does and who uses it; every account and service it depends on and what each is for; where each secret is kept (the place, never the value); how a change goes live; how to go back when one breaks; how to make and restore a backup; what costs money and when the bill comes; and what is known to be fragile. Leave a clearly marked blank for anything you can't learn from the repo, such as who the users are and how they reach me. Then list the questions I need to answer.</pre></div>
@@ -2871,13 +2871,13 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     <li><b>Tell the users, with a date.</b> Put it on the app's first screen, not only in a message.</li>
     <li><b>Give them their data.</b> A backup file, or a page they can save.</li>
     <li><b>Delete the paid keys</b> where they were made, so nothing can spend after the app is gone.</li>
-    <li><b>Delete the shared data.</b> Other people's messages should not sit in a forgotten project.</li>
+    <li><b>Delete the shared data,</b> and your backup files of it. Other people's messages should not sit in a forgotten project or an old folder.</li>
     <li><b>Leave a note in the README</b> saying the app is closed and when.</li>
   </ol>
   <div class="call try"><div class="tag">Try it</div>
     <p>Pick one app that other people use. Answer four questions without opening anything: how would you know today if it stopped working, where is the last copy of its data, who else can get into its accounts, and when did you last update a library? Each "I don't know" is a prompt in this book.</p>
   </div>
-  <p><em>Checked in November 2026 against Vercel's pages on notifications, runtime logs, alerts, Instant Rollback and transferring a project; Firebase's pages on Firestore backups, point-in-time recovery, export and import, monitoring usage and the launch checklist; GitHub's pages on scheduled workflows, issue templates, Dependabot alerts and security updates, transferring a repository and permission levels for a personal repository; and the Open Source Guides page "Best Practices for Maintainers". The "Report a problem" button, the owner's backup and the switching-off list are this library's own advice.</em></p>
+  <p><em>Checked in November 2026 against Vercel's pages on notifications, runtime logs, alerts, Instant Rollback and transferring a project; Firebase's pages on Firestore backups, point-in-time recovery, export and import, monitoring usage and the launch checklist; GitHub's pages on scheduled workflows, issue templates, Dependabot alerts and security updates, transferring a repository and permission levels for a personal repository; Firebase Help's page on project access; and the Open Source Guides page "Best Practices for Maintainers". The "Report a problem" button, the owner's backup and the switching-off list are this library's own advice.</em></p>
 </section>
 
 <section class="lesson" id="quiz" data-part="6 · Practice" data-title="Check yourself" data-min="15">
@@ -3749,8 +3749,8 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     ["Context window", "Everything Claude holds in mind during a session: messages, files read, outputs and instruction files."],
     ["Contrast ratio", "How different a text color is from the color behind it, as a number. The WCAG standard asks for at least 4.5:1 for normal text and 3:1 for large text."],
     ["Cron job", "Server code that runs on a clock instead of when someone taps. Also called a scheduled job."],
-    ["Dependabot", "GitHub's free robot that warns you when a library your app uses has a known security hole, and can open a pull request with the fix."],
     ["Deny rule", "A permission rule that blocks an action in every mode. Enforced by Claude Code."],
+    ["Dependabot", "GitHub's free robot that warns you when a library your app uses has a known security hole, and can open a pull request with the fix. It only sees libraries listed in files such as package.json."],
     ["Deploy", "Publishing a version of the app so users get it."],
     ["Design system", "In Claude Design, the saved set of an app's colors, fonts, pieces and layout patterns, so every new design matches. In a repo, DESIGN.md does the same job."],
     ["Diff", "The exact lines added and removed by a change."],
