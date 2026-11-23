@@ -594,7 +594,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
     <li><b>Mark it read.</b> A gold bookmark appears on the spine. Progress is remembered in your browser.</li>
     <li><b>Keep the Prompt library and Starter kit handy.</b> They're built to be copied into your notes and your next project.</li>
   </ol>
-  <p>There are five shelves: how apps are put together (including forks and contributing to someone else's project), how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, and a full practice build. The bottom shelf holds the glossary and sources.</p>
+  <p>There are six shelves: how apps are put together (including forks and contributing to someone else's project), how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, how to make an app look and feel finished, and a full practice build. The bottom shelf holds the glossary and sources.</p>
 
   <h3>Before your first session</h3>
   <p>Every "Try it" box from Book 1 on is a message to send Claude in a Claude Code session. Four things make that possible. None needs a computer; a phone is enough.</p>
@@ -2342,15 +2342,15 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 
   <h3>Why AI-built apps look alike</h3>
   <p>When you don't choose a look, Claude chooses the most common one. It has seen millions of pages, so "most common" means the average of all of them. Ask ten people's Claude for "a clean, modern study app" and you get ten apps that could be swapped without anyone noticing.</p>
-  <p>Anthropic knows this well enough to publish a fix: a free add-on for Claude Code called frontend-design. Its instructions tell Claude to choose "typefaces deliberately, not the default families you would reach for on any other project", and they list looks that AI-made design "clusters around" right now. Here are some of the signs Anthropic lists, plus the ones this library sees most in beginners' apps.</p>
+  <p>Anthropic knows this well enough to publish a fix: a free add-on for Claude Code called frontend-design. Its instructions tell Claude to choose "typefaces deliberately, not the default families you would reach for on any other project" (a typeface is a font), and they list looks that AI-made design "clusters around" right now. Here are some of the signs Anthropic lists, plus the ones this library sees most in beginners' apps.</p>
   <div class="tablewrap"><table>
     <tr><th>The sign</th><th>Why it reads as cheap</th><th>What to ask for</th></tr>
     <tr><td>A color fade (a gradient) behind everything, often purple to blue. Anthropic's list has "gradient washes as decoration"</td><td>It decorates without meaning anything, and thousands of apps have the same one</td><td>"Flat backgrounds. One accent color, used only on things I can tap."</td></tr>
     <tr><td>Emoji standing in for icons</td><td>They look different on every phone and never match your colors</td><td>"Replace emoji with icons from one icon set, all the same line thickness."</td></tr>
     <tr><td>Everything in a rounded box with a shadow, and boxes inside boxes</td><td>When everything is framed, nothing stands out</td><td>"Use a card only for something I can tap or that stands alone. No card inside a card."</td></tr>
-    <tr><td>A tiny label in capital letters above every heading (Anthropic: "a tracked-out ALL-CAPS eyebrow label above every heading")</td><td>It is a habit, not a decision. Most of the labels say nothing</td><td>"Remove any label that repeats the heading or adds no information."</td></tr>
+    <tr><td>A tiny label in widely spaced capital letters above every heading. Anthropic calls it "a tracked-out ALL-CAPS eyebrow label above every heading"</td><td>It is a habit, not a decision. Most of the labels say nothing</td><td>"Remove any label that repeats the heading or adds no information."</td></tr>
     <tr><td>Every section fades and slides up as you scroll</td><td>It slows the reader down and is the same on every AI-made page</td><td>"Remove entrance animations. Keep movement only where it answers a tap."</td></tr>
-    <tr><td>Each screen has its own spacing, corner roundness and text sizes</td><td>The app feels like five apps glued together</td><td>The short lists in sections 3 to 5 of this book</td></tr>
+    <tr><td>Each screen has its own spacing, corner roundness and text sizes</td><td>The app feels like five apps glued together</td><td>The short lists in sections 3 and 5 of this book</td></tr>
     <tr><td>Filler words: "Welcome to your dashboard!", "Oops! Something went wrong"</td><td>Nobody wrote them for this app or this user</td><td>"Rewrite every message for this app: say what happened and what to do next, in the words my users use."</td></tr>
   </table></div>
   <div class="call straight"><div class="tag">Straight talk</div>
@@ -2366,10 +2366,12 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <tr><td><b>Support</b></td><td>What they need to act on it: answer buttons, the class time</td><td>Normal size and weight</td></tr>
     <tr><td><b>Quiet</b></td><td>What they rarely need: the score so far, settings, the date</td><td>Smaller, and a softer gray instead of full black</td></tr>
   </table></div>
+  <p>Weight is how thick the letters are: regular, medium, bold. A heavier weight pulls the eye without taking more room.</p>
   <p>The same goes for buttons. One filled button per screen, for the thing most people will do next. Every other button is an outline or plain text. Two filled buttons side by side means nobody decided which one matters.</p>
   <div class="code prompt"><div class="label"><span>Hierarchy pass</span><button class="copy" type="button">Copy</button></div><pre>Take a screenshot of [screen] at 390px wide. Tell me, in order, the first three things the eye meets and why (size, weight, color, space). For this screen the most important thing is [the question], then [the answer buttons]. Everything else is quiet. Propose changes so the order matches: use size, weight and softer gray, not new colors. One filled button at most. Show me before and after screenshots. Don't change any other screen.</pre></div>
 
   <h3>Space and text sizes from a short list</h3>
+  <p>The prompts in this book mention DESIGN.md. It is an ordinary file in your repo that holds the app's look: its colors, fonts, sizes and spacing, each with a name. Book 15 calls those named values design tokens. If your app has no DESIGN.md yet, the second prompt on this page ends by creating one.</p>
   <p>A scale is a short list of allowed sizes. Cheap-looking apps have gaps of 7, 10, 13 and 18 pixels because each one was picked by eye on the day. Polished ones use a handful of sizes everywhere, so things line up and the eye relaxes. Here is a starting scale. The numbers are this library's suggestion, not a rule from anyone; what matters is that the list is short and Claude stays on it.</p>
   <div class="tablewrap"><table>
     <tr><th>What</th><th>A starting list</th><th>The rule that goes with it</th></tr>
@@ -2399,7 +2401,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <div class="tablewrap"><table>
     <tr><th>Thing</th><th>Decide once</th><th>What goes wrong otherwise</th></tr>
     <tr><td>Corner roundness</td><td>Two sizes at most: a small one for buttons and fields, a larger one for cards and pop-ups</td><td>Sharp boxes next to pill shapes next to slightly rounded ones</td></tr>
-    <tr><td>Shadows</td><td>One soft shadow for things that float over the page (a pop-up, a sheet). Light comes from above</td><td>A heavy dark shadow under everything, which looks like a 2010 website</td></tr>
+    <tr><td>Shadows</td><td>One soft shadow for things that float over the page, such as a pop-up or a panel that slides up from the bottom. The shadow falls below the thing, as if lit from above</td><td>A heavy dark shadow under everything, which looks like a 2010 website</td></tr>
     <tr><td>Lines or shadows</td><td>Separate things with space first, a thin line second. A box gets a border or a shadow, not both</td><td>Screens that look like forms</td></tr>
     <tr><td>Icons</td><td>One icon set for the whole app, one line thickness, one size next to text</td><td>Thick icons beside thin ones, and emoji filling the holes</td></tr>
     <tr><td>Pictures</td><td>One kind: all photos, or all drawings in one style</td><td>A photo, a cartoon and a 3D blob on the same screen</td></tr>
@@ -2413,7 +2415,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li>One filled button on the screen, at most.</li>
     <li>Every gap is a step on the spacing list.</li>
     <li>No more than five text sizes and two fonts in the whole app.</li>
-    <li>One accent color, used only on things you can tap.</li>
+    <li>One accent color, used only on things you can tap. Red and green only where they mean wrong and right.</li>
     <li>Every text and background pair passes the contrast minimum, in light and in dark.</li>
     <li>Two corner sizes, one shadow style, one icon set.</li>
     <li>No gradient, glow or animation that is there only for decoration.</li>
@@ -2425,17 +2427,17 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 2. One filled button at most.
 3. Every gap is on the spacing scale in DESIGN.md.
 4. Five text sizes and two fonts at most, app-wide.
-5. One accent color, only on things you can tap.
+5. One accent color, only on things you can tap. Red and green only where they mean wrong and right.
 6. Every text and background pair meets WCAG contrast (4.5 to 1, or 3 to 1 for large text).
 7. Two corner sizes, one shadow style, one icon set.
 8. No gradient, glow or animation that is only decoration.
 9. No card inside a card, no label that adds nothing.
 10. Every screen looks like the same app.
-Finish with the three fixes that would help most, smallest first. Send me the screenshots.</pre></div>
+Finish with the three fixes that would help most. Send me the screenshots.</pre></div>
   <div class="call straight"><div class="tag">The risky shortcut: "make it look premium"</div>
     <p>It is the obvious thing to type, and Claude will do something every time.</p>
-    <p><b>What it costs:</b> with no rule to follow, Claude adds: gradients, glows, blur, movement, a second accent color. The app gets heavier on an old phone, looks more like every other AI-made app, and you have a large change you can't judge.</p>
-    <p><b>How to close it:</b> ask for the review first, then name the fix. "Line 5 fails on the Progress screen: three colors on things that can't be tapped. Make them gray." A request like that can be checked against a screenshot. "Premium" can't.</p>
+    <p><b>What it costs:</b> with no rule to follow, Claude adds things: gradients, glows, blur, movement, a second accent color. The app gets heavier on an old phone, looks more like every other AI-made app, and you have a large change you can't judge.</p>
+    <p><b>How to close it:</b> ask for the review first, then name the fix. "Line 5 fails on the Progress screen: three decorative colors on things that can't be tapped. Make them gray." A request like that can be checked against a screenshot. "Premium" can't.</p>
   </div>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>Book 21 warns against spending weeks on polish before one real user has tried the app, and this book doesn't change that. These rules cost almost nothing when they are written into DESIGN.md before the first screen is built. They cost weeks when they are applied afterwards, screen by screen. And none of them rescues an app that does the wrong thing well.</p>
@@ -3278,7 +3280,7 @@ Finish with the three fixes that would help most, smallest first. Send me the sc
       o: ["Ask a friend if it looks fine", "Have Claude work out the contrast ratio: at least 4.5 to 1 for normal text", "Make the text one size bigger"], a: 1,
       w: "The WCAG standard asks for at least 4.5:1 for normal text and 3:1 for large text. Claude can measure it from the two colors, in light and in dark mode." },
     { q: "Which request is most likely to make an app look more expensive?",
-      o: ["Make it look premium", "Add gradients and animations so it feels modern", "Line 5 fails on the Progress screen: three colors on things that can't be tapped. Make them gray"], a: 2,
+      o: ["Make it look premium", "Add gradients and animations so it feels modern", "Line 5 fails on the Progress screen: three decorative colors on things that can't be tapped. Make them gray"], a: 2,
       w: "With no rule to follow, 'premium' gets you gradients, glows and movement: heavier and more like every other AI-made app. A named fix can be checked against a screenshot." }
   );
   var box = document.getElementById("quizBox");
@@ -3384,9 +3386,9 @@ Finish with the three fixes that would help most, smallest first. Send me the sc
     ["Responsive", "A layout that adapts to the screen width."],
     ["Revert", "Undoing a merged change with a new commit."],
     ["Row Level Security", "The Supabase database's version of security rules: a switch on each table, plus policies that say who may see which rows."],
+    ["Scale (spacing or text)", "A short list of allowed sizes for gaps or text, used everywhere so the app looks like one thing."],
     ["Schema", "The shape of saved data: which fields, what types."],
     ["Serverless function", "A small piece of back-end code that runs on demand, like each file in an api/ folder on Vercel."],
-    ["Scale (spacing or type)", "A short list of allowed sizes for gaps or text, used everywhere so the app looks like one thing."],
     ["Service worker", "The script (sw.js) that caches files so a PWA works offline."],
     ["Skill", "A saved procedure in .claude/skills/name/SKILL.md. Claude loads the full text only when needed."],
     ["Smoke test", "A quick check that the app loads and does its basic job."],
