@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 23 short books on glass shelves
-(about seven and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 24 short books on glass shelves
+(about eight hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 23 books on shelves, grouped in six parts (How your apps
+1. **The library.** All 24 books on shelves, grouped in six parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Making it feel
    premium, Practice) plus
    Start here and the reference books.
@@ -61,10 +61,10 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 25 questions, three of them on each of
+5. **Check yourself.** A quiz with a score: 28 questions, three of them on each of
    Books 6, 7 and 8 (added 2026-11-15), three on Book 17 (added 2026-11-19) and three
-   on Book 20 (added 2026-11-23).
-   Each of those fifteen right answers is what the book itself says.
+   each on Books 20 and 21 (added 2026-11-23).
+   Each of those eighteen right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -180,7 +180,7 @@ apps (told through the made-up ones).
      (for developers with a tool). Where this one differs: moves that need no code
      reading, a red-flag list read off the Files changed screen, and a lock GitHub runs.
    - Not in it: writing or reading tests, test tools, coverage numbers, CODEOWNERS (a
-     solo owner can't approve their own pull request), setting up CI (Book 20 does).
+     solo owner can't approve their own pull request), setting up CI (Build from zero does).
    - Done when: the book opens from its spine as Book 17 at 390px and desktop, all six
      sections are reachable from its Contents, every Anthropic and GitHub claim matches a
      page in Sources, every "Book N" elsewhere points at the right book, and the quiz has
@@ -195,9 +195,12 @@ apps (told through the made-up ones).
      AI-built apps look alike, one most important thing per screen, space and text sizes
      from a short list, one accent color and a contrast number, corners shadows and
      icons, a ten-line checklist with a review prompt. Build from zero became Book 21.
-   - [ ] **"Decide the look before you build."** Map the screens (paper or Claude
-     Whiteboards), reference apps, DESIGN.md, Claude Design and its handoff to Claude
-     Code, three mockups before a build, the frontend-design plugin.
+   - [x] **Book 21, "Decide the look before you build"** (2026-11-23). Six sections: map
+     the screens (paper or Claude Whiteboards), references, DESIGN.md with its CLAUDE.md
+     line, Claude Design and its handoff to Claude Code, three options and a screenshot
+     beside the mockup, the frontend-design plugin. Build from zero became Book 22.
+     Changed from the plan: the plugin section says plainly that a cloud session doesn't
+     load plugins installed on a computer, so phone readers are steered to DESIGN.md.
    - [ ] **"The finishing pass."** Empty, loading and error screens; motion and tap
      feedback; the words; fonts, icons and pictures with their licenses; the real-phone
      test, an accessibility check and a speed check; a fresh-eyes design review.
