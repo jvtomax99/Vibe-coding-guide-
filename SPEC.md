@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 22 short books on glass shelves
-(about seven hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 23 short books on glass shelves
+(about seven and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,8 +36,9 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 22 books on shelves, grouped in five parts (How your apps
-   work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Practice) plus
+1. **The library.** All 23 books on shelves, grouped in six parts (How your apps
+   work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Making it feel
+   premium, Practice) plus
    Start here and the reference books.
    - Done when: every book opens from its spine on a phone and on a desktop.
 2. **Reading a book.** One book open at a time as a paper page on a dark surround,
@@ -60,9 +61,10 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 22 questions, three of them on each of
-   Books 6, 7 and 8 (added 2026-11-15) and three on Book 17 (added 2026-11-19).
-   Each of those twelve right answers is what the book itself says.
+5. **Check yourself.** A quiz with a score: 25 questions, three of them on each of
+   Books 6, 7 and 8 (added 2026-11-15), three on Book 17 (added 2026-11-19) and three
+   on Book 20 (added 2026-11-23).
+   Each of those fifteen right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -183,6 +185,37 @@ apps (told through the made-up ones).
      sections are reachable from its Contents, every Anthropic and GitHub claim matches a
      page in Sources, every "Book N" elsewhere points at the right book, and the quiz has
      22 questions.
+
+15. **Part 5, "Making it feel premium", and "Life after launch".** Asked by Jose
+   2026-11-23: "anything that can help make an app through vibe coding that feels
+   premium and elevated ... without guessing." Plan OK'd the same day: three design
+   books in a new part between Talking to Claude and Practice, then a fourth book,
+   "Life after launch", in Practice after Build from zero. One pull request per book.
+   - [x] **Book 20, "What makes an app look expensive"** (2026-11-23). Six sections: why
+     AI-built apps look alike, one most important thing per screen, space and text sizes
+     from a short list, one accent color and a contrast number, corners shadows and
+     icons, a ten-line checklist with a review prompt. Build from zero became Book 21.
+   - [ ] **"Decide the look before you build."** Map the screens (paper or Claude
+     Whiteboards), reference apps, DESIGN.md, Claude Design and its handoff to Claude
+     Code, three mockups before a build, the frontend-design plugin.
+   - [ ] **"The finishing pass."** Empty, loading and error screens; motion and tap
+     feedback; the words; fonts, icons and pictures with their licenses; the real-phone
+     test, an accessibility check and a speed check; a fresh-eyes design review.
+   - [ ] **"Life after launch."** Knowing it broke, bug reports with a version number,
+     backups, keeping libraries current, handing an app over (from the review gaps
+     under Later).
+   - Compared: Refactoring UI (the closest in spirit; a paid book, $99 to $149, written
+     for developers), Apple's Human Interface Guidelines (a large reference for
+     designers; its pages would not load for the fact-check, so nothing is quoted from
+     it), and Anthropic's frontend-design plugin (instructions for Claude, not for the
+     person judging the result). Where this one differs: no code and no design training
+     needed, rules as short lists, and each book ends in prompts and a checklist.
+   - Not in it: a Figma tutorial, logo or brand design, 3D scenes, animation libraries,
+     paid template walkthroughs.
+   - Done when (each book): it opens from its spine at 390px and desktop, every section
+     is reachable from its Contents, every claim about an Anthropic product or a
+     standard matches a page in Sources, every "Book N" elsewhere points at the right
+     book, and the quiz count on the page matches the number of questions.
 
 ## Not in v1
 

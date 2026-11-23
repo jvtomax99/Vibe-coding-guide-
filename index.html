@@ -6,7 +6,7 @@
 <title>The Launch Manual: Building Apps With Claude</title>
 <meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
 <meta property="og:title" content="The Launch Manual: Building Apps With Claude">
-<meta property="og:description" content="A reading room for builders: 22 short books on building apps with Claude.">
+<meta property="og:description" content="A reading room for builders: 23 short books on building apps with Claude.">
 <meta name="theme-color" content="#05070F">
 <meta property="og:image" content="https://jvtomax99.github.io/Vibe-coding-guide-/icons/icon-512.png">
 <link rel="icon" href="icons/favicon.ico" sizes="any">
@@ -536,7 +536,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">22</div><small>short books on five shelves, about seven hours in all</small></div>
+    <div class="stat"><div class="big-num">23</div><small>short books on six shelves, about seven and a half hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -583,7 +583,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </table></div>
   <p>Why the right-hand column exists: in a 2025 test by the security company Veracode, covering more than 100 AI models, 45% of the code samples failed security tests. Veracode sells security scanning, and its tasks were designed to expose common weaknesses, so read that figure as a worst case, not an average. It is still a reason not to take the right-hand column on trust.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 20), a way to prove each check is real (Book 17), a reviewer that never saw the code being written (Book 13), the rules prompt in Book 5, the security check in the Prompt library (Book 19), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
+    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 21), a way to prove each check is real (Book 17), a reviewer that never saw the code being written (Book 13), the rules prompt in Book 5, the security check in the Prompt library (Book 19), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
   </div>
 
   <h3>How to use this library</h3>
@@ -991,7 +991,7 @@ How do you want the changes back?
   <p>Every step here was read off Firebase's and Vercel's own pages in November 2026. Both services move their buttons often. If a screen doesn't match, trust the screen and the live page (they are listed in Sources), and tell Claude what you see.</p>
 
   <h3>Do you need one?</h3>
-  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 20 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
+  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 21 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
   <p>Ask three questions. One "yes" is enough.</p>
   <div class="tablewrap"><table>
     <tr><th>Question</th><th>Why a static site can't do it</th><th>Example</th></tr>
@@ -999,7 +999,7 @@ How do you want the changes back?
     <tr><td><b>2. Must data be seen on more than one phone?</b></td><td>The phone's own storage never leaves that phone. Sharing between people, or one person on two devices, needs a database.</td><td>TeamDesk's team all see the same messages</td></tr>
     <tr><td><b>3. Must something happen while nobody has the app open?</b></td><td>A web page only runs while it is open. A job on a clock needs a server.</td><td>TeamDesk's summary, written every morning</td></tr>
   </table></div>
-  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 20), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
+  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 21), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
   <h4>What a back end starts costing</h4>
   <ul>
     <li><b>Other people's data becomes your job.</b> With no back end, the worst bug loses one person's progress on one phone. With a database, the worst bug shows everyone's data to a stranger.</li>
@@ -1241,7 +1241,7 @@ Add a scheduled job that [does what] once a day at about [time] in [city]. I'm o
   <p><em>Checked in November 2026 against GitHub's page on creating a Pages site and MDN's pages on HTTP caching and the visibilitychange event.</em></p>
 
   <h3>Apps with an offline worker: three update styles</h3>
-  <p>An offline worker is a small script that keeps a copy of the app on the phone so it opens with no signal. Developers call it a <b>service worker</b>. Book 20 leaves it out on purpose. Add one only when people need the app without signal, because from that day updates are something you plan.</p>
+  <p>An offline worker is a small script that keeps a copy of the app on the phone so it opens with no signal. Developers call it a <b>service worker</b>. Book 21 leaves it out on purpose. Add one only when people need the app without signal, because from that day updates are something you plan.</p>
   <p>Here is what the browser does if nobody plans anything. When the app is opened, the browser checks whether the worker file has changed. If it has, the new version is downloaded in the background while the person keeps using the old one. Then it waits. MDN: the new version "is only activated when there are no longer any pages loaded that are still using the old service worker." So the person sees your fix on the open <em>after</em> the next one, and only if the app was fully closed in between. People rarely close an app fully.</p>
   <p>Two things follow. The browser only notices a new version if the worker file itself changed, which is why other books say to bump <code>CACHE_VERSION</code> in <code>sw.js</code>: changing that one line is the signal. And someone has to decide when the waiting ends. There are three sensible answers.</p>
   <div class="tablewrap"><table>
@@ -1271,13 +1271,13 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <h3>What never updates by itself</h3>
   <p>Two things don't arrive with the next merge, whatever style you chose.</p>
   <h4>The name and icon on the Home Screen</h4>
-  <p>The name and icon come from the manifest (Book 20), and the phone reads them when the app is installed.</p>
+  <p>The name and icon come from the manifest (Book 21), and the phone reads them when the app is installed.</p>
   <div class="tablewrap"><table>
     <tr><th>Phone</th><th>What the official pages say</th></tr>
     <tr><td><b>iPhone</b> (Safari)</td><td>Google's web.dev: "the only way to get the new manifest metadata is to re-install the app from the browser."</td></tr>
     <tr><td><b>Android</b> (Chrome)</td><td>Chrome looks for manifest changes at most once every 24 hours. "In most cases, changes should be reflected within a day or two" of the app being opened, and only once the phone is plugged in, on Wi-Fi, and the app is closed.</td></tr>
   </table></div>
-  <p>So choose the name and the icon as if they were permanent. On iPhones they are, unless every user removes the app and adds it again. Before anyone does that, have them save a backup file (Book 20). Don't count on saved progress surviving a removal.</p>
+  <p>So choose the name and the icon as if they were permanent. On iPhones they are, unless every user removes the app and adds it again. Before anyone does that, have them save a backup file (Book 21). Don't count on saved progress surviving a removal.</p>
   <h4>Saved data in the old shape</h4>
   <p>The new code arrives on a phone that still holds data saved by the old code. If the new version expects a different shape, people's progress looks empty or the app breaks on open. This is the migration from Book 5, and it matters more with slow update styles: under style A, phones on three different versions can be in use in the same week. Add to any request that changes what is saved: "Assume phones are updating from any earlier version, not only the last one."</p>
   <p><em>Checked in November 2026 against Google's web.dev pages on updating an installable web app and on how Chrome handles manifest updates.</em></p>
@@ -1337,7 +1337,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <p>This is a book for deciding, not a build guide. None of the five example apps is in a store. Every fee and rule was read off Apple's and Google's own pages in November 2026; they change, so check the live pages (listed in Sources) before you pay for anything.</p>
 
   <h3>Do you need a store at all?</h3>
-  <p>Your app already installs. Book 20 shows how to put it on a Home Screen with its own icon, with no fee and no review. A store is a second way to hand out the same app, and it comes with a landlord.</p>
+  <p>Your app already installs. Book 21 shows how to put it on a Home Screen with its own icon, with no fee and no review. A store is a second way to hand out the same app, and it comes with a landlord.</p>
   <div class="tablewrap"><table>
     <tr><th></th><th>A link, added to the Home Screen</th><th>A store</th></tr>
     <tr><td><b>How people get it</b></td><td>You send them the link</td><td>They search the store, or you send a store link</td></tr>
@@ -1362,7 +1362,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <h3>The three routes</h3>
   <div class="tablewrap"><table>
     <tr><th>Route</th><th>What it is</th><th>Stores</th><th>What it takes</th></tr>
-    <tr><td><b>1. Installable web app</b></td><td>What you already have: a link people add to the Home Screen</td><td>None</td><td>Nothing more. Book 20.</td></tr>
+    <tr><td><b>1. Installable web app</b></td><td>What you already have: a link people add to the Home Screen</td><td>None</td><td>Nothing more. Book 21.</td></tr>
     <tr><td><b>2. A wrapper</b></td><td>A thin store app whose screen shows your web app. Your web files stay the app.</td><td>Both</td><td>A developer account, a computer, a review, and an app that is more than a website (section 4)</td></tr>
     <tr><td><b>3. A full rewrite</b></td><td>The app built again as a native app, in the languages phones use</td><td>Both</td><td>A developer and months. Out of reach for this library, and rarely needed.</td></tr>
   </table></div>
@@ -1442,7 +1442,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <h3>Deciding, and asking Claude</h3>
   <p>Take the questions in this order. Stop at the first "no".</p>
   <ol class="steps">
-    <li><b>Do strangers need to find this app?</b>If everyone who will use it can be sent a link, stop. Put "Add to Home Screen" on the first screen (Book 20) and you are done.</li>
+    <li><b>Do strangers need to find this app?</b>If everyone who will use it can be sent a link, stop. Put "Add to Home Screen" on the first screen (Book 21) and you are done.</li>
     <li><b>Is it more than a website?</b>Run the readiness prompt below. Fix what it finds as ordinary pull requests. This costs nothing and makes the app better even if you never go to a store.</li>
     <li><b>Can you get the build done?</b>A computer that can run the tools for Android, a Mac for iPhone, or someone who has one (section 5).</li>
     <li><b>Can you carry the account?</b>Your legal name in public, the fee, twelve testers for two weeks on Google, and a review each time the native part changes or you add a feature.</li>
@@ -2328,7 +2328,126 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 </section>
 
 <!-- ===================== PART 5 ===================== -->
-<section class="lesson" id="project" data-part="5 · Practice" data-title="Build your next app from zero" data-min="45">
+<section class="lesson" id="look" data-part="5 · Making it feel premium" data-title="What makes an app look expensive" data-min="20">
+  <div class="eyebrow"></div>
+  <h2>What makes an app look expensive</h2>
+  <p class="lede">You can tell a cheap-looking app from a polished one in about a second. Saying why is harder, and Claude can only fix what you can name. This book gives you the reasons in words you can send.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>Why apps built with AI end up looking alike, and the signs to spot</li>
+    <li>How to make one thing on each screen the most important</li>
+    <li>Spacing, text sizes and color picked from a short list, not by feel</li>
+    <li>A contrast number Claude can measure for you</li>
+    <li>A ten-line checklist to hold any screenshot against</li>
+  </ul></div>
+
+  <h3>Why AI-built apps look alike</h3>
+  <p>When you don't choose a look, Claude chooses the most common one. It has seen millions of pages, so "most common" means the average of all of them. Ask ten people's Claude for "a clean, modern study app" and you get ten apps that could be swapped without anyone noticing.</p>
+  <p>Anthropic knows this well enough to publish a fix: a free add-on for Claude Code called frontend-design. Its instructions tell Claude to choose "typefaces deliberately, not the default families you would reach for on any other project", and they list looks that AI-made design "clusters around" right now. Here are some of the signs Anthropic lists, plus the ones this library sees most in beginners' apps.</p>
+  <div class="tablewrap"><table>
+    <tr><th>The sign</th><th>Why it reads as cheap</th><th>What to ask for</th></tr>
+    <tr><td>A color fade (a gradient) behind everything, often purple to blue. Anthropic's list has "gradient washes as decoration"</td><td>It decorates without meaning anything, and thousands of apps have the same one</td><td>"Flat backgrounds. One accent color, used only on things I can tap."</td></tr>
+    <tr><td>Emoji standing in for icons</td><td>They look different on every phone and never match your colors</td><td>"Replace emoji with icons from one icon set, all the same line thickness."</td></tr>
+    <tr><td>Everything in a rounded box with a shadow, and boxes inside boxes</td><td>When everything is framed, nothing stands out</td><td>"Use a card only for something I can tap or that stands alone. No card inside a card."</td></tr>
+    <tr><td>A tiny label in capital letters above every heading (Anthropic: "a tracked-out ALL-CAPS eyebrow label above every heading")</td><td>It is a habit, not a decision. Most of the labels say nothing</td><td>"Remove any label that repeats the heading or adds no information."</td></tr>
+    <tr><td>Every section fades and slides up as you scroll</td><td>It slows the reader down and is the same on every AI-made page</td><td>"Remove entrance animations. Keep movement only where it answers a tap."</td></tr>
+    <tr><td>Each screen has its own spacing, corner roundness and text sizes</td><td>The app feels like five apps glued together</td><td>The short lists in sections 3 to 5 of this book</td></tr>
+    <tr><td>Filler words: "Welcome to your dashboard!", "Oops! Something went wrong"</td><td>Nobody wrote them for this app or this user</td><td>"Rewrite every message for this app: say what happened and what to do next, in the words my users use."</td></tr>
+  </table></div>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Expensive-looking is almost never "more". It is fewer things, each one decided once and then used the same way on every screen. Most of this book is about removing choices, which is good news: you don't need taste to follow a short list.</p>
+  </div>
+
+  <h3>One most important thing per screen</h3>
+  <p>Designers call this hierarchy: the order in which your eye meets the things on a screen. On a polished screen you know where to look first. On a cheap one, everything is the same size and loudness, so you have to read all of it to find what matters.</p>
+  <p>The test needs no training. Hold your phone at arm's length and half close your eyes until the words blur. Whatever still stands out is what the screen says is most important. In FlashDeck's quiz screen that should be the question. If it is the app's name or the score, the screen is shouting about the wrong thing.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Level</th><th>What belongs there</th><th>How it is made to look</th></tr>
+    <tr><td><b>The one thing</b></td><td>What the user came to this screen for: the question, today's classes, the pet</td><td>Biggest or boldest, with the most empty space around it</td></tr>
+    <tr><td><b>Support</b></td><td>What they need to act on it: answer buttons, the class time</td><td>Normal size and weight</td></tr>
+    <tr><td><b>Quiet</b></td><td>What they rarely need: the score so far, settings, the date</td><td>Smaller, and a softer gray instead of full black</td></tr>
+  </table></div>
+  <p>The same goes for buttons. One filled button per screen, for the thing most people will do next. Every other button is an outline or plain text. Two filled buttons side by side means nobody decided which one matters.</p>
+  <div class="code prompt"><div class="label"><span>Hierarchy pass</span><button class="copy" type="button">Copy</button></div><pre>Take a screenshot of [screen] at 390px wide. Tell me, in order, the first three things the eye meets and why (size, weight, color, space). For this screen the most important thing is [the question], then [the answer buttons]. Everything else is quiet. Propose changes so the order matches: use size, weight and softer gray, not new colors. One filled button at most. Show me before and after screenshots. Don't change any other screen.</pre></div>
+
+  <h3>Space and text sizes from a short list</h3>
+  <p>A scale is a short list of allowed sizes. Cheap-looking apps have gaps of 7, 10, 13 and 18 pixels because each one was picked by eye on the day. Polished ones use a handful of sizes everywhere, so things line up and the eye relaxes. Here is a starting scale. The numbers are this library's suggestion, not a rule from anyone; what matters is that the list is short and Claude stays on it.</p>
+  <div class="tablewrap"><table>
+    <tr><th>What</th><th>A starting list</th><th>The rule that goes with it</th></tr>
+    <tr><td>Gaps (spacing)</td><td>4, 8, 12, 16, 24, 32, 48 pixels</td><td>More space between groups than inside a group. A label sits close to its own field and far from the next one</td></tr>
+    <tr><td>Text sizes</td><td>14, 16, 20, 28, 40 pixels</td><td>Reading text at 16 or more on a phone. Neighbors on the list should look clearly different, not almost the same</td></tr>
+    <tr><td>Fonts</td><td>One for nearly everything. A second only for big headings, if at all</td><td>Bold for emphasis. Not a third font, not underlines, not capitals</td></tr>
+    <tr><td>Line length</td><td>Roughly 45 to 75 letters per line of reading text</td><td>On a wide screen the text column stays narrow; it doesn't stretch edge to edge</td></tr>
+  </table></div>
+  <p>When a screen feels cramped or cheap and you can't say why, the answer is usually space. Ask for more of it before asking for anything else.</p>
+  <div class="code prompt"><div class="label"><span>Put spacing and text on a scale</span><button class="copy" type="button">Copy</button></div><pre>List every different gap size, text size, font and corner roundness this app uses today, with how many times each appears. Don't change anything yet. Then propose a short scale for each (about seven gaps, five text sizes, two fonts at most, two corner sizes) and show which current values would move to which step. After I approve, write the scales into DESIGN.md as named values and use only those.</pre></div>
+  <p>The first half of that prompt is worth running alone. A count like "23 different gap sizes" explains the cheap feeling better than any opinion.</p>
+
+  <h3>Color: one accent, and contrast you can measure</h3>
+  <p>Count the colors in an app you admire. Usually you find a near-white or near-black background, two or three grays for text and lines, and one color that means "you can tap this". That one color is the accent. Red and green appear only when they mean something: wrong and right, error and saved.</p>
+  <ul>
+    <li><b>The accent is a signal.</b> If your accent is on buttons and also on headings, borders and decoration, the user can no longer see what is tappable. Corner Gym's "Check in" button should be the only thing on the screen in its color.</li>
+    <li><b>Grays do the hierarchy.</b> Main text near black, quiet text a softer gray. That is how section 2's three levels are built without new colors.</li>
+    <li><b>Dark mode is its own set.</b> Flipping light to dark by machine gives glowing text on pure black. Ask for a dark set chosen on purpose, and screenshots of both.</li>
+  </ul>
+  <h4>The number: contrast</h4>
+  <p>Contrast is how different the text color is from what is behind it, written as a ratio. The web's accessibility standard (WCAG, the rules many laws point to) asks for "a contrast ratio of at least 4.5:1" for normal text and "at least 3:1" for large text, which it defines as about 24 pixels, or about 18.5 pixels in bold. Pale gray on white fails. So does white text on a light accent color, which is the most common miss in AI-made apps.</p>
+  <p>You can't see a ratio, but Claude can work it out from the two colors. That makes this the rare look question with a right answer.</p>
+  <div class="code prompt"><div class="label"><span>Contrast check</span><button class="copy" type="button">Copy</button></div><pre>Check every text and background color pair in this app, in light and in dark mode, against the WCAG contrast minimum: 4.5 to 1 for normal text, 3 to 1 for large text (24px, or 18.5px bold). Give me a table: where it is used, the two colors, the ratio, pass or fail. For each fail, propose the smallest color change that passes and still fits DESIGN.md. Change nothing until I approve.</pre></div>
+
+  <h3>Corners, shadows and icons</h3>
+  <p>These are the small things that make an app feel like one object. Each needs deciding once.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Thing</th><th>Decide once</th><th>What goes wrong otherwise</th></tr>
+    <tr><td>Corner roundness</td><td>Two sizes at most: a small one for buttons and fields, a larger one for cards and pop-ups</td><td>Sharp boxes next to pill shapes next to slightly rounded ones</td></tr>
+    <tr><td>Shadows</td><td>One soft shadow for things that float over the page (a pop-up, a sheet). Light comes from above</td><td>A heavy dark shadow under everything, which looks like a 2010 website</td></tr>
+    <tr><td>Lines or shadows</td><td>Separate things with space first, a thin line second. A box gets a border or a shadow, not both</td><td>Screens that look like forms</td></tr>
+    <tr><td>Icons</td><td>One icon set for the whole app, one line thickness, one size next to text</td><td>Thick icons beside thin ones, and emoji filling the holes</td></tr>
+    <tr><td>Pictures</td><td>One kind: all photos, or all drawings in one style</td><td>A photo, a cartoon and a 3D blob on the same screen</td></tr>
+  </table></div>
+  <p>Icon sets and fonts have licenses, and some cost money. Before one goes into a public repo, ask Claude what its license allows: paid font and icon files usually may not be shared there.</p>
+
+  <h3>The checklist</h3>
+  <p>Ten lines. Hold any screenshot against them, or have Claude do it and show its evidence.</p>
+  <ol>
+    <li>With eyes half closed, the thing that stands out is what the user came for.</li>
+    <li>One filled button on the screen, at most.</li>
+    <li>Every gap is a step on the spacing list.</li>
+    <li>No more than five text sizes and two fonts in the whole app.</li>
+    <li>One accent color, used only on things you can tap.</li>
+    <li>Every text and background pair passes the contrast minimum, in light and in dark.</li>
+    <li>Two corner sizes, one shadow style, one icon set.</li>
+    <li>No gradient, glow or animation that is there only for decoration.</li>
+    <li>No card inside a card, and no label that says nothing.</li>
+    <li>Put next to any other screen of the app, it looks like the same app.</li>
+  </ol>
+  <div class="code prompt"><div class="label"><span>Look review</span><button class="copy" type="button">Copy</button></div><pre>Review how this app looks. Change nothing. Take screenshots of every screen at 390px and at desktop width, in light and dark mode. Then score each screen against these ten lines, with pass, fail or can't tell, and for every fail say exactly where on the screenshot it is:
+1. The most noticeable thing is what the user came for.
+2. One filled button at most.
+3. Every gap is on the spacing scale in DESIGN.md.
+4. Five text sizes and two fonts at most, app-wide.
+5. One accent color, only on things you can tap.
+6. Every text and background pair meets WCAG contrast (4.5 to 1, or 3 to 1 for large text).
+7. Two corner sizes, one shadow style, one icon set.
+8. No gradient, glow or animation that is only decoration.
+9. No card inside a card, no label that adds nothing.
+10. Every screen looks like the same app.
+Finish with the three fixes that would help most, smallest first. Send me the screenshots.</pre></div>
+  <div class="call straight"><div class="tag">The risky shortcut: "make it look premium"</div>
+    <p>It is the obvious thing to type, and Claude will do something every time.</p>
+    <p><b>What it costs:</b> with no rule to follow, Claude adds: gradients, glows, blur, movement, a second accent color. The app gets heavier on an old phone, looks more like every other AI-made app, and you have a large change you can't judge.</p>
+    <p><b>How to close it:</b> ask for the review first, then name the fix. "Line 5 fails on the Progress screen: three colors on things that can't be tapped. Make them gray." A request like that can be checked against a screenshot. "Premium" can't.</p>
+  </div>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Book 21 warns against spending weeks on polish before one real user has tried the app, and this book doesn't change that. These rules cost almost nothing when they are written into DESIGN.md before the first screen is built. They cost weeks when they are applied afterwards, screen by screen. And none of them rescues an app that does the wrong thing well.</p>
+  </div>
+  <div class="call try"><div class="tag">Try it</div>
+    <p>Open one of your apps on your phone, hold it at arm's length and half close your eyes. Write down the first thing you notice on the main screen. If it isn't what the user came for, send the "Hierarchy pass" prompt with that screen's name.</p>
+  </div>
+  <p><em>Checked in November 2026 against the instructions inside Anthropic's frontend-design plugin and the W3C's page on the WCAG contrast minimum. The spacing and text lists, the half-closed-eyes test and the checklist are this library's own advice, drawn from common design practice.</em></p>
+</section>
+
+<!-- ===================== PART 6 ===================== -->
+<section class="lesson" id="project" data-part="6 · Practice" data-title="Build your next app from zero" data-min="45">
   <div class="eyebrow"></div>
   <h2>Build your next app from zero</h2>
   <p class="lede">A full walk-through using everything in this course. The example is a class schedule and check-in app for Corner Gym members. Swap in any idea; the steps don't change.</p>
@@ -2412,11 +2531,11 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   </ul>
 </section>
 
-<section class="lesson" id="quiz" data-part="5 · Practice" data-title="Check yourself" data-min="15">
+<section class="lesson" id="quiz" data-part="6 · Practice" data-title="Check yourself" data-min="15">
   <div class="eyebrow"></div>
   <h2>Check yourself</h2>
-  <p class="lede">Twenty-two questions on the ideas that matter most. Tap an answer to see why.</p>
-  <p class="score" id="quizScore">0 of 22 answered</p>
+  <p class="lede">Twenty-five questions on the ideas that matter most. Tap an answer to see why.</p>
+  <p class="score" id="quizScore">0 of 25 answered</p>
   <div id="quizBox"></div>
   <button class="btn" type="button" id="quizReset">Start over</button>
 </section>
@@ -2509,6 +2628,13 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <li><a href="https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions">GitHub, Workflow commands</a>: a warning message that creates an annotation on the run.</li>
     <li><a href="https://stryker-mutator.io/docs/">Stryker, What is mutation testing?</a>: breaking code on purpose to see if the tests notice.</li>
   </ul>
+  <h3>Design and polish</h3>
+  <p>The pages behind Book 20, read in November 2026.</p>
+  <ul>
+    <li><a href="https://claude.com/plugins/frontend-design">Anthropic, the frontend-design plugin</a> and <a href="https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design">its instructions</a>: choosing typefaces "deliberately", and the looks AI-made design "clusters around".</li>
+    <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">W3C, Understanding contrast (minimum)</a>: 4.5:1 for normal text, 3:1 for large text, and what counts as large.</li>
+    <li><a href="https://www.refactoringui.com/">Refactoring UI</a>, by Adam Wathan and Steve Schoger: a paid book on the same subject, written for developers. Not a source for Book 20's claims; listed for readers who want to go deeper.</li>
+  </ul>
   <h3>Going further</h3>
   <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
   <h4>What vibe coding is</h4>
@@ -2576,6 +2702,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     checks:   ["#1A2A3E","#E8C88A","Checks you can trust", .95],
     debug:    ["#2B3447","#E8C88A","Debugging", .92],
     library:  ["#1F2636","#E8C88A","Prompt library", .96],
+    look:     ["#3A2A14","#E8C88A","Looking expensive", .97],
     project:  ["#40161F","#E8C88A","Build from zero", 1],
     quiz:     ["#531C28","#E8C88A","Check yourself", .9],
     glossary: ["#C9CED8","#1B2233","Glossary", .95, "paper"],
@@ -2587,7 +2714,8 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     "2 · Claude Code": "How the tool works and what each piece of it is for.",
     "3 · CLAUDE.md, Anthropic's way": "The official guidance, your audit and a starter kit.",
     "4 · Talking to Claude": "Requests, terms, the workflow, checks you can trust, bugs and a prompt library.",
-    "5 · Practice": "A full build from zero, and a quiz.",
+    "5 · Making it feel premium": "Why some apps look expensive, and the short lists that get yours there.",
+    "6 · Practice": "A full build from zero, and a quiz.",
     "Reference": "Look things up any time."
   };
   var ICON = {
@@ -2611,6 +2739,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     checks:'<path d="M32 8 50 15v15c0 12-8 20-18 26-10-6-18-14-18-26V15z"/><path d="M23 32l6 6 12-13"/>',
     debug:'<ellipse cx="32" cy="36" rx="10" ry="14"/><path d="M32 22v28M26 18l-4-6M38 18l4-6M22 30H12M22 40H12M42 30h10M42 40h10"/>',
     library:'<rect x="12" y="20" width="30" height="34" rx="2"/><path d="M18 14h30v34"/><path d="M18 30h18M18 37h18M18 44h10"/>',
+    look:'<path d="M32 10 50 26 32 54 14 26z"/><path d="M14 26h36M24 26l8-16 8 16-8 28z"/>',
     project:'<path d="M12 30 32 14l20 16v22H12z"/><path d="M26 52V38h12v14"/>',
     quiz:'<circle cx="32" cy="32" r="20"/><path d="M26 26a6 6 0 1 1 8 6c-2 1-2 3-2 5"/><path d="M32 44v1"/>',
     glossary:'<rect x="14" y="10" width="36" height="44" rx="2"/><path d="M22 40l6-18 6 18M24 34h8M38 24h6l-6 14h6"/>',
@@ -3141,7 +3270,16 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
       w: "A change to the checks themselves needs its own reason. A test edited to match the new behavior can hide a bug it was written to catch." },
     { q: "Why ask a fresh session, not the one that wrote the code, to review a pull request?",
       o: ["A fresh session uses a smarter model", "It never saw the code being written, so it isn't swayed by the reasoning that produced it", "The first session has run out of memory"], a: 1,
-      w: "Anthropic: 'A second session is also the easiest independent reviewer you can get.' It is the same kind of model, so ask it to skip style and report only what a user would see go wrong." }
+      w: "Anthropic: 'A second session is also the easiest independent reviewer you can get.' It is the same kind of model, so ask it to skip style and report only what a user would see go wrong." },
+    { q: "You hold your phone at arm's length and half close your eyes. On FlashDeck's quiz screen the thing that stands out is the app's name. What does that tell you?",
+      o: ["The screen is fine: the name should always be biggest", "The screen is making the wrong thing most important; the question should stand out", "The phone's brightness is too low"], a: 1,
+      w: "Book 20: each screen has one most important thing, the one the user came for. Whatever survives the blur is what the screen says matters most." },
+    { q: "Pale gray text sits on a white background. How do you find out whether it is readable enough?",
+      o: ["Ask a friend if it looks fine", "Have Claude work out the contrast ratio: at least 4.5 to 1 for normal text", "Make the text one size bigger"], a: 1,
+      w: "The WCAG standard asks for at least 4.5:1 for normal text and 3:1 for large text. Claude can measure it from the two colors, in light and in dark mode." },
+    { q: "Which request is most likely to make an app look more expensive?",
+      o: ["Make it look premium", "Add gradients and animations so it feels modern", "Line 5 fails on the Progress screen: three colors on things that can't be tapped. Make them gray"], a: 2,
+      w: "With no rule to follow, 'premium' gets you gradients, glows and movement: heavier and more like every other AI-made app. A named fix can be checked against a screenshot." }
   );
   var box = document.getElementById("quizBox");
   var answered = 0, right = 0;
@@ -3175,6 +3313,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 
   // Glossary
   var G = [
+    ["Accent color", "The one color in an app that means 'you can tap this'. Used on buttons and links, and nowhere else."],
     ["Acceptance criteria", "The checkable conditions that mean a feature is done. The 'Done when' lines in a spec."],
     ["Agentic engineering", "Building with an AI coding agent while still reviewing, testing and understanding the result. The careful end of the scale; vibe coding is the other end."],
     ["AGENTS.md", "An instruction file other AI tools read. Claude Code reads it by itself only when the repo has no CLAUDE.md; when both exist, import it with @AGENTS.md."],
@@ -3198,6 +3337,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Component", "A reusable piece of UI, like a card or a button group."],
     ["Console error", "An error the browser reports in its developer console (F12 in Chrome). Copy the exact text."],
     ["Context window", "Everything Claude holds in mind during a session: messages, files read, outputs and instruction files."],
+    ["Contrast ratio", "How different a text color is from the color behind it, as a number. The WCAG standard asks for at least 4.5:1 for normal text and 3:1 for large text."],
     ["Cron job", "Server code that runs on a clock instead of when someone taps. Also called a scheduled job."],
     ["Deny rule", "A permission rule that blocks an action in every mode. Enforced by Claude Code."],
     ["Deploy", "Publishing a version of the app so users get it."],
@@ -3218,6 +3358,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Home Screen app", "A web app someone added to their phone's Home Screen from the browser. It opens like a store app, with no store involved."],
     ["GitHub Pages", "Free hosting that serves a repo's files as a website. Merging to main is going live."],
     ["GLB", "A 3D model file format holding shapes, textures and animations together."],
+    ["Hierarchy", "The order in which the eye meets the things on a screen. A good screen has one most important thing, made the biggest or boldest."],
     ["Hook", "A script Claude Code runs at a fixed moment (session start, before or after a tool, before stopping). Enforced every time."],
     ["Import (@)", "A line like @AGENTS.md that pulls another file into CLAUDE.md. Expanded at launch, so it doesn't save context."],
     ["Live update", "Sending new web files straight to a store app that is already installed, without a new store download. Allowed only within the stores' rules."],
@@ -3245,6 +3386,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     ["Row Level Security", "The Supabase database's version of security rules: a switch on each table, plus policies that say who may see which rows."],
     ["Schema", "The shape of saved data: which fields, what types."],
     ["Serverless function", "A small piece of back-end code that runs on demand, like each file in an api/ folder on Vercel."],
+    ["Scale (spacing or type)", "A short list of allowed sizes for gaps or text, used everywhere so the app looks like one thing."],
     ["Service worker", "The script (sw.js) that caches files so a PWA works offline."],
     ["Skill", "A saved procedure in .claude/skills/name/SKILL.md. Claude loads the full text only when needed."],
     ["Smoke test", "A quick check that the app loads and does its basic job."],
