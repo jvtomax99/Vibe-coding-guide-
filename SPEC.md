@@ -180,7 +180,7 @@ apps (told through the made-up ones).
      (for developers with a tool). Where this one differs: moves that need no code
      reading, a red-flag list read off the Files changed screen, and a lock GitHub runs.
    - Not in it: writing or reading tests, test tools, coverage numbers, CODEOWNERS (a
-     solo owner can't approve their own pull request), setting up CI (Book 20 does).
+     solo owner can't approve their own pull request), setting up CI (Build from zero does).
    - Done when: the book opens from its spine as Book 17 at 390px and desktop, all six
      sections are reachable from its Contents, every Anthropic and GitHub claim matches a
      page in Sources, every "Book N" elsewhere points at the right book, and the quiz has
