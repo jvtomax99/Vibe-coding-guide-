@@ -62,7 +62,7 @@ Search for these markers:
   `data-title` and `data-min` (minutes), and sometimes `data-open` (a name for the
   page made from whatever comes before the first `<h3>`). Ids in order: start, anatomy, stack, git,
   forks, hosting, backend, updates, stores, agent, toolkit, claudemd, audit, starter, request, vocab, workflow, checks,
-  debug, library, look, design, finish, project, quiz, then glossary and sources.
+  debug, library, look, design, finish, project, after, quiz, then glossary and sources.
 - The `<script>` at the end, in parts marked by comments: storage (`KEY =
   "bac-course-v1"`), `BOOK` (cloth colors, spine titles, heights), `ICON` (cover
   drawings), numbering the books and cutting each into pages (each lesson gets

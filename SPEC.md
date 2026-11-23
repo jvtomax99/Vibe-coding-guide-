@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 25 short books on glass shelves
-(a little over eight hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 26 short books on glass shelves
+(about eight and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 25 books on shelves, grouped in six parts (How your apps
+1. **The library.** All 26 books on shelves, grouped in six parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Making it feel
    premium, Practice) plus
    Start here and the reference books.
@@ -61,10 +61,10 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 31 questions, three of them on each of
+5. **Check yourself.** A quiz with a score: 34 questions, three of them on each of
    Books 6, 7 and 8 (added 2026-11-15), three on Book 17 (added 2026-11-19) and three
-   each on Books 20, 21 and 22 (added 2026-11-23).
-   Each of those twenty-one right answers is what the book itself says.
+   each on Books 20, 21, 22 and 24 (added 2026-11-23).
+   Each of those twenty-four right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -208,9 +208,29 @@ apps (told through the made-up ones).
      accessibility check; a fresh-eyes review and when to stop. Build from zero became
      Book 23. Nothing is quoted from Apple's Human Interface Guidelines, Material
      Design or the Google Fonts FAQ: those pages would not load for the fact-check.
-   - [ ] **"Life after launch."** Knowing it broke, bug reports with a version number,
-     backups, keeping libraries current, handing an app over (from the review gaps
-     under Later).
+   - [x] **Book 24, "Life after launch"** (2026-11-23), in Practice after Build from
+     zero; the quiz became Book 25. Plan: for one person who can't read code looking
+     after an app friends or coworkers use, on the free plans. Six sections: knowing it
+     broke (what Vercel and Firebase tell you for free, and a daily check on GitHub
+     Actions), a "Report a problem" button built on Book 7's version number, going back
+     before fixing, backing up a shared database, keeping libraries current with
+     Dependabot, handing over and switching off. Not in this version: paid monitoring
+     or error-tracking services, on-call or incident process, analytics, privacy and
+     deleting data on request (its own gap under Later).
+     Answer to the open question: Firestore's scheduled backups, point-in-time recovery
+     and export all need the Blaze plan, so the book's free route is an owner-only
+     backup button and a tested restore.
+     Compared: Vercel's production checklist (written for teams; its answers to this
+     book's questions are Log Drains and Observability Plus, both paid), Firebase's
+     launch checklist (the closest; the book quotes it on owners and budget alerts, but
+     it stops at launch day and says nothing on backups) and the Open Source Guides'
+     "Best Practices for Maintainers" (about people and process, for projects with
+     contributors). Where this one differs: free plans only, each job ends in a prompt,
+     and it covers getting data back and handing over, which none of the three do for
+     a one-person app.
+     Not claimed because the page could not be read word for word: that GitHub switches
+     off scheduled checks in a quiet public repo, GitHub's account successor setting,
+     and emails for failed Actions runs. The daily-check prompt asks Claude instead.
    - Compared: Refactoring UI (the closest in spirit; a paid book, $99 to $149, written
      for developers), Apple's Human Interface Guidelines (a large reference for
      designers; its pages would not load for the fact-check, so nothing is quoted from
@@ -252,7 +272,7 @@ apps (told through the made-up ones).
   made-up package names.
 - **Claude Code as a risk.** Third-party MCP servers, skills and plugins run with your
   access; pages and files Claude reads can carry instructions.
-- **Life after launch.** Knowing it broke (logs kept one hour on Vercel's free plan),
+- **Life after launch (done: Book 24).** Knowing it broke (logs kept one hour on Vercel's free plan),
   users reporting bugs with the version number, backing up and restoring the shared
   database (check whether Firestore's managed backups need the paid plan), keeping
   libraries current, and handing an app over (TeamDesk has one non-developer behind it).
