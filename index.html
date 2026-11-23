@@ -6,7 +6,7 @@
 <title>The Launch Manual: Building Apps With Claude</title>
 <meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
 <meta property="og:title" content="The Launch Manual: Building Apps With Claude">
-<meta property="og:description" content="A reading room for builders: 24 short books on building apps with Claude.">
+<meta property="og:description" content="A reading room for builders: 25 short books on building apps with Claude.">
 <meta name="theme-color" content="#05070F">
 <meta property="og:image" content="https://jvtomax99.github.io/Vibe-coding-guide-/icons/icon-512.png">
 <link rel="icon" href="icons/favicon.ico" sizes="any">
@@ -536,7 +536,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">24</div><small>short books on six shelves, about eight hours in all</small></div>
+    <div class="stat"><div class="big-num">25</div><small>short books on six shelves, a little over eight hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -583,7 +583,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </table></div>
   <p>Why the right-hand column exists: in a 2025 test by the security company Veracode, covering more than 100 AI models, 45% of the code samples failed security tests. Veracode sells security scanning, and its tasks were designed to expose common weaknesses, so read that figure as a worst case, not an average. It is still a reason not to take the right-hand column on trust.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 22), a way to prove each check is real (Book 17), a reviewer that never saw the code being written (Book 13), the rules prompt in Book 5, the security check in the Prompt library (Book 19), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
+    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 23), a way to prove each check is real (Book 17), a reviewer that never saw the code being written (Book 13), the rules prompt in Book 5, the security check in the Prompt library (Book 19), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
   </div>
 
   <h3>How to use this library</h3>
@@ -991,7 +991,7 @@ How do you want the changes back?
   <p>Every step here was read off Firebase's and Vercel's own pages in November 2026. Both services move their buttons often. If a screen doesn't match, trust the screen and the live page (they are listed in Sources), and tell Claude what you see.</p>
 
   <h3>Do you need one?</h3>
-  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 22 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
+  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 23 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
   <p>Ask three questions. One "yes" is enough.</p>
   <div class="tablewrap"><table>
     <tr><th>Question</th><th>Why a static site can't do it</th><th>Example</th></tr>
@@ -999,7 +999,7 @@ How do you want the changes back?
     <tr><td><b>2. Must data be seen on more than one phone?</b></td><td>The phone's own storage never leaves that phone. Sharing between people, or one person on two devices, needs a database.</td><td>TeamDesk's team all see the same messages</td></tr>
     <tr><td><b>3. Must something happen while nobody has the app open?</b></td><td>A web page only runs while it is open. A job on a clock needs a server.</td><td>TeamDesk's summary, written every morning</td></tr>
   </table></div>
-  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 22), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
+  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 23), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
   <h4>What a back end starts costing</h4>
   <ul>
     <li><b>Other people's data becomes your job.</b> With no back end, the worst bug loses one person's progress on one phone. With a database, the worst bug shows everyone's data to a stranger.</li>
@@ -1241,7 +1241,7 @@ Add a scheduled job that [does what] once a day at about [time] in [city]. I'm o
   <p><em>Checked in November 2026 against GitHub's page on creating a Pages site and MDN's pages on HTTP caching and the visibilitychange event.</em></p>
 
   <h3>Apps with an offline worker: three update styles</h3>
-  <p>An offline worker is a small script that keeps a copy of the app on the phone so it opens with no signal. Developers call it a <b>service worker</b>. Book 22 leaves it out on purpose. Add one only when people need the app without signal, because from that day updates are something you plan.</p>
+  <p>An offline worker is a small script that keeps a copy of the app on the phone so it opens with no signal. Developers call it a <b>service worker</b>. Book 23 leaves it out on purpose. Add one only when people need the app without signal, because from that day updates are something you plan.</p>
   <p>Here is what the browser does if nobody plans anything. When the app is opened, the browser checks whether the worker file has changed. If it has, the new version is downloaded in the background while the person keeps using the old one. Then it waits. MDN: the new version "is only activated when there are no longer any pages loaded that are still using the old service worker." So the person sees your fix on the open <em>after</em> the next one, and only if the app was fully closed in between. People rarely close an app fully.</p>
   <p>Two things follow. The browser only notices a new version if the worker file itself changed, which is why other books say to bump <code>CACHE_VERSION</code> in <code>sw.js</code>: changing that one line is the signal. And someone has to decide when the waiting ends. There are three sensible answers.</p>
   <div class="tablewrap"><table>
@@ -1271,13 +1271,13 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <h3>What never updates by itself</h3>
   <p>Two things don't arrive with the next merge, whatever style you chose.</p>
   <h4>The name and icon on the Home Screen</h4>
-  <p>The name and icon come from the manifest (Book 22), and the phone reads them when the app is installed.</p>
+  <p>The name and icon come from the manifest (Book 23), and the phone reads them when the app is installed.</p>
   <div class="tablewrap"><table>
     <tr><th>Phone</th><th>What the official pages say</th></tr>
     <tr><td><b>iPhone</b> (Safari)</td><td>Google's web.dev: "the only way to get the new manifest metadata is to re-install the app from the browser."</td></tr>
     <tr><td><b>Android</b> (Chrome)</td><td>Chrome looks for manifest changes at most once every 24 hours. "In most cases, changes should be reflected within a day or two" of the app being opened, and only once the phone is plugged in, on Wi-Fi, and the app is closed.</td></tr>
   </table></div>
-  <p>So choose the name and the icon as if they were permanent. On iPhones they are, unless every user removes the app and adds it again. Before anyone does that, have them save a backup file (Book 22). Don't count on saved progress surviving a removal.</p>
+  <p>So choose the name and the icon as if they were permanent. On iPhones they are, unless every user removes the app and adds it again. Before anyone does that, have them save a backup file (Book 23). Don't count on saved progress surviving a removal.</p>
   <h4>Saved data in the old shape</h4>
   <p>The new code arrives on a phone that still holds data saved by the old code. If the new version expects a different shape, people's progress looks empty or the app breaks on open. This is the migration from Book 5, and it matters more with slow update styles: under style A, phones on three different versions can be in use in the same week. Add to any request that changes what is saved: "Assume phones are updating from any earlier version, not only the last one."</p>
   <p><em>Checked in November 2026 against Google's web.dev pages on updating an installable web app and on how Chrome handles manifest updates.</em></p>
@@ -1337,7 +1337,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <p>This is a book for deciding, not a build guide. None of the five example apps is in a store. Every fee and rule was read off Apple's and Google's own pages in November 2026; they change, so check the live pages (listed in Sources) before you pay for anything.</p>
 
   <h3>Do you need a store at all?</h3>
-  <p>Your app already installs. Book 22 shows how to put it on a Home Screen with its own icon, with no fee and no review. A store is a second way to hand out the same app, and it comes with a landlord.</p>
+  <p>Your app already installs. Book 23 shows how to put it on a Home Screen with its own icon, with no fee and no review. A store is a second way to hand out the same app, and it comes with a landlord.</p>
   <div class="tablewrap"><table>
     <tr><th></th><th>A link, added to the Home Screen</th><th>A store</th></tr>
     <tr><td><b>How people get it</b></td><td>You send them the link</td><td>They search the store, or you send a store link</td></tr>
@@ -1362,7 +1362,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <h3>The three routes</h3>
   <div class="tablewrap"><table>
     <tr><th>Route</th><th>What it is</th><th>Stores</th><th>What it takes</th></tr>
-    <tr><td><b>1. Installable web app</b></td><td>What you already have: a link people add to the Home Screen</td><td>None</td><td>Nothing more. Book 22.</td></tr>
+    <tr><td><b>1. Installable web app</b></td><td>What you already have: a link people add to the Home Screen</td><td>None</td><td>Nothing more. Book 23.</td></tr>
     <tr><td><b>2. A wrapper</b></td><td>A thin store app whose screen shows your web app. Your web files stay the app.</td><td>Both</td><td>A developer account, a computer, a review, and an app that is more than a website (section 4)</td></tr>
     <tr><td><b>3. A full rewrite</b></td><td>The app built again as a native app, in the languages phones use</td><td>Both</td><td>A developer and months. Out of reach for this library, and rarely needed.</td></tr>
   </table></div>
@@ -1442,7 +1442,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <h3>Deciding, and asking Claude</h3>
   <p>Take the questions in this order. Stop at the first "no".</p>
   <ol class="steps">
-    <li><b>Do strangers need to find this app?</b>If everyone who will use it can be sent a link, stop. Put "Add to Home Screen" on the first screen (Book 22) and you are done.</li>
+    <li><b>Do strangers need to find this app?</b>If everyone who will use it can be sent a link, stop. Put "Add to Home Screen" on the first screen (Book 23) and you are done.</li>
     <li><b>Is it more than a website?</b>Run the readiness prompt below. Fix what it finds as ordinary pull requests. This costs nothing and makes the app better even if you never go to a store.</li>
     <li><b>Can you get the build done?</b>A computer that can run the tools for Android, a Mac for iPhone, or someone who has one (section 5).</li>
     <li><b>Can you carry the account?</b>Your legal name in public, the fee, twelve testers for two weeks on Google, and a review each time the native part changes or you add a feature.</li>
@@ -2351,7 +2351,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <tr><td>A tiny label in widely spaced capital letters above every heading. Anthropic calls it "a tracked-out ALL-CAPS eyebrow label above every heading"</td><td>It is a habit, not a decision. Most of the labels say nothing</td><td>"Remove any label that repeats the heading or adds no information."</td></tr>
     <tr><td>Every section fades and slides up as you scroll</td><td>It slows the reader down and is the same on every AI-made page</td><td>"Remove entrance animations. Keep movement only where it answers a tap."</td></tr>
     <tr><td>Each screen has its own spacing, corner roundness and text sizes</td><td>The app feels like five apps glued together</td><td>The short lists in sections 3 and 5 of this book</td></tr>
-    <tr><td>Filler words: "Welcome to your dashboard!", "Oops! Something went wrong"</td><td>Nobody wrote them for this app or this user</td><td>"Rewrite every message for this app: say what happened and what to do next, in the words my users use."</td></tr>
+    <tr><td>Filler words: "Welcome to your dashboard!", "Oops! Something went wrong"</td><td>Nobody wrote them for this app or this user</td><td>"Rewrite every message for this app: say what happened and what to do next, in the words my users use." Book 22 has a prompt that lists every word in the app.</td></tr>
   </table></div>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>Expensive-looking is almost never "more". It is fewer things, each one decided once and then used the same way on every screen. Most of this book is about removing choices, which is good news: you don't need taste to follow a short list.</p>
@@ -2406,7 +2406,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
     <tr><td>Icons</td><td>One icon set for the whole app, one line thickness, one size next to text</td><td>Thick icons beside thin ones, and emoji filling the holes</td></tr>
     <tr><td>Pictures</td><td>One kind: all photos, or all drawings in one style</td><td>A photo, a cartoon and a 3D blob on the same screen</td></tr>
   </table></div>
-  <p>Icon sets and fonts have licenses, and some cost money. Before one goes into a public repo, ask Claude what its license allows: paid font and icon files usually may not be shared there.</p>
+  <p>Icon sets and fonts have licenses, and some cost money. Before one goes into a public repo, ask Claude what its license allows: paid font and icon files usually may not be shared there. Book 22 has a prompt that checks every font, icon and picture.</p>
 
   <h3>The checklist</h3>
   <p>Ten lines. Hold any screenshot against them, or have Claude do it and show its evidence.</p>
@@ -2440,7 +2440,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     <p><b>How to close it:</b> ask for the review first, then name the fix. "Line 5 fails on the Progress screen: three decorative colors on things that can't be tapped. Make them gray." A request like that can be checked against a screenshot. "Premium" can't.</p>
   </div>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Book 22 warns against spending weeks on polish before one real user has tried the app, and this book doesn't change that. These rules cost almost nothing when they are written into DESIGN.md before the first screen is built (Book 21 shows how). They cost weeks when they are applied afterwards, screen by screen. And none of them rescues an app that does the wrong thing well.</p>
+    <p>Book 23 warns against spending weeks on polish before one real user has tried the app, and this book doesn't change that. These rules cost almost nothing when they are written into DESIGN.md before the first screen is built (Book 21 shows how). They cost weeks when they are applied afterwards, screen by screen. And none of them rescues an app that does the wrong thing well.</p>
   </div>
   <div class="call try"><div class="tag">Try it</div>
     <p>Open one of your apps on your phone, hold it at arm's length and half close your eyes. Write down the first thing you notice on the main screen. If it isn't what the user came for, send the "Hierarchy pass" prompt with that screen's name.</p>
@@ -2473,6 +2473,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
   </table></div>
   <p>Neither Anthropic's help page nor its announcement says anything about sending a board to Claude Code. So the bridge is the simplest one there is: a picture. Anthropic's best-practices page lists it among the things to hand Claude: "An image: paste the screenshot of the design or the error into the prompt." A photo of your paper drawing works exactly as well as an exported board.</p>
   <div class="code prompt"><div class="label"><span>Turn my map into a screen list</span><button class="copy" type="button">Copy</button></div><pre>The attached picture is my map of this app's screens. Read it with SPEC.md and write a "Screens" section into SPEC.md. No code. One table: each screen's name, the one thing a person comes to it for, what they can tap and where each tap leads, and what it shows when there is nothing yet, while it is waiting, and when something fails. List separately any feature in SPEC.md that has no screen, and any screen on my map that no feature needs. Ask me about anything you can't read.</pre></div>
+  <p>The last three columns of that table are the screens nobody draws: nothing yet, waiting, failed. Book 22 shows what a finished one looks like.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>Whiteboards is a new thinking tool, not a design tool, and you don't need it. If you already pay for Claude and like talking a plan through out loud, it is a pleasant way to get the boxes and arrows. If not, paper and a photo give Claude the same thing.</p>
   </div>
@@ -2555,6 +2556,116 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     <p>Pick one app you admire and send the "Study a reference" prompt with its address and one sentence on what you like. Read the three decisions it reports. Most people find the thing they liked was something left out.</p>
   </div>
   <p><em>Checked in November 2026 against Anthropic's help pages for Claude Design, design systems, the move from claude.ai/design and Claude Whiteboards, its announcement of Whiteboards, the frontend-design plugin page and instructions, the Claude Code page on installing plugins, and the best-practices page. Claude Design and Whiteboards are new and changing; if a button here has moved, the help pages in Sources are the place to look.</em></p>
+</section>
+
+<section class="lesson" id="finish" data-part="5 · Making it feel premium" data-title="The finishing pass" data-min="25">
+  <div class="eyebrow"></div>
+  <h2>The finishing pass</h2>
+  <p class="lede">An app can follow every rule in Books 20 and 21 and still feel unfinished. The difference is in the moments nobody draws: the screen with nothing on it yet, the two seconds of waiting, the message when something fails. This book is a pass over those, with a prompt for each.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>The three screens every screen has, and a fourth people forget</li>
+    <li>Making every tap answer back, with movement that helps</li>
+    <li>The words on buttons and in error messages</li>
+    <li>Fonts, icons and pictures, and what their licenses allow</li>
+    <li>Testing on a real phone, with a speed check and an accessibility check</li>
+    <li>A fresh pair of eyes, and knowing when to stop</li>
+  </ul></div>
+
+  <h3>Three screens nobody draws</h3>
+  <p>A mockup shows a screen on its best day: full of tidy data, loaded, working. Real users meet it on its other days first. Book 15 gave you the names: the empty state, the loading state and the error state. A cheap app shows a blank page, a frozen page and a line of red code. A finished one has decided what each looks like.</p>
+  <div class="tablewrap"><table>
+    <tr><th>State</th><th>When</th><th>Unfinished</th><th>Finished</th></tr>
+    <tr><td><b>Empty</b></td><td>TeamDesk with no messages yet</td><td>A white screen, or "No data"</td><td>One sentence on what will appear here and one button to make the first thing</td></tr>
+    <tr><td><b>Loading</b></td><td>Corner Gym fetching today's classes</td><td>Nothing, then everything jumps into place</td><td>Gray shapes where the classes will be, in the same layout, so nothing moves when they arrive</td></tr>
+    <tr><td><b>Error</b></td><td>The check-in didn't reach the server</td><td>"Error: Failed to fetch"</td><td>"Couldn't check you in. Your phone seems to be offline." and a "Try again" button</td></tr>
+    <tr><td><b>Too much</b></td><td>A member named Maximiliano Fernández-Castellanos; forty classes in a day</td><td>Text runs off the edge or pushes buttons off the screen</td><td>Long text wraps or is cut with "…", long lists scroll, and the main button stays in reach</td></tr>
+  </table></div>
+  <p>Anthropic's best-practices page shows how to ask. Its own example request reads: "build the settings page from the mockup. be ambitious: empty and error states, the save flow wired up, keyboard navigation, not just the layout". For screens that already exist:</p>
+  <div class="code prompt"><div class="label"><span>States pass</span><button class="copy" type="button">Copy</button></div><pre>For every screen in this app, show me four screenshots at 390px: with nothing saved yet, while it is waiting for data (hold the wait for 3 seconds so you can capture it), when the request fails, and with far too much (a 40-letter name, 60 items). Don't fix anything yet. Give me a table of what each one shows today and whether a user would know what to do next. Then propose the fixes, following DESIGN.md, smallest first.</pre></div>
+
+  <h3>Every tap answers back</h3>
+  <p>A finished app never leaves you wondering whether your tap counted. How fast it must answer has been known for decades. Jakob Nielsen's summary of the research gives three limits that still hold:</p>
+  <div class="tablewrap"><table>
+    <tr><th>Time</th><th>What the research says</th><th>What your app should do</th></tr>
+    <tr><td>0.1 second</td><td>"about the limit for having the user feel that the system is reacting instantaneously"</td><td>The button looks pressed the moment it is touched, before any answer comes back</td></tr>
+    <tr><td>1 second</td><td>"about the limit for the user's flow of thought to stay uninterrupted"</td><td>Anything slower shows that it is working: the button says "Checking in…", or the gray shapes from section 1 appear</td></tr>
+    <tr><td>10 seconds</td><td>"about the limit for keeping the user's attention focused"</td><td>Anything slower says how long it will take, and lets the person leave and come back</td></tr>
+  </table></div>
+  <p>The result needs an answer too. When something is saved, say so, briefly, then get out of the way: a small "Saved" that fades, not a pop-up to dismiss.</p>
+  <h4>Movement that helps</h4>
+  <p>Book 20 said to remove animation that is only decoration. The movement worth keeping answers a tap and shows where something came from: a panel slides up from the button that opened it, a deleted card shrinks away. Keep it short. If you notice the animation itself, it is too long.</p>
+  <p>Some people get dizzy or sick from movement on screens, and phones have a setting for them. The web's reference for developers, MDN, describes how an app can "detect if a user has enabled a setting on their device to minimize the amount of non-essential motion". A finished app respects it.</p>
+  <div class="code prompt"><div class="label"><span>Feedback and motion pass</span><button class="copy" type="button">Copy</button></div><pre>Go through everything a user can tap in this app. For each, tell me: does it look pressed at once, what shows if the answer takes longer than a second, and what confirms it worked or failed. Give me a table and mark every gap. Then list every animation, how long it runs, and whether it answers a tap or is decoration. Propose: fixes for the gaps, removing the decoration, and turning all non-essential movement off when the phone's "reduce motion" setting is on (prefers-reduced-motion). Show me the list before changing anything.</pre></div>
+
+  <h3>The words</h3>
+  <p>Words are the cheapest polish there is and the part Claude most often fills with filler. Nobody decided that the button says "Submit". Read every word in your app once, out loud, as if a friend were holding the phone.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Rule</th><th>Filler</th><th>Written for this app</th></tr>
+    <tr><td>A button says what it does</td><td>"Submit", "OK", "Continue"</td><td>"Check in", "Save card", "Feed Pip"</td></tr>
+    <tr><td>An error says what happened and what to do</td><td>"Oops! Something went wrong"</td><td>"Couldn't save your card. Check your connection and try again."</td></tr>
+    <tr><td>It never blames the person</td><td>"Invalid input"</td><td>"That date has already passed. Pick one from today on."</td></tr>
+    <tr><td>One name per thing, everywhere</td><td>"deck", "set" and "collection" for the same thing</td><td>"deck", every time</td></tr>
+    <tr><td>Numbers and dates the way people say them</td><td>"2026-11-23T18:00", "1 classes"</td><td>"Today, 6 pm", "1 class"</td></tr>
+    <tr><td>No shouting, no cheering</td><td>"AWESOME!!! You did it!"</td><td>"Checked in. See you at 6."</td></tr>
+  </table></div>
+  <div class="code prompt"><div class="label"><span>Words pass</span><button class="copy" type="button">Copy</button></div><pre>List every piece of text a user can see in this app in one table: screen, where it appears, the words. Include buttons, empty screens, error messages, confirmations and anything shown only when something fails. Mark each one that is generic, blames the user, shows a technical message, or uses a different name for something named elsewhere. Propose a rewrite for each in plain, calm words. My users are [who they are] and they call this thing [their word for it]. Change nothing until I approve the table.</pre></div>
+  <p>The table is worth having even if you change nothing. It is usually the first time anyone has seen all the app's words in one place.</p>
+
+  <h3>Fonts, icons and pictures</h3>
+  <p>Book 20's rule was one of each: one font family or two, one icon set, one kind of picture. This section is about where they come from, because every font, icon and photo was made by someone and comes with a license: the maker's rules for what you may do with it.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Thing</th><th>What to look for</th><th>For example</th></tr>
+    <tr><td>Icons</td><td>An open license that allows any use</td><td>Lucide's license begins: "Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted". Heroicons' page on GitHub says: "This library is MIT licensed."</td></tr>
+    <tr><td>Fonts</td><td>The license shown on the font's own page. "Free to download" and "free to put in an app" are different promises</td><td>Have Claude read the license and tell you in one sentence what it allows</td></tr>
+    <tr><td>Photos and drawings</td><td>Who made it, and whether you may use it in an app that others use</td><td>Your own photos are the safest and usually the best</td></tr>
+    <tr><td>Pictures made with AI</td><td>The terms of the tool that made them, and one consistent style</td><td>Five images from five prompts look like five apps</td></tr>
+  </table></div>
+  <div class="call straight"><div class="tag">The risky shortcut: putting a paid font or icon pack in the repo</div>
+    <p>You bought it, so it feels like yours to use anywhere, and committing the file makes the app work.</p>
+    <p><b>What it costs:</b> in a public repo, anyone can download that file. You have handed out a product someone sells, which most paid licenses forbid. And as Book 3 explains, a file committed once stays in the repo's history after you delete it.</p>
+    <p><b>How to close it:</b> for a public repo, use fonts and icons with open licenses. If a paid one matters to you, ask Claude what its license allows before it goes in: some may only be used from the seller's own service, some need a private repo. Keep a CREDITS.md file that lists every font, icon set and picture with its license and where it came from.</p>
+  </div>
+  <div class="code prompt"><div class="label"><span>Asset check</span><button class="copy" type="button">Copy</button></div><pre>List every font, icon, image, sound and video this app uses: the file or address, where it came from, and its license. For each, tell me in one plain sentence whether the license allows it in a public repo and in an app other people use, and quote the line that says so. Mark any you can't find a license for. Then write the list into CREDITS.md. Also tell me if the app mixes more than one icon set or more than one style of picture.</pre></div>
+  <p>Two small pictures deserve a decision of their own: the app's icon and the preview that appears when someone shares its link. They are the first things a new user sees, and as Book 7 explains, an installed app's name and icon don't update by themselves. Get them right before you send the link around.</p>
+
+  <h3>Test it where it lives</h3>
+  <p>Screenshots are taken by a robot on a fast computer. Your users have a thumb, a bus, a cracked screen and one bar of signal. Before you call a screen finished, hold it.</p>
+  <ol>
+    <li><b>One hand.</b> Can your thumb reach the main button without shifting your grip?</li>
+    <li><b>Tap sizes.</b> Google's guidance: "A minimum recommended touch target size is around 48 device independent pixels", with targets "spaced about 8 pixels apart". If you miss a button twice, it is too small or too close.</li>
+    <li><b>Outside.</b> Step into daylight. Pale gray text that passed on your sofa can vanish.</li>
+    <li><b>Dark mode and big text.</b> Switch the phone to dark, then set its text size to large. Nothing should disappear or overlap.</li>
+    <li><b>Slow.</b> Turn off wifi and try it on a weak signal. This is where the loading and error states from section 1 are seen for real.</li>
+    <li><b>Someone else's phone.</b> An older or smaller one than yours, if you can borrow it.</li>
+  </ol>
+  <h4>Two checks a robot can run</h4>
+  <p>Google's PageSpeed Insights is a web page where you paste your app's address. Google says it "reports on the user experience of a page on both mobile and desktop devices, and provides suggestions on how that page may be improved." It gives three speed numbers, each with a target Google calls good:</p>
+  <div class="tablewrap"><table>
+    <tr><th>Number</th><th>In plain words</th><th>Good</th></tr>
+    <tr><td>LCP</td><td>How long until the main thing on the screen has appeared</td><td>Within 2.5 seconds</td></tr>
+    <tr><td>INP</td><td>How long the app takes to react to a tap</td><td>200 milliseconds (a fifth of a second) or less</td></tr>
+    <tr><td>CLS</td><td>How much things jump around while the page loads</td><td>0.1 or less</td></tr>
+  </table></div>
+  <p>The same page gives an accessibility score, from a tool called Lighthouse. Lighthouse's own description: the score "is a weighted average of all accessibility audits." And: "Each accessibility audit is pass or fail." It catches missing labels, low contrast and tap targets that are too small. A high score means the robot found nothing, not that a person using a screen reader will manage, so treat it as a floor.</p>
+  <div class="code prompt"><div class="label"><span>Speed and accessibility check</span><button class="copy" type="button">Copy</button></div><pre>I ran PageSpeed Insights on [address] for mobile. Here are the results: [paste, or attach a screenshot]. Explain in plain words what is slow and why, and what each accessibility finding means for a real user. Propose fixes in order of how much a user would notice, with the size of each change. Don't add any new package or outside service. After I approve and you've made the fixes, tell me which numbers I should expect to change when I run it again.</pre></div>
+
+  <h3>A fresh pair of eyes, and when to stop</h3>
+  <p>Book 17 explained why the session that built something is the worst one to judge it. The same holds for looks. After a week on an app you stop seeing it. A fresh session sees it the way a new user does.</p>
+  <div class="code prompt"><div class="label"><span>Finishing review</span><button class="copy" type="button">Copy</button></div><pre>You did not build this app. Open it as a new user would, at 390px and at desktop width, in light and in dark mode, and take screenshots as you go. Change nothing. Use it for its main purpose from the first screen to the end, then report in plain English:
+1. Any moment you didn't know what to do next, or whether a tap worked.
+2. Any screen that is empty, waiting or failed without saying so.
+3. Any text that is generic, technical or blames the user.
+4. Anything that breaks DESIGN.md: a color, size, gap, corner or icon that isn't on its lists.
+5. The three things a new user would notice first that make it feel unfinished.
+Report only what a user would notice. Skip anything that is a matter of taste. Send me the screenshots with each problem marked.</pre></div>
+  <p>Then show a person. Hand your phone to someone who has never seen the app, say nothing, and watch. Each time they hesitate, frown or ask a question, write it down. That list is worth more than any review a robot can run.</p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Polish has no natural end, and it is more pleasant than the work it replaces. Set the stopping point before you start: the checklist in Book 20 passes, the four states in section 1 exist for every screen, and one real person has used the app for its main purpose without asking you a question. Then stop and ship. As Book 23 says, a conversation with a real user beats a phase of polish.</p>
+  </div>
+  <div class="call try"><div class="tag">Try it</div>
+    <p>Open one of your apps, turn on airplane mode, and tap its main button. Whatever you see is your error state. If it is a blank screen or a line of technical text, send the "States pass" prompt.</p>
+  </div>
+  <p><em>Checked in November 2026 against Anthropic's best-practices page, Nielsen Norman Group's "Response Times: The 3 Important Limits", MDN's page on prefers-reduced-motion, web.dev's pages on tap targets and Web Vitals, Google's pages on PageSpeed Insights and the Lighthouse accessibility score, and the license pages of Lucide and Heroicons. The phone test and the rules for words are this library's own advice.</em></p>
 </section>
 
 <!-- ===================== PART 6 ===================== -->
@@ -2645,8 +2756,8 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
 <section class="lesson" id="quiz" data-part="6 · Practice" data-title="Check yourself" data-min="15">
   <div class="eyebrow"></div>
   <h2>Check yourself</h2>
-  <p class="lede">Twenty-eight questions on the ideas that matter most. Tap an answer to see why.</p>
-  <p class="score" id="quizScore">0 of 28 answered</p>
+  <p class="lede">Thirty-one questions on the ideas that matter most. Tap an answer to see why.</p>
+  <p class="score" id="quizScore">0 of 31 answered</p>
   <div id="quizBox"></div>
   <button class="btn" type="button" id="quizReset">Start over</button>
 </section>
@@ -2740,7 +2851,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     <li><a href="https://stryker-mutator.io/docs/">Stryker, What is mutation testing?</a>: breaking code on purpose to see if the tests notice.</li>
   </ul>
   <h3>Design and polish</h3>
-  <p>The pages behind Books 20 and 21, read in November 2026, besides the best-practices page above (a pasted picture of a design, and a browser screenshot next to the mockup).</p>
+  <p>The pages behind Books 20 to 22, read in November 2026, besides the best-practices page above (a pasted picture of a design, and a browser screenshot next to the mockup).</p>
   <ul>
     <li><a href="https://claude.com/plugins/frontend-design">Anthropic, the frontend-design plugin</a> and <a href="https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design">its instructions</a>: choosing typefaces "deliberately", the looks AI-made design "clusters around", what the plugin is for and how it switches on.</li>
     <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">W3C, Understanding contrast (minimum)</a>: 4.5:1 for normal text, 3:1 for large text, and what counts as large.</li>
@@ -2750,6 +2861,13 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     <li><a href="https://support.claude.com/en/articles/18324319-get-started-with-claude-whiteboards">Anthropic, Get started with Claude Whiteboards</a> and <a href="https://claude.com/resources/articles/sheets-whiteboards-data">the announcement</a>: plans, starting a board, export to PNG, what it can't do.</li>
     <li><a href="https://code.claude.com/docs/en/plugins/install">Claude Code, Install plugins</a>: the install command, the official marketplace, and what a cloud session doesn't load.</li>
     <li><a href="https://www.refactoringui.com/">Refactoring UI</a>, by Adam Wathan and Steve Schoger: a paid book on the same subject, written for developers. Not a source for Book 20's claims; listed for readers who want to go deeper.</li>
+    <li><a href="https://www.nngroup.com/articles/response-times-3-important-limits/">Nielsen Norman Group, Response Times: The 3 Important Limits</a>: 0.1 second, 1 second and 10 seconds.</li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion">MDN, prefers-reduced-motion</a>: the setting that asks for less movement, and how an app detects it.</li>
+    <li><a href="https://web.dev/articles/accessible-tap-targets">web.dev, Accessible tap targets</a>: about 48 pixels, about 8 pixels apart.</li>
+    <li><a href="https://web.dev/articles/vitals">web.dev, Web Vitals</a>: LCP, INP and CLS, and the number Google calls good for each.</li>
+    <li><a href="https://developers.google.com/speed/docs/insights/v5/about">Google, About PageSpeed Insights</a>: what the report covers.</li>
+    <li><a href="https://developer.chrome.com/docs/lighthouse/accessibility/scoring">Chrome for Developers, Lighthouse accessibility score</a>: a weighted average of pass-or-fail audits.</li>
+    <li><a href="https://lucide.dev/license">Lucide, License</a> and <a href="https://github.com/tailwindlabs/heroicons">Heroicons on GitHub</a>: two icon sets with open licenses (ISC and MIT).</li>
   </ul>
   <h3>Going further</h3>
   <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
@@ -2820,6 +2938,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     library:  ["#1F2636","#E8C88A","Prompt library", .96],
     look:     ["#3A2A14","#E8C88A","Looking expensive", .97],
     design:   ["#4A3518","#E8C88A","Decide the look", .92],
+    finish:   ["#5A4320","#E8C88A","The finishing pass", .95],
     project:  ["#40161F","#E8C88A","Build from zero", 1],
     quiz:     ["#531C28","#E8C88A","Check yourself", .9],
     glossary: ["#C9CED8","#1B2233","Glossary", .95, "paper"],
@@ -2831,7 +2950,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     "2 · Claude Code": "How the tool works and what each piece of it is for.",
     "3 · CLAUDE.md, Anthropic's way": "The official guidance, your audit and a starter kit.",
     "4 · Talking to Claude": "Requests, terms, the workflow, checks you can trust, bugs and a prompt library.",
-    "5 · Making it feel premium": "Why some apps look expensive, and how to decide the look before anything is built.",
+    "5 · Making it feel premium": "Why some apps look expensive, how to decide the look before anything is built, and the finishing pass.",
     "6 · Practice": "A full build from zero, and a quiz.",
     "Reference": "Look things up any time."
   };
@@ -2858,6 +2977,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     library:'<rect x="12" y="20" width="30" height="34" rx="2"/><path d="M18 14h30v34"/><path d="M18 30h18M18 37h18M18 44h10"/>',
     look:'<path d="M32 10 50 26 32 54 14 26z"/><path d="M14 26h36M24 26l8-16 8 16-8 28z"/>',
     design:'<rect x="12" y="10" width="28" height="44" rx="3"/><path d="M18 20h16M18 28h10"/><rect x="18" y="36" width="16" height="10" rx="2"/><path d="M46 18l6 6-4 22-4 6-4-6z"/>',
+    finish:'<circle cx="30" cy="32" r="18"/><path d="M21 32l6 7 12-14"/><path d="M50 10v8M46 14h8"/>',
     project:'<path d="M12 30 32 14l20 16v22H12z"/><path d="M26 52V38h12v14"/>',
     quiz:'<circle cx="32" cy="32" r="20"/><path d="M26 26a6 6 0 1 1 8 6c-2 1-2 3-2 5"/><path d="M32 44v1"/>',
     glossary:'<rect x="14" y="10" width="36" height="44" rx="2"/><path d="M22 40l6-18 6 18M24 34h8M38 24h6l-6 14h6"/>',
@@ -3406,7 +3526,16 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
       w: "A prototype looks real and does nothing. It settles the look. SPEC.md still says what done means, and the build still needs a plan, checks and the empty, waiting and failed states." },
     { q: "You chose one of three mockups and Claude built it. What check does Anthropic's best-practices page suggest?",
       o: ["A browser screenshot next to the mockup", "Asking Claude whether it matches", "Reading the CSS file"], a: 0,
-      w: "Claude takes a screenshot of the built screen, puts it beside the picture you chose, lists the differences and fixes them. You get both pictures side by side." }
+      w: "Claude takes a screenshot of the built screen, puts it beside the picture you chose, lists the differences and fixes them. You get both pictures side by side." },
+    { q: "Corner Gym's check-in button is tapped on a train with no signal. Which result belongs in a finished app?",
+      o: ["Nothing happens, so the member taps again", "\"Error: Failed to fetch\"", "\"Couldn't check you in. Your phone seems to be offline.\" and a Try again button"], a: 2,
+      w: "Book 22: an error says what happened and what to do next, in plain words. Every screen needs four states decided: empty, loading, error and too much." },
+    { q: "A save in FlashDeck takes about three seconds. What should the Save button do in the meantime?",
+      o: ["Look pressed at once, then show that it is working, such as \"Saving…\"", "Stay exactly as it was until the save is done", "Play a longer animation so the wait feels shorter"], a: 0,
+      w: "The limits Jakob Nielsen summarizes: about 0.1 second to feel instant, about 1 second before a person's flow of thought breaks. Anything slower has to show it is working." },
+    { q: "You bought a font and want it in Pocket Pet, whose repo is public. What comes first?",
+      o: ["Commit the font file: you paid for it", "Ask Claude what the font's license allows before the file goes in", "Rename the file so nobody finds it"], a: 1,
+      w: "In a public repo anyone can download a committed file, and it stays in the history after you delete it. Most paid licenses forbid handing the file out. Check first, and list it in CREDITS.md." }
   );
   var box = document.getElementById("quizBox");
   var answered = 0, right = 0;
@@ -3479,7 +3608,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     ["Flaky test", "A test that sometimes passes and sometimes fails with no change. Treat it as broken, not as bad luck."],
     ["Fork", "Your own copy, on GitHub, of a repo someone else owns. GitHub remembers the link to the original."],
     ["Collaborator", "Someone the owner has added to a personal repo, with write access to it."],
-    ["License", "A file saying how others may use the code. With no license, the code stays the owner's by default."],
+    ["License", "A file saying how others may use the code. With no license, the code stays the owner's by default. Fonts, icons and pictures have licenses too (Book 22)."],
     ["Sync fork", "The button on a fork's page that pulls the original repo's new work into your fork."],
     ["Front end", "Code that runs in the user's browser: HTML, CSS and JavaScript."],
     ["GitHub Actions", "GitHub's robots that run checks or jobs automatically."],
@@ -3490,6 +3619,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     ["Hook", "A script Claude Code runs at a fixed moment (session start, before or after a tool, before stopping). Enforced every time."],
     ["Import (@)", "A line like @AGENTS.md that pulls another file into CLAUDE.md. Expanded at launch, so it doesn't save context."],
     ["Live update", "Sending new web files straight to a store app that is already installed, without a new store download. Allowed only within the stores' rules."],
+    ["Loading state", "What a screen shows while it waits for data. A finished app shows gray shapes where the content will be (developers call them a skeleton), so nothing jumps when it arrives."],
     ["localStorage", "A small notebook in the browser, one per phone and browser. Where study apps often keep progress."],
     ["main", "The branch that's live."],
     ["Manifest", "A small settings file that tells a phone how to show a web app on the Home Screen: its name, icons and colors."],
@@ -3508,6 +3638,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     ["Prototype", "A model of an app you can tap through. It looks real and does nothing: no saved data, no accounts."],
     ["Pull request", "A request to merge a branch into main, where checks run and changes are reviewed."],
     ["PWA", "Progressive web app: a site that installs to the Home Screen and works offline."],
+    ["Reduce motion", "A phone and computer setting for people who get dizzy or sick from movement on screens. A finished app turns its non-essential animation off when it is on."],
     ["Refactor", "Restructuring code without changing what it does."],
     ["Regression", "Something that used to work, broken by a new change."],
     ["Repo", "A project folder plus its full history of changes."],

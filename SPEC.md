@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 24 short books on glass shelves
-(about eight hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 25 short books on glass shelves
+(a little over eight hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 24 books on shelves, grouped in six parts (How your apps
+1. **The library.** All 25 books on shelves, grouped in six parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Making it feel
    premium, Practice) plus
    Start here and the reference books.
@@ -61,10 +61,10 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 28 questions, three of them on each of
+5. **Check yourself.** A quiz with a score: 31 questions, three of them on each of
    Books 6, 7 and 8 (added 2026-11-15), three on Book 17 (added 2026-11-19) and three
-   each on Books 20 and 21 (added 2026-11-23).
-   Each of those eighteen right answers is what the book itself says.
+   each on Books 20, 21 and 22 (added 2026-11-23).
+   Each of those twenty-one right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -201,9 +201,13 @@ apps (told through the made-up ones).
      beside the mockup, the frontend-design plugin. Build from zero became Book 22.
      Changed from the plan: the plugin section says plainly that a cloud session doesn't
      load plugins installed on a computer, so phone readers are steered to DESIGN.md.
-   - [ ] **"The finishing pass."** Empty, loading and error screens; motion and tap
-     feedback; the words; fonts, icons and pictures with their licenses; the real-phone
-     test, an accessibility check and a speed check; a fresh-eyes design review.
+   - [x] **Book 22, "The finishing pass"** (2026-11-23). Six sections: the empty,
+     loading, error and too-much screens; tap feedback and movement, with the reduce
+     motion setting; the words; fonts, icons and pictures with their licenses (and the
+     cost of committing a paid one); the real-phone test with a speed check and an
+     accessibility check; a fresh-eyes review and when to stop. Build from zero became
+     Book 23. Nothing is quoted from Apple's Human Interface Guidelines, Material
+     Design or the Google Fonts FAQ: those pages would not load for the fact-check.
    - [ ] **"Life after launch."** Knowing it broke, bug reports with a version number,
      backups, keeping libraries current, handing an app over (from the review gaps
      under Later).
