@@ -6,7 +6,7 @@
 <title>The Launch Manual: Building Apps With Claude</title>
 <meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
 <meta property="og:title" content="The Launch Manual: Building Apps With Claude">
-<meta property="og:description" content="A reading room for builders: 23 short books on building apps with Claude.">
+<meta property="og:description" content="A reading room for builders: 24 short books on building apps with Claude.">
 <meta name="theme-color" content="#05070F">
 <meta property="og:image" content="https://jvtomax99.github.io/Vibe-coding-guide-/icons/icon-512.png">
 <link rel="icon" href="icons/favicon.ico" sizes="any">
@@ -536,7 +536,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">23</div><small>short books on six shelves, about seven and a half hours in all</small></div>
+    <div class="stat"><div class="big-num">24</div><small>short books on six shelves, about eight hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -583,7 +583,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </table></div>
   <p>Why the right-hand column exists: in a 2025 test by the security company Veracode, covering more than 100 AI models, 45% of the code samples failed security tests. Veracode sells security scanning, and its tasks were designed to expose common weaknesses, so read that figure as a worst case, not an average. It is still a reason not to take the right-hand column on trust.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 21), a way to prove each check is real (Book 17), a reviewer that never saw the code being written (Book 13), the rules prompt in Book 5, the security check in the Prompt library (Book 19), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
+    <p>Erik Schluntz, an Anthropic researcher, argues that unreviewed AI code can be acceptable in the parts of a system nothing else depends on, and that building this way is not for people with no technical grounding. If you can't read code, that warning is about you. This library's answer: you may not be able to review the code, but you can insist on checks that don't need you to read it. A site check that runs on every change (Book 22), a way to prove each check is real (Book 17), a reviewer that never saw the code being written (Book 13), the rules prompt in Book 5, the security check in the Prompt library (Book 19), and proof you can see on your own phone. For everything in the right-hand column, those checks are not optional.</p>
   </div>
 
   <h3>How to use this library</h3>
@@ -991,7 +991,7 @@ How do you want the changes back?
   <p>Every step here was read off Firebase's and Vercel's own pages in November 2026. Both services move their buttons often. If a screen doesn't match, trust the screen and the live page (they are listed in Sources), and tell Claude what you see.</p>
 
   <h3>Do you need one?</h3>
-  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 21 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
+  <p>FlashDeck, ExamTown, Pocket Pet and Corner Gym's website have no back end. They are files on a host, and anything a person saves stays on their own phone. Of the five example apps only TeamDesk has one today. (The check-in app Book 22 builds for Corner Gym will need one, because the coach must see everyone's check-ins.) Most apps built with Claude never need it, and adding one too early is the most expensive mistake in this library.</p>
   <p>Ask three questions. One "yes" is enough.</p>
   <div class="tablewrap"><table>
     <tr><th>Question</th><th>Why a static site can't do it</th><th>Example</th></tr>
@@ -999,7 +999,7 @@ How do you want the changes back?
     <tr><td><b>2. Must data be seen on more than one phone?</b></td><td>The phone's own storage never leaves that phone. Sharing between people, or one person on two devices, needs a database.</td><td>TeamDesk's team all see the same messages</td></tr>
     <tr><td><b>3. Must something happen while nobody has the app open?</b></td><td>A web page only runs while it is open. A job on a clock needs a server.</td><td>TeamDesk's summary, written every morning</td></tr>
   </table></div>
-  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 21), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
+  <p>Three "no" answers: stop here. Keep the app static, give it a backup file (Book 22), and come back when an answer changes. "It would be nice if progress moved between phones" is a yes to question 2, but check that people are asking for it first.</p>
   <h4>What a back end starts costing</h4>
   <ul>
     <li><b>Other people's data becomes your job.</b> With no back end, the worst bug loses one person's progress on one phone. With a database, the worst bug shows everyone's data to a stranger.</li>
@@ -1241,7 +1241,7 @@ Add a scheduled job that [does what] once a day at about [time] in [city]. I'm o
   <p><em>Checked in November 2026 against GitHub's page on creating a Pages site and MDN's pages on HTTP caching and the visibilitychange event.</em></p>
 
   <h3>Apps with an offline worker: three update styles</h3>
-  <p>An offline worker is a small script that keeps a copy of the app on the phone so it opens with no signal. Developers call it a <b>service worker</b>. Book 21 leaves it out on purpose. Add one only when people need the app without signal, because from that day updates are something you plan.</p>
+  <p>An offline worker is a small script that keeps a copy of the app on the phone so it opens with no signal. Developers call it a <b>service worker</b>. Book 22 leaves it out on purpose. Add one only when people need the app without signal, because from that day updates are something you plan.</p>
   <p>Here is what the browser does if nobody plans anything. When the app is opened, the browser checks whether the worker file has changed. If it has, the new version is downloaded in the background while the person keeps using the old one. Then it waits. MDN: the new version "is only activated when there are no longer any pages loaded that are still using the old service worker." So the person sees your fix on the open <em>after</em> the next one, and only if the app was fully closed in between. People rarely close an app fully.</p>
   <p>Two things follow. The browser only notices a new version if the worker file itself changed, which is why other books say to bump <code>CACHE_VERSION</code> in <code>sw.js</code>: changing that one line is the signal. And someone has to decide when the waiting ends. There are three sensible answers.</p>
   <div class="tablewrap"><table>
@@ -1271,13 +1271,13 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <h3>What never updates by itself</h3>
   <p>Two things don't arrive with the next merge, whatever style you chose.</p>
   <h4>The name and icon on the Home Screen</h4>
-  <p>The name and icon come from the manifest (Book 21), and the phone reads them when the app is installed.</p>
+  <p>The name and icon come from the manifest (Book 22), and the phone reads them when the app is installed.</p>
   <div class="tablewrap"><table>
     <tr><th>Phone</th><th>What the official pages say</th></tr>
     <tr><td><b>iPhone</b> (Safari)</td><td>Google's web.dev: "the only way to get the new manifest metadata is to re-install the app from the browser."</td></tr>
     <tr><td><b>Android</b> (Chrome)</td><td>Chrome looks for manifest changes at most once every 24 hours. "In most cases, changes should be reflected within a day or two" of the app being opened, and only once the phone is plugged in, on Wi-Fi, and the app is closed.</td></tr>
   </table></div>
-  <p>So choose the name and the icon as if they were permanent. On iPhones they are, unless every user removes the app and adds it again. Before anyone does that, have them save a backup file (Book 21). Don't count on saved progress surviving a removal.</p>
+  <p>So choose the name and the icon as if they were permanent. On iPhones they are, unless every user removes the app and adds it again. Before anyone does that, have them save a backup file (Book 22). Don't count on saved progress surviving a removal.</p>
   <h4>Saved data in the old shape</h4>
   <p>The new code arrives on a phone that still holds data saved by the old code. If the new version expects a different shape, people's progress looks empty or the app breaks on open. This is the migration from Book 5, and it matters more with slow update styles: under style A, phones on three different versions can be in use in the same week. Add to any request that changes what is saved: "Assume phones are updating from any earlier version, not only the last one."</p>
   <p><em>Checked in November 2026 against Google's web.dev pages on updating an installable web app and on how Chrome handles manifest updates.</em></p>
@@ -1337,7 +1337,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <p>This is a book for deciding, not a build guide. None of the five example apps is in a store. Every fee and rule was read off Apple's and Google's own pages in November 2026; they change, so check the live pages (listed in Sources) before you pay for anything.</p>
 
   <h3>Do you need a store at all?</h3>
-  <p>Your app already installs. Book 21 shows how to put it on a Home Screen with its own icon, with no fee and no review. A store is a second way to hand out the same app, and it comes with a landlord.</p>
+  <p>Your app already installs. Book 22 shows how to put it on a Home Screen with its own icon, with no fee and no review. A store is a second way to hand out the same app, and it comes with a landlord.</p>
   <div class="tablewrap"><table>
     <tr><th></th><th>A link, added to the Home Screen</th><th>A store</th></tr>
     <tr><td><b>How people get it</b></td><td>You send them the link</td><td>They search the store, or you send a store link</td></tr>
@@ -1362,7 +1362,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <h3>The three routes</h3>
   <div class="tablewrap"><table>
     <tr><th>Route</th><th>What it is</th><th>Stores</th><th>What it takes</th></tr>
-    <tr><td><b>1. Installable web app</b></td><td>What you already have: a link people add to the Home Screen</td><td>None</td><td>Nothing more. Book 21.</td></tr>
+    <tr><td><b>1. Installable web app</b></td><td>What you already have: a link people add to the Home Screen</td><td>None</td><td>Nothing more. Book 22.</td></tr>
     <tr><td><b>2. A wrapper</b></td><td>A thin store app whose screen shows your web app. Your web files stay the app.</td><td>Both</td><td>A developer account, a computer, a review, and an app that is more than a website (section 4)</td></tr>
     <tr><td><b>3. A full rewrite</b></td><td>The app built again as a native app, in the languages phones use</td><td>Both</td><td>A developer and months. Out of reach for this library, and rarely needed.</td></tr>
   </table></div>
@@ -1442,7 +1442,7 @@ Then change it to this style: [A: next open / B: swap when the app goes to the b
   <h3>Deciding, and asking Claude</h3>
   <p>Take the questions in this order. Stop at the first "no".</p>
   <ol class="steps">
-    <li><b>Do strangers need to find this app?</b>If everyone who will use it can be sent a link, stop. Put "Add to Home Screen" on the first screen (Book 21) and you are done.</li>
+    <li><b>Do strangers need to find this app?</b>If everyone who will use it can be sent a link, stop. Put "Add to Home Screen" on the first screen (Book 22) and you are done.</li>
     <li><b>Is it more than a website?</b>Run the readiness prompt below. Fix what it finds as ordinary pull requests. This costs nothing and makes the app better even if you never go to a store.</li>
     <li><b>Can you get the build done?</b>A computer that can run the tools for Android, a Mac for iPhone, or someone who has one (section 5).</li>
     <li><b>Can you carry the account?</b>Your legal name in public, the fee, twelve testers for two weeks on Google, and a review each time the native part changes or you add a feature.</li>
@@ -1589,7 +1589,7 @@ Then tell me plainly: would a reviewer see this as more than a repackaged websit
     <tr><td><b>Hooks</b></td><td>Your script runs at a fixed moment: session start, before or after a tool, when Claude tries to stop.</td><td><code>.claude/settings.json</code></td><td>Install tools when a cloud session starts; block edits to a built file</td></tr>
     <tr><td><b>Permissions</b></td><td>allow, ask and deny lists. Deny holds in every mode.</td><td><code>.claude/settings.json</code></td><td>Never read <code>.env</code>; ask before pushing to main</td></tr>
     <tr><td><b>MCP</b></td><td>Connects Claude to an outside tool that has no command line.</td><td><code>.mcp.json</code></td><td>Playwright, for screenshots</td></tr>
-    <tr><td><b>Plugins</b></td><td>A bundle of skills, agents, hooks and MCP servers you install as one.</td><td>Installed, not in the repo</td><td>A team's shared toolkit</td></tr>
+    <tr><td><b>Plugins</b></td><td>A bundle of skills, agents, hooks and MCP servers you install as one.</td><td>Installed, not in the repo</td><td>A team's shared toolkit; Anthropic's frontend-design (Book 21)</td></tr>
   </table></div>
 
   <div class="call"><div class="tag">Where hard limits don't reach</div>
@@ -2053,7 +2053,7 @@ Proof: [screenshots at phone width / a "try this" list / test output]</pre></div
     <tr><td>"it works on any screen"</td><td><b>responsive</b></td><td>The layout adapts to the width.</td></tr>
     <tr><td>"easy to press"</td><td><b>tap target at least 44 to 48px</b></td><td>The touchable area of a button.</td></tr>
     <tr><td>"when there's nothing yet"</td><td><b>empty state</b>, <b>loading state</b>, <b>error state</b></td><td>What a screen shows before data, while waiting, and when something fails. Ask for all three.</td></tr>
-    <tr><td>"the brand colors and sizes"</td><td><b>design tokens</b></td><td>The named colors, sizes and spacing in DESIGN.md.</td></tr>
+    <tr><td>"the brand colors and sizes"</td><td><b>design tokens</b></td><td>The named colors, sizes and spacing in DESIGN.md. Book 21 shows how to write the file.</td></tr>
     <tr><td>"the movie at the start"</td><td><b>intro</b>, <b>splash</b>, <b>first-run experience</b></td><td>What a user sees the first time only.</td></tr>
   </table></div>
 
@@ -2342,7 +2342,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
 
   <h3>Why AI-built apps look alike</h3>
   <p>When you don't choose a look, Claude chooses the most common one. It has seen millions of pages, so "most common" means the average of all of them. Ask ten people's Claude for "a clean, modern study app" and you get ten apps that could be swapped without anyone noticing.</p>
-  <p>Anthropic knows this well enough to publish a fix: a free add-on for Claude Code called frontend-design. Its instructions tell Claude to choose "typefaces deliberately, not the default families you would reach for on any other project" (a typeface is a font), and they list looks that AI-made design "clusters around" right now. Here are some of the signs Anthropic lists, plus the ones this library sees most in beginners' apps.</p>
+  <p>Anthropic knows this well enough to publish a fix: a free add-on for Claude Code called frontend-design (Book 21 shows how to use it). Its instructions tell Claude to choose "typefaces deliberately, not the default families you would reach for on any other project" (a typeface is a font), and they list looks that AI-made design "clusters around" right now. Here are some of the signs Anthropic lists, plus the ones this library sees most in beginners' apps.</p>
   <div class="tablewrap"><table>
     <tr><th>The sign</th><th>Why it reads as cheap</th><th>What to ask for</th></tr>
     <tr><td>A color fade (a gradient) behind everything, often purple to blue. Anthropic's list has "gradient washes as decoration"</td><td>It decorates without meaning anything, and thousands of apps have the same one</td><td>"Flat backgrounds. One accent color, used only on things I can tap."</td></tr>
@@ -2371,7 +2371,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <div class="code prompt"><div class="label"><span>Hierarchy pass</span><button class="copy" type="button">Copy</button></div><pre>Take a screenshot of [screen] at 390px wide. Tell me, in order, the first three things the eye meets and why (size, weight, color, space). For this screen the most important thing is [the question], then [the answer buttons]. Everything else is quiet. Propose changes so the order matches: use size, weight and softer gray, not new colors. One filled button at most. Show me before and after screenshots. Don't change any other screen.</pre></div>
 
   <h3>Space and text sizes from a short list</h3>
-  <p>The prompts in this book mention DESIGN.md. It is an ordinary file in your repo that holds the app's look: its colors, fonts, sizes and spacing, each with a name. Book 15 calls those named values design tokens. If your app has no DESIGN.md yet, the second prompt on this page ends by creating one.</p>
+  <p>The prompts in this book mention DESIGN.md. It is an ordinary file in your repo that holds the app's look: its colors, fonts, sizes and spacing, each with a name. Book 15 calls those named values design tokens. If your app has no DESIGN.md yet, the second prompt on this page ends by creating one, and Book 21 covers the file in full.</p>
   <p>A scale is a short list of allowed sizes. Cheap-looking apps have gaps of 7, 10, 13 and 18 pixels because each one was picked by eye on the day. Polished ones use a handful of sizes everywhere, so things line up and the eye relaxes. Here is a starting scale. The numbers are this library's suggestion, not a rule from anyone; what matters is that the list is short and Claude stays on it.</p>
   <div class="tablewrap"><table>
     <tr><th>What</th><th>A starting list</th><th>The rule that goes with it</th></tr>
@@ -2440,12 +2440,120 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     <p><b>How to close it:</b> ask for the review first, then name the fix. "Line 5 fails on the Progress screen: three decorative colors on things that can't be tapped. Make them gray." A request like that can be checked against a screenshot. "Premium" can't.</p>
   </div>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Book 21 warns against spending weeks on polish before one real user has tried the app, and this book doesn't change that. These rules cost almost nothing when they are written into DESIGN.md before the first screen is built. They cost weeks when they are applied afterwards, screen by screen. And none of them rescues an app that does the wrong thing well.</p>
+    <p>Book 22 warns against spending weeks on polish before one real user has tried the app, and this book doesn't change that. These rules cost almost nothing when they are written into DESIGN.md before the first screen is built (Book 21 shows how). They cost weeks when they are applied afterwards, screen by screen. And none of them rescues an app that does the wrong thing well.</p>
   </div>
   <div class="call try"><div class="tag">Try it</div>
     <p>Open one of your apps on your phone, hold it at arm's length and half close your eyes. Write down the first thing you notice on the main screen. If it isn't what the user came for, send the "Hierarchy pass" prompt with that screen's name.</p>
   </div>
   <p><em>Checked in November 2026 against the instructions inside Anthropic's frontend-design plugin and the W3C's page on the WCAG contrast minimum. The spacing and text lists, the half-closed-eyes test and the checklist are this library's own advice, drawn from common design practice.</em></p>
+</section>
+
+<section class="lesson" id="design" data-part="5 · Making it feel premium" data-title="Decide the look before you build" data-min="25">
+  <div class="eyebrow"></div>
+  <h2>Decide the look before you build</h2>
+  <p class="lede">Book 20 gave you the rules. This book is the order to use them in, and the tools that let you see a screen before anyone builds it. The whole idea: every guess you settle on paper is one Claude doesn't make for you in code.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>Mapping an app's screens on paper or on a Claude Whiteboard</li>
+    <li>Picking reference apps and saying what you like about them</li>
+    <li>DESIGN.md: the look, written down once</li>
+    <li>Claude Design: a prototype you can tap, and how it reaches Claude Code</li>
+    <li>Asking for three options, and checking the build against the one you chose</li>
+    <li>Anthropic's frontend-design plugin, and what it won't fix</li>
+  </ul></div>
+
+  <h3>Map the screens first</h3>
+  <p>Before colors and fonts comes a plainer question: which screens does the app have, and how does a person get from one to the next? Most "it feels confusing" problems are decided here, long before anything is drawn. Corner Gym's check-in app has four: today's classes, one class, "you're checked in", and the coach's list. Draw four boxes and the arrows between them, and write on each arrow what the person taps.</p>
+  <p>A sheet of paper does this well. So does <b>Claude Whiteboards</b>, which Anthropic released in beta in November 2026. Its help page calls it "a shared board for thinking through ideas with Claude". You can "ask Claude for a whiteboard in any chat", and "Claude draws what you describe using shapes, arrows, and sections".</p>
+  <div class="tablewrap"><table>
+    <tr><th>About Whiteboards</th><th>What Anthropic's pages say (November 2026)</th></tr>
+    <tr><td>Who has it</td><td>"available in beta on Pro, Max, Ultra, Team, and Enterprise plans on web, Claude Desktop, and Claude Mobile". Not on the free plan</td></tr>
+    <tr><td>What it is good for here</td><td>Talking a plan through and having Claude draw the screens and arrows. You can drag across part of the board "to ask Claude about just that part"</td></tr>
+    <tr><td>Getting it out</td><td>Share, then Export, then PNG (a picture). It can also be sent to Lucid, Miro or Zoho Vani, or turned into a doc or a deck</td></tr>
+    <tr><td>What it can't do</td><td>"you can't import a board from a file", and "Claude works from what's on the board and doesn't use context from your connected apps"</td></tr>
+  </table></div>
+  <p>Neither page mentions Claude Code. So the bridge is the simplest one there is: a picture. Anthropic's best-practices page lists it among the things to hand Claude: "An image: paste the screenshot of the design or the error into the prompt." A photo of your paper drawing works exactly as well as an exported board.</p>
+  <div class="code prompt"><div class="label"><span>Turn my map into a screen list</span><button class="copy" type="button">Copy</button></div><pre>The attached picture is my map of this app's screens. Read it with SPEC.md and write a "Screens" section into SPEC.md. No code. One table: each screen's name, the one thing a person comes to it for, what they can tap and where each tap leads, and what it shows when there is nothing yet, while it is waiting, and when something fails. List separately any feature in SPEC.md that has no screen, and any screen on my map that no feature needs. Ask me about anything you can't read.</pre></div>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>Whiteboards is a thinking tool that is a few weeks old, not a design tool, and you don't need it. If you already pay for Claude and like talking a plan through out loud, it is a pleasant way to get the boxes and arrows. If not, paper and a photo give Claude the same thing.</p>
+  </div>
+
+  <h3>Pick references, and say what you like</h3>
+  <p>"Make it look good" gives Claude nothing. "Make it feel like this app" gives it a great deal, if you can say which part you mean. Pick one to three apps or sites you admire. They don't need to do what your app does. For each, finish the sentence "I like it because..." in Book 20's words: the space, the one accent color, the size of the headings, how little is on each screen.</p>
+  <div class="code prompt"><div class="label"><span>Study a reference</span><button class="copy" type="button">Copy</button></div><pre>Open [address] in a browser at 390px and at desktop width and take screenshots. Don't change my app. Tell me in plain words, with the numbers: its background, text and accent colors; its fonts and the text sizes it uses; its spacing steps; its corner sizes; whether it uses shadows or lines. Then name the three decisions that most make it feel the way it does, and what it chose to leave out. What I like about it: [your sentence]. Tell me which of those decisions produce that feeling.</pre></div>
+  <p>For an app on your phone that has no web address, take screenshots and attach them with the same request.</p>
+  <div class="call straight"><div class="tag">The risky shortcut: "copy this site"</div>
+    <p>Asking Claude to rebuild a site you admire is fast and it works.</p>
+    <p><b>What it costs:</b> another company's name, logo, pictures and signature color can end up in your app. That is their property, and your friends will recognise whose look it is.</p>
+    <p><b>How to close it:</b> take the decisions, not the surface. Keep the spacing, the proportions and the restraint. Use your own name, your own colors and your own pictures, and say so in the request: "Borrow the layout ideas only. None of their colors, wording, logo or images."</p>
+  </div>
+
+  <h3>DESIGN.md: the look, written down once</h3>
+  <p>DESIGN.md is an ordinary file in your repo that holds the app's look: the short lists from Book 20, each value with a name. Developers call the named values design tokens (Book 15). The names are the point. When every screen uses "accent" and "gap-3" instead of its own numbers, one edit changes the whole app, and a new screen can't drift.</p>
+  <div class="tablewrap"><table>
+    <tr><th>DESIGN.md holds</th><th>For example</th></tr>
+    <tr><td>The idea, in two sentences</td><td>"A calm study app. Nothing on screen competes with the question."</td></tr>
+    <tr><td>Colors, light and dark</td><td>Background, text, quiet text, lines, one accent, right and wrong</td></tr>
+    <tr><td>Fonts and text sizes</td><td>One font, five sizes, which size is for what</td></tr>
+    <tr><td>Spacing and corners</td><td>Seven gaps, two corner sizes, one shadow</td></tr>
+    <tr><td>The main pieces</td><td>What a button, a card, a field and a pop-up look like</td></tr>
+    <tr><td>What we don't do</td><td>"No gradients. No second accent. No animation on page load."</td></tr>
+  </table></div>
+  <div class="code prompt"><div class="label"><span>Write DESIGN.md</span><button class="copy" type="button">Copy</button></div><pre>Write DESIGN.md for this app. No changes to the app yet. Base it on: the idea in SPEC.md, the reference study above, and these rules: one accent color used only on things you can tap, at most two fonts and five text sizes, about seven spacing steps, two corner sizes, one shadow style, a light and a dark color set chosen on purpose, and every text and background pair meeting WCAG contrast (4.5 to 1). Give every value a plain name. Add a short "What we don't do" list. Then build one sample page on a scratch copy that uses only those values, and send me screenshots at 390px and desktop in light and dark. I'll approve before it is used anywhere.</pre></div>
+  <p>DESIGN.md is not a Claude feature. As Book 10 explains, Claude reads it only because a line in CLAUDE.md tells it to. This is the line:</p>
+  <div class="code prompt"><div class="label"><span>CLAUDE.md line</span><button class="copy" type="button">Copy</button></div><pre>- Anything a user sees: follow DESIGN.md. Use its named colors, sizes and spacing, never a new value. If a screen needs something DESIGN.md lacks, add it there first and tell me.</pre></div>
+  <p>If your app already exists, start with Book 20's "Put spacing and text on a scale" prompt. It counts what the app uses today, and DESIGN.md is written from the cleaned-up list.</p>
+
+  <h3>Claude Design: see it before it's built</h3>
+  <p>Claude Design is Anthropic's tool for making the picture before the app. Its help page says it "lets you create designs, interactive prototypes, one-pagers, and other visual work by chatting with Claude." A prototype is a model of the app you can tap through. It looks real and does nothing: no saved data, no accounts.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Question</th><th>What Anthropic's help pages say (November 2026)</th></tr>
+    <tr><td>Where do I open it?</td><td>Ask for a design in any Claude conversation; or the Artifacts tab, "pick a Design template"; or in Claude Code, <code>/design</code>. On a phone: "Ask for a design in any conversation and check back later"</td></tr>
+    <tr><td>Who has it?</td><td>"available on Free, Pro, Max, Ultra, Team, and Enterprise plans, and it's on by default"</td></tr>
+    <tr><td>What does it cost me?</td><td>It "counts toward the same usage limits as the rest of Claude". A full design uses more of your limit than a chat message</td></tr>
+    <tr><td>Can I see choices?</td><td>Yes: "ask Claude to show you 2–3 options"</td></tr>
+    <tr><td>How does it stay on my look?</td><td>Through a design system, which "captures your colors, typography, components, and layout patterns". From an existing app, run <code>/design-sync</code> in Claude Code: "It reads your tokens and components directly"</td></tr>
+    <tr><td>How does it reach my app?</td><td>Export, then "Handoff to Claude Code", then "Send to local coding agent" (Claude Code on your computer) or "Send to Claude Code Web" (a cloud session, the one that works from a phone)</td></tr>
+  </table></div>
+  <p>That last row is what makes it worth learning. Claude Code, the help page says, "continues from your existing work instead of starting over from a screenshot". The colors, sizes and pieces you approved arrive as values, not as a picture to be guessed at.</p>
+  <h4>What to know before you rely on it</h4>
+  <ul>
+    <li><b>No undo history.</b> The known-limitations list says Claude Design has no version history yet. Before a big change, ask for the new version as a copy.</li>
+    <li><b>Some things need a computer.</b> Sharing settings can't be changed in the phone app, and adding new layers by hand needs a mouse or trackpad. Asking Claude for changes in words works anywhere.</li>
+    <li><b>The old site is closing.</b> "The standalone Claude Design site (claude.ai/design) will close on December 14, 2026", and what is left behind is deleted some time after. If you made designs there, move them into Claude now.</li>
+  </ul>
+  <div class="code prompt"><div class="label"><span>Ask Claude Design for a screen</span><button class="copy" type="button">Copy</button></div><pre>Design the [screen name] screen of [app] as a phone prototype I can tap. Who uses it: [who]. The one thing they come to this screen for: [the thing]. What they can tap: [list]. Follow my design system. Show me 3 options that differ in layout, not in color. For each, also show the screen when there is nothing yet and when something fails. One line under each option on its trade-off.</pre></div>
+  <div class="call straight"><div class="tag">The risky shortcut: treating the prototype as the app</div>
+    <p>A prototype looks finished, and "Send to Claude Code" makes it tempting to call it done.</p>
+    <p><b>What it costs:</b> the prototype never had real data, a slow connection, a user with forty classes or a user with none. Built straight from it, the app works in the one case that was drawn.</p>
+    <p><b>How to close it:</b> the prototype settles the look. SPEC.md still settles what "done" means. After the handoff, build it the way Book 16 says: plan, one phase, checks with evidence, and the three states from your screen list.</p>
+  </div>
+
+  <h3>Three options, then check the build against the one you chose</h3>
+  <p>You can't describe a look you haven't seen, but you can pick the best of three in a few seconds. Book 14 gave you the phrase: "Show me 3 options before building." Claude Design does it as prototypes. Claude Code can do it too, as mockups: quick pictures of a screen, built on a scratch copy and thrown away.</p>
+  <div class="code prompt"><div class="label"><span>Three mockups</span><button class="copy" type="button">Copy</button></div><pre>I want [screen or change]. Don't build it in the repo. On a scratch copy, make 3 mockups that follow DESIGN.md and differ in layout: what is biggest, what comes first, how much is on the screen. Send screenshots of each at 390px and desktop, with one line on its trade-off and one on how heavy it is for an old phone. Mark your pick and say why. Wait for my choice.</pre></div>
+  <p>Then keep the picture you chose. It becomes the check. Anthropic's best-practices page, in its list of checks Claude can run, includes "a browser screenshot next to the mockup". Claude builds the screen, takes a screenshot, puts it beside the mockup and fixes the differences before it calls you.</p>
+  <div class="code prompt"><div class="label"><span>Build it to match</span><button class="copy" type="button">Copy</button></div><pre>Build option [number] for real, on a branch. When it's built, take a screenshot at 390px and at desktop and put each beside the mockup I chose. List every visible difference: spacing, sizes, colors, order, anything missing. Fix them, and repeat until none are left or you can say why one should stay. Then send me both pictures side by side.</pre></div>
+
+  <h3>The frontend-design plugin, and what it won't fix</h3>
+  <p>A plugin is a bundle of instructions and tools you add to Claude Code (Book 10). Anthropic publishes one called frontend-design. Its page describes it this way: "Generate distinctive, production-grade frontend interfaces that stand out from generic AI-generated designs." Once installed there is nothing to type: "Simply ask Claude to build frontend interfaces and this skill activates automatically."</p>
+  <div class="tablewrap"><table>
+    <tr><th>Where you work</th><th>How you get it</th></tr>
+    <tr><td>Claude Code in the terminal</td><td>Type <code>/plugin install frontend-design@claude-plugins-official</code></td></tr>
+    <tr><td>A cloud session (a phone or the browser)</td><td>Don't count on it. Anthropic's plugin page says a cloud session "has no plugin browser and doesn't load the plugins you installed at user or local scope", and <code>/plugin</code> is a terminal-only command</td></tr>
+  </table></div>
+  <p>If you work from a phone, you lose little. What the plugin does is make Claude decide the look before coding. Its instructions ask for a plan that names who the page is for and its main job, the colors (four to six of them), the fonts and what each is for, and the layout idea. That is a DESIGN.md. If yours exists and CLAUDE.md points at it, you have already done by hand what the plugin does by itself.</p>
+  <ul>
+    <li><b>It makes things distinctive, not correct.</b> It is about looks. It doesn't check that buttons work, that text passes contrast or that the screen fits a small phone.</li>
+    <li><b>It is bold on purpose.</b> Left alone it may pick an unusual font or a strong color. For an app that already has a look, say which wins: "Follow DESIGN.md. Where the frontend-design skill disagrees, DESIGN.md wins."</li>
+    <li><b>It is best at the start.</b> Use it for a new app or a new marketing page, where a strong first idea helps most.</li>
+  </ul>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>The order matters more than any tool in this book: screens, references, DESIGN.md, three options, build, compare. Skip Whiteboards, Claude Design and the plugin and keep the order, and your app will still look decided. Use all three tools with no DESIGN.md, and every new screen is a fresh guess.</p>
+  </div>
+  <div class="call try"><div class="tag">Try it</div>
+    <p>Pick one app you admire and send the "Study a reference" prompt with its address and one sentence on what you like. Read the three decisions it reports. Most people find the thing they liked was something left out.</p>
+  </div>
+  <p><em>Checked in November 2026 against Anthropic's help pages for Claude Design, design systems, the move from claude.ai/design and Claude Whiteboards, its announcement of Whiteboards, the frontend-design plugin page and instructions, the Claude Code page on installing plugins, and the best-practices page. Claude Design and Whiteboards are new and changing; if a button here has moved, the help pages in Sources are the place to look.</em></p>
 </section>
 
 <!-- ===================== PART 6 ===================== -->
@@ -2469,7 +2577,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Here is my idea: [three sentences]. Interview me with multiple-choice questions until you can write SPEC.md: who uses it, each feature with a "Done when" line, "Not in v1", "Later", and phases of one pull request each. Push me on anything that would need a server, accounts or paid services, and tell me the cheapest way to do it. Write SPEC.md when done. No code.</pre></div>
       <p><b>You should see:</b> 8 to 15 questions, then a SPEC.md. <b>Your decision:</b> check-in needs shared data (the coach must see it), so this app needs a back end. Claude should raise that.</p>
     </li>
-    <li><b>Look at similar apps</b>Use the Book 16 prompt. Expect well-known gym booking apps and a list of what to copy and what to skip.</li>
+    <li><b>Look at similar apps</b>Use the Book 16 prompt. Expect well-known gym booking apps and a list of what to copy and what to skip. Then settle the look before any screen exists: a screen list and a DESIGN.md, with the prompts in Book 21.</li>
     <li><b>Choose the structure deliberately</b>
       <div class="code prompt"><div class="label"><span>Prompt</span><button class="copy" type="button">Copy</button></div><pre>Propose the structure for this app. I want small files with one job each and no build step. For the shared check-in data, compare Firebase and Vercel functions with a simple database: cost at 100 members, effort, and security. Recommend one. Write the choice and the reason into SPEC.md.</pre></div>
     </li>
@@ -2536,8 +2644,8 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
 <section class="lesson" id="quiz" data-part="6 · Practice" data-title="Check yourself" data-min="15">
   <div class="eyebrow"></div>
   <h2>Check yourself</h2>
-  <p class="lede">Twenty-five questions on the ideas that matter most. Tap an answer to see why.</p>
-  <p class="score" id="quizScore">0 of 25 answered</p>
+  <p class="lede">Twenty-eight questions on the ideas that matter most. Tap an answer to see why.</p>
+  <p class="score" id="quizScore">0 of 28 answered</p>
   <div id="quizBox"></div>
   <button class="btn" type="button" id="quizReset">Start over</button>
 </section>
@@ -2631,10 +2739,15 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     <li><a href="https://stryker-mutator.io/docs/">Stryker, What is mutation testing?</a>: breaking code on purpose to see if the tests notice.</li>
   </ul>
   <h3>Design and polish</h3>
-  <p>The pages behind Book 20, read in November 2026.</p>
+  <p>The pages behind Books 20 and 21, read in November 2026, besides the best-practices page above (a pasted picture of a design, and a browser screenshot next to the mockup).</p>
   <ul>
     <li><a href="https://claude.com/plugins/frontend-design">Anthropic, the frontend-design plugin</a> and <a href="https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design">its instructions</a>: choosing typefaces "deliberately", and the looks AI-made design "clusters around".</li>
     <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">W3C, Understanding contrast (minimum)</a>: 4.5:1 for normal text, 3:1 for large text, and what counts as large.</li>
+    <li><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Anthropic, Get started with Claude Design</a>: what it makes, where to open it, plans, usage limits, export and the handoff to Claude Code, known limitations.</li>
+    <li><a href="https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design">Anthropic, Set up your design system in Claude Design</a>: what a design system captures, and <code>/design-sync</code>.</li>
+    <li><a href="https://support.claude.com/en/articles/17440474">Anthropic, Move from standalone Claude Design to Claude</a>: claude.ai/design closes on December 14, 2026.</li>
+    <li><a href="https://support.claude.com/en/articles/18324319-get-started-with-claude-whiteboards">Anthropic, Get started with Claude Whiteboards</a> and <a href="https://claude.com/resources/articles/sheets-whiteboards-data">the announcement</a>: plans, starting a board, export to PNG, what it can't do.</li>
+    <li><a href="https://code.claude.com/docs/en/plugins/install">Claude Code, Install plugins</a>: the install command, the official marketplace, and what a cloud session doesn't load.</li>
     <li><a href="https://www.refactoringui.com/">Refactoring UI</a>, by Adam Wathan and Steve Schoger: a paid book on the same subject, written for developers. Not a source for Book 20's claims; listed for readers who want to go deeper.</li>
   </ul>
   <h3>Going further</h3>
@@ -2705,6 +2818,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     debug:    ["#2B3447","#E8C88A","Debugging", .92],
     library:  ["#1F2636","#E8C88A","Prompt library", .96],
     look:     ["#3A2A14","#E8C88A","Looking expensive", .97],
+    design:   ["#4A3518","#E8C88A","Decide the look", .92],
     project:  ["#40161F","#E8C88A","Build from zero", 1],
     quiz:     ["#531C28","#E8C88A","Check yourself", .9],
     glossary: ["#C9CED8","#1B2233","Glossary", .95, "paper"],
@@ -2716,7 +2830,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     "2 · Claude Code": "How the tool works and what each piece of it is for.",
     "3 · CLAUDE.md, Anthropic's way": "The official guidance, your audit and a starter kit.",
     "4 · Talking to Claude": "Requests, terms, the workflow, checks you can trust, bugs and a prompt library.",
-    "5 · Making it feel premium": "Why some apps look expensive, and the short lists that get yours there.",
+    "5 · Making it feel premium": "Why some apps look expensive, and how to decide the look before anything is built.",
     "6 · Practice": "A full build from zero, and a quiz.",
     "Reference": "Look things up any time."
   };
@@ -2742,6 +2856,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     debug:'<ellipse cx="32" cy="36" rx="10" ry="14"/><path d="M32 22v28M26 18l-4-6M38 18l4-6M22 30H12M22 40H12M42 30h10M42 40h10"/>',
     library:'<rect x="12" y="20" width="30" height="34" rx="2"/><path d="M18 14h30v34"/><path d="M18 30h18M18 37h18M18 44h10"/>',
     look:'<path d="M32 10 50 26 32 54 14 26z"/><path d="M14 26h36M24 26l8-16 8 16-8 28z"/>',
+    design:'<rect x="12" y="10" width="28" height="44" rx="3"/><path d="M18 20h16M18 28h10"/><rect x="18" y="36" width="16" height="10" rx="2"/><path d="M46 18l6 6-4 22-4 6-4-6z"/>',
     project:'<path d="M12 30 32 14l20 16v22H12z"/><path d="M26 52V38h12v14"/>',
     quiz:'<circle cx="32" cy="32" r="20"/><path d="M26 26a6 6 0 1 1 8 6c-2 1-2 3-2 5"/><path d="M32 44v1"/>',
     glossary:'<rect x="14" y="10" width="36" height="44" rx="2"/><path d="M22 40l6-18 6 18M24 34h8M38 24h6l-6 14h6"/>',
@@ -3281,7 +3396,16 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
       w: "The WCAG standard asks for at least 4.5:1 for normal text and 3:1 for large text. Claude can measure it from the two colors, in light and in dark mode." },
     { q: "Which request is most likely to make an app look more expensive?",
       o: ["Make it look premium", "Add gradients and animations so it feels modern", "Line 5 fails on the Progress screen: three decorative colors on things that can't be tapped. Make them gray"], a: 2,
-      w: "With no rule to follow, 'premium' gets you gradients, glows and movement: heavier and more like every other AI-made app. A named fix can be checked against a screenshot." }
+      w: "With no rule to follow, 'premium' gets you gradients, glows and movement: heavier and more like every other AI-made app. A named fix can be checked against a screenshot." },
+    { q: "Your app has a DESIGN.md, but new screens keep arriving with their own colors. What is the most likely reason?",
+      o: ["DESIGN.md is too short", "Nothing in CLAUDE.md tells Claude to follow it; DESIGN.md is an ordinary file", "Claude can't read files ending in .md"], a: 1,
+      w: "Book 21: DESIGN.md is not a Claude feature. Claude reads it only because a CLAUDE.md line says to: follow DESIGN.md, use its named values, never a new one." },
+    { q: "You approved a Claude Design prototype of Corner Gym's check-in screen and sent it to Claude Code. What has the prototype NOT settled?",
+      o: ["The colors and sizes", "The layout", "What happens with real data: no classes yet, a slow connection, something failing"], a: 2,
+      w: "A prototype looks real and does nothing. It settles the look. SPEC.md still says what done means, and the build still needs a plan, checks and the empty, waiting and failed states." },
+    { q: "You chose one of three mockups and Claude built it. What check does Anthropic's best-practices page suggest?",
+      o: ["A browser screenshot next to the mockup", "Asking Claude whether it matches", "Reading the CSS file"], a: 0,
+      w: "Claude takes a screenshot of the built screen, puts it beside the picture you chose, lists the differences and fixes them. You get both pictures side by side." }
   );
   var box = document.getElementById("quizBox");
   var answered = 0, right = 0;
@@ -3343,6 +3467,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     ["Cron job", "Server code that runs on a clock instead of when someone taps. Also called a scheduled job."],
     ["Deny rule", "A permission rule that blocks an action in every mode. Enforced by Claude Code."],
     ["Deploy", "Publishing a version of the app so users get it."],
+    ["Design system", "In Claude Design, the saved set of an app's colors, fonts, pieces and layout patterns, so every new design matches. In a repo, DESIGN.md does the same job."],
     ["Diff", "The exact lines added and removed by a change."],
     ["Edge case", "An unusual situation: empty input, no internet, a very long name, two taps at once."],
     ["Effort", "The setting (/effort) that controls how long Claude thinks before answering."],
@@ -3368,6 +3493,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     ["main", "The branch that's live."],
     ["Manifest", "A small settings file that tells a phone how to show a web app on the Home Screen: its name, icons and colors."],
     ["MCP", "Model Context Protocol: a standard way to connect Claude to an outside tool. Often used to connect Playwright."],
+    ["Mockup", "A quick picture of a screen, made to choose a look before anything is built for real."],
     ["Mutation testing", "Breaking the code on purpose to see if the tests notice. If they still pass, a test is missing."],
     ["Merge", "Joining a branch's changes into another branch, usually main."],
     ["Migration", "Code that converts saved data from an old shape to a new one so users keep their progress."],
@@ -3378,6 +3504,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
     ["Plan mode", "A mode where Claude reads and plans but can't edit. Shift+Tab in the terminal; the mode menu in a cloud session."],
     ["Playwright", "A robot browser that opens pages, clicks and takes screenshots. How Claude sees your app."],
     ["Plugin", "An installable bundle of skills, agents, hooks and MCP servers."],
+    ["Prototype", "A model of an app you can tap through. It looks real and does nothing: no saved data, no accounts."],
     ["Pull request", "A request to merge a branch into main, where checks run and changes are reviewed."],
     ["PWA", "Progressive web app: a site that installs to the Home Screen and works offline."],
     ["Refactor", "Restructuring code without changing what it does."],
