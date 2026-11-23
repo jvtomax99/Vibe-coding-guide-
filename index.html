@@ -2601,7 +2601,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
   <p>Words are the cheapest polish there is and the part Claude most often fills with filler. Nobody decided that the button says "Submit". Read every word in your app once, out loud, as if a friend were holding the phone.</p>
   <div class="tablewrap"><table>
     <tr><th>Rule</th><th>Filler</th><th>Written for this app</th></tr>
-    <tr><td>A button says what it does</td><td>"Submit", "OK", "Continue"</td><td>"Check in", "Save card", "Feed Pip"</td></tr>
+    <tr><td>A button says what it does</td><td>"Submit", "OK", "Continue"</td><td>"Check in", "Save card", "Feed your pet"</td></tr>
     <tr><td>An error says what happened and what to do</td><td>"Oops! Something went wrong"</td><td>"Couldn't save your card. Check your connection and try again."</td></tr>
     <tr><td>It never blames the person</td><td>"Invalid input"</td><td>"That date has already passed. Pick one from today on."</td></tr>
     <tr><td>One name per thing, everywhere</td><td>"deck", "set" and "collection" for the same thing</td><td>"deck", every time</td></tr>
@@ -2622,8 +2622,8 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
   </table></div>
   <div class="call straight"><div class="tag">The risky shortcut: putting a paid font or icon pack in the repo</div>
     <p>You bought it, so it feels like yours to use anywhere, and committing the file makes the app work.</p>
-    <p><b>What it costs:</b> in a public repo, anyone can download that file. You have handed out a product someone sells, which most paid licenses forbid. And as Book 3 explains, a file committed once stays in the repo's history after you delete it.</p>
-    <p><b>How to close it:</b> for a public repo, use fonts and icons with open licenses. If a paid one matters to you, ask Claude what its license allows before it goes in: some may only be used from the seller's own service, some need a private repo. Keep a CREDITS.md file that lists every font, icon set and picture with its license and where it came from.</p>
+    <p><b>What it costs:</b> in a public repo, anyone can download that file. You have handed out a product someone sells, which paid licenses usually forbid. And as Book 3 explains, a file committed once stays in the repo's history after you delete it.</p>
+    <p><b>How to close it:</b> for a public repo, use fonts and icons with open licenses. If a paid one matters to you, ask Claude what its license allows before it goes in: some may only be used from the seller's own service, and some may not go into any repo at all. Keep a CREDITS.md file that lists every font, icon set and picture with its license and where it came from.</p>
   </div>
   <div class="code prompt"><div class="label"><span>Asset check</span><button class="copy" type="button">Copy</button></div><pre>List every font, icon, image, sound and video this app uses: the file or address, where it came from, and its license. For each, tell me in one plain sentence whether the license allows it in a public repo and in an app other people use, and quote the line that says so. Mark any you can't find a license for. Then write the list into CREDITS.md. Also tell me if the app mixes more than one icon set or more than one style of picture.</pre></div>
   <p>Two small pictures deserve a decision of their own: the app's icon and the preview that appears when someone shares its link. They are the first things a new user sees, and as Book 7 explains, an installed app's name and icon don't update by themselves. Get them right before you send the link around.</p>
@@ -2632,21 +2632,22 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
   <p>Screenshots are taken by a robot on a fast computer. Your users have a thumb, a bus, a cracked screen and one bar of signal. Before you call a screen finished, hold it.</p>
   <ol>
     <li><b>One hand.</b> Can your thumb reach the main button without shifting your grip?</li>
-    <li><b>Tap sizes.</b> Google's guidance: "A minimum recommended touch target size is around 48 device independent pixels", with targets "spaced about 8 pixels apart". If you miss a button twice, it is too small or too close.</li>
+    <li><b>Tap sizes.</b> Google's guidance: "A minimum recommended touch target size is around 48 device independent pixels", with targets "spaced about 8 pixels apart". To Claude, that is 48px. If you miss a button twice, it is too small or too close.</li>
     <li><b>Outside.</b> Step into daylight. Pale gray text that passed on your sofa can vanish.</li>
     <li><b>Dark mode and big text.</b> Switch the phone to dark, then set its text size to large. Nothing should disappear or overlap.</li>
     <li><b>Slow.</b> Turn off wifi and try it on a weak signal. This is where the loading and error states from section 1 are seen for real.</li>
     <li><b>Someone else's phone.</b> An older or smaller one than yours, if you can borrow it.</li>
   </ol>
   <h4>Two checks a robot can run</h4>
-  <p>Google's PageSpeed Insights is a web page where you paste your app's address. Google says it "reports on the user experience of a page on both mobile and desktop devices, and provides suggestions on how that page may be improved." It gives three speed numbers, each with a target Google calls good:</p>
+  <p>Google's PageSpeed Insights is a web page where you paste your app's address. Google says it "reports on the user experience of a page on both mobile and desktop devices, and provides suggestions on how that page may be improved." The report has many numbers. Look for these three, each with a target Google calls good:</p>
   <div class="tablewrap"><table>
     <tr><th>Number</th><th>In plain words</th><th>Good</th></tr>
     <tr><td>LCP</td><td>How long until the main thing on the screen has appeared</td><td>Within 2.5 seconds</td></tr>
     <tr><td>INP</td><td>How long the app takes to react to a tap</td><td>200 milliseconds (a fifth of a second) or less</td></tr>
     <tr><td>CLS</td><td>How much things jump around while the page loads</td><td>0.1 or less</td></tr>
   </table></div>
-  <p>The same page gives an accessibility score, from a tool called Lighthouse. Lighthouse's own description: the score "is a weighted average of all accessibility audits." And: "Each accessibility audit is pass or fail." It catches missing labels, low contrast and tap targets that are too small. A high score means the robot found nothing, not that a person using a screen reader will manage, so treat it as a floor.</p>
+  <p>The first part of the report comes from real visits to your app. A new app that only a few friends use won't have enough visits yet, so that part may be empty and INP may be missing. That is normal: use the numbers the report does show, and check again once people use the app.</p>
+  <p>The same page gives an accessibility score, from a tool called Lighthouse. Lighthouse's own description: the score "is a weighted average of all accessibility audits." And: "Each accessibility audit is pass or fail." It catches missing labels, low contrast and tap targets that are too small. A high score means the robot found nothing, not that a person using a screen reader (a tool that reads the screen aloud for people who can't see it) will manage, so treat it as a floor.</p>
   <div class="code prompt"><div class="label"><span>Speed and accessibility check</span><button class="copy" type="button">Copy</button></div><pre>I ran PageSpeed Insights on [address] for mobile. Here are the results: [paste, or attach a screenshot]. Explain in plain words what is slow and why, and what each accessibility finding means for a real user. Propose fixes in order of how much a user would notice, with the size of each change. Don't add any new package or outside service. After I approve and you've made the fixes, tell me which numbers I should expect to change when I run it again.</pre></div>
 
   <h3>A fresh pair of eyes, and when to stop</h3>
@@ -2657,7 +2658,7 @@ Finish with the three fixes that would help most. Send me the screenshots.</pre>
 3. Any text that is generic, technical or blames the user.
 4. Anything that breaks DESIGN.md: a color, size, gap, corner or icon that isn't on its lists.
 5. The three things a new user would notice first that make it feel unfinished.
-Report only what a user would notice. Skip anything that is a matter of taste. Send me the screenshots with each problem marked.</pre></div>
+Report only what a user would notice. Skip anything that is a matter of taste. Send me the screenshots, with the problems listed under each one.</pre></div>
   <p>Then show a person. Hand your phone to someone who has never seen the app, say nothing, and watch. Each time they hesitate, frown or ask a question, write it down. That list is worth more than any review a robot can run.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>Polish has no natural end, and it is more pleasant than the work it replaces. Set the stopping point before you start: the checklist in Book 20 passes, the four states in section 1 exist for every screen, and one real person has used the app for its main purpose without asking you a question. Then stop and ship. As Book 23 says, a conversation with a real user beats a phase of polish.</p>
@@ -2867,7 +2868,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     <li><a href="https://web.dev/articles/vitals">web.dev, Web Vitals</a>: LCP, INP and CLS, and the number Google calls good for each.</li>
     <li><a href="https://developers.google.com/speed/docs/insights/v5/about">Google, About PageSpeed Insights</a>: what the report covers.</li>
     <li><a href="https://developer.chrome.com/docs/lighthouse/accessibility/scoring">Chrome for Developers, Lighthouse accessibility score</a>: a weighted average of pass-or-fail audits.</li>
-    <li><a href="https://lucide.dev/license">Lucide, License</a> and <a href="https://github.com/tailwindlabs/heroicons">Heroicons on GitHub</a>: two icon sets with open licenses (ISC and MIT).</li>
+    <li><a href="https://lucide.dev/license">Lucide, License</a> and <a href="https://github.com/tailwindlabs/heroicons">Heroicons on GitHub</a>: two icon sets with open licenses.</li>
   </ul>
   <h3>Going further</h3>
   <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
@@ -3530,12 +3531,12 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     { q: "Corner Gym's check-in button is tapped on a train with no signal. Which result belongs in a finished app?",
       o: ["Nothing happens, so the member taps again", "\"Error: Failed to fetch\"", "\"Couldn't check you in. Your phone seems to be offline.\" and a Try again button"], a: 2,
       w: "Book 22: an error says what happened and what to do next, in plain words. Every screen needs four states decided: empty, loading, error and too much." },
-    { q: "A save in FlashDeck takes about three seconds. What should the Save button do in the meantime?",
-      o: ["Look pressed at once, then show that it is working, such as \"Saving…\"", "Stay exactly as it was until the save is done", "Play a longer animation so the wait feels shorter"], a: 0,
+    { q: "Sending a message in TeamDesk takes about three seconds on a weak signal. What should the Send button do in the meantime?",
+      o: ["Look pressed at once, then show that it is working, such as \"Sending…\"", "Stay exactly as it was until the message has gone", "Play a longer animation so the wait feels shorter"], a: 0,
       w: "The limits Jakob Nielsen summarizes: about 0.1 second to feel instant, about 1 second before a person's flow of thought breaks. Anything slower has to show it is working." },
     { q: "You bought a font and want it in Pocket Pet, whose repo is public. What comes first?",
       o: ["Commit the font file: you paid for it", "Ask Claude what the font's license allows before the file goes in", "Rename the file so nobody finds it"], a: 1,
-      w: "In a public repo anyone can download a committed file, and it stays in the history after you delete it. Most paid licenses forbid handing the file out. Check first, and list it in CREDITS.md." }
+      w: "In a public repo anyone can download a committed file, and it stays in the history after you delete it. Paid licenses usually forbid handing the file out. Check first, and list it in CREDITS.md." }
   );
   var box = document.getElementById("quizBox");
   var answered = 0, right = 0;
