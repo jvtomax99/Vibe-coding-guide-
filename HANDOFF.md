@@ -4,10 +4,11 @@
 
 Next gap from SPEC.md "Later": **Claude Code as a risk** (outside MCP servers, skills and
 plugins run with your access; pages and files Claude reads can carry instructions).
-Books 22, 24 and 25 are live (PRs #27, #28, #29). The plan below has been shown to Jose;
-do not write the book until he has OK'd it (check the chat, or ask once with buttons).
+Books 22, 24 and 25 are live (PRs #27, #28, #29). Jose approved the plan below on
+2026-11-24 ("Write it as planned"), so no new plan approval is needed. He still approves
+the merge. First step: write the plan into SPEC.md as item 17.
 
-## Proposed plan (not yet approved)
+## The plan (approved 2026-11-24)
 
 Book 26, working title "What you let Claude touch", shelf 6 after `secure`; the quiz
 becomes Book 27. Putting it on shelf 2 would renumber Books 11 to 26 everywhere.
