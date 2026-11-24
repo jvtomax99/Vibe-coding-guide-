@@ -6,7 +6,7 @@
 <title>The Launch Manual: Building Apps With Claude</title>
 <meta name="description" content="A small library for people who build real apps with Claude without a developer background: how apps are put together, how Claude Code works, how to write CLAUDE.md, and how to ask for exactly what you mean.">
 <meta property="og:title" content="The Launch Manual: Building Apps With Claude">
-<meta property="og:description" content="A reading room for builders: 26 short books on building apps with Claude.">
+<meta property="og:description" content="A reading room for builders: 27 short books on building apps with Claude.">
 <meta name="theme-color" content="#05070F">
 <meta property="og:image" content="https://jvtomax99.github.io/Vibe-coding-guide-/icons/icon-512.png">
 <link rel="icon" href="icons/favicon.ico" sizes="any">
@@ -536,7 +536,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   </ul></div>
 
   <div class="stat-row">
-    <div class="stat"><div class="big-num">26</div><small>short books on six shelves, about eight and a half hours in all</small></div>
+    <div class="stat"><div class="big-num">27</div><small>short books on six shelves, about nine hours in all</small></div>
     <div class="stat okline"><div class="big-num">1</div><small>idea behind most of Anthropic's advice: tell Claude what it can't see, and give it a way to check its work</small></div>
     <div class="stat hotline"><div class="big-num">200</div><small>lines: Anthropic's target size for a CLAUDE.md file. Most beginners' files grow past it</small></div>
     <div class="stat"><div class="big-num">0</div><small>lines of code you need to be able to read to follow along</small></div>
@@ -1121,7 +1121,7 @@ service cloud.firestore {
   <p><b>Where the server code lives.</b> For a plain site with no framework, Vercel's page says it "creates a separate function for each supported source file in the root <code>api/</code> directory". So <code>api/reply.js</code> in the repo becomes server code at the address <code>/api/reply</code>. You don't set that up anywhere. Claude adds the file and Vercel finds it.</p>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>On the free plan Vercel keeps logs for <b>one hour</b>. If a user says "it broke last night", the log is gone. Two habits fix this. Ask Claude to make server code return a short, clear error the app can show. And test the feature yourself right after each merge, with the Logs screen open. Book 24 adds a daily check and a "Report a problem" button.</p>
-    <p>An address like <code>/api/reply</code> is public, even though the key behind it is hidden. Anyone who finds it can call it and spend your credits. Ask Claude to make the server code check that the caller is signed in, and to cap how many requests one user can make in a day.</p>
+    <p>An address like <code>/api/reply</code> is public, even though the key behind it is hidden. Anyone who finds it can call it and spend your credits. Ask Claude to make the server code check that the caller is signed in, and to cap how many requests one user can make in a day. Book 25 has a fuller check for apps that send people's words to Claude.</p>
   </div>
   <ul>
     <li><b>If you go past the free plan's limits,</b> Vercel's page says that in most cases "you will have to wait until 30 days have passed before you can use the feature again". For an app people rely on, that is an outage of a month.</li>
@@ -2315,6 +2315,7 @@ Plan it in plan mode first. Be ambitious: include empty, loading and error state
   <div class="code prompt"><div class="label"><span>Review before a pull request</span><button class="copy" type="button">Copy</button></div><pre>Have the reviewer compare this branch's changes with SPEC.md. Check every "Done when" line, and that old saved data still loads. Report only problems that affect users, with file and line. Skip style.</pre></div>
 
   <div class="code prompt"><div class="label"><span>Security check</span><button class="copy" type="button">Copy</button></div><pre>Check this repo for: secrets or keys committed anywhere in history, data that should be private but isn't, rules (Firestore, storage) that are more open than they need to be, and any user input shown on screen without being escaped. Plain-English findings ranked by risk. Don't fix yet.</pre></div>
+  <p>"Escaped" means shown as plain text, never run as code. Book 25 explains why it matters and has a test you can run yourself.</p>
 
   <div class="code prompt"><div class="label"><span>Cost check before spending</span><button class="copy" type="button">Copy</button></div><pre>Before you run this, estimate what it will cost: API requests, credits for image, video or 3D generators, and paid services. Give a number and what it's based on. Wait for my OK.</pre></div>
 
@@ -2880,11 +2881,123 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   <p><em>Checked in November 2026 against Vercel's pages on notifications, runtime logs, alerts, Instant Rollback and transferring a project; Firebase's pages on Firestore backups, point-in-time recovery, export and import, monitoring usage and the launch checklist; GitHub's pages on scheduled workflows, issue templates, Dependabot alerts and security updates, transferring a repository and permission levels for a personal repository; Firebase Help's page on project access; and the Open Source Guides page "Best Practices for Maintainers". The "Report a problem" button, the owner's backup and the switching-off list are this library's own advice.</em></p>
 </section>
 
+<section class="lesson" id="secure" data-part="6 · Practice" data-title="Strangers will try things" data-min="25">
+  <div class="eyebrow"></div>
+  <h2>Strangers will try things</h2>
+  <p class="lede">Books 3, 5 and 6 covered the two biggest holes: a key in the code and a database with open rules. This book is about what is left once those are closed. You can't read the code, so each risk here comes with a test you can run on your own app and a prompt to send.</p>
+  <div class="learn"><b>In this book</b><ul>
+    <li>Who attacks a small app, and what they want</li>
+    <li>Text one person types and another person sees</li>
+    <li>Apps that send people's words to Claude</li>
+    <li>Locking your own accounts</li>
+    <li>What GitHub catches for you, for free</li>
+    <li>Code written by strangers</li>
+  </ul></div>
+
+  <h3>Who attacks a small app</h3>
+  <p>Nobody is out to get Corner Gym. That is true, and it doesn't help. Most attacks are not aimed at anyone. They are programs that try the same tricks on every address they can find, all day, and your app has an address.</p>
+  <div class="tablewrap"><table>
+    <tr><th>What they want</th><th>How they get it</th><th>Where this library closes it</th></tr>
+    <tr><td>Your bill</td><td>A key left in the code, or server code anyone can call</td><td>Books 3, 5 and 6</td></tr>
+    <tr><td>Your users' data</td><td>Database rules that let anyone read</td><td>Book 6</td></tr>
+    <tr><td>Your users' browsers</td><td>Text typed into the app that runs as code on someone else's screen</td><td>Section 2 of this book</td></tr>
+    <tr><td>Your AI feature</td><td>Words that talk the model into doing something else</td><td>Section 3</td></tr>
+    <tr><td>Your accounts</td><td>A stolen or guessed password</td><td>Section 4</td></tr>
+    <tr><td>A way in through your parts</td><td>A library that was tampered with, or a fake one</td><td>Section 6</td></tr>
+  </table></div>
+  <p>The people who keep the standard list of web app risks, a group called OWASP, publish a top ten "for developers and web application security". Its 2025 edition has an entry called Injection and another called Software Supply Chain Failures. Sections 2 and 6 are those two, in plain words.</p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>This book closes the common holes. It does not make an app safe, and no book can promise that. If your app holds money, health records, anything about children, or anything that would hurt someone if it leaked, pay a professional to review it before real people use it. Until then, the cheapest protection is to collect less: data you never stored can't leak.</p>
+  </div>
+
+  <h3>What one person types and another sees</h3>
+  <p>A web page is made of text and code mixed together, and the browser tells them apart by a few special characters. If your app takes what one person typed and drops it into another person's page as it is, the browser may read part of it as code and run it. OWASP's guide puts it in one sentence: this "happens when an application puts untrusted data into a page in a way that lets the browser treat it as code." Developers call it cross-site scripting, or XSS.</p>
+  <p>TeamDesk is the example. A message typed by one coworker appears on everyone's screen. If the app is careless, a message can carry code that runs for every reader, with whatever that reader is allowed to do.</p>
+  <h4>A harmless test you can run</h4>
+  <p>Find every place where one person's text is shown to others: a name, a message, a deck title in FlashDeck if decks can be shared. In each, type this, exactly:</p>
+  <div class="code"><div class="label"><span>Type this into your own app</span><button class="copy" type="button">Copy</button></div><pre>&lt;h1&gt;hello&lt;/h1&gt;</pre></div>
+  <div class="tablewrap"><table>
+    <tr><th>What you see afterwards</th><th>What it means</th></tr>
+    <tr><td>The same characters you typed, brackets and all</td><td>Good. The app is showing your text as text</td></tr>
+    <tr><td>The word "hello" in huge letters, and no brackets</td><td>The app is treating typed text as code. Fix it before anyone else uses it</td></tr>
+  </table></div>
+  <p>The test line does nothing harmful: it only asks for big letters. A page that obeys it will obey worse. Passing in one place proves nothing about the others, so try each.</p>
+  <div class="code prompt"><div class="label"><span>Typed text check</span><button class="copy" type="button">Copy</button></div><pre>List every place in this app where text that came from a user, the database, the address bar or an outside service is put on the screen. For each, tell me in plain English whether it is inserted as text (safe) or as HTML (unsafe), and show me the line. OWASP's advice is to remove unsafe sinks like innerHTML and use textContent instead: propose that fix for each unsafe one. If a place truly needs formatting such as bold or links, say so and propose a safe way. Then add a test that types &lt;h1&gt;hello&lt;/h1&gt; into each field and fails if it shows up as a heading. Change nothing until I approve the list.</pre></div>
+  <p>Two more places take typed text, and they get the same answer. Anything a person types can also be sent straight to your database or your server code by someone who skips the app entirely, so the checks that matter live in the database rules (Book 6) and the server code, not in the screen. A length limit on the screen is a courtesy. A length limit in the rules is a lock.</p>
+
+  <h3>Apps that send words to Claude</h3>
+  <p>If your app sends what people type to Claude, as TeamDesk does when it drafts a reply, you have a second kind of typed text to think about. A model reads instructions and ordinary text the same way. Someone can type "ignore your instructions and do this" and sometimes it works. OWASP keeps a separate top ten for apps built on AI models, and this is the first entry: "A Prompt Injection Vulnerability occurs when user prompts alter the LLM's behavior or output in unintended ways." (LLM is the technical name for a model like Claude.)</p>
+  <p>The words don't have to come from the person typing. The same page: "Indirect prompt injections occur when an LLM accepts input from external sources, such as websites or files." A message TeamDesk summarizes, a web page your app reads, an uploaded document: any of them can carry a line written for the model.</p>
+  <div class="call straight"><div class="tag">Straight talk</div>
+    <p>There is no setting that switches this off. You can't make the model impossible to trick, so decide what it would cost if it were tricked, and make that small. Anthropic's own advice says the same: "Apply the principle of least privilege so that a successful injection can do minimal damage". Least privilege means giving something only the access it needs for its job.</p>
+  </div>
+  <div class="tablewrap"><table>
+    <tr><th>Question to ask about your AI feature</th><th>Safer answer</th></tr>
+    <tr><td>What can the model's answer do by itself?</td><td>Nothing. It is shown to a person, who decides. It never deletes, sends or pays without a tap from a human</td></tr>
+    <tr><td>What can the model see?</td><td>Only what this user is allowed to see. Never the whole database "for context"</td></tr>
+    <tr><td>How is its answer put on the screen?</td><td>As text, like any typed text in section 2. OWASP's fifth entry, Improper Output Handling, is about apps that trust a model's answer and show it as a web page</td></tr>
+    <tr><td>Is there anything secret in its instructions?</td><td>No. Assume a determined user can get the model to repeat them. Keys and private rules don't belong there</td></tr>
+    <tr><td>Who pays when someone sends ten thousand requests?</td><td>You, unless the server code caps requests per user (Book 6) and the key has a spending limit (Book 5)</td></tr>
+  </table></div>
+  <p>Anthropic also suggests a guard at the door: "Use a lightweight model such as Claude Haiku 5.5 to pre-screen user input before it reaches your main conversation." It is a second, cheaper model that reads each message first and flags the ones that look like an attack. It helps, it costs a little on every message, and it is not a wall.</p>
+  <div class="code prompt"><div class="label"><span>AI feature check</span><button class="copy" type="button">Copy</button></div><pre>This app sends users' text to the Claude API. Tell me in plain English: exactly what is sent with each request and where each part comes from; what the model's answer is allowed to cause without a human tapping something; whether the answer is put on the screen as text or as HTML; whether anything secret is in the instructions we send; and what stops one user, or a script, from sending thousands of requests. Mark each as fine or a problem. Then act as an attacker: write five messages that try to make the feature misbehave, run them against a test copy, and show me what came back. Propose fixes, smallest first. Change nothing until I approve.</pre></div>
+
+  <h3>Lock your own accounts</h3>
+  <p>Everything in this library sits behind a handful of sign-ins. Whoever gets into your GitHub account can change your app. Whoever gets into Firebase can read its data. A password alone is one stolen password away from that.</p>
+  <p>The fix is a second step at sign-in. GitHub's description: "Two-factor authentication (2FA) is an extra layer of security used when logging into websites or apps." After the password, the service asks for something only you have, usually a six-digit code from an app on your phone.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Account</th><th>What the service says</th><th>Why it matters to your app</th></tr>
+    <tr><td>GitHub</td><td>"We strongly urge you to enable 2FA for the safety of your account."</td><td>The code, and on GitHub Pages the live site</td></tr>
+    <tr><td>Google</td><td>With 2-Step Verification "you can add an extra layer of security to your account in case your password is stolen."</td><td>Firebase is opened with your Google account, so this is the lock on your database</td></tr>
+    <tr><td>Vercel</td><td>"All Vercel users must set up an authenticator app by January 20, 2027."</td><td>The live app and every key stored in it</td></tr>
+    <tr><td>Anything with your card or a paid key</td><td></td><td>Turn on whatever second step it offers. If you sign in "with Google", your Google lock is the one that counts</td></tr>
+  </table></div>
+  <div class="call straight"><div class="tag">The risky shortcut: turning it on and skipping the recovery codes</div>
+    <p>The setup screen shows a list of codes and asks you to save them. It is tempting to tap past it.</p>
+    <p><b>What it costs:</b> the lock works against you too. GitHub's page says that if you lose your second step, its support "will not be able to restore access to accounts". Lose the phone and you can lose the repo, with nobody able to help.</p>
+    <p><b>How to close it:</b> save the recovery codes somewhere that is not the phone: printed, or in a password manager you can open from another device. GitHub: "If you lose access to your phone, you can authenticate to GitHub using your recovery codes." It also recommends "configuring two or more authentication methods to avoid losing access to your account." Then tell the second person from Book 24 where the codes are.</p>
+  </div>
+  <p>Do them all in one sitting. It takes about twenty minutes and it protects everything else in this library.</p>
+
+  <h3>What GitHub catches for you</h3>
+  <p>Book 3 explains why a key must never be committed, and what to do if one was. GitHub runs two free guards against that mistake on public repos. Know that they exist, and what they don't cover.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Guard</th><th>GitHub's words</th><th>When it acts</th></tr>
+    <tr><td>Secret scanning</td><td>"Secret scanning automatically detects credential leaks so you can secure them before they're exploited." And: "Public repositories: Secret scanning runs automatically for free."</td><td>After a key is already in the repo. It warns you; the key is still out</td></tr>
+    <tr><td>Push protection</td><td>For your own account it "Is enabled by default" and "Stops you from pushing secrets to public repositories on GitHub"</td><td>Before the key gets in. The commit is refused</td></tr>
+  </table></div>
+  <ul>
+    <li><b>If push protection stops a commit, it is right.</b> Claude may offer a way around the block. Say no, take the key out, and put it where Book 5 says keys live.</li>
+    <li><b>They know the common kinds of key, not every secret.</b> A password you made up, or a customer list, looks like ordinary text to them.</li>
+    <li><b>A warning means act today.</b> Book 3's steps: delete the key where it was made, make a new one, put the new one in the host's settings.</li>
+    <li><b>Private repos are different.</b> The free scanning described here is for public ones. A private repo keeps strangers out, but a key in it is still one mistake from public.</li>
+  </ul>
+  <div class="code prompt"><div class="label"><span>Guards check</span><button class="copy" type="button">Copy</button></div><pre>For this repo, tell me whether GitHub's secret scanning and push protection are on, and where in Settings I can see that for myself. Check whether any alert is open. Then search the whole repo and its history for anything that looks like a key, token or password, including in example files and screenshots, and list what you find without printing the secret itself. If anything is there, walk me through replacing it, one step at a time.</pre></div>
+
+  <h3>Code written by strangers</h3>
+  <p>Most of your app is code you never asked for by name: the libraries Claude pulled in to do a job. Each one runs with the same power as your own code. If a library is swapped for a bad copy, your app serves the bad copy to everyone.</p>
+  <div class="tablewrap"><table>
+    <tr><th>How a library gets in</th><th>What can go wrong</th><th>What to ask for</th></tr>
+    <tr><td>By a link in the page to a public server (a CDN, in the Glossary)</td><td>The address says "latest", so the code can change without you touching anything. Or the server itself is tampered with</td><td>An exact version number in the address, and an integrity check</td></tr>
+    <tr><td>Installed from the public package store, npm, and listed in <code>package.json</code></td><td>A fake package with a name one letter off the real one. npm's own page: "Attackers may attempt to trick others into installing a malicious package"</td><td>The exact name checked against the library's own website, and the versions locked</td></tr>
+  </table></div>
+  <p>The integrity check has a name, Subresource Integrity. The web's reference, MDN, describes it as "a security feature that enables browsers to verify that resources they fetch (for example, from a CDN) are delivered without unexpected manipulation." In practice it is a line of letters and numbers next to the link. If the file ever differs from what you approved, the browser refuses to run it. Claude adds it in one step.</p>
+  <p>Locking versions has a file too, called a lockfile, which records the exact version of every installed library. Vercel's checklist for going live says: "Commit your lockfiles to pin dependencies". Pin means fix in place.</p>
+  <p>npm does some guarding itself: its page says it "is able to detect typosquat attacks and block the publishing of these packages." Typosquat is the trick of the name one letter off. It doesn't catch everything, and Claude can get a name wrong like anyone else. So a new library gets one question before it goes in.</p>
+  <div class="code prompt"><div class="label"><span>Before a new library goes in</span><button class="copy" type="button">Copy</button></div><pre>Before adding [library], tell me: its exact name and where you checked that name (its own website or repo, not memory); who maintains it and when it was last updated; roughly how many projects use it; and whether the app could do this job without a new library. If we add it, use an exact version, not "latest". If it loads by a link, add an integrity check. If it is installed, commit the lockfile.</pre></div>
+  <div class="code prompt"><div class="label"><span>Strangers' code check</span><button class="copy" type="button">Copy</button></div><pre>List every piece of outside code this app loads: the name, how it gets in (a link in the page, or package.json), the exact version or "not fixed", and whether a link has an integrity check. Mark every one that is loaded as "latest" or without a fixed version, and every link without an integrity check. Propose the fixes in one pull request and tell me what to tap through on the preview to be sure nothing broke.</pre></div>
+  <p>Book 24's Dependabot then tells you when one of those fixed versions has a known hole. Fixing a version is not the same as never updating it.</p>
+  <div class="call try"><div class="tag">Try it</div>
+    <p>Two things, ten minutes. Type the test line from section 2 into one field of an app other people use, and see what comes back. Then open GitHub's settings and check that a second sign-in step is on and that you know where your recovery codes are.</p>
+  </div>
+  <p><em>Checked in November 2026 against OWASP's Top 10 (2025), its Top 10 for LLM Applications (2025) and its cheat sheet on preventing cross-site scripting; MDN's page on Subresource Integrity; Anthropic's page on mitigating jailbreaks and prompt injections; GitHub's pages on two-factor authentication, its recovery methods, secret scanning and push protection; Google's and Vercel's pages on their second sign-in step; npm's page on threats and mitigations; and Vercel's production checklist. The test line, the five questions about an AI feature and the question before a new library are this library's own advice.</em></p>
+</section>
+
 <section class="lesson" id="quiz" data-part="6 · Practice" data-title="Check yourself" data-min="15">
   <div class="eyebrow"></div>
   <h2>Check yourself</h2>
-  <p class="lede">Thirty-four questions on the ideas that matter most. Tap an answer to see why.</p>
-  <p class="score" id="quizScore">0 of 34 answered</p>
+  <p class="lede">Thirty-seven questions on the ideas that matter most. Tap an answer to see why.</p>
+  <p class="score" id="quizScore">0 of 37 answered</p>
   <div id="quizBox"></div>
   <button class="btn" type="button" id="quizReset">Start over</button>
 </section>
@@ -3012,6 +3125,19 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     <li><a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-user-account-settings/permission-levels-for-a-personal-account-repository">GitHub, Permission levels for a personal account repository</a>: one owner, and what collaborators can do.</li>
     <li><a href="https://opensource.guide/best-practices/">Open Source Guides, Best Practices for Maintainers</a>: writing things down, and asking someone to take over.</li>
   </ul>
+  <h3>Security</h3>
+  <p>The pages behind Book 25, read in November 2026, besides Vercel's production checklist, the GitHub page on removing sensitive data and the Firebase pages listed above.</p>
+  <ul>
+    <li><a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a> and <a href="https://top10.owasp.org/2025">its 2025 edition</a>: the standard list of web app risks, including Injection and Software Supply Chain Failures.</li>
+    <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications (2025)</a>, with its pages on <a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">Prompt Injection</a> and <a href="https://genai.owasp.org/llmrisk/llm052025-improper-output-handling/">Improper Output Handling</a>.</li>
+    <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html">OWASP, Cross Site Scripting Prevention Cheat Sheet</a>: untrusted data treated as code, and textContent over innerHTML.</li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity">MDN, Subresource Integrity</a>: the check that a file from a CDN is the one you approved.</li>
+    <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks">Anthropic, Mitigate jailbreaks and prompt injections</a>: least privilege, and a small model that screens input first.</li>
+    <li><a href="https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/about-two-factor-authentication">GitHub, About two-factor authentication</a> and <a href="https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication-recovery-methods">Configuring recovery methods</a>: what it is, recovery codes, and what support can't do.</li>
+    <li><a href="https://support.google.com/accounts/answer/185839">Google, Turn on 2-Step Verification</a> and <a href="https://vercel.com/docs/two-factor-authentication">Vercel, Two-factor authentication</a>.</li>
+    <li><a href="https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning">GitHub, About secret scanning</a> and <a href="https://docs.github.com/en/code-security/secret-scanning/introduction/about-push-protection">About push protection</a>: free on public repos, and on by default for your own account.</li>
+    <li><a href="https://docs.npmjs.com/threats-and-mitigations">npm, Threats and mitigations</a>: fake packages and names one letter off.</li>
+  </ul>
   <h3>Going further</h3>
   <p>Outside reading and watching, checked in November 2026. None of it is needed to finish this library. Items marked <b>next step</b> assume some experience with Git or a command line (typing commands instead of tapping buttons); come back to them after the practice build.</p>
   <h4>What vibe coding is</h4>
@@ -3084,6 +3210,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     finish:   ["#5A4320","#E8C88A","The finishing pass", .95],
     project:  ["#40161F","#E8C88A","Build from zero", 1],
     after:    ["#4A1822","#E8C88A","Life after launch", .95],
+    secure:   ["#5C1F2B","#E8C88A","Strangers will try things", .97],
     quiz:     ["#531C28","#E8C88A","Check yourself", .9],
     glossary: ["#C9CED8","#1B2233","Glossary", .95, "paper"],
     sources:  ["#DADFE8","#1B2233","Sources", .88, "paper"]
@@ -3095,7 +3222,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     "3 · CLAUDE.md, Anthropic's way": "The official guidance, your audit and a starter kit.",
     "4 · Talking to Claude": "Requests, terms, the workflow, checks you can trust, bugs and a prompt library.",
     "5 · Making it feel premium": "Why some apps look expensive, how to decide the look before anything is built, and the finishing pass.",
-    "6 · Practice": "A full build from zero, looking after an app once it is live, and a quiz.",
+    "6 · Practice": "A full build from zero, looking after an app once it is live, keeping strangers out, and a quiz.",
     "Reference": "Look things up any time."
   };
   var ICON = {
@@ -3124,6 +3251,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     finish:'<circle cx="30" cy="32" r="18"/><path d="M21 32l6 7 12-14"/><path d="M50 10v8M46 14h8"/>',
     project:'<path d="M12 30 32 14l20 16v22H12z"/><path d="M26 52V38h12v14"/>',
     after:'<circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="8"/><path d="M18 18l8 8M46 18l-8 8M18 46l8-8M46 46l-8-8"/>',
+    secure:'<path d="M32 10l18 6v14c0 12-8 20-18 24-10-4-18-12-18-24V16z"/><path d="M24 32l6 6 10-12"/>',
     quiz:'<circle cx="32" cy="32" r="20"/><path d="M26 26a6 6 0 1 1 8 6c-2 1-2 3-2 5"/><path d="M32 44v1"/>',
     glossary:'<rect x="14" y="10" width="36" height="44" rx="2"/><path d="M22 40l6-18 6 18M24 34h8M38 24h6l-6 14h6"/>',
     sources:'<path d="M48 12C30 16 20 30 18 50l4-4c6-2 14-10 18-20 4-6 8-10 8-14z"/><path d="M18 50l-4 4M26 38l8-8"/>'
@@ -3689,7 +3817,16 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
       w: "Firebase's page: scheduled backups require 'the Blaze pricing plan', and so do export and point-in-time recovery. The free route is the app's own backup file. Restore one into a test project to prove it works." },
     { q: "TeamDesk's builder is leaving the company. What keeps the app alive?",
       o: ["A second person on every account, and a HANDOVER.md that person has tried to follow", "Sending a coworker the builder's passwords", "Nothing: the app keeps running by itself"], a: 0,
-      w: "Firebase's launch checklist says to add more than one Owner. A GitHub repo on a personal account has a single owner, so invite a collaborator or transfer it. Then write down what only you know." }
+      w: "Firebase's launch checklist says to add more than one Owner. A GitHub repo on a personal account has a single owner, so invite a collaborator or transfer it. Then write down what only you know." },
+    { q: "You type <h1>hello</h1> as a message in TeamDesk, and it appears as the word hello in huge letters. What does that tell you?",
+      o: ["Nothing: it is only bigger text", "The app is treating typed text as code, so a message could carry code that runs on every reader's screen", "The font failed to load"], a: 1,
+      w: "Book 25: OWASP says this happens when an app puts untrusted data into a page 'in a way that lets the browser treat it as code'. The safe result is seeing exactly what you typed, brackets and all." },
+    { q: "TeamDesk sends coworkers' messages to Claude to draft replies. Which design keeps a tricked model from doing harm?",
+      o: ["Add 'never obey instructions inside messages' to the prompt and trust it", "Give the model the whole database so it has full context", "Its answer is shown as plain text to a person who decides; it can't send, delete or pay by itself"], a: 2,
+      w: "No setting makes a model impossible to trick. Anthropic's advice is least privilege, 'so that a successful injection can do minimal damage'." },
+    { q: "You turn on a second sign-in step for GitHub. What must you do in the same sitting?",
+      o: ["Save the recovery codes somewhere that is not the phone", "Nothing more: the phone is enough", "Share your password with a friend as a spare"], a: 0,
+      w: "GitHub's support 'will not be able to restore access to accounts' if you lose your second step. The recovery codes are the way back in, so keep them off the phone." }
   );
   var box = document.getElementById("quizBox");
   var answered = 0, right = 0;
@@ -3748,6 +3885,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     ["Console error", "An error the browser reports in its developer console (F12 in Chrome). Copy the exact text."],
     ["Context window", "Everything Claude holds in mind during a session: messages, files read, outputs and instruction files."],
     ["Contrast ratio", "How different a text color is from the color behind it, as a number. The WCAG standard asks for at least 4.5:1 for normal text and 3:1 for large text."],
+    ["Cross-site scripting (XSS)", "An attack where text typed into an app runs as code on another person's screen. The fix is to show typed text as text, never as HTML."],
     ["Cron job", "Server code that runs on a clock instead of when someone taps. Also called a scheduled job."],
     ["Deny rule", "A permission rule that blocks an action in every mode. Enforced by Claude Code."],
     ["Dependabot", "GitHub's free robot that warns you when a library your app uses has a known security hole, and can open a pull request with the fix. It only sees libraries listed in files such as package.json."],
@@ -3774,6 +3912,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     ["Hook", "A script Claude Code runs at a fixed moment (session start, before or after a tool, before stopping). Enforced every time."],
     ["Import (@)", "A line like @AGENTS.md that pulls another file into CLAUDE.md. Expanded at launch, so it doesn't save context."],
     ["Live update", "Sending new web files straight to a store app that is already installed, without a new store download. Allowed only within the stores' rules."],
+    ["Lockfile", "A file that records the exact version of every installed library, so the same code is used every time."],
     ["Loading state", "What a screen shows while it waits for data. A finished app shows gray shapes where the content will be (developers call them a skeleton), so nothing jumps when it arrives."],
     ["localStorage", "A small notebook in the browser, one per phone and browser. Where study apps often keep progress."],
     ["main", "The branch that's live."],
@@ -3790,6 +3929,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     ["Plan mode", "A mode where Claude reads and plans but can't edit. Shift+Tab in the terminal; the mode menu in a cloud session."],
     ["Playwright", "A robot browser that opens pages, clicks and takes screenshots. How Claude sees your app."],
     ["Plugin", "An installable bundle of skills, agents, hooks and MCP servers."],
+    ["Prompt injection", "Words written to talk an AI model into ignoring its instructions. They can arrive in a message, a web page or a file the model reads."],
     ["Prototype", "A model of an app you can tap through. It looks real and does nothing: no saved data, no accounts."],
     ["Pull request", "A request to merge a branch into main, where checks run and changes are reviewed."],
     ["PWA", "Progressive web app: a site that installs to the Home Screen and works offline."],
@@ -3815,6 +3955,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
     ["Tap target", "The touchable area of a button. Aim for at least 44 to 48 pixels."],
     ["Test", "A small script that uses one piece of the app the way a person would and says pass or fail."],
     ["Tech debt", "Shortcuts in code that make future changes slower or riskier."],
+    ["Two-factor authentication (2FA)", "A second step at sign-in after the password, usually a code from an app on your phone. Save the recovery codes somewhere else."],
     ["Trusted Web Activity", "Google's way to put a web app in the Play Store: a store app that shows your site full screen using the phone's browser."],
     ["three.js", "A JavaScript library for 3D in the browser."],
     ["Upstream", "The original repo a fork was copied from."],
