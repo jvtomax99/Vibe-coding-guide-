@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 26 short books on glass shelves
-(about eight and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 27 short books on glass shelves
+(about nine hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 26 books on shelves, grouped in six parts (How your apps
+1. **The library.** All 27 books on shelves, grouped in six parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Making it feel
    premium, Practice) plus
    Start here and the reference books.
@@ -61,10 +61,10 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 34 questions, three of them on each of
+5. **Check yourself.** A quiz with a score: 37 questions, three of them on each of
    Books 6, 7 and 8 (added 2026-11-15), three on Book 17 (added 2026-11-19) and three
-   each on Books 20, 21, 22 and 24 (added 2026-11-23).
-   Each of those twenty-four right answers is what the book itself says.
+   each on Books 20, 21, 22 and 24 (added 2026-11-23) and three on Book 25 (added
+   2026-11-24). Each of those twenty-seven right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -244,6 +244,28 @@ apps (told through the made-up ones).
      standard matches a page in Sources, every "Book N" elsewhere points at the right
      book, and the quiz count on the page matches the number of questions.
 
+16. **Book 25, "Strangers will try things"** (2026-11-24). Asked by Jose 2026-11-24 from
+   the "Security beyond keys and rules" gap under Later; plan OK'd the same day. In
+   Practice after Life after launch; the quiz became Book 26. For a reader whose app
+   other people use and who can't read code. Six sections: who attacks a small app,
+   text one person types and another sees (with a harmless test line), apps that send
+   people's words to Claude, a second sign-in step and recovery codes, GitHub's secret
+   scanning and push protection, code from strangers (fixed versions, an integrity
+   check, the package name checked).
+   - Not in this version: Claude Code as a risk (outside MCP servers, skills and
+     plugins; its own gap under Later), privacy and work rules (also under Later), paid
+     scanners and firewalls. It says plainly that it closes common holes and that an app
+     holding money, health or children's data needs a paid review.
+   - Compared: OWASP's Top 10 (2025) and its Top 10 for LLM Applications (the standard,
+     "for developers"; titles and developer fixes), MDN's page on cross-site scripting
+     (accurate, long, every example in code) and the Security section of Vercel's
+     production checklist (fourteen one-line items, half for paid plans, none explained).
+     Where this one differs: every risk comes with a test or a prompt a non-programmer
+     can run.
+   - Left out because no official page was found: whether Anthropic's Console has a
+     second sign-in step, and AI tools inventing package names.
+   - Done when: as item 15's "Done when (each book)".
+
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.
@@ -263,7 +285,7 @@ apps (told through the made-up ones).
 
 ### Gaps found in the 2026-11-19 review (Book 17 came from the first one)
 
-- **Security beyond keys and rules.** What users type and the app shows to others
+- **Security beyond keys and rules (done: Book 25).** What users type and the app shows to others
   (cross-site scripting; today one word, "escaped", in the Prompt library). Prompt
   injection in apps that send users' text to the Claude API, and showing model output as
   HTML (OWASP Top 10 for LLM apps lists it first). Two-factor sign-in on GitHub, Google,
