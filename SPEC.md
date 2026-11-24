@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 27 short books on glass shelves
-(about nine hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 28 short books on glass shelves
+(about nine and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 27 books on shelves, grouped in six parts (How your apps
+1. **The library.** All 28 books on shelves, grouped in six parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Making it feel
    premium, Practice) plus
    Start here and the reference books.
@@ -61,10 +61,10 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 37 questions, three of them on each of
+5. **Check yourself.** A quiz with a score: 40 questions, three of them on each of
    Books 6, 7 and 8 (added 2026-11-15), three on Book 17 (added 2026-11-19) and three
-   each on Books 20, 21, 22 and 24 (added 2026-11-23) and three on Book 25 (added
-   2026-11-24). Each of those twenty-seven right answers is what the book itself says.
+   each on Books 20, 21, 22 and 24 (added 2026-11-23) and three each on Books 25 and 26 (added
+   2026-11-24). Each of those thirty right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -266,6 +266,28 @@ apps (told through the made-up ones).
      second sign-in step, and AI tools inventing package names.
    - Done when: as item 15's "Done when (each book)".
 
+17. **Book 26, "What you let Claude touch"** (2026-11-24). Asked by Jose 2026-11-24 from
+   the "Claude Code as a risk" gap under Later; plan OK'd the same day ("Write it as
+   planned"). In Practice after Strangers will try things; the quiz became Book 27. For a
+   reader who builds from a phone in cloud sessions and can't read code. Six sections:
+   Claude works with your access (and the three things that are dangerous together),
+   pages and files that give orders, connectors and MCP servers, plugins, skills and
+   hooks, modes and limits (auto mode, the mode never to use, deny rules, the cloud
+   network setting), and what to do when something looks off. Cloud sessions come first
+   in every section; the terminal is the second case.
+   - Not in this version: writing MCP servers or hooks, setting up the terminal sandbox,
+     company-managed settings, browser agents.
+   - Compared: Simon Willison's "The lethal trifecta" (written for people who use these
+     tools; names the danger, gives no steps), the MCP specification's Security Best
+     Practices (for people who build servers; needs code and OAuth) and OWASP's
+     "Excessive Agency" (for developers designing an AI feature). Where this one
+     differs: every risk comes with a setting a non-programmer can check from a phone
+     or a prompt to send, and it says which limits are enforced and which are only
+     requests.
+   - Not quoted, because the page was not read in full: the hooks reference's
+     "Security considerations" and the MCP page's scope definitions.
+   - Done when: as item 15's "Done when (each book)".
+
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.
@@ -292,7 +314,7 @@ apps (told through the made-up ones).
   Vercel and Anthropic. (What to do when a key leaks is done: Books 3 and 5, PR #22.) GitHub
   secret scanning and push protection. Code from strangers: CDN scripts, pinned versions,
   made-up package names.
-- **Claude Code as a risk.** Third-party MCP servers, skills and plugins run with your
+- **Claude Code as a risk (done: Book 26).** Third-party MCP servers, skills and plugins run with your
   access; pages and files Claude reads can carry instructions.
 - **Life after launch (done: Book 24).** Knowing it broke (logs kept one hour on Vercel's free plan),
   users reporting bugs with the version number, backing up and restoring the shared
