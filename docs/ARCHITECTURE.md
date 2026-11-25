@@ -68,7 +68,8 @@ Search for these markers:
   `data-title` and `data-min` (minutes), and sometimes `data-open` (a name for the
   page made from whatever comes before the first `<h3>`). Ids in order: start, anatomy, stack, git,
   forks, hosting, backend, updates, stores, agent, toolkit, claudemd, audit, starter, request, vocab, workflow, checks,
-  debug, library, look, design, finish, project, after, secure, trust, stranger, fivesec, quiz, then glossary and sources.
+  debug, library, look, design, finish, project, after, secure, trust, stranger, fivesec, quiz, then the
+  Reference shelf: glossary, sources and kit ("Check my app", a form and not a text).
 - The `<script>` at the end, in parts marked by comments: storage (`KEY =
   "bac-course-v1"`), `BOOK` (cloth colors, spine titles, heights), `ICON` (cover
   drawings), numbering the books and cutting each into pages (each lesson gets
@@ -77,12 +78,17 @@ Search for these markers:
   next-book cover, turning pages (`go()`, arrows, keys, swipes) and `show()`, the start menu (it fills in the reader's numbers, picks the phone
   or desktop pictures and plays the clip), staying current (`askHost()` compares the page's own date with the
   host's and reloads or shows `#updBtn`), copy buttons, the quiz
-  (`renderQuiz`), the glossary.
+  (`renderQuiz`), the glossary, and "Check my app": the six questions (`KQ`), then one
+  function per part of the kit (`rules`, `audit`, `fix`, `you`, `notChecked`, `books`),
+  each taking the answers and returning text, and `paint()`, which fills the page. To
+  change what a kit says, change those functions; book numbers in it are read from the
+  page, so they stay right when books move.
 
 ## What the browser stores
 
 One `localStorage` entry, `bac-course-v1`: the reader's name (`name`), which books
-are read (`done`), the page they were on in each book (`pos`) and the text size step
-(`size`, left out at the default). The size is applied as `--tz` on `#main`, which
+are read (`done`), the page they were on in each book (`pos`), the text size step
+(`size`, left out at the default) and the six answers in "Check my app" (`kit`, left out
+until one is given). "Return all books" clears `done` and `pos` only. The size is applied as `--tz` on `#main`, which
 zooms each lesson. Nothing leaves the
 phone.

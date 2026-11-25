@@ -2,7 +2,7 @@
 
 A small library for people who build real apps with Claude without a developer background. Thirty short books on six shelves: how apps are put together, how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, how to make an app look and feel finished, a full practice build, and what to check before strangers see it.
 
-Open the site, tap a book to take it off the shelf, tap again to read it.
+Open the site, tap a book to take it off the shelf, tap again to read it. The Reference shelf also holds "Check my app": six questions about your own app, and a checklist built from the answers.
 
 ## How it's built
 
