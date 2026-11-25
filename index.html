@@ -26,7 +26,7 @@
 :root{
   --void:#05070F; --hull:#0A0F1E; --panel:#0E1629; --holo:#7FE3FF; --holo-rgb:127,227,255; --sgold:#E8C88A; --sgold-lo:#C9A25B;
   --stext:#EAF2FF; --sdim:rgba(200,220,255,.74);
-  --paper:#F8F5EE; --ink:#141824; --muted:#666C7A; --line:#DDD6C8; --soft:#EFEBE1; --ink-soft:#ECE7DC;
+  --paper:#F8F5EE; --ink:#141824; --muted:#5F6573; --line:#DDD6C8; --soft:#EFEBE1; --ink-soft:#ECE7DC;
   --accent:#0F6C86; --accent-soft:#E0EEF1; --accent-2:#775A20; --accent-2-soft:#F3EAD6; --gold:#C9A25B;
   --code-bg:#0B1020; --code-ink:#DCE8F7;
   --display:"Bodoni Moda","Bodoni 72","Didot",Georgia,serif;
@@ -109,6 +109,12 @@ a{color:var(--accent);text-underline-offset:3px}
 .shelf{min-width:0}
 .shelf-row{display:flex;align-items:flex-end;gap:4px;padding:46px 16px 0;min-height:300px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-behavior:smooth}
 .shelf-row::-webkit-scrollbar{display:none}
+/* With a mouse there is no swipe, so a shelf with more books than fit shows a thin scrollbar under them. */
+@media (hover: hover) and (pointer: fine){
+  .shelf-row{scrollbar-width:thin;scrollbar-color:rgba(var(--holo-rgb),.55) transparent;padding-bottom:6px}
+  .shelf-row::-webkit-scrollbar{display:block;height:6px}
+  .shelf-row::-webkit-scrollbar-thumb{background:rgba(var(--holo-rgb),.55);border-radius:3px}
+}
 /* A glass ledge, lit along its front edge like the console in the start menu */
 .plank{height:30px;position:relative;display:flex;align-items:center;justify-content:center;border-radius:2px;
   background:linear-gradient(#9FEAFF 0, var(--holo) 2px, #1A2946 3px, #0C1326 60%, var(--void));
@@ -3733,6 +3739,7 @@ Then put the fails in order: first anything that leaks or breaks, then anything 
     <div class="code"><div class="label"><span>Add to CLAUDE.md</span><button class="copy" type="button">Copy</button></div><pre id="kitRules"></pre></div>
     <h4>2. Ask for the report</h4>
     <p>Start a new session on your app's repo and send this. It asks Claude to change nothing and to stop after the list. A new session matters: Book 17 explains why the session that built something is the worst one to judge it.</p>
+    <p>Expect it to take a while. Run on this library, the report took fourteen minutes, and it uses more of your plan than an ordinary request. Send it when you can leave it running.</p>
     <p id="kitSafe" hidden></p>
     <div class="code prompt"><div class="label"><span>Finishing report for my app</span><button class="copy" type="button">Copy</button></div><pre id="kitAudit"></pre></div>
     <h4>3. Fix one thing at a time</h4>
@@ -4703,6 +4710,7 @@ Then put the fails in order: first anything that leaks or breaks, then anything 
       var who = a.who === "me" ? "I rely on it" : (a.who === "friends" ? "my friends and coworkers use it" : "strangers use it");
       var acct = f.signin ? ", signed in with the test account I made for this, never a real person's" : "";
       var head = "You did not build this app. I want it finished before " + who + ". In this session change nothing: no edits, no commits, no settings.\n";
+      if (f.live) head += "The live address is in this repo's CLAUDE.md or README; if it isn't, ask me for it. If you can't reach it, say so and don't guess: a cloud session's network setting can block it, and those items become \"could not check\".\n";
       if (f.live && f.shared) {
         head += "Open the live app in Playwright at 390px and at 1280px to look only: open its screens and read them, and press or type nothing there. Do any pressing and typing on the test copy with its own database" + acct + ". If there is no test copy, say so and check those items from the code.";
       } else {
@@ -4724,7 +4732,7 @@ Then put the fails in order: first anything that leaks or breaks, then anything 
       it.push("The console is empty on every screen: no errors and no leftover debugging messages.");
       it.push("Every screen has an empty state, a waiting state, an error state and a too-much state, and none of them is blank or technical.");
       it.push("Nothing breaks at 320 pixels wide, with the phone on its side, with a 40-letter name or a long word with no spaces, or with 0, 1 and 300 items.");
-      if (f.pub && f.live) it.push("What tells me the app broke, how a user reports a problem" + (f.server && a.data !== "local" ? ", and whether the saved data is backed up and a restore has been tried." : "."));
+      if (f.pub && f.live) it.push("What tells me the app broke, and how a user reports a problem" + (f.server && a.data !== "local" ? ", and whether the saved data is backed up and a restore has been tried." : "."));
       if (f.pub) {
         if (f.live) it.push("The address I give people is the live one" + (a.host === "vercel" ? ", and strangers can't open the preview addresses." : "."));
         it.push("Every page has its own title and description, and none is left over from a template.");
@@ -4733,8 +4741,8 @@ Then put the fails in order: first anything that leaks or breaks, then anything 
         if (f.live) it.push("A wrong address shows the app's own \"not found\" page, with a way back that works at any depth.");
         if (a.who === "strangers") it.push("The page names one true address, and the card and any sitemap agree with it.");
       }
-      it.push("Each screen has one most important thing, and it is the one that stands out. Text sizes, gaps, corners and colors come from a short list (DESIGN.md if there is one), with one accent color.");
-      it.push("Text contrast is at least 4.5 to 1 for normal text, and every tap target is at least 48 pixels.");
+      it.push("Each screen has one most important thing, and it is the one that stands out. Text sizes, gaps, corners and colors come from a short list (DESIGN.md if there is one), with one accent color, or as many as DESIGN.md decides on purpose.");
+      it.push("Text contrast is at least 4.5 to 1 for normal text, on every background it sits on. Every control can be tapped in an area at least 48 pixels across: measure the area that answers a tap, which can be bigger than what you see.");
       it.push("Headings are in order with one main heading per screen, and every picture and icon button has the right description.");
       it.push("What the first screen downloads, biggest first, with anything unused.");
       var foot = "Then put the fails in order: first anything that leaks or lets the wrong person in, then anything that breaks, then anything a stranger meets in the first five seconds, then the rest. For each, say how big the fix is. Stop there.";
