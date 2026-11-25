@@ -80,9 +80,11 @@ Search for these markers:
   host's and reloads or shows `#updBtn`), copy buttons, the quiz
   (`renderQuiz`), the glossary, and "Check my app": the six questions (`KQ`), then one
   function per part of the kit (`rules`, `audit`, `fix`, `you`, `notChecked`, `books`),
-  each taking the answers and returning text, and `paint()`, which fills the page. To
-  change what a kit says, change those functions; book numbers in it are read from the
-  page, so they stay right when books move.
+  each taking the answers and returning text, `facts()`, which turns the answers into the
+  yes or no flags those functions use, and `paint()`, which fills the page. To change
+  what a kit says, change those functions. Book numbers made by the script are read from
+  the page, so they stay right when books move; the few written into the section's own
+  text (Books 11, 13, 17, 20, 21 and 25) must be changed by hand.
 
 ## What the browser stores
 

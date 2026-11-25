@@ -365,7 +365,7 @@ apps (told through the made-up ones).
    book or a section, that allows users to use it as a cheat code for their apps"; plan
    and the name OK'd the same day). A third book on the Reference shelf, lettered C. It
    is a form: six taps about the reader's own app (live or not, who uses it, sign-in,
-   shared data, an AI feature, the host). The answers build a kit that fits that app:
+   where its data is kept, an AI feature, the host). The answers build a kit that fits that app:
    rules to paste into its CLAUDE.md, one report-only audit to send (the library's
    checks merged into one ordered list, with what doesn't apply left out), the "one
    fix" request to repeat, a list of things only the owner can do, a list of what was
@@ -387,6 +387,18 @@ apps (told through the made-up ones).
      an app to "nothing broken, leaking or embarrassing" and can't make the decisions
      in Books 20 and 21 or replace the paid review Book 25 asks for. Its first page and
      every kit say what was not checked.
+   - Caught by the reviewer and fixed before the pull request: a live app with shared
+     data was told both to open the live app signed in and to type only on a test copy
+     (the live app is now look-only and the AI feature is read from the code, never
+     sent test messages); an app with a back end but no sign-in, or only an AI feature,
+     got no data checks (the fourth question now asks where data is kept, and an AI
+     feature counts as a server); the Firebase checks depended on the host and are now
+     asked whenever there is a server; a test account was named for apps with no
+     sign-in; a leaked key had no "replace it first" step; two lines contradicted
+     Book 5 about GitHub Pages; and "It changes nothing" promised more than a request
+     to Claude can.
+   - Also changed, beyond the plan: every Copy button and every quiz answer now has a
+     48px area to tap.
    - Done when: every combination of answers builds a kit with no item that contradicts
      the answers; every prompt in it stops for approval; the form and the kit work at
      320px, 390px and desktop; the answers survive a reload; and the site check and
