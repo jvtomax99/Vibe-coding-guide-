@@ -404,6 +404,38 @@ apps (told through the made-up ones).
      320px, 390px and desktop; the answers survive a reload; and the site check and
      look check pass.
 
+21. **Check my app, run on this library** (2026-11-25, Jose: "Test it on this site", then
+   "Kit and two site bugs"). The kit's report for The Launch Manual was sent, word for
+   word, to a fresh session on a throwaway copy of the repo. It changed nothing, put
+   its fails in the order asked, and stopped. It took fourteen minutes.
+   - Fixed in the kit: the tap-target item now asks for the area that answers a tap,
+     not what is drawn (it failed controls that have invisible 48px areas); the accent
+     item accepts what DESIGN.md decides; contrast is measured on every background; a
+     broken sentence in the "app broke" item; the report says where to find the live
+     address and what to say if a cloud session's network blocks it (not tested: this
+     session's network is unrestricted); and the page warns that the report takes a
+     while and uses more of a plan than an ordinary request.
+   - Fixed on the site: on a computer with a mouse, shelves with more books than fit
+     had no way to scroll and hid Books 6 to 8, 19 and 28 to 29 (a thin scrollbar now
+     shows); the light page's quieter grey measured 4.27 to 4.43 to 1 on the soft panels
+     (it is now #5F6573, 4.74 or more on every panel).
+   - Found and left for Jose's decision:
+     - The start picture says "A COURSE IN 18 BOOKS" and "18 SHORT BOOKS"; the text is
+       drawn into the render (`start-source/tex.py`, lines 30 and 69), and rendering
+       again takes Blender and about two hours.
+     - On a slow connection, or with scripts off, the shelves show "0 OF 0", a blank
+       cover and no shelves, with no message.
+     - No "report a problem" link, and nothing watches the live site.
+     - Inside a book the title is a level-2 heading and the Contents page starts at
+       level 3; some list rows are 35 to 40px tall and the page arrows 44px.
+     - About 1 MB downloads before the first tap, half of it the opening clip.
+     - The workflow uses moving "v4" labels and Node 20, which is out of support.
+     - Jose's email address is on 30 commits in the public repo (GitHub's "keep my
+       email private" setting stops it on new ones), and the taste skill was copied
+       from a repo with no license file.
+   - Still open for the kit itself: the report is up to 23 items in one message; split
+     it into three shorter reports if a reader finds it too long or too shallow.
+
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.
