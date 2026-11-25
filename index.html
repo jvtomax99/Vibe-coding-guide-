@@ -3172,24 +3172,24 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   </ul></div>
 
   <h3>The address</h3>
-  <p>Every host gives your app an address for free. GitHub's page: "You can host your site on GitHub's <code>github.io</code> domain or your own custom domain." Vercel's: "Vercel provides all deployments with a <code>vercel.app</code> URL". (A URL is an address. A domain is the name part of it, such as <code>cornergym.com</code>.) So an app usually has more than one address, and they are not equally good to hand out.</p>
+  <p>Every host gives your app an address for free. GitHub's page: "You can host your site on GitHub's <code>github.io</code> domain or your own custom domain." Vercel's: "Vercel provides all deployments with a <code>vercel.app</code> URL". (A URL is an address. A domain is the name part of it, such as <code>cornergym.example</code>.) So an app usually has more than one address, and they are not equally good to hand out.</p>
   <div class="tablewrap"><table>
     <tr><th>Address</th><th>What it is</th><th>Give it to people?</th></tr>
-    <tr><td>Your own domain, such as <code>cornergym.com</code></td><td>A name you rent by the year and point at the host</td><td>Yes, once you have one</td></tr>
-    <tr><td>The host's default, such as <code>yourname.github.io/flashdeck</code> or a short name ending in <code>.vercel.app</code></td><td>Free, and it stays the same for as long as the project exists</td><td>Yes. Fine for friends and coworkers</td></tr>
-    <tr><td>A Vercel preview address: a long one with a run of random letters, or the word <code>git</code> and a branch name, in it</td><td>A copy of one branch or one saved change, made so you can check it before it goes live (Book 5)</td><td>No</td></tr>
+    <tr><td>Your own domain, such as <code>cornergym.example</code></td><td>A name you rent by the year and point at the host</td><td>Yes, once you have one</td></tr>
+    <tr><td>The host's default, such as <code>yourname.github.io/flashdeck</code> or a short name ending in <code>.vercel.app</code></td><td>Free, and it stays the same unless you rename the project or the repo</td><td>Yes. Fine for friends and coworkers</td></tr>
+    <tr><td>A long Vercel address with a run of random letters, or the word <code>git</code> and a branch name, in it</td><td>A copy of one branch or one saved change. Usually a preview, made so you can check a change before it goes live (Book 5)</td><td>No</td></tr>
   </table></div>
   <div class="call straight"><div class="tag">Straight talk</div>
     <p>A default address is not something to be ashamed of. It tells a stranger which free host you use and nothing else. For an app you hand to friends it is the right choice, because a domain costs money every year for as long as the app lives. Your own name starts to matter when strangers have to trust the app before they know you: Corner Gym taking sign-ups, or anything that asks for an email address.</p>
   </div>
   <h4>Why a preview address is the wrong one to share</h4>
-  <p>Vercel makes a new address for every branch and every saved change. They look like the real thing in the address bar, and three things go wrong when one is passed around.</p>
+  <p>Vercel makes a new address for every branch and every saved change, live ones included. Most of them are previews. They look like the real thing in the address bar, and three things go wrong when one is passed around.</p>
   <ul>
     <li><b>It can be frozen.</b> Vercel's page on the address made for one saved change: "This URL will always show you a preview of changes from that specific commit." Your friend keeps opening last Tuesday's version while you fix things on the live one.</li>
     <li><b>It can ask for a sign-in.</b> With Vercel's protection on, "Users attempting to access the deployment will encounter a Vercel login redirect." Your friend sees a Vercel sign-in screen and assumes the app is broken.</li>
     <li><b>Or it can be open to anyone.</b> The same docs say a generated address "is <b>publicly accessible by default</b>, but you can configure it to be private using" deployment protection. A half-built feature on a preview is then one guessed or forwarded link away from a stranger.</li>
   </ul>
-  <p>Before you copy a link, read the address bar. The one to share is the short one shown on your Vercel project's Overview tab, or your own domain. To see who can open the others, Vercel's page says to "Open <b>Settings</b> in the sidebar and select <b>Deployment Protection</b>". The setting called Standard Protection "is available on all plans" and "protects all domains except" the live ones. That is the one to have on.</p>
+  <p>Before you copy a link, read the address bar. The one to share is your own domain, or the short address with no run of random letters and no branch name in it. If you can't tell which that is, the prompt at the end of this section asks Claude. To see who can open the others, Vercel's page says to "Open <b>Settings</b> in the sidebar and select <b>Deployment Protection</b>". The setting called Standard Protection "is available on all plans" and "protects all domains except" the live ones. That is the one to have on.</p>
   <h4>If you buy your own name</h4>
   <p>Buying a domain step by step is outside this book, because every seller's screens differ. Three things hold everywhere.</p>
   <ul>
@@ -3220,7 +3220,7 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   <h4>See it from a phone</h4>
   <ul>
     <li>Open the app in your browser and look at your open tabs. The words under the small picture of your app are the title.</li>
-    <li>Paste the address into Google's PageSpeed Insights (Book 22) and open the part of the report called SEO. It tells you when the description is missing. A pass only means one exists: Lighthouse, the tool behind the report, says it "doesn't evaluate the quality of your description."</li>
+    <li>Paste the address into Google's PageSpeed Insights (Book 22) and open the part of the report called SEO (short for search engine optimization, which means being found by search). It tells you when the description is missing. A pass only means one exists: Lighthouse, the tool behind the report, says it "doesn't evaluate the quality of your description."</li>
   </ul>
   <div class="code prompt"><div class="label"><span>Titles and descriptions</span><button class="copy" type="button">Copy</button></div><pre>List every page of this app that has its own address. For each, show me its title and its description exactly as they are now. Flag any that are missing, left over from a template (for example "Vite + React" or "Create Next App"), or the same on more than one page. Then propose new ones in a table: a title made of what the page is for plus the app's name, short enough to read on a phone's tab, and a description of one or two plain sentences a stranger would understand. No lists of keywords. Change nothing until I approve the table.</pre></div>
 
@@ -3285,22 +3285,22 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   </ul>
   <p>Leaving a page out of the sitemap does not hide it. Anything that must stay private belongs behind a sign-in and database rules (Book 6).</p>
   <h4>See it from a phone</h4>
-  <p>To learn whether Google knows your app at all, Google's guide says to search for your address with <code>site:</code> in front, for example <code>site:cornergym.com</code>. "If you see results pointing to your site, you're in the index." A new app won't be there the same afternoon: Google's pages speak of "several days to several weeks" for it to read a page again.</p>
-  <div class="code prompt"><div class="label"><span>Sitemap</span><button class="copy" type="button">Copy</button></div><pre>Does this app have a sitemap.xml or a robots.txt? Show me both as they are. Then list the pages a stranger can open without signing in: those are the only ones that belong in a sitemap. Propose a sitemap with each of them as a full https address on [my one true address], with nothing else in it. Google ignores the "priority" and "changefreq" values, so leave them out. Tell me where the file must sit for my host, and walk me through handing it to Google in Search Console one step at a time. Change nothing until I approve.</pre></div>
+  <p>To learn whether Google knows your app at all, Google's guide says to search for your address with <code>site:</code> in front, for example <code>site:cornergym.example</code>. "If you see results pointing to your site, you're in the index." A new app won't be there the same afternoon. Even coming back to read a page it already knows, Google's page on icons says, "can take anywhere from several days to several weeks".</p>
+  <div class="code prompt"><div class="label"><span>Sitemap</span><button class="copy" type="button">Copy</button></div><pre>Does this app have a sitemap.xml, or a robots.txt (a file that tells search engines where they may look)? Show me both as they are. Then list the pages a stranger can open without signing in: those are the only ones that belong in a sitemap. Propose a sitemap with each of them as a full https address on [my one true address], with nothing else in it. Google ignores the "priority" and "changefreq" values, so leave them out. Tell me where the file must sit for my host, and walk me through handing it to Google in Search Console one step at a time. Change nothing until I approve.</pre></div>
 
   <h3>A real "not found" page</h3>
   <p>Sooner or later someone opens an address that doesn't exist: a typo, an old link, a page you removed. What they see then is called the 404 page, after the number a server answers with when it can't find something.</p>
   <p>If you never made one, the host shows its own: a plain page with the host's name on it and no way back into your app. The stranger does not conclude "I mistyped". They conclude the app is gone.</p>
   <div class="tablewrap"><table>
     <tr><th>Host</th><th>How to get your own</th></tr>
-    <tr><td>GitHub Pages</td><td>"You can display a custom 404 error page when people try to access nonexistent pages on your site." It is a file beside your home page; GitHub's steps say to name it <code>404.html</code></td></tr>
+    <tr><td>GitHub Pages</td><td>"You can display a custom 404 error page when people try to access nonexistent pages on your site." It is a file beside your home page, which GitHub's steps name <code>404.html</code> (or <code>404.md</code>)</td></tr>
     <tr><td>Firebase Hosting</td><td>"Create a new file in your project's public directory, name it <code>404.html</code>, then add your custom 404 Not Found content to the file."</td></tr>
     <tr><td>Vercel</td><td>It depends on how the app was built. Ask Claude with the prompt below</td></tr>
   </table></div>
   <p>A good one does three things. It says plainly that the page isn't here, in Book 22's kind of words and with no blame. It looks like the rest of the app. And it has one clear button back to the front page.</p>
   <p>Two traps, both this library's own advice:</p>
   <ul>
-    <li><b>The page shows up at any wrong address, however deep.</b> A short link or picture path that works on the front page can break when the same page appears at <code>yourapp.com/a/b/c</code>. Everything on a 404 page should use full addresses.</li>
+    <li><b>The page shows up at any wrong address, however deep.</b> A short link or picture path that works on the front page can break when the same page appears at <code>yourapp.example/a/b/c</code>. Everything on a 404 page should use full addresses.</li>
     <li><b>Some apps never say "not found".</b> An app that handles every address with its own code may show its front screen for any address at all, nonsense included. A mistyped link then looks as if it worked and shows the wrong thing. That kind of app needs its own "not found" screen inside it.</li>
   </ul>
   <h4>See it from a phone</h4>
@@ -3347,7 +3347,14 @@ Report only what a user would notice. Skip anything that is a matter of taste. S
   </div>
   <h4>Check it yourself</h4>
   <p>Open the app on your phone and tap everything on every screen, the footer included. Write down each thing that did nothing. It takes about ten minutes and you will find something.</p>
-  <div class="code prompt"><div class="label"><span>Press everything</span><button class="copy" type="button">Copy</button></div><pre>Open the live app in Playwright at 390px, signed in with the test account. On every screen, find every button, link, icon and form field. Press each one and record what happened: it went somewhere, something on the screen changed, or nothing. Don't press anything that deletes data, sends a message or spends money: list those for me to try by hand.
+  <h4>Before Claude presses anything: a test account</h4>
+  <p>Several prompts in this book have Claude use the app, not only read its code. Two rules first, both this library's own advice.</p>
+  <ul>
+    <li><b>Claude signs in as nobody real.</b> If your app has sign-in, make a second account in it with a made-up name and an email address you control, used for testing and nothing else. Never give Claude your own password or anyone else's.</li>
+    <li><b>Claude types junk only where no real person will see it.</b> In an app that keeps things on the phone, like FlashDeck, a test account is enough. In an app with shared data, like TeamDesk, junk typed into the live app lands in front of your coworkers. There, the pressing and typing happen on a test copy with its own database, as in Book 25. If you have no such copy, ask for the report from the code alone and do the tapping yourself.</li>
+  </ul>
+  <div class="code prompt"><div class="label"><span>Press everything</span><button class="copy" type="button">Copy</button></div><pre>Open the app in Playwright at 390px, signed in with the test account I made for this, never a real person's. If other people's data is in this app, use the test copy with its own database; if there isn't one, say so and work from the code without pressing anything.
+First list every button, link, icon and form field on every screen, and mark each one that would delete, save for other people to see, send, invite, post or pay. Wait for my OK on that list. Then press only the unmarked ones and record what happened: it went somewhere, something on the screen changed, or nothing. I will try the marked ones by hand.
 Report in plain English:
 1. Every control that did nothing.
 2. Every link that goes nowhere, to "#", or to a page that doesn't exist.
@@ -3371,7 +3378,7 @@ For each, say how big a job it is to make it work, or propose removing it. Chang
     <li>Paste the address into PageSpeed Insights (Book 22) and open the part called Best Practices. Google's page says the report uses Lighthouse "for the Performance, Accessibility, Best Practices, and SEO categories", and Lighthouse "flags all browser errors logged to the console". It only loads the first screen and can't sign in, so it sees the front door and nothing behind it.</li>
     <li>Ask Claude, which can open the app and read the console for every screen.</li>
   </ul>
-  <div class="code prompt"><div class="label"><span>Console sweep</span><button class="copy" type="button">Copy</button></div><pre>Open the live app in Playwright at 390px with the test account and use it for its main job from the first screen to the last. Collect everything written to the console on the way: errors, warnings and plain messages. Sort them into three lists and explain each line in plain English:
+  <div class="code prompt"><div class="label"><span>Console sweep</span><button class="copy" type="button">Copy</button></div><pre>Open the app in Playwright at 390px with the test account (on the test copy, if other people's data is in this app) and use it for its main job from the first screen to the last. Collect everything written to the console on the way: errors, warnings and plain messages. Sort them into three lists and explain each line in plain English:
 1. Real errors: what failed, and whether a user would notice.
 2. Messages left over from debugging: where each comes from, and whether it prints anything about a user or the server.
 3. Warnings from outside libraries that we can't fix here.
@@ -3390,19 +3397,19 @@ Propose removing everything in list 2 and fixing list 1, smallest first. Then ma
   <p>How much of this applies depends on where the code lives. If your repo is public, as it must be for a free GitHub Pages site, all of it was readable already, and Book 3's rule covers you: nothing secret goes in the repo. If the repo is private and only the built app is published, the published folder is the one thing strangers can see, and it is worth knowing exactly what is in it.</p>
   <p>For source maps on Vercel there is a setting. Its page: Protected Source Maps "are available on all plans", and with it on the map files go "only to users who can already access the deployment", while everyone else gets "<code>404 Not Found</code>".</p>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Hiding is not locking. The code that runs in a visitor's browser can always be read by someone determined, with or without a source map (Book 5). Turning the maps off makes your app harder to copy. It protects nothing that should have been secret, because nothing secret belongs in that code at all.</p>
+    <p>Hiding is not locking. The code that runs in a visitor's browser can always be read by someone determined, with or without a source map (Book 6). Turning the maps off makes your app harder to copy. It protects nothing that should have been secret, because nothing secret belongs in that code at all.</p>
   </div>
   <h4>Check it from a phone</h4>
-  <p>On your own app only, type the address followed by each of these: <code>/.env</code>, <code>/.git/config</code>, <code>/admin</code>, <code>/test.html</code>. The right answer every time is the "not found" page from Book 27. If any of them shows text or a page, send the prompt. If <code>/.env</code> shows anything that looks like a key, do Book 3's steps first and send the prompt second.</p>
+  <p>On your own app only, type the address followed by each of these: <code>/.env</code>, <code>/.git/config</code>, <code>/admin</code>, <code>/test.html</code>. The right answer is the "not found" page from Book 27, or for <code>/admin</code> your sign-in screen. If the app shows its front screen for all of them, it never says "not found" (Book 27's second trap), and only the prompt can tell you what is really there. If any of them shows text or a page of its own, send the prompt. If <code>/.env</code> shows anything that looks like a key, do Book 3's steps first and send the prompt second.</p>
   <div class="code prompt"><div class="label"><span>What is published</span><button class="copy" type="button">Copy</button></div><pre>List every file that is reachable at the live address after a deploy: the published folder, not the whole repo. Flag anything that holds a key, token or password; any .env file; source maps; a .git folder; backups, old copies and test pages; notes and planning files; and any page that nothing links to. For each, tell me whether to delete it, stop publishing it, or put it behind the sign-in. If any key was reachable, stop there and tell me first: we replace the key before anything else. Change nothing until I approve.</pre></div>
 
   <h3>How much the phone has to download</h3>
   <p>Before your app can do anything, the phone downloads its code. Developers call the total the bundle. Google's web.dev: "Sending large JavaScript payloads impacts the speed of your site significantly." (JavaScript is the language the code is written in; a payload is what gets sent.)</p>
   <p>Claude reaches for a library easily, and each one is added whole. A date library to print one date. An icon set of a thousand icons for the six you use. A chart library for a single bar. Book 25 covered who wrote those libraries. This is about their weight.</p>
   <p>You don't have to guess. PageSpeed Insights, from Book 22, lists code the page downloaded and never ran. Lighthouse's page: it "flags every JavaScript file with more than 20 kibibytes of unused code", which is about twenty thousand characters of it. Pictures are often heavier than the code. Vercel's checklist for going live includes "Ensure you are using Image Optimization to reduce the size of your images".</p>
-  <div class="code prompt"><div class="label"><span>Weight check</span><button class="copy" type="button">Copy</button></div><pre>List everything a phone downloads to show this app's first screen: scripts, styles, fonts and pictures, each with its size, biggest first, and the total. For each library, tell me what we use it for and roughly how much of it we use. Then propose, with the saving you expect from each: removing what isn't used, replacing a big library that does one small job, loading later what the first screen doesn't need, and shrinking pictures. Don't add a new library to solve this. One pull request per change, so I can run PageSpeed Insights before and after each and see which ones helped.</pre></div>
+  <div class="code prompt"><div class="label"><span>Weight check</span><button class="copy" type="button">Copy</button></div><pre>List everything a phone downloads to show this app's first screen: scripts, styles, fonts and pictures, each with its size, biggest first, and the total. For each library, tell me what we use it for and roughly how much of it we use. Then propose, with the saving you expect from each: removing what isn't used, replacing a big library that does one small job, loading later what the first screen doesn't need, and shrinking pictures. Don't add a new library to solve this. Change nothing until I approve the list. Then one pull request per change, so I can run PageSpeed Insights before and after each and see which ones helped.</pre></div>
   <div class="call straight"><div class="tag">Straight talk</div>
-    <p>Don't chase a perfect score. The target is the one in Book 22: the main thing on the screen appears within 2.5 seconds, on a real phone, on mobile data. Once that holds, stop. A lighter app nobody uses has gained nothing.</p>
+    <p>Don't chase a perfect score. The target is the one in Book 22: the main thing on the screen appears within 2.5 seconds, on a real phone, away from wifi. Once that holds, stop. A lighter app nobody uses has gained nothing.</p>
   </div>
 
   <h3>Narrow screens, long words, odd counts</h3>
@@ -3414,9 +3421,9 @@ Propose removing everything in list 2 and fixing list 1, smallest first. Then ma
     <tr><td>Long and strange text</td><td>A 40-letter name, a long word with no spaces such as an email address, accents and emoji, 1,000,000 where you expected 12</td><td>Text wraps or is cut with "…". It never overlaps, and never pushes a button off the screen</td></tr>
     <tr><td>Odd counts</td><td>Nothing, exactly one, and hundreds</td><td>"1 card", not "1 cards". Book 22's empty screen for nothing; a list that still scrolls smoothly for hundreds</td></tr>
   </table></div>
-  <p>The 320 comes from the web's accessibility standard, called WCAG. Its rule: content can be shown "without loss of information or functionality, and without requiring scrolling in two dimensions" at "a width equivalent to 320 CSS pixels". The reason given: "People who need bigger text find it difficult if they must scroll to read long lines." Someone who zooms in on a normal phone gets a narrow screen. The rule makes exceptions for things that need the width, such as maps and data tables.</p>
+  <p>The 320 comes from the web's accessibility standard, called WCAG. Its rule: content can be shown "without loss of information or functionality, and without requiring scrolling in two dimensions" at "a width equivalent to 320 CSS pixels" (the same pixels used for widths everywhere in this library). The reason given: "People who need bigger text find it difficult if they must scroll to read long lines." The standard's own example is a computer window zoomed to 400%, which leaves the page a strip as narrow as a small phone. The rule makes exceptions for things that need the width, such as maps and data tables.</p>
   <p>The check by hand is simple. Change your name in the app to something absurdly long, then look at every screen that shows it.</p>
-  <div class="code prompt"><div class="label"><span>Odd inputs</span><button class="copy" type="button">Copy</button></div><pre>Use the test account, never a real one. Open the app in Playwright at 320, 390 and 1280 pixels wide, and at 844 by 390 (a phone on its side). Fill every name, title and text field with, in turn: a 40-letter name; a 60-letter word with no spaces; text with accents and emoji; and 1,000,000 wherever a number shows. Also show each list with nothing in it, with exactly one item and with 300. Take a screenshot of every screen in each case. Report any screen that scrolls sideways, any text that overlaps or is cut off without "…", any button pushed off the screen, and any wrong plural such as "1 cards". Change nothing. Send me the screenshots with the problems listed under each.</pre></div>
+  <div class="code prompt"><div class="label"><span>Odd inputs</span><button class="copy" type="button">Copy</button></div><pre>Do this only where no real person will see what you type: with the test account, and on the test copy with its own database if other people's data is in this app. If there is no safe place, say so and stop. Open the app in Playwright at 320, 390 and 1280 pixels wide, and at 844 by 390 (a phone on its side). Fill every name, title and text field with, in turn: a 40-letter name; a 60-letter word with no spaces; text with accents and emoji; and 1,000,000 wherever a number shows. Also show each list with nothing in it, with exactly one item and with 300. Take a screenshot of every screen in each case. Report any screen that scrolls sideways, any text that overlaps or is cut off without "…", any button pushed off the screen, and any wrong plural such as "1 cards". Afterwards delete everything you typed or added and tell me it is gone. Change no code. Send me the screenshots with the problems listed under each.</pre></div>
 
   <h3>What a screen reader hears</h3>
   <p>Book 22 introduced the screen reader, the tool that reads a screen aloud for people who can't see it, and PageSpeed's accessibility score as a floor. Two things under that floor are cheap to fix and are missed in most quickly built apps: the order of the headings and the descriptions of the pictures.</p>
@@ -3442,12 +3449,12 @@ Propose removing everything in list 2 and fixing list 1, smallest first. Then ma
   <p>The prompt this book started from is a single message. It lists about twenty-five checks, most of them good and most of them in these two books, tells Claude to fix them all, and ends: "Make no mistakes". Three things in it work against the person sending it.</p>
   <div class="tablewrap"><table>
     <tr><th>In the prompt</th><th>What goes wrong</th><th>What this library does instead</th></tr>
-    <tr><td>Twenty-five jobs and "fix them", in one message</td><td>One enormous change you can't review. Things you never looked at are different afterwards, and when something breaks you can't tell which fix did it</td><td>A report first, then one fix per pull request (Books 16 and 17)</td></tr>
+    <tr><td>Twenty-five jobs and "fix them", in one message</td><td>One enormous change you can't review. Things you never looked at are different afterwards, and when something breaks you can't tell which fix did it</td><td>A report first, then one fix per pull request, each small enough to read the way Book 17 shows</td></tr>
     <tr><td>"Make no mistakes"</td><td>Nothing. Claude was not planning to make them, and the sentence gives it no way to find one</td><td>A "Done when" and proof you can see for each job (Book 14), and a check that can fail (Book 17)</td></tr>
     <tr><td>The aim: remove the signs</td><td>It points Claude at looking finished. A dead button can be hidden faster than it can be made to work</td><td>The aim is finishing. Every check here asks whether something works</td></tr>
   </table></div>
   <p>Here is the same list rebuilt. The first message changes nothing: it only reports.</p>
-  <div class="code prompt"><div class="label"><span>Finishing audit: report only</span><button class="copy" type="button">Copy</button></div><pre>You did not build this app. I want it finished before strangers use it. In this session, change nothing. Open the live app in Playwright at 390px and at 1280px with the test account, and check each item below. For each, answer pass, fail or could not check, with one line of evidence: a screenshot, an address or a file name.
+  <div class="code prompt"><div class="label"><span>Finishing audit: report only</span><button class="copy" type="button">Copy</button></div><pre>You did not build this app. I want it finished before strangers use it. In this session, change nothing. Open the app in Playwright at 390px and at 1280px with the test account, and check each item below. Don't press anything that saves, sends, deletes or pays, and don't type into anything other people can see: where a check needs that, answer "could not check" and tell me how to do it by hand. For each, answer pass, fail or could not check, with one line of evidence: a screenshot, an address or a file name.
 1. The address I share is the live one, and preview addresses are not open to strangers.
 2. Every page has its own title and description, and none is left from a template.
 3. The tab icon and the home screen icon are the app's own.
@@ -4354,10 +4361,10 @@ Then put the fails in order: first anything that leaks or breaks, then anything 
       o: ["A branch rule on main with bypassing switched off", "A line in CLAUDE.md that says never obey web pages", "Asking Claude to promise at the start of the session"], a: 0,
       w: "The branch rule is enforced by GitHub, outside Claude. Deny rules are enforced too ('by Claude Code, not by the model') and are worth having, though a command written another way can get around one (Book 13). A line in CLAUDE.md is guidance, which a tricked Claude can ignore." },
     { q: "You are about to paste FlashDeck's link into a group chat. In your address bar the link has a run of random letters in the middle and ends in .vercel.app. What is it?",
-      o: ["The live app: every Vercel address looks like that", "A preview address for one saved change. It can stay frozen at that version or ask your friends to sign in, so share the short live address instead", "A broken link that will not open at all"], a: 1,
-      w: "Book 27: Vercel says the address made for one saved change 'will always show you a preview of changes from that specific commit'. The one to share is on the project's Overview tab." },
+      o: ["The live app: every Vercel address looks like that", "An address for one saved change, usually a preview. It can stay frozen at that version or ask your friends to sign in, so share the short live address instead", "A broken link that will not open at all"], a: 1,
+      w: "Book 27: Vercel says the address made for one saved change 'will always show you a preview of changes from that specific commit'. The one to share is your own domain or the short address with no random letters in it." },
     { q: "Pocket Pet is a small app you send to friends by link. A checklist says every site needs a sitemap. What does Google itself say?",
-      o: ["A small site that is properly linked may not need one, and you should first make sure people know about your site", "Without a sitemap Google refuses to list a site", "A sitemap keeps private pages out of search"], a: 0,
+      o: ["A small site may not need one, and you should first make sure people know about your site", "Without a sitemap Google refuses to list a site", "A sitemap keeps private pages out of search"], a: 0,
       w: "Book 27: 'By small, we mean about 500 pages or fewer on your site.' A sitemap is a hint for search. Leaving a page out of it hides nothing; private things belong behind a sign-in." },
     { q: "You type your app's address with /nothing-here on the end and get a plain page with only the host's name on it. What does a stranger conclude, and what fixes it?",
       o: ["That they mistyped. Nothing needs fixing", "That the app is gone. Add your own 'not found' page that looks like the app and has a way back, with full addresses for its links", "That the app is being updated. Add a loading spinner"], a: 1,
@@ -4370,7 +4377,7 @@ Then put the fails in order: first anything that leaks or breaks, then anything 
       w: "Book 28: a host publishes a folder, and every file in it has an address whether or not anything links to it. Hiding is not locking." },
     { q: "Which request is most likely to leave you with an app that is finished?",
       o: ["One message listing 25 problems, ending 'fix them all and make no mistakes'", "'Make it look professional'", "A report first that changes nothing, then one fix per pull request, each with a 'Done when' and proof you can see"], a: 2,
-      w: "Book 28: 'make no mistakes' gives Claude no way to find one. A check that can fail does (Book 17), and one job per request keeps each change small enough to judge (Book 14)." }
+      w: "Book 28: 'make no mistakes' gives Claude no way to find one. A check that can fail does (Book 17). One fix per pull request keeps each change small enough to judge, and Book 14's 'Done when' and proof give each one a finish line." }
   );
   var box = document.getElementById("quizBox");
   var answered = 0, right = 0;
@@ -4437,14 +4444,14 @@ Then put the fails in order: first anything that leaks or breaks, then anything 
     ["Context window", "Everything Claude holds in mind during a session: messages, files read, outputs and instruction files."],
     ["Contrast ratio", "How different a text color is from the color behind it, as a number. The WCAG standard asks for at least 4.5:1 for normal text and 3:1 for large text."],
     ["Cross-site scripting (XSS)", "An attack where text typed into an app runs as code on another person's screen. The fix is to show typed text as text, never as HTML."],
-    ["Custom domain", "An address of your own, such as cornergym.com, rented by the year and pointed at your host."],
-    ["DNS record", "A setting, kept where you bought a domain, that says which host the name points at."],
     ["Cron job", "Server code that runs on a clock instead of when someone taps. Also called a scheduled job."],
+    ["Custom domain", "An address of your own, such as cornergym.example, rented by the year and pointed at your host."],
     ["Deny rule", "A permission rule that blocks an action in every mode. Enforced by Claude Code."],
     ["Dependabot", "GitHub's free robot that warns you when a library your app uses has a known security hole, and can open a pull request with the fix. It only sees libraries listed in files such as package.json."],
     ["Deploy", "Publishing a version of the app so users get it."],
     ["Design system", "In Claude Design, the saved set of an app's colors, fonts, pieces and layout patterns, so every new design matches. In a repo, DESIGN.md does the same job."],
     ["Diff", "The exact lines added and removed by a change."],
+    ["DNS record", "A setting, kept where you bought a domain, that says which host the name points at."],
     ["Edge case", "An unusual situation: empty input, no internet, a very long name, two taps at once."],
     ["Effort", "The setting (/effort) that controls how long Claude thinks before answering."],
     ["Endpoint", "A URL on a server that the app sends requests to, like /api/ask."],

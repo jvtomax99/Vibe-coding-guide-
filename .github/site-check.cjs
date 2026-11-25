@@ -43,6 +43,14 @@ for (const entry of pages) {
     const target = path.join(dir, clean);
     if (!fs.existsSync(target)) problems.push(`${file}: missing file ${ref}`);
   }
+  // 404.html again: the same rule for addresses in its styles and in srcset,
+  // which the scan above does not read.
+  if (path.basename(file) === '404.html') {
+    const more = [];
+    html.replace(/url\(\s*["']?([^"')\s]+)/gi, (_, u) => { more.push(u); return _; });
+    html.replace(/\bsrcset\s*=\s*["']([^"']+)["']/gi, (_, set) => { set.split(',').forEach(x => more.push(x.trim().split(/\s+/)[0])); return _; });
+    for (const u of more) if (u && !/^(?:https:|data:|#)/i.test(u)) problems.push(`${file}: not a full address (breaks when the page shows at a deeper address): ${u}`);
+  }
 }
 
 // ---------- 2. Browser ----------

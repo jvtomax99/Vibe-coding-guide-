@@ -318,9 +318,19 @@ apps (told through the made-up ones).
      checks as a robot report; computer only, in developer terms; its phone-friendly form
      is PageSpeed Insights) and Vercel's production checklist (one-line items for teams,
      most of them about paid features). Where these two books differ: every item has a
-     check that works from a phone, a prompt that stops for approval, and a plain
-     statement of when the item doesn't matter (Google itself says a small site may not
-     need a sitemap or a canonical line).
+     check that works from a phone, a prompt that stops for approval, and, where the
+     item can be skipped, a plain statement of when (Google itself says a small site may
+     not need a sitemap or a canonical line).
+   - Known limit of the site's own sitemap: the site lives in a subfolder of
+     `jvtomax99.github.io`, so no `robots.txt` can point to `sitemap.xml`. Google reads
+     it only if Jose submits it in Search Console. Not done; his call, since the site is
+     for friends and coworkers and not meant to be found by strangers.
+   - Caught by the reviewer and fixed before the pull request: four prompts told Claude
+     to use "the test account" on the live app without the book ever setting one up (a
+     section on a test account and a test copy was added, and the pressing prompt now
+     lists risky controls and waits); the weight prompt had no stop for approval; a
+     wrong book number; and three claims that said more than the source (which Vercel
+     address is live, how long Google takes, who the 320 pixel rule is for).
    - Done when: as item 15's "Done when (each book)"; and on the site, a wrong address
      under the site's folder shows the ship's "not found" page with a working way back,
      at any depth.
