@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Page not found: The Launch Manual</title>
+<meta name="description" content="This address isn't in The Launch Manual. The shelves are one tap away.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#05070F">
+<!-- GitHub Pages shows this page for any wrong address under the site, however deep,
+     so every link and file here is a full address. A short path would break at /a/b/c. -->
+<link rel="icon" href="https://jvtomax99.github.io/Vibe-coding-guide-/icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="https://jvtomax99.github.io/Vibe-coding-guide-/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="https://jvtomax99.github.io/Vibe-coding-guide-/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* The ship's colors, copied from index.html (DESIGN.md lists them). */
+:root{
+  --void:#05070F; --hull:#0A0F1E; --panel:#0E1629; --holo:#7FE3FF; --holo-rgb:127,227,255; --sgold:#E8C88A; --sgold-lo:#C9A25B;
+  --stext:#EAF2FF; --sdim:rgba(200,220,255,.74);
+  --display:"Bodoni Moda","Bodoni 72","Didot",Georgia,serif;
+  --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--void);color:var(--stext);font:400 17px/1.55 var(--body);min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:max(28px,env(safe-area-inset-top)) 22px max(28px,env(safe-area-inset-bottom))}
+main{width:100%;max-width:520px;text-align:center}
+.shelf{display:block;width:100%;max-width:360px;height:auto;margin:0 auto 34px}
+h1{font:600 clamp(30px,8vw,44px)/1.12 var(--display);margin:0 0 14px;color:var(--sgold)}
+p{margin:0 auto 28px;max-width:34ch;color:var(--sdim)}
+.go{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 22px;border-radius:4px;background:var(--sgold);color:var(--void);font:600 16px/1 var(--body);text-decoration:none}
+.go:hover{background:var(--sgold-lo)}
+.go:focus-visible{outline:2px solid var(--holo);outline-offset:3px}
+.go:active{transform:translateY(1px)}
+@media (prefers-reduced-motion: reduce){.go:active{transform:none}}
+</style>
+</head>
+<body>
+<main>
+  <svg class="shelf" viewBox="0 0 360 150" role="img" aria-label="A glass shelf of books with one book missing">
+    <g fill="#0E1629" stroke="#E8C88A" stroke-width="1.5" stroke-linejoin="round">
+      <rect x="38" y="34" width="26" height="92" rx="2"/>
+      <rect x="68" y="22" width="30" height="104" rx="2"/>
+      <rect x="102" y="40" width="24" height="86" rx="2"/>
+      <rect x="130" y="28" width="28" height="98" rx="2"/>
+      <rect x="216" y="30" width="28" height="96" rx="2"/>
+      <rect x="248" y="42" width="24" height="84" rx="2"/>
+      <rect x="276" y="24" width="30" height="102" rx="2"/>
+    </g>
+    <g stroke="#E8C88A" stroke-width="1.5" stroke-linecap="round" opacity=".7">
+      <path d="M45 50h12M75 38h16M109 56h10M137 44h14M223 46h14M255 58h10M283 40h16"/>
+    </g>
+    <rect x="166" y="30" width="42" height="96" rx="2" fill="none" stroke="#7FE3FF" stroke-width="1.5" stroke-dasharray="5 6" opacity=".75"/>
+    <rect x="14" y="126" width="332" height="6" rx="3" fill="#7FE3FF" opacity=".85"/>
+    <rect x="14" y="132" width="332" height="3" rx="1.5" fill="#7FE3FF" opacity=".25"/>
+  </svg>
+  <h1>That book isn't on the shelves</h1>
+  <p>This address doesn't lead to a page in The Launch Manual. The link may be old or mistyped. Your reading progress is safe.</p>
+  <a class="go" href="https://jvtomax99.github.io/Vibe-coding-guide-/#shelves">Back to the shelves</a>
+</main>
+</body>
+</html>

@@ -8,6 +8,11 @@ search instead of reading the file top to bottom.
 
 - `index.html` The site. Fonts come from Google Fonts; nothing else loads from
   outside.
+- `404.html` The "not found" page GitHub Pages shows for any wrong address under the
+  site: a small page of its own in the ship's colors with one button back to the
+  shelves. It can appear at any depth, so every link in it is a full address.
+- `sitemap.xml` The one address search engines are asked to list (the site's front
+  page). It matches the canonical line and `og:url` in `index.html`.
 - `start/` The start menu's pictures and clips, one set for phones (portrait, 780 by
   1690) and one for desktops (1920 by 1200): `closed-*.webp` (the waiting picture),
   `glow-*.webp` (the same with the lights up; it fades in and out over the first),
@@ -25,8 +30,9 @@ search instead of reading the file top to bottom.
 - `docs/` How work is done: `design-rules.md`, `assets.md`, `refactor.md`,
   `cleanup-audit.md`.
 - `.github/site-check.cjs` and `.github/workflows/site-check.yml` The check every pull
-  request runs: no missing files, no links starting with "/", the page opens at phone
-  and desktop width with no script error.
+  request runs, on `index.html` and `404.html`: no missing files, no links starting
+  with "/", only full addresses in `404.html`, and each page opens at phone and desktop
+  width with no script error.
 
 ## Inside index.html
 
@@ -62,7 +68,7 @@ Search for these markers:
   `data-title` and `data-min` (minutes), and sometimes `data-open` (a name for the
   page made from whatever comes before the first `<h3>`). Ids in order: start, anatomy, stack, git,
   forks, hosting, backend, updates, stores, agent, toolkit, claudemd, audit, starter, request, vocab, workflow, checks,
-  debug, library, look, design, finish, project, after, secure, trust, quiz, then glossary and sources.
+  debug, library, look, design, finish, project, after, secure, trust, stranger, fivesec, quiz, then glossary and sources.
 - The `<script>` at the end, in parts marked by comments: storage (`KEY =
   "bac-course-v1"`), `BOOK` (cloth colors, spine titles, heights), `ICON` (cover
   drawings), numbering the books and cutting each into pages (each lesson gets

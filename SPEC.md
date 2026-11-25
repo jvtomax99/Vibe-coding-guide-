@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 28 short books on glass shelves
-(about nine and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 30 short books on glass shelves
+(a little over ten hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 28 books on shelves, grouped in six parts (How your apps
+1. **The library.** All 30 books on shelves, grouped in six parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Making it feel
    premium, Practice) plus
    Start here and the reference books.
@@ -61,10 +61,11 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 40 questions, three of them on each of
+5. **Check yourself.** A quiz with a score: 46 questions, three of them on each of
    Books 6, 7 and 8 (added 2026-11-15), three on Book 17 (added 2026-11-19) and three
    each on Books 20, 21, 22 and 24 (added 2026-11-23) and three each on Books 25 and 26 (added
-   2026-11-24). Each of those thirty right answers is what the book itself says.
+   2026-11-24) and three each on Books 27 and 28 (added 2026-11-25). Each of those
+   thirty-six right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -288,6 +289,52 @@ apps (told through the made-up ones).
      "Security considerations" and the MCP page's scope definitions.
    - Done when: as item 15's "Done when (each book)".
 
+18. **Books 27 and 28, and the site passing its own checklist** (plan OK'd by Jose
+   2026-11-25 with three answers: "Two books", "Yes, fix the site too", "Finish it
+   properly"). It began with a popular prompt Jose pasted, which asks Claude to remove
+   every sign an app was vibe coded: about 25 checks and "fix them" in one message,
+   ending "Make no mistakes". Agreed with Jose: the list is good and the request is bad.
+   The books are about finishing an app, with a stranger's five-second judgement as the
+   test, not about hiding how it was built. Both go in Practice after What you let Claude
+   touch; the quiz becomes Book 29.
+   - **Book 27, "What a stranger sees first"** (about 20 minutes). For someone about to
+     share a link. Seven sections: the address (your own domain, the host's default and
+     preview addresses), a title and a description for every page, the tab icon, the card
+     a pasted link shows, one true address per page, a sitemap and when you don't need
+     one, a real "not found" page. Each has a way to look from a phone and a prompt.
+   - **Book 28, "The five-second test"** (about 25 minutes). Seven sections: every button
+     and link pressed, console errors and leftover messages, files that shouldn't be
+     reachable, how much the phone downloads, narrow screens with long text and odd
+     counts, heading order and picture descriptions, and the pasted prompt rebuilt as a
+     report first and then one fix at a time, each stopping for approval. It points to
+     Book 22 for visual drift and does not repeat it.
+   - **The site itself.** `index.html` names its one true address (a canonical line, plus
+     the two card tags it was missing), a small `sitemap.xml`, and a `404.html` in the
+     ship's look that leads back to the shelves. The site check runs on the new page too.
+   - Not in this version: search ranking tactics, analytics, paid audit tools, buying a
+     domain step by step per registrar, a full accessibility course.
+   - Compared: Google's SEO Starter Guide (titles, descriptions, sitemaps and canonical
+     addresses; it assumes you edit the code yourself), Lighthouse in Chrome (the same
+     checks as a robot report; computer only, in developer terms; its phone-friendly form
+     is PageSpeed Insights) and Vercel's production checklist (one-line items for teams,
+     most of them about paid features). Where these two books differ: every item has a
+     check that works from a phone, a prompt that stops for approval, and, where the
+     item can be skipped, a plain statement of when (Google itself says a small site may
+     not need a sitemap or a canonical line).
+   - Known limit of the site's own sitemap: the site lives in a subfolder of
+     `jvtomax99.github.io`, so no `robots.txt` can point to `sitemap.xml`. Google reads
+     it only if Jose submits it in Search Console. Not done; his call, since the site is
+     for friends and coworkers and not meant to be found by strangers.
+   - Caught by the reviewer and fixed before the pull request: four prompts told Claude
+     to use "the test account" on the live app without the book ever setting one up (a
+     section on a test account and a test copy was added, and the pressing prompt now
+     lists risky controls and waits); the weight prompt had no stop for approval; a
+     wrong book number; and three claims that said more than the source (which Vercel
+     address is live, how long Google takes, who the 320 pixel rule is for).
+   - Done when: as item 15's "Done when (each book)"; and on the site, a wrong address
+     under the site's folder shows the ship's "not found" page with a working way back,
+     at any depth.
+
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.
@@ -326,8 +373,11 @@ apps (told through the made-up ones).
 - **Debugging is thin (about 340 words).** Revert first when live breaks, find which
   change broke it, tell a code bug from a settings bug Claude can't see, what to do when
   Claude goes in circles.
-- **Smaller.** An accessibility check to run, a performance measure, a one-page payments
-  decision (hosted checkout, never touch card numbers), custom domains.
+- **Smaller.** An accessibility check to run (done: Book 22's score, and Book 28 on
+  headings and picture descriptions), a performance measure (done: Book 22's three
+  numbers, and Book 28 on what the phone downloads), custom domains (done: Book 27, what
+  to know and not a step-by-step per seller). Still open: a one-page payments decision
+  (hosted checkout, never touch card numbers).
 - **Reading order.** Books 6 to 8 (about 10,000 words) come before How Claude Code works,
   and "Before step 1" was in the last book (moved to Start here in PR #22). A beginner path: Start here, a first tiny
   build, How Claude Code works, Checks you can trust, then the rest when needed.
