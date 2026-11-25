@@ -288,6 +288,42 @@ apps (told through the made-up ones).
      "Security considerations" and the MCP page's scope definitions.
    - Done when: as item 15's "Done when (each book)".
 
+18. **Books 27 and 28, and the site passing its own checklist** (plan OK'd by Jose
+   2026-11-25 with three answers: "Two books", "Yes, fix the site too", "Finish it
+   properly"). It began with a popular prompt Jose pasted, which asks Claude to remove
+   every sign an app was vibe coded: about 25 checks and "fix them" in one message,
+   ending "Make no mistakes". Agreed with Jose: the list is good and the request is bad.
+   The books are about finishing an app, with a stranger's five-second judgement as the
+   test, not about hiding how it was built. Both go in Practice after What you let Claude
+   touch; the quiz becomes Book 29.
+   - **Book 27, "What a stranger sees first"** (about 20 minutes). For someone about to
+     share a link. Seven sections: the address (your own domain, the host's default and
+     preview addresses), a title and a description for every page, the tab icon, the card
+     a pasted link shows, one true address per page, a sitemap and when you don't need
+     one, a real "not found" page. Each has a way to look from a phone and a prompt.
+   - **Book 28, "The five-second test"** (about 25 minutes). Seven sections: every button
+     and link pressed, console errors and leftover messages, files that shouldn't be
+     reachable, how much the phone downloads, narrow screens with long text and odd
+     counts, heading order and picture descriptions, and the pasted prompt rebuilt as a
+     report first and then one fix at a time, each stopping for approval. It points to
+     Book 22 for visual drift and does not repeat it.
+   - **The site itself.** `index.html` names its one true address (a canonical line, plus
+     the two card tags it was missing), a small `sitemap.xml`, and a `404.html` in the
+     ship's look that leads back to the shelves. The site check runs on the new page too.
+   - Not in this version: search ranking tactics, analytics, paid audit tools, buying a
+     domain step by step per registrar, a full accessibility course.
+   - Compared: Google's SEO Starter Guide (titles, descriptions, sitemaps and canonical
+     addresses; it assumes you edit the code yourself), Lighthouse in Chrome (the same
+     checks as a robot report; computer only, in developer terms; its phone-friendly form
+     is PageSpeed Insights) and Vercel's production checklist (one-line items for teams,
+     most of them about paid features). Where these two books differ: every item has a
+     check that works from a phone, a prompt that stops for approval, and a plain
+     statement of when the item doesn't matter (Google itself says a small site may not
+     need a sitemap or a canonical line).
+   - Done when: as item 15's "Done when (each book)"; and on the site, a wrong address
+     under the site's folder shows the ship's "not found" page with a working way back,
+     at any depth.
+
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.
