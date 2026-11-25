@@ -335,6 +335,31 @@ apps (told through the made-up ones).
      under the site's folder shows the ship's "not found" page with a working way back,
      at any depth.
 
+19. **The site, checked with Book 28's own audit** (2026-11-25, asked by Jose after
+   Books 27 and 28 went live: "Audit the site", then "All four"). Report first, nothing
+   changed; then the four fails fixed in one pull request.
+   - Passed: the address, titles, icons, link card, one true address, the "not found"
+     page, an empty console, heading order and picture descriptions, and every control
+     pressed (all 32 spines, the start menu, text size, Contents, Copy, the quiz,
+     Mark as read).
+   - Fixed: at 320px wide the Contents button ran off the screen (the back link now
+     reads "Back" below 360px); the Glossary went blank when the filter matched nothing
+     (it now says so); "Return all books" cleared the read marks with no way back (the
+     same button is "Undo" for ten seconds); and the top bar, the name field, "Return
+     all books" and the page arrows had tap areas under 48px (each now has an invisible
+     48px area, and nothing looks different).
+   - Left as it is, Jose's call: `CLAUDE.md`, `SPEC.md`, `docs/` and `icons/source.png`
+     can be opened at the live address, because GitHub Pages publishes the whole public
+     repo. Nothing secret is in them. Closing it means moving the site into its own
+     folder and changing a repo setting.
+   - Noted, not changed: the first screen downloads the 473 KB cover-opening clip before
+     the reader picks anything. With a phone held sideways the page arrows and Contents
+     reach 46 to 47px, because the screen's edge cuts the area.
+   - Not checked: a real screen reader, a real phone on mobile data, PageSpeed numbers.
+   - Done when: at 320px every control in the top bar is on the screen; a filter with no
+     match shows a sentence; Undo brings back the read marks and saved pages; and the
+     site check and look check pass.
+
 ## Not in v1
 
 - Accounts, sign-in, or progress that moves between phones.

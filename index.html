@@ -69,7 +69,7 @@ a{color:var(--accent);text-underline-offset:3px}
 .lib-hud label,.lib-hud small{display:block;font:inherit;color:var(--sdim)}
 .lib-hud b{display:block;font:600 13px/1.4 var(--mono);letter-spacing:.08em;color:var(--stext)}
 .lib-hud .r{text-align:right}
-.borrow{display:block;font:600 13px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--stext);background:transparent;border:0;border-bottom:1px dashed rgba(var(--holo-rgb),.45);width:min(42vw,190px);padding:0 0 2px;outline:none;border-radius:0}
+.borrow{display:block;font:600 13px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--stext);background:transparent;border:0;border-bottom:1px dashed rgba(var(--holo-rgb),.45);width:min(42vw,190px);padding:27px 0 2px;margin-top:-27px;outline:none;border-radius:0;position:relative}
 .borrow:focus{border-bottom:1px solid var(--holo)}
 .borrow::placeholder{color:var(--sdim);opacity:.9}
 .meter{display:block;width:96px;height:3px;border-radius:99px;background:rgba(var(--holo-rgb),.28);margin:6px 0 0 auto;overflow:hidden}
@@ -239,6 +239,18 @@ a{color:var(--accent);text-underline-offset:3px}
 .readbar a:hover{color:var(--stext)}
 .readbar button{color:var(--holo);border:1px solid rgba(var(--holo-rgb),.4);border-radius:4px;padding:9px 10px}
 .readbar button:hover{background:rgba(var(--holo-rgb),.14)}
+/* The bar's controls look small on purpose; this gives each one a 48px area to tap without changing how it looks. */
+.readbar a,.readbar button,.readfoot button,.card-lib .stamp button{position:relative}
+.readbar{z-index:3}
+.readbar a::after,.readbar button::after{content:"";position:absolute;inset:-8px -3px -13px}
+.readfoot button::after{content:"";position:absolute;inset:-5px}
+.card-lib .stamp button::after{content:"";position:absolute;inset:-16px -10px}
+/* Narrower than most phones (320px, or a phone zoomed in): the back link drops its last words so Contents stays on the screen. */
+@media (max-width: 359px){
+  .readbar{gap:6px;padding-left:10px;padding-right:10px}
+  .readbar .bk-long{display:none}
+  .rb-r{gap:6px}
+}
 /* Text size: an Aa button beside Contents; the chosen size scales everything on the paper page */
 .rb-r{display:flex;align-items:center;gap:10px}
 .tsz{position:relative}
@@ -440,6 +452,8 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
   .readbar{padding:2px 14px 0}
   .readbar a{padding:9px 4px}
   .readbar button{padding:6px 10px}
+  .readbar a::after,.readbar button::after{inset:-3px -3px -20px}
+  .readbar .tsz-p button::after{inset:-4px -2px}
   .read-mid{padding-top:4px}
   .readfoot{padding:5px 14px 6px}
   .readfoot button{width:38px;height:38px;font-size:21px}
@@ -496,7 +510,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
         <span class="stage-tx"><small id="contLabel">Start reading</small><span class="st-t" id="contTitle">Start here</span><span class="st-l" id="contLede"></span><span class="open">Open the book</span></span>
       </a>
       <p class="lib-intro">A small library for people who build real apps with Claude without a developer background. One shelf per part, one book per lesson.</p>
-      <p class="stamp">Shelved November 2026 from Anthropic's and GitHub's documentation. <button type="button" id="resetBtn">Return all books</button></p>
+      <p class="stamp" aria-live="polite">Shelved November 2026 from Anthropic's and GitHub's documentation. <button type="button" id="resetBtn">Return all books</button></p>
     </aside>
     <div class="case" id="case"></div>
   </div>
@@ -505,7 +519,7 @@ dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:15.5px}
 
 <div class="reader" id="readerView" hidden>
   <div class="readbar">
-    <a href="#shelves" id="backBtn">&lsaquo;&nbsp; Back to the shelves</a>
+    <a href="#shelves" id="backBtn" aria-label="Back to the shelves">&lsaquo;&nbsp; Back<span class="bk-long"> to the shelves</span></a>
     <div class="rb-r">
       <div class="tsz" id="tsz">
         <button type="button" id="tszBtn" aria-expanded="false" aria-controls="tszPanel" aria-label="Text size">Aa</button>
@@ -3494,6 +3508,7 @@ Then put the fails in order: first anything that leaks or breaks, then anything 
   <label for="glossSearch" class="sr" style="position:absolute;left:-9999px">Filter terms</label>
   <input id="glossSearch" class="search" type="search" placeholder="Filter: try cache, hook, branch..." autocomplete="off">
   <dl class="gloss" id="glossList"></dl>
+  <p id="glossNone" role="status" hidden></p>
 </section>
 
 <section class="lesson" id="sources" data-part="Reference" data-title="Sources" data-min="0">
@@ -4117,7 +4132,20 @@ Then put the fails in order: first anything that leaks or breaks, then anything 
     setTimeout(function(){ window.scrollTo(0, 0); }, 0);
   }
   window.addEventListener("hashchange", show);
-  document.getElementById("resetBtn").addEventListener("click", function(){ store.done = {}; store.pos = {}; save(); refresh(); });
+  // "Return all books" clears the read marks and saved pages on one tap, so for ten
+  // seconds the same button puts them back.
+  (function(){
+    var btn = document.getElementById("resetBtn"), label = btn.textContent, kept = null, timer = 0;
+    function settle(){ kept = null; clearTimeout(timer); btn.textContent = label; }
+    btn.addEventListener("click", function(){
+      if (kept) { store.done = kept.done; store.pos = kept.pos; save(); refresh(); settle(); return; }
+      if (!Object.keys(store.done || {}).length && !Object.keys(store.pos || {}).length) { btn.textContent = "No books are out"; clearTimeout(timer); timer = setTimeout(settle, 3000); return; }
+      kept = { done: store.done, pos: store.pos };
+      store.done = {}; store.pos = {}; save(); refresh();
+      btn.textContent = "All books returned. Undo";
+      timer = setTimeout(settle, 10000);
+    });
+  })();
 
   // Library card: the reader's own name, kept in their browser
   var borrower = document.getElementById("borrower");
@@ -4546,7 +4574,11 @@ Then put the fails in order: first anything that leaks or breaks, then anything 
   });
   document.getElementById("glossSearch").addEventListener("input", function(e){
     var v = e.target.value.trim().toLowerCase();
-    Array.prototype.forEach.call(gl.children, function(d){ d.style.display = !v || d.dataset.k.indexOf(v) > -1 ? "" : "none"; });
+    var hits = 0;
+    Array.prototype.forEach.call(gl.children, function(d){ var on = !v || d.dataset.k.indexOf(v) > -1; if (on) hits++; d.style.display = on ? "" : "none"; });
+    var none = document.getElementById("glossNone");
+    none.hidden = hits > 0;
+    none.textContent = hits ? "" : "No term matches \u201C" + e.target.value.trim() + "\u201D. Try a shorter word, or clear the box to see every term.";
   });
 
   refresh();
