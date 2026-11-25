@@ -9,7 +9,8 @@ Site title: **The Launch Manual** (small line: "building apps with Claude"), cho
 Jose 2026-11-14. The repo and these docs keep the working name.
 
 A one-page course site, drawn as a small library aboard a ship: 30 short books on glass shelves
-(a little over ten hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+(a little over ten hours of reading), plus a Glossary, a Sources book and "Check my app",
+a form that builds a checklist for the reader's own app. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -359,6 +360,37 @@ apps (told through the made-up ones).
    - Done when: at 320px every control in the top bar is on the screen; a filter with no
      match shows a sentence; Undo brings back the read marks and saved pages; and the
      site check and look check pass.
+
+20. **"Check my app"** (asked by Jose 2026-11-25: "something in the app, a form or a
+   book or a section, that allows users to use it as a cheat code for their apps"; plan
+   and the name OK'd the same day). A third book on the Reference shelf, lettered C. It
+   is a form: six taps about the reader's own app (live or not, who uses it, sign-in,
+   shared data, an AI feature, the host). The answers build a kit that fits that app:
+   rules to paste into its CLAUDE.md, one report-only audit to send (the library's
+   checks merged into one ordered list, with what doesn't apply left out), the "one
+   fix" request to repeat, a list of things only the owner can do, a list of what was
+   not checked, and links to the books behind it. The answers are saved on that phone
+   in `bac-course-v1` as `kit`.
+   - For: a reader with an app already built who wants the library's checks without
+     ten hours of reading first.
+   - Not in this version: it does not read code or connect to a repo (it makes text to
+     copy); no single "fix everything" prompt, which Books 14, 17 and 28 argue against;
+     no score, badge or "secured" label; no account and no outside service.
+   - Compared: Vercel's production checklist (one flat list for every project, half of
+     it paid features, nothing tailored and nothing to send), Lighthouse and PageSpeed
+     Insights (a robot report on one screen; it can't see behind a sign-in, a database
+     or an AI feature, and never asks what the app is for) and the popular one-message
+     prompt this began with (tailored to nobody, 25 jobs at once, no stop). Where this
+     one differs: it asks first, drops what doesn't apply, and hands over a report and
+     then one fix at a time.
+   - Jose's phrase was "cheat code". Agreed name: "Check my app", because the kit gets
+     an app to "nothing broken, leaking or embarrassing" and can't make the decisions
+     in Books 20 and 21 or replace the paid review Book 25 asks for. Its first page and
+     every kit say what was not checked.
+   - Done when: every combination of answers builds a kit with no item that contradicts
+     the answers; every prompt in it stops for approval; the form and the kit work at
+     320px, 390px and desktop; the answers survive a reload; and the site check and
+     look check pass.
 
 ## Not in v1
 
