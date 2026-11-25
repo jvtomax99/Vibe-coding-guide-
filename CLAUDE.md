@@ -4,7 +4,7 @@ A one-page course site (the "library"): the inside of a ship at night, glass she
 
 ## Commands
 - Preview: `python3 -m http.server 8000`, then open http://localhost:8000 (nothing to install).
-- Site check: `node .github/site-check.cjs index.html`. It also runs on every pull request and must be green before merging.
+- Site check: `node .github/site-check.cjs index.html 404.html`. It also runs on every pull request and must be green before merging.
 - Look check: open index.html in Playwright at 390px and 1280px wide, open the shelves (#shelves) and two books (#start, #audit), turn a few pages in each, and report any console errors.
 
 ## How the page works (what the code doesn't make obvious)
@@ -14,6 +14,7 @@ A one-page course site (the "library"): the inside of a ship at night, glass she
 - Progress, the reader's name and the page they were on in each book live in localStorage under "bac-course-v1". Keep that key so readers keep their progress.
 - The page updates itself: when it comes back to the front it asks GitHub whether `index.html` has changed and reloads (on the shelves) or shows "New version. Tap to refresh" (inside a book). GitHub Pages still holds pages for 10 minutes for brand new visits; that can't be changed from the site.
 - Links never start with "/": the site lives in the `/Vibe-coding-guide-/` subfolder on GitHub Pages, so they would break there and not locally. The site check catches it.
+- `404.html` is the page GitHub Pages shows for any wrong address under the site, however deep. Every link and file in it is a full `https://jvtomax99.github.io/Vibe-coding-guide-/...` address, because a short path breaks at a deeper address. The site check catches that too. `index.html` names the site's one address in three places (the canonical line, `og:url`, `sitemap.xml`); if the site ever moves, change all three and `404.html` together.
 - The start menu is a rendered picture and clip in `start/` (phone and desktop sets). To change the scene or the cover's title, change `start-source/` and render again; `start-source/README.md` says how. The site's title is "The Launch Manual".
 - Colors are the variables at the top of the `<style>`. The ship colors are the same day and night; only the paper page has a light and a dark set (the phone's setting picks). Use them instead of new hex values; `DESIGN.md` lists them.
 

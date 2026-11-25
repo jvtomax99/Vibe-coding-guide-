@@ -8,8 +8,8 @@ Gaps marked TO FILL for Jose.
 Site title: **The Launch Manual** (small line: "building apps with Claude"), chosen by
 Jose 2026-11-14. The repo and these docs keep the working name.
 
-A one-page course site, drawn as a small library aboard a ship: 28 short books on glass shelves
-(about nine and a half hours of reading), plus a Glossary and a Sources book. Tap a spine to take
+A one-page course site, drawn as a small library aboard a ship: 30 short books on glass shelves
+(a little over ten hours of reading), plus a Glossary and a Sources book. Tap a spine to take
 a book off the shelf, tap again to read it. It teaches how apps are put together
 (front end, back end, Git and GitHub, forks, hosting, secrets and data), how Claude
 Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to
@@ -36,7 +36,7 @@ apps (told through the made-up ones).
 
 ## Features (as built)
 
-1. **The library.** All 28 books on shelves, grouped in six parts (How your apps
+1. **The library.** All 30 books on shelves, grouped in six parts (How your apps
    work, Claude Code, CLAUDE.md Anthropic's way, Talking to Claude, Making it feel
    premium, Practice) plus
    Start here and the reference books.
@@ -61,10 +61,11 @@ apps (told through the made-up ones).
 4. **Copy buttons.** Every prompt and template can be copied with one tap.
    - Done when: tapping Copy puts the exact text on the clipboard and the button says
      "Copied".
-5. **Check yourself.** A quiz with a score: 40 questions, three of them on each of
+5. **Check yourself.** A quiz with a score: 46 questions, three of them on each of
    Books 6, 7 and 8 (added 2026-11-15), three on Book 17 (added 2026-11-19) and three
    each on Books 20, 21, 22 and 24 (added 2026-11-23) and three each on Books 25 and 26 (added
-   2026-11-24). Each of those thirty right answers is what the book itself says.
+   2026-11-24) and three each on Books 27 and 28 (added 2026-11-25). Each of those
+   thirty-six right answers is what the book itself says.
    - Done when: answering every question shows a score that matches the right answers.
 6. **Glossary and Sources.** Plain definitions, and the official pages every claim
    comes from, with the month they were read.
@@ -362,8 +363,11 @@ apps (told through the made-up ones).
 - **Debugging is thin (about 340 words).** Revert first when live breaks, find which
   change broke it, tell a code bug from a settings bug Claude can't see, what to do when
   Claude goes in circles.
-- **Smaller.** An accessibility check to run, a performance measure, a one-page payments
-  decision (hosted checkout, never touch card numbers), custom domains.
+- **Smaller.** An accessibility check to run (done: Book 22's score, and Book 28 on
+  headings and picture descriptions), a performance measure (done: Book 22's three
+  numbers, and Book 28 on what the phone downloads), custom domains (done: Book 27, what
+  to know and not a step-by-step per seller). Still open: a one-page payments decision
+  (hosted checkout, never touch card numbers).
 - **Reading order.** Books 6 to 8 (about 10,000 words) come before How Claude Code works,
   and "Before step 1" was in the last book (moved to Start here in PR #22). A beginner path: Start here, a first tiny
   build, How Claude Code works, Checks you can trust, then the rest when needed.

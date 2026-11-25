@@ -1,6 +1,6 @@
 # The Launch Manual: Building Apps With Claude
 
-A small library for people who build real apps with Claude without a developer background. Twenty-eight short books on six shelves: how apps are put together, how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, how to make an app look and feel finished, and a full practice build.
+A small library for people who build real apps with Claude without a developer background. Thirty short books on six shelves: how apps are put together, how Claude Code works, how to write CLAUDE.md the way Anthropic recommends, how to talk to Claude, how to make an app look and feel finished, a full practice build, and what to check before strangers see it.
 
 Open the site, tap a book to take it off the shelf, tap again to read it.
 
@@ -9,6 +9,7 @@ Open the site, tap a book to take it off the shelf, tap again to read it.
 - One self-contained page: `index.html` (HTML, CSS and JavaScript together). No build step, nothing to install.
 - The start menu's pictures and clips are in `start/`; how they were rendered is in `start-source/`.
 - Fonts load from Google Fonts. Reading progress and the reader's name are saved only in their own browser.
+- `404.html` is the "not found" page and `sitemap.xml` lists the site's one address.
 - Hosted on GitHub Pages from the `main` branch.
 
 ## Sources

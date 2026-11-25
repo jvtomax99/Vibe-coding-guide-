@@ -3,7 +3,7 @@
 // page before it ships. Two parts:
 //  1. Files: every relative src/href in the pages points at a file that
 //     exists, and no link starts with "/" (it would break under the Pages
-//     subfolder).
+//     subfolder). In 404.html every link must be a full https address.
 //  2. Browser: each page opens at phone and desktop width with no script
 //     error and no failed request to the site's own files. Outside hosts
 //     (fonts, CDNs) are ignored: their outages are not this change's fault.
@@ -35,6 +35,9 @@ for (const entry of pages) {
     // is not a file name; skip it rather than call it missing.
     if (ref.includes('${') || /^\s*\+/.test(html.slice(m.index + m[0].length, m.index + m[0].length + 4))) continue;
     if (ref.startsWith('/')) { problems.push(`${file}: link starts with "/" (breaks on Pages): ${ref}`); continue; }
+    // The "not found" page is shown at any wrong address, however deep, so a
+    // short path that works beside index.html breaks there. Full addresses only.
+    if (path.basename(file) === '404.html') { problems.push(`${file}: not a full address (breaks when the page shows at a deeper address): ${ref}`); continue; }
     const clean = decodeURIComponent(ref.split(/[?#]/)[0]);
     if (!clean) continue;
     const target = path.join(dir, clean);
